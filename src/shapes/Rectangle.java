@@ -17,12 +17,13 @@ public class Rectangle{
     private int width;
     private int xPosition;
     private int yPosition;
-    private String color;
+    private Color color;
     private boolean isVisible;
 
     /**
      * Create a new rectangle at default position with default color.
      */
+    /*
     public Rectangle(){
         height = 30;
         width = 40;
@@ -31,7 +32,7 @@ public class Rectangle{
         color = "magenta";
         isVisible = false;
     }
-    
+    */
 
     /**
      * Make this rectangle visible. If it was already visible, do nothing.
@@ -154,7 +155,7 @@ public class Rectangle{
      * @param color the new color. Valid colors are "red", "yellow", "blue", "green",
      * "magenta" and "black".
      */
-    public void changeColor(String newColor){
+    public void changeColor(Color newColor){
         color = newColor;
         draw();
     }

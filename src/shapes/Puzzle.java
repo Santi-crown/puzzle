@@ -1,33 +1,33 @@
-
+import java.awt.Color;
 /**
  * Write a description of class Puzzle here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Cristian Santiago Pedraza
+ * @version (2024)
  */
 public class Puzzle
 {
-    // instance variables - replace the example below with your own
-    private int x;
-
-    /**
-     * Constructor for objects of class Puzzle
-     */
-    public Puzzle()
-    {
-        // initialise instance variables
-        x = 0;
+    private int h;
+    private int w;
+    private Rectangle board;
+    private Color color;
+    
+    // Board color
+    Color lightBrown = new Color(207, 126, 60);
+    
+    
+    public Puzzle(int h, int w){        
+        board = new Rectangle();
+        color = lightBrown;
+        board.changeSize(h, w);        
+        board.changeColor(color);
+        board.makeVisible();
+        board.moveHorizontal(100);
+        board.moveVertical(50);
     }
-
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
-     */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
-    }
+    
+    
+    
+    
+    
 }

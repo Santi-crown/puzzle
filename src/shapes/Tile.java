@@ -15,6 +15,7 @@ public class Tile extends Rectangle {
         this.size = size;
         this.label = label;
         this.changeSize(h, w);
+        Color lightBrown = new Color(207, 126, 60);
         
         switch (label) {
             case 'r':
@@ -30,7 +31,7 @@ public class Tile extends Rectangle {
                 this.color = Color.GREEN;
                 break;
             default:
-                this.color = Color.GRAY;
+                this.color = lightBrown;
         }
         
         this.changeColor(this.color);

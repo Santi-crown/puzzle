@@ -42,7 +42,8 @@ public class Puzzle
         endingBoard = new Rectangle();        
         endingBoard.changeSize(h * 50, w * 50);     
         endingBoard.changeColor(color);
-        endingBoard.makeVisible();  
+        endingBoard.makeVisible();
+        // original size + more distance
         endingBoard.moveHorizontal((h*50)+ 360);
         endingBoard.moveVertical(50);
     }        
@@ -77,11 +78,11 @@ public class Puzzle
         
                 // Creamos las piezas del puzzle inicial
         int heightCountSpace2 = 0;
-        for (char[] row : starting) {
+        for (char[] row : ending) {
             int widthCountSpace2 = 0;
             for (char column : row) {
                 // Calculamos la posición de cada pieza
-                int xPosition = 100 + (widthCountSpace2 * this.w);  // Espaciado en el eje x
+                int xPosition = (h*12)+ 450 + (widthCountSpace2 * this.w);  // Espaciado en el eje x
                 int yPosition = 50 + (heightCountSpace2 * this.h);  // Espaciado en el eje y
                 
                 // Creamos la pieza y la agregamos a la lista
@@ -92,7 +93,7 @@ public class Puzzle
                 widthCountSpace2++;                
             }
             // Aumentamos el espaciado vertical después de cada fila
-            heightCountSpace++;
+            heightCountSpace2++;
             
         }
 
@@ -102,15 +103,17 @@ public class Puzzle
         public static void main(String[] args) {
         // Crear una matriz de caracteres de ejemplo
             char[][] starting = {
-                {'r', 'r', 'g'},
-                {'*', '*', 'r'},
-                {'r', 'y', 'b'}
+                {'r', 'r'},
+                {'*', '*'},
+                {'r', 'y'}
             };
             
             char[][] ending = {
-                {}
+                {'*', 'r'},
+                {'r', 'r'},
+                {'*', 'y'}
             };
-            Puzzle pz1 = new Puzzle(3,3);
+            Puzzle pz1 = new Puzzle(3,2);
             Puzzle pz2 = new Puzzle(starting, ending, 5,5);
         
         

@@ -9,25 +9,31 @@ public class Puzzle
 {
     private int h;
     private int w;
-    private Rectangle board;
+    private Rectangle startingBoard;
+    private Rectangle endingBoard;
     private Color color;
     
     // Board color
     Color lightBrown = new Color(207, 126, 60);
     
-    
-    public Puzzle(int h, int w){        
-        board = new Rectangle();
+    // Create the initial puzzle board and tiles
+    public Puzzle(int h, int w){
         color = lightBrown;
-        board.changeSize(h, w);        
-        board.changeColor(color);
-        board.makeVisible();
-        board.moveHorizontal(100);
-        board.moveVertical(50);
-    }
-    
-    
-    
-    
+        
+        startingBoard = new Rectangle();        
+        startingBoard.changeSize(h * 50, w * 50);        
+        startingBoard.changeColor(color);
+        startingBoard.makeVisible();
+        startingBoard.moveHorizontal(100);
+        startingBoard.moveVertical(50);
+                
+        endingBoard = new Rectangle();        
+        endingBoard.changeSize(h * 50, w * 50);        
+        endingBoard.changeColor(color);
+        endingBoard.makeVisible();
+        endingBoard.moveHorizontal((h*50)+ 360);
+        endingBoard.moveVertical(50);
+    }        
+    // Create the ending puzzle board    
     
 }

@@ -1,18 +1,41 @@
 import java.awt.Color;
+
 /**
  * Write a description of class Tile here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Cristian Santiago Pedraza
+ * @version (2024)
  */
-public class Tile extends Rectangle
-{
+public class Tile extends Rectangle {
     private Color color;
-    private String labe;
+    private char label;
     private int size;
-    
-    
-    public Tile(int size, String label){
+
+    public Tile(int h, int w, char label, int xPosition, int yPosition) {        
+        this.size = size;
+        this.label = label;
+        this.changeSize(h, w);
         
-    };
+        switch (label) {
+            case 'r':
+                this.color = Color.RED;
+                break;
+            case 'b':
+                this.color = Color.BLUE;
+                break;
+            case 'y':
+                this.color = Color.YELLOW;
+                break;
+            case 'g':
+                this.color = Color.GREEN;
+                break;
+            default:
+                this.color = Color.GRAY;
+        }
+        
+        this.changeColor(this.color);
+        this.moveHorizontal(xPosition);
+        this.moveVertical(yPosition);
+        this.makeVisible();
+    }
 }

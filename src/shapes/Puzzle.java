@@ -53,33 +53,35 @@ public class Puzzle
         //this.glues = new ArrayList<>();
         
         
-        //We create the starting puzzle
+        //We create the starting puzzle tiles
+        int heightCountSpace = 0;
         for (char[] row : starting) {
+            int withCountSpace = 0;
             for (char column : row) {
-                //Tile tile = new Tile();
-                System.out.println(column);                                
-            // Añadir el tile a una lista o procesarlo de alguna manera
+                Tile tile = new Tile(h, w + withCountSpace,column, 100, 50);
+                tile.makeVisible();
+                tiles.add(tile);
+                withCountSpace += w;
             }
-            System.out.println("-----");
-        }
-        
-        
+            //System.out.println("-----");
+            heightCountSpace += h;
+        }                
         //We create the ending puzzle
     }
     
         public static void main(String[] args) {
         // Crear una matriz de caracteres de ejemplo
             char[][] starting = {
-                {'A', 'B', 'C'},
-                {'D', 'E', 'F'},
-                {'G', 'H', 'I'}
+                {'r', 'r', 'g'},
+                {'*', '*', 'r'},
+                {'r', 'y', 'b'}
             };
             
             char[][] ending = {
                 {}
             };
-            
-            Puzzle pz1 = new Puzzle(starting, ending);
+            Puzzle pz1 = new Puzzle(5,5);
+            Puzzle pz2 = new Puzzle(starting, ending);
         
         
 

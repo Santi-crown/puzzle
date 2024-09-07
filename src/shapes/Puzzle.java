@@ -3,7 +3,8 @@ import java.awt.Color;
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.HashMap;
+import java.util.Map;
 /**
  * Write a description of class Puzzle here.
  *
@@ -39,7 +40,7 @@ public class Puzzle
         endingBoard = new Rectangle();        
         endingBoard.changeSize(h * 50, w * 50);     
         endingBoard.changeColor(color);
-        endingBoard.makeVisible();
+        endingBoard.makeVisible();  
         endingBoard.moveHorizontal((h*50)+ 360);
         endingBoard.moveVertical(50);
     }        
@@ -49,7 +50,42 @@ public class Puzzle
         this.starting = starting;
         this.ending = ending;
         this.tiles = new ArrayList<>();
-        this.glues = new ArrayList<>();      
+        //this.glues = new ArrayList<>();
+        
+        
+        //We create the starting puzzle
+        for (char[] row : starting) {
+            for (char column : row) {
+                //Tile tile = new Tile();
+                System.out.println(column);                                
+            // Añadir el tile a una lista o procesarlo de alguna manera
+            }
+            System.out.println("-----");
+        }
+        
+        
+        //We create the ending puzzle
+    }
+    
+        public static void main(String[] args) {
+        // Crear una matriz de caracteres de ejemplo
+            char[][] starting = {
+                {'A', 'B', 'C'},
+                {'D', 'E', 'F'},
+                {'G', 'H', 'I'}
+            };
+            
+            char[][] ending = {
+                {}
+            };
+            
+            Puzzle pz1 = new Puzzle(starting, ending);
+        
+        
+
+        // Convertir la matriz de caracteres en una lista de Tiles
+        
+        // Imprimir los Tiles para verifica
     }
     
     

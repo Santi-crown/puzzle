@@ -5,4 +5,6 @@ comment1.params=h\ w
 comment1.target=Puzzle(int,\ int)
 comment2.params=starting\ ending
 comment2.target=Puzzle(char[][],\ char[][])
-numComments=3
+comment3.params=args
+comment3.target=void\ main(java.lang.String[])
+numComments=4

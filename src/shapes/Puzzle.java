@@ -1,4 +1,9 @@
 import java.awt.Color;
+// To memorize
+import javax.swing.JOptionPane;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Write a description of class Puzzle here.
  *
@@ -12,6 +17,10 @@ public class Puzzle
     private Rectangle startingBoard;
     private Rectangle endingBoard;
     private Color color;
+    private char[][] starting;
+    private char[][] ending;
+    private List<Tile> tiles;
+    private List<Glue> glues;
     
     // Board color
     Color lightBrown = new Color(207, 126, 60);
@@ -28,12 +37,20 @@ public class Puzzle
         startingBoard.moveVertical(50);
                 
         endingBoard = new Rectangle();        
-        endingBoard.changeSize(h * 50, w * 50);        
+        endingBoard.changeSize(h * 50, w * 50);     
         endingBoard.changeColor(color);
         endingBoard.makeVisible();
         endingBoard.moveHorizontal((h*50)+ 360);
         endingBoard.moveVertical(50);
     }        
-    // Create the ending puzzle board    
+    
+    // Create the starting and ending puzzle boards    
+    public Puzzle(char[][] starting, char[][] ending){
+        this.starting = starting;
+        this.ending = ending;
+        this.tiles = new ArrayList<>();
+        this.glues = new ArrayList<>();      
+    }
+    
     
 }

@@ -27,7 +27,9 @@ public class Puzzle
     Color lightBrown = new Color(207, 126, 60);
     
     // Create the initial puzzle board and tiles
-    public Puzzle(int h, int w){
+    public Puzzle(int h, int w){        
+        this.h = h;
+        this.w = w;
         color = lightBrown;
         
         startingBoard = new Rectangle();        
@@ -46,28 +48,56 @@ public class Puzzle
     }        
     
     // Create the starting and ending puzzle boards    
-    public Puzzle(char[][] starting, char[][] ending){
+    public Puzzle(char[][] starting, char[][] ending, int h, int w) {
+        this.h = h*10; // Ajuste del tamaño de las piezas
+        this.w = w*10;
         this.starting = starting;
         this.ending = ending;
         this.tiles = new ArrayList<>();
-        //this.glues = new ArrayList<>();
         
-        
-        //We create the starting puzzle tiles
+        // Creamos las piezas del puzzle inicial
         int heightCountSpace = 0;
         for (char[] row : starting) {
-            int withCountSpace = 0;
+            int widthCountSpace = 0;
             for (char column : row) {
-                Tile tile = new Tile(h, w + withCountSpace,column, 100, 50);
-                tile.makeVisible();
+                // Calculamos la posición de cada pieza
+                int xPosition = 100 + (widthCountSpace * this.w);  // Espaciado en el eje x
+                int yPosition = 50 + (heightCountSpace * this.h);  // Espaciado en el eje y
+                
+                // Creamos la pieza y la agregamos a la lista
+                Tile tile = new Tile(this.h, this.w, column, xPosition, yPosition);
                 tiles.add(tile);
-                withCountSpace += w;
+                
+                // Aumentamos el espaciado horizontal
+                widthCountSpace++;                
             }
-            //System.out.println("-----");
-            heightCountSpace += h;
-        }                
-        //We create the ending puzzle
+            // Aumentamos el espaciado vertical después de cada fila
+            heightCountSpace++;            
+        }
+        
+                // Creamos las piezas del puzzle inicial
+        int heightCountSpace2 = 0;
+        for (char[] row : starting) {
+            int widthCountSpace2 = 0;
+            for (char column : row) {
+                // Calculamos la posición de cada pieza
+                int xPosition = 100 + (widthCountSpace2 * this.w);  // Espaciado en el eje x
+                int yPosition = 50 + (heightCountSpace2 * this.h);  // Espaciado en el eje y
+                
+                // Creamos la pieza y la agregamos a la lista
+                Tile tile = new Tile(this.h, this.w, column, xPosition, yPosition);
+                tiles.add(tile);
+                
+                // Aumentamos el espaciado horizontal
+                widthCountSpace2++;                
+            }
+            // Aumentamos el espaciado vertical después de cada fila
+            heightCountSpace++;
+            
+        }
+
     }
+
     
         public static void main(String[] args) {
         // Crear una matriz de caracteres de ejemplo
@@ -80,8 +110,8 @@ public class Puzzle
             char[][] ending = {
                 {}
             };
-            Puzzle pz1 = new Puzzle(5,5);
-            Puzzle pz2 = new Puzzle(starting, ending);
+            Puzzle pz1 = new Puzzle(3,3);
+            Puzzle pz2 = new Puzzle(starting, ending, 5,5);
         
         
 

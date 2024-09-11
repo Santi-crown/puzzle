@@ -104,16 +104,15 @@ public class Puzzle
         // Crear una matriz de caracteres de ejemplo
             char[][] starting = {
                 {'r', 'r'},
-                {'*', '*'},
-                {'r', 'y'}
+                {'*', '*'}
             };
             
             char[][] ending = {
                 {'*', 'r'},
-                {'r', 'r'},
-                {'*', 'y'}
+                {'r', 'r'}
             };
-            Puzzle pz1 = new Puzzle(3,2);
+            Puzzle pz1 = new Puzzle(2,2);
+            // 5 because, 5 * 10 = 50 = original h
             Puzzle pz2 = new Puzzle(starting, ending, 5,5);
         
         

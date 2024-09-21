@@ -7,408 +7,521 @@ public class Puzzle {
     private int tileSize;
     private int rows;
     private int cols;
-    private int margin; // Margen entre cada baldosas
-    private int padding; // Padding interno
+    private int margin;
+    private int padding;
     private Rectangle startingBoard;
     private Rectangle endingBoard;
     private Color color;
     private char[][] starting;
     private char[][] ending;
-    private List<List<Tile>> tiles; // Lista de listas
-    private List<List<Tile>> referingTiles; // Tiles de referencia
-    private boolean visible = true; //Determina si el simulador está visible
-    private boolean ok = true; //Rastrea si la última acción fue exitosa
-    
-    // Board color
-    Color lightBrown = new Color(207, 126, 60);
+    private List<List<Tile>> tiles;
+    private List<List<Tile>> referingTiles;
+    private boolean visible = true;
+    private boolean ok = true;
 
-    // Constructor para inicializar los tableros sin las matrices
-    public Puzzle(int rows, int cols) {
-        this.tileSize = 50;  // Tamaño de cada tile
-        this.margin = 10;    // Margen entre tiles
-        this.padding = 5;    // Padding interno
-        this.rows = rows;
-        this.cols = cols;
-        this.color = lightBrown;
-        startingBoard = new Rectangle(rows * (tileSize + margin), cols * (tileSize + margin), color,100,50);
-        endingBoard = new Rectangle(rows * (tileSize + margin), cols * (tileSize + margin),color, rows * (tileSize + margin) + 350, 50);
-    }
+    Color lightBrown = new Color(207, 126, 60);
 
     // Constructor para inicializar los tableros con matrices
     public Puzzle(char[][] starting, char[][] ending) {
         this.tileSize = 50;  // Tamaño de cada tile
         this.margin = 10;    // Margen entre tiles
-        this.padding = 10;    // Padding interno
+        this.padding = 5;    // Padding interno
         this.rows = starting.length;
         this.cols = starting[0].length;
         this.starting = starting;
         this.ending = ending;
         this.tiles = new ArrayList<>();
         this.referingTiles = new ArrayList<>();
-       
-        // Crear las piezas del puzzle inicial    
+
+        // Crear el tablero inicial
+        startingBoard = new Rectangle(cols * (tileSize + margin), rows * (tileSize + margin), lightBrown, 100, 50);
+
+        // Crear las piezas del puzzle inicial
         for (int row = 0; row < starting.length; row++) {
             List<Tile> rowList = new ArrayList<>();
             for (int col = 0; col < starting[row].length; col++) {
                 char label = starting[row][col];
-                int xPosition = 105 + (col * (tileSize + margin));  // Ajustar la posición horizontal
-                int yPosition = 55 + (row * (tileSize + margin));   // Ajustar la posición vertical
+                int xPosition = 105 + (col * (tileSize + margin));
+                int yPosition = 55 + (row * (tileSize + margin));
 
-                // Crear la pieza y agregarla a la lista
-                Tile tile = new Tile(tileSize, label, xPosition, yPosition, padding,row, col);
-                //tiles.get(row).set(col, tile); // Agregar el tile a la sublista
-                rowList.add(tile); // Inicializa la fila con null                
+                Tile tile = new Tile(tileSize, label, xPosition, yPosition, padding, row, col);
+                rowList.add(tile);
             }
             tiles.add(rowList);
         }
+
+        // Crear el tablero de referencia
+        endingBoard = new Rectangle(cols * (tileSize + margin), rows * (tileSize + margin), lightBrown, cols * (tileSize + margin) + 350, 50);
 
         // Crear las piezas del puzzle final
         for (int row = 0; row < ending.length; row++) {
             List<Tile> rowList = new ArrayList<>();
             for (int col = 0; col < ending[row].length; col++) {
                 char label = ending[row][col];
-                int xPosition = (rows * (tileSize + margin)) + 355 + (col * (tileSize + margin)); // Ajustar la posición horizontal
-                int yPosition = 55 + (row * (tileSize + margin));   // Ajustar la posición vertical
+                int xPosition = cols * (tileSize + margin) + 355 + (col * (tileSize + margin));
+                int yPosition = 55 + (row * (tileSize + margin));
 
-                // Crear la pieza y agregarla a la lista
                 Tile tile = new Tile(tileSize, label, xPosition, yPosition, padding, row, col);
                 rowList.add(tile);
             }
-            referingTiles.add(rowList);            
+            referingTiles.add(rowList);
         }
-    }
-    
-   
-    public void addTile(int row, int column, char label){                
-        if (row >= rows || column >= cols){
-            showMessage("You have exceeded the puzzle space.", "Error"); 
-            this.ok = false; //Error message
-        }
-        else{
-            Tile previousTile = tiles.get(row).get(column);
-
-            // Usa equals para comparar colores
-            if(previousTile.getTileColor().equals(lightBrown)) {
-                //previousTile.getLabel();
-                previousTile.setTileColor(label);
-                //System.out.println("Color cambiado a: " + previousTile.getTileColor());
-                //System.out.println("neo");
-                this.ok = true; //Acciòn exitosa
-            } else {
-                showMessage("There is a tile here now.", "Error");
-                this.ok = false; //Error message
-            }                                               
-        }
-             
     }
 
-    public void deleteTile(int row, int column){
-        if (row >= rows || column >= cols){
-            showMessage("You have exceeded the puzzle space.", "Error");
-            this.ok = false; //Error message
-        }
-        else{
-            Tile previousTile = tiles.get(row).get(column);
-
-            // Usa equals para comparar colores
-            if(!previousTile.getTileColor().equals(lightBrown)) {
-                previousTile.setTileColor('n');  
-                this.ok = true; //Acciòn exitosa
-            } else {
-                showMessage("There is a tile here now.", "Error");
-                this.ok = false; //Error message
-            }
-        }
-        
-    }
-    
-    public void relocateTileMovement(Tile fromTile, Tile toTile, int[] from, int[] to){
-            // Mover la instancia de la tile visualmente
-            fromTile.moveHorizontal(to[1] * (tileSize + margin) - from[1] * (tileSize + margin));
-            fromTile.moveVertical(to[0] * (tileSize + margin) - from[0] * (tileSize + margin));            
-            // Mover la instancia de la tile visualmente desde "to" a "from"
-            toTile.moveHorizontal(from[1] * (tileSize + margin) - to[1] * (tileSize + margin));
-            toTile.moveVertical(from[0] * (tileSize + margin) - to[0] * (tileSize + margin));
-            // Actualizar la lista de tiles: intercambiar las posiciones de las fichas
-            tiles.get(to[0]).set(to[1], fromTile);  // Mover la baldosa a la nueva posición
-            tiles.get(from[0]).set(from[1], toTile);  // La ficha original ahora es la nueva ficha vacía    
-            // Cambiar el color de la ficha que ahora está vacía
-            toTile.setTileColor('*'); 
-    
-    }
-    public void relocateTile(int[] from, int[] to) {
-        // Validar las coordenadas de entrada
-        if (!areValidCoordinates(from) || !areValidCoordinates(to)) {
-            showMessage("Invalid coordinates.", "Error");
-            this.ok = false; //Error message
+    // Método para aplicar pegamento a una baldosa
+    public void addGlue(int row, int col) {
+        Tile tile = getTileAtPosition(row, col);
+        if (tile == null || isTileEmpty(tile)) {
+            showMessage("No se puede aplicar pegamento a una baldosa vacía.", "Error");
+            this.ok = false;
             return;
         }
-    
-        Tile fromTile = tiles.get(from[0]).get(from[1]);
-        Tile toTile = tiles.get(to[0]).get(to[1]);        
-        // Validar existencia de la tile de origen y disponibilidad de la tile de destino
-        if (isTileEmpty(fromTile)) {
-            showMessage("You cannot move a non-existent tile.", "Error");
-            this.ok = false; //Error message
-        } else if (!isTileEmpty(toTile)) {
-            showMessage("There is already a tile at the destination.", "Error");
-            this.ok = false; //Error message
-        } else {
-            this.relocateTileMovement(fromTile, toTile, from, to);
-            this.ok = true; //Acciòn exitosa
-        }        
-               
-    }
-
-    
-    // Método para validar si las coordenadas son correctas
-    private boolean areValidCoordinates(int[] coords) {
-        return coords.length == 2 && coords[0] < rows && coords[1] < cols;
-    }
-    
-    // Método para verificar si una Tile está vacía (es de color lightBrown)
-    private boolean isTileEmpty(Tile tile) {
-        return tile.getTileColor().equals(lightBrown);
-    }    
-
-    
-    public void tilt(char direction) {
-    switch (direction) {
-        case 'd': // Tilt down
-            for (int col = 0; col < cols; col++) {
-                tiltDown(0, col);
-            }
-            break;
-        case 'u': // Tilt up
-            for (int col = 0; col < cols; col++) {
-                tiltUp(rows - 1, col);
-            }
-            break;
-        case 'r': // Tilt right
-            for (int row = 0; row < rows; row++) {
-                tiltRight(row, 0);
-            }
-            break;
-        case 'l': // Tilt left
-            for (int row = 0; row < rows; row++) {
-                tiltLeft(row, cols - 1);
-            }
-            break;
-        default:
-            showMessage("Invalid direction.", "Error");
-            this.ok = false; //Error message
-    }
-}
-
-    
-    
-    // Tilt down starting from the top row recursively
-    private void tiltDown(int row, int col) {
-        for (int i = rows - 2; i >= 0; i--) { // Comienza desde la penúltima fila hacia arriba
-            for (int j = i; j < rows - 1; j++) { // Intenta mover la ficha lo más abajo posible
-                int[] currentPos = {j, col};
-                int[] nextPos = {j + 1, col};
-    
-                Tile fromTile = tiles.get(currentPos[0]).get(currentPos[1]);
-                Tile toTile = tiles.get(nextPos[0]).get(nextPos[1]);
-    
-                if (isTileEmpty(toTile) && !isTileEmpty(fromTile)) {
-                    relocateTileMovement(fromTile, toTile, currentPos, nextPos); // Mueve la tile hacia abajo
-                    this.ok = true; //Accion exitosa
-                }
-            }
-        }
-    }
-    
-    // Tilt up starting from the bottom row recursively
-    private void tiltUp(int row, int col) {
-        for (int i = 1; i < rows; i++) { // Comienza desde la segunda fila hacia abajo
-            for (int j = i; j > 0; j--) { // Intenta mover la ficha lo más arriba posible
-                int[] currentPos = {j, col};
-                int[] nextPos = {j - 1, col};
-    
-                Tile fromTile = tiles.get(currentPos[0]).get(currentPos[1]);
-                Tile toTile = tiles.get(nextPos[0]).get(nextPos[1]);
-    
-                if (isTileEmpty(toTile) && !isTileEmpty(fromTile)) {
-                    relocateTileMovement(fromTile, toTile, currentPos, nextPos); // Mueve la tile hacia arriba
-                    this.ok = true; //Accion exitosa
-                }
-            }
-        }
-    }
-    
-    // Tilt right starting from the left column recursively
-    private void tiltRight(int row, int col) {
-        for (int i = cols - 2; i >= 0; i--) { // Comienza desde la penúltima columna hacia la izquierda
-            for (int j = i; j < cols - 1; j++) { // Intenta mover la ficha lo más a la derecha posible
-                int[] currentPos = {row, j};
-                int[] nextPos = {row, j + 1};
-    
-                Tile fromTile = tiles.get(currentPos[0]).get(currentPos[1]);
-                Tile toTile = tiles.get(nextPos[0]).get(nextPos[1]);
-    
-                if (isTileEmpty(toTile) && !isTileEmpty(fromTile)) {
-                    relocateTileMovement(fromTile, toTile, currentPos, nextPos); // Mueve la tile hacia la derecha
-                    this.ok = true; //Accion exitosa
-                }
-            }
-        }
-    }
-    
-    // Tilt left starting from the right column recursively
-    private void tiltLeft(int row, int col) {
-        for (int i = 1; i < cols; i++) { // Comienza desde la segunda columna hacia la derecha
-            for (int j = i; j > 0; j--) { // Intenta mover la ficha lo más a la izquierda posible
-                int[] currentPos = {row, j};
-                int[] nextPos = {row, j - 1};
-    
-                Tile fromTile = tiles.get(currentPos[0]).get(currentPos[1]);
-                Tile toTile = tiles.get(nextPos[0]).get(nextPos[1]);
-    
-                if (isTileEmpty(toTile) && !isTileEmpty(fromTile)) {
-                    relocateTileMovement(fromTile, toTile, currentPos, nextPos); // Mueve la tile hacia la izquierda
-                    this.ok = true; //Accion exitosa
-                }
-            }
-        }
-    }
-    
-        // Método para obtener una baldosa en una posición específica
-    private Tile getTileAtPosition(int row, int col) {
-        if (row >= 0 && row < rows && col >= 0 && col < cols) {
-            return tiles.get(row).get(col);  // Accede directamente a la baldosa
-        }
-        return null;
-    }
-    
-    // Muestra un mensaje de error si el simulador es visible y cambia el estado de ok a false
-    public void showMessage(String message, String title){
-        if(this.visible){
-            JOptionPane.showMessageDialog(null,message,title,JOptionPane.ERROR_MESSAGE);
+        if (tile.hasGlue()) {
+            showMessage("Esta baldosa ya tiene pegamento aplicado.", "Error");
             this.ok = false;
+            return;
         }
+
+        tile.setHasGlue(true);
+
+        // Cambiar el color de la baldosa a una versión aún más pálida
+        Color evenPalerColor = getPaleColor(tile.getOriginalColor(), 150);
+        tile.setTileColor(evenPalerColor);
+
+        // Marcar las baldosas adyacentes como pegadas y cambiar su color
+        int[][] directions = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
+        for (int[] dir : directions) {
+            int adjRow = row + dir[0];
+            int adjCol = col + dir[1];
+            Tile adjacentTile = getTileAtPosition(adjRow, adjCol);
+
+            if (adjacentTile != null && !isTileEmpty(adjacentTile)) {
+                adjacentTile.setIsStuck(true);
+                // Cambiar el color a una versión pálida
+                Color paleColor = getPaleColor(adjacentTile.getOriginalColor(), 100);
+                adjacentTile.setTileColor(paleColor);
+            }
+        }
+        this.ok = true;
     }
-    
-    // Método para verificar si el puzzle alcanzó el estado final
-    public boolean isGoal() {
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < cols; col++) {
-                if (starting[row][col] != ending[row][col]) {
-                    this.ok = false;
-                    return false;
+
+    // Método para eliminar el pegamento de una baldosa
+    public void deleteGlue(int row, int col) {
+        Tile tile = getTileAtPosition(row, col);
+        if (tile == null || !tile.hasGlue()) {
+            showMessage("No hay pegamento para eliminar en esta baldosa.", "Error");
+            this.ok = false;
+            return;
+        }
+
+        tile.setHasGlue(false);
+        tile.setTileColor(tile.getOriginalColor()); // Restaurar el color original
+
+        // Actualizar las baldosas adyacentes
+        int[][] directions = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
+        for (int[] dir : directions) {
+            int adjRow = row + dir[0];
+            int adjCol = col + dir[1];
+            Tile adjacentTile = getTileAtPosition(adjRow, adjCol);
+
+            if (adjacentTile != null && adjacentTile.isStuck()) {
+                // Verificar si la baldosa adyacente sigue pegada debido a otro pegamento
+                if (!isAdjacentToGlue(adjacentTile)) {
+                    adjacentTile.setIsStuck(false);
+                    adjacentTile.setTileColor(adjacentTile.getOriginalColor()); // Restaurar el color original
                 }
             }
         }
         this.ok = true;
-        return true;
     }
-    
-    // Hace visible el simulador
-    public void makeVisible() {
-        this.visible = true;
-        for (List<Tile> row : tiles) {
-            for (Tile tile : row) {
-                tile.makeVisible();
+
+    // Método auxiliar para verificar si una baldosa está adyacente a alguna baldosa con pegamento
+    private boolean isAdjacentToGlue(Tile tile) {
+        int row = tile.getRow();
+        int col = tile.getCol();
+        int[][] directions = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
+
+        for (int[] dir : directions) {
+            int adjRow = row + dir[0];
+            int adjCol = col + dir[1];
+            Tile adjacentTile = getTileAtPosition(adjRow, adjCol);
+            if (adjacentTile != null && adjacentTile.hasGlue()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Método para obtener una versión más pálida de un color
+    private Color getPaleColor(Color color, int palenessFactor) {
+        int r = Math.min(255, color.getRed() + palenessFactor);
+        int g = Math.min(255, color.getGreen() + palenessFactor);
+        int b = Math.min(255, color.getBlue() + palenessFactor);
+        return new Color(r, g, b);
+    }
+
+    // Método para inclinar el puzzle en una dirección
+    public void tilt(char direction) {
+        switch (direction) {
+            case 'd':
+                for (int col = 0; col < cols; col++) {
+                    tiltDownWithGlue(col);
+                }
+                break;
+            case 'u':
+                for (int col = 0; col < cols; col++) {
+                    tiltUpWithGlue(col);
+                }
+                break;
+            case 'r':
+                for (int row = 0; row < rows; row++) {
+                    tiltRightWithGlue(row);
+                }
+                break;
+            case 'l':
+                for (int row = 0; row < rows; row++) {
+                    tiltLeftWithGlue(row);
+                }
+                break;
+            default:
+                showMessage("Dirección inválida.", "Error");
+                this.ok = false;
+        }
+        resetVisitedFlags(); // Resetear las banderas de visitado después de la inclinación
+    }
+
+    // Métodos para inclinar con consideración de pegamento y baldosas pegadas
+    private void tiltDownWithGlue(int col) {
+        for (int row = rows - 1; row >= 0; row--) {
+            Tile tile = getTileAtPosition(row, col);
+            if (!isTileEmpty(tile)) {
+                if (!tile.isStuck() && !tile.hasGlue()) {
+                    int maxMove = calculateMaxMoveDown(row, col, null);
+                    moveTileDown(tile, maxMove);
+                } else if (!tile.isVisited()) {
+                    List<Tile> group = new ArrayList<>();
+                    collectStuckGroup(tile, group);
+                    int maxMove = calculateMaxMoveDownGroup(group);
+                    moveGroupDown(group, maxMove);
+                }
             }
         }
     }
 
-    // Hace invisible el simulador
-    public void makeInvisible() {
-        this.visible = false;
-        for (List<Tile> row : tiles) {
-            for (Tile tile : row) {
-                tile.makeInvisible();
-            }
-        }
-    }
-    
-    // Termina el simulador
-    public void finish() {
-        System.out.println("El simulador ha finalizado.");
-        System.exit(0);
-    }
-
-    /**
-     * Devuelve una copia de la matriz actual de edición (starting),
-     * representando el estado actual del puzzle y pinta las baldosas.
-     * @return Una copia de la matriz starting.
-     */
-    
-    public char[][] actualArrangement() {
-        // Crear una copia de la matriz starting
-        char[][] currentArrangement = new char[rows][cols];
-    
+    private void tiltUpWithGlue(int col) {
         for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < cols; col++) {
-                currentArrangement[row][col] = starting[row][col]; // Copia el valor actual
-    
-                // Simulación de pintar o mostrar la baldosa
-                Tile tile = tiles.get(row).get(col);
-                System.out.println("Baldosa en (" + row + ", " + col + "): " + tile.getLabel());
+            Tile tile = getTileAtPosition(row, col);
+            if (!isTileEmpty(tile)) {
+                if (!tile.isStuck() && !tile.hasGlue()) {
+                    int maxMove = calculateMaxMoveUp(row, col, null);
+                    moveTileUp(tile, maxMove);
+                } else if (!tile.isVisited()) {
+                    List<Tile> group = new ArrayList<>();
+                    collectStuckGroup(tile, group);
+                    int maxMove = calculateMaxMoveUpGroup(group);
+                    moveGroupUp(group, maxMove);
+                }
             }
         }
-    
-        return currentArrangement; // Retornar la copia de la matriz
     }
 
-
-    // Retorna si la última acción fue exitosa
-    public boolean ok() {
-        return this.ok;
+    private void tiltRightWithGlue(int row) {
+        for (int col = cols - 1; col >= 0; col--) {
+            Tile tile = getTileAtPosition(row, col);
+            if (!isTileEmpty(tile)) {
+                if (!tile.isStuck() && !tile.hasGlue()) {
+                    int maxMove = calculateMaxMoveRight(row, col, null);
+                    moveTileRight(tile, maxMove);
+                } else if (!tile.isVisited()) {
+                    List<Tile> group = new ArrayList<>();
+                    collectStuckGroup(tile, group);
+                    int maxMove = calculateMaxMoveRightGroup(group);
+                    moveGroupRight(group, maxMove);
+                }
+            }
+        }
     }
-    
-    
+
+    private void tiltLeftWithGlue(int row) {
+        for (int col = 0; col < cols; col++) {
+            Tile tile = getTileAtPosition(row, col);
+            if (!isTileEmpty(tile)) {
+                if (!tile.isStuck() && !tile.hasGlue()) {
+                    int maxMove = calculateMaxMoveLeft(row, col, null);
+                    moveTileLeft(tile, maxMove);
+                } else if (!tile.isVisited()) {
+                    List<Tile> group = new ArrayList<>();
+                    collectStuckGroup(tile, group);
+                    int maxMove = calculateMaxMoveLeftGroup(group);
+                    moveGroupLeft(group, maxMove);
+                }
+            }
+        }
+    }
+
+    // Métodos auxiliares para calcular y mover las baldosas
+    // [Aquí se incluyen todos los métodos auxiliares que actualizamos previamente]
+    // Métodos para movimiento hacia abajo
+    private int calculateMaxMoveDown(int row, int col, List<Tile> group) {
+        int maxMove = 0;
+        for (int i = row + 1; i < rows; i++) {
+            Tile nextTile = getTileAtPosition(i, col);
+            if (isTileEmpty(nextTile) || (group != null && group.contains(nextTile))) {
+                maxMove++;
+            } else {
+                break;
+            }
+        }
+        return maxMove;
+    }
+
+    private int calculateMaxMoveDownGroup(List<Tile> group) {
+        int maxMove = rows;
+        for (Tile tile : group) {
+            int tileMaxMove = calculateMaxMoveDown(tile.getRow(), tile.getCol(), group);
+            maxMove = Math.min(maxMove, tileMaxMove);
+        }
+        return maxMove;
+    }
+
+    private void moveTileDown(Tile tile, int steps) {
+        if (steps == 0) return;
+        tile.moveVertical(steps * (tileSize + margin));
+        int newRow = tile.getRow() + steps;
+        tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
+        tiles.get(newRow).set(tile.getCol(), tile);
+        tile.setRow(newRow);
+    }
+
+    private void moveGroupDown(List<Tile> group, int steps) {
+        if (steps == 0) return;
+        // Ordenar el grupo para que las baldosas inferiores se muevan primero
+        group.sort((t1, t2) -> Integer.compare(t2.getRow(), t1.getRow()));
+        for (Tile tile : group) {
+            tile.moveVertical(steps * (tileSize + margin));
+            int newRow = tile.getRow() + steps;
+            tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
+            tiles.get(newRow).set(tile.getCol(), tile);
+            tile.setRow(newRow);
+        }
+    }
+
+    // Métodos para movimiento hacia arriba
+    private int calculateMaxMoveUp(int row, int col, List<Tile> group) {
+        int maxMove = 0;
+        for (int i = row - 1; i >= 0; i--) {
+            Tile nextTile = getTileAtPosition(i, col);
+            if (isTileEmpty(nextTile) || (group != null && group.contains(nextTile))) {
+                maxMove++;
+            } else {
+                break;
+            }
+        }
+        return maxMove;
+    }
+
+    private int calculateMaxMoveUpGroup(List<Tile> group) {
+        int maxMove = rows;
+        for (Tile tile : group) {
+            int tileMaxMove = calculateMaxMoveUp(tile.getRow(), tile.getCol(), group);
+            maxMove = Math.min(maxMove, tileMaxMove);
+        }
+        return maxMove;
+    }
+
+    private void moveTileUp(Tile tile, int steps) {
+        if (steps == 0) return;
+        tile.moveVertical(-steps * (tileSize + margin));
+        int newRow = tile.getRow() - steps;
+        tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
+        tiles.get(newRow).set(tile.getCol(), tile);
+        tile.setRow(newRow);
+    }
+
+    private void moveGroupUp(List<Tile> group, int steps) {
+        if (steps == 0) return;
+        // Ordenar el grupo para que las baldosas superiores se muevan primero
+        group.sort((t1, t2) -> Integer.compare(t1.getRow(), t2.getRow()));
+        for (Tile tile : group) {
+            tile.moveVertical(-steps * (tileSize + margin));
+            int newRow = tile.getRow() - steps;
+            tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
+            tiles.get(newRow).set(tile.getCol(), tile);
+            tile.setRow(newRow);
+        }
+    }
+
+    // Métodos para movimiento hacia la derecha
+    private int calculateMaxMoveRight(int row, int col, List<Tile> group) {
+        int maxMove = 0;
+        for (int i = col + 1; i < cols; i++) {
+            Tile nextTile = getTileAtPosition(row, i);
+            if (isTileEmpty(nextTile) || (group != null && group.contains(nextTile))) {
+                maxMove++;
+            } else {
+                break;
+            }
+        }
+        return maxMove;
+    }
+
+    private int calculateMaxMoveRightGroup(List<Tile> group) {
+        int maxMove = cols;
+        for (Tile tile : group) {
+            int tileMaxMove = calculateMaxMoveRight(tile.getRow(), tile.getCol(), group);
+            maxMove = Math.min(maxMove, tileMaxMove);
+        }
+        return maxMove;
+    }
+
+    private void moveTileRight(Tile tile, int steps) {
+        if (steps == 0) return;
+        tile.moveHorizontal(steps * (tileSize + margin));
+        int newCol = tile.getCol() + steps;
+        tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
+        tiles.get(tile.getRow()).set(newCol, tile);
+        tile.setCol(newCol);
+    }
+
+    private void moveGroupRight(List<Tile> group, int steps) {
+        if (steps == 0) return;
+        // Ordenar el grupo para que las baldosas con columnas más altas se muevan primero
+        group.sort((t1, t2) -> Integer.compare(t2.getCol(), t1.getCol()));
+        for (Tile tile : group) {
+            tile.moveHorizontal(steps * (tileSize + margin));
+            int newCol = tile.getCol() + steps;
+            tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
+            tiles.get(tile.getRow()).set(newCol, tile);
+            tile.setCol(newCol);
+        }
+    }
+
+    // Métodos para movimiento hacia la izquierda
+    private int calculateMaxMoveLeft(int row, int col, List<Tile> group) {
+        int maxMove = 0;
+        for (int i = col - 1; i >= 0; i--) {
+            Tile nextTile = getTileAtPosition(row, i);
+            if (isTileEmpty(nextTile) || (group != null && group.contains(nextTile))) {
+                maxMove++;
+            } else {
+                break;
+            }
+        }
+        return maxMove;
+    }
+
+    private int calculateMaxMoveLeftGroup(List<Tile> group) {
+        int maxMove = cols;
+        for (Tile tile : group) {
+            int tileMaxMove = calculateMaxMoveLeft(tile.getRow(), tile.getCol(), group);
+            maxMove = Math.min(maxMove, tileMaxMove);
+        }
+        return maxMove;
+    }
+
+    private void moveTileLeft(Tile tile, int steps) {
+        if (steps == 0) return;
+        tile.moveHorizontal(-steps * (tileSize + margin));
+        int newCol = tile.getCol() - steps;
+        tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
+        tiles.get(tile.getRow()).set(newCol, tile);
+        tile.setCol(newCol);
+    }
+
+    private void moveGroupLeft(List<Tile> group, int steps) {
+        if (steps == 0) return;
+        // Ordenar el grupo para que las baldosas con columnas más bajas se muevan primero
+        group.sort((t1, t2) -> Integer.compare(t1.getCol(), t2.getCol()));
+        for (Tile tile : group) {
+            tile.moveHorizontal(-steps * (tileSize + margin));
+            int newCol = tile.getCol() - steps;
+            tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
+            tiles.get(tile.getRow()).set(newCol, tile);
+            tile.setCol(newCol);
+        }
+    }
+
+    // Método para recolectar todas las baldosas en un grupo pegado
+    private void collectStuckGroup(Tile tile, List<Tile> group) {
+        if (tile.isVisited()) return;
+        tile.setVisited(true);
+        group.add(tile);
+        int row = tile.getRow();
+        int col = tile.getCol();
+        int[][] directions = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
+        for (int[] dir : directions) {
+            int adjRow = row + dir[0];
+            int adjCol = col + dir[1];
+            Tile adjacentTile = getTileAtPosition(adjRow, adjCol);
+            if (adjacentTile != null && (adjacentTile.isStuck() || adjacentTile.hasGlue())) {
+                collectStuckGroup(adjacentTile, group);
+            }
+        }
+    }
+
+    // Método auxiliar para crear una baldosa vacía
+    private Tile createEmptyTile(int row, int col) {
+        int xPosition = 105 + (col * (tileSize + margin));
+        int yPosition = 55 + (row * (tileSize + margin));
+        Tile emptyTile = new Tile(tileSize, 'n', xPosition, yPosition, padding, row, col);
+        return emptyTile;
+    }
+
+    // Método para obtener una baldosa en una posición específica
+    private Tile getTileAtPosition(int row, int col) {
+        if (row >= 0 && row < rows && col >= 0 && col < cols) {
+            return tiles.get(row).get(col);
+        }
+        return null;
+    }
+
+    // Método para verificar si una baldosa está vacía
+    private boolean isTileEmpty(Tile tile) {
+        return tile.getTileColor().equals(lightBrown);
+    }
+
+    // Resetear las banderas de visitado después de la inclinación
+    private void resetVisitedFlags() {
+        for (List<Tile> rowList : tiles) {
+            for (Tile tile : rowList) {
+                tile.setVisited(false);
+            }
+        }
+    }
+
+    // Mostrar mensaje
+    public void showMessage(String message, String title) {
+        if (this.visible) {
+            JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
+            this.ok = false;
+        }
+    }
+
+    // Método principal para pruebas
     public static void main(String[] args) {
-        
-         //SECOND TEST
         char[][] starting1 = {
-        {'y', 'g', 'y', 'b', 'r', 'g', 'b', 'y', 'r', 'b'},
-        {'b', 'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'g'},
-        {'g', 'b', '*', 'y', 'b', 'g', 'r', 'y', 'b', 'r'},
-        {'r', '*', 'g', 'b', 'r', '*', '*', 'b', 'r', 'g'},
-        {'b', 'g', 'r', 'y', 'b', 'g', 'r', 'y', 'b', 'r'},
-        {'y', '*', 'r', '*', 'y', 'b', 'r', 'g', 'y', 'b'},
-        {'*', 'r', 'y', 'b', 'g', '*', '*', 'b', 'g', 'r'},
-        {'*', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'b'},
-        {'*', 'b', 'g', 'r', 'y', '*', 'g', 'r', 'y', 'g'},
-        {'*', 'r', 'y', 'b', 'g', 'r', 'y', 'b', 'g', 'r'}
-    };
-        
+            {'r', '*', 'b', '*', '*'},
+            {'b', '*', 'g', 'b', '*'},
+            {'g', '*', 'r', '*', '*'},
+            {'*', '*', '*', '*', 'r'},
+            {'*', '*', '*', '*', 'b'}
+        };
+
         char[][] ending1 = {
-        {'y', 'r', 'g', 'r', 'y', 'b', 'g', 'r', 'y', 'b'},
-        {'g', 'b', 'g', 'b', 'r', 'g', 'b', 'y', 'r', 'g'},
-        {'b', 'g', 'y', 'r', 'y', 'b', 'g', 'r', 'y', 'b'},
-        {'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'g'},
-        {'y', 'b', 'g', 'r', 'y', 'b', 'g', '*', 'y', 'b'},
-        {'g', 'r', 'y', 'b', 'g', 'r', 'y', 'b', 'g', 'r'},
-        {'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'b'},
-        {'y', 'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r'},
-        {'g', 'b', 'y', 'r', 'g', 'b', 'y', '*', 'g', 'b'},
-        {'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'g'}
-    };
-        
-        Puzzle pz3 = new Puzzle(10, 10); // Tablero sin matrices
-        Puzzle pz4 = new Puzzle(starting1, ending1); // Tablero con matrices
-    
-        //pz4.addTile(5,1,'b');
-        //pz4.deleteTile(5,1);
-        //pz4.deleteTile(9,8);
-        
-        int[] from1 = {9,9};
-        int[] to1   = {3,1};
-        //pz4.relocateTile(from1,to1);
-        
-        int[] from3 = {3,1};
-        int[] to3   = {9,9};
-        //pz4.relocateTile(from3,to3);
-        
-        int[] from2 = {1,9};
-        int[] to2   = {3,2};
-        //pz4.relocateTile(from2,to2);
-    
-        //pz4.tilt('l');
-        //pz4.tilt('g');                
+            {'r', 'g', 'b', '*', '*'},
+            {'b', '*', 'g', 'b', 'y'},
+            {'g', 'b', 'r', '*', '*'},
+            {'r', 'y', '*', 'b', 'r'},
+            {'b', 'g', 'r', 'y', 'b'}
+        };
+
+        Puzzle pz = new Puzzle(starting1, ending1);
+
+        // Aplicar pegamento a una baldosa
+        pz.addGlue(1, 2); // Aplicar pegamento a la baldosa en (1,2)
+
+        // Intentar inclinar a la derecha
+        pz.tilt('r'); // El grupo debería moverse junto hacia la derecha
+        pz.tilt('d');
     }
 }

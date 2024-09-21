@@ -7,7 +7,6 @@ public class Tile extends Rectangle {
     private int padding; // Padding interno
     private int row; // Fila de la baldosa
     private int col; // Columna de la baldosa
-    private boolean glueApplied;   // Indica si el pegante está aplicado
     
     
     
@@ -17,7 +16,6 @@ public class Tile extends Rectangle {
         this.label = label;
         this.row = row;
         this.col = col;
-        this.glueApplied = false;  // Inicializa sin pegante
         int effectiveSize = size - 2 * padding; // Tamaño efectivo después de aplicar padding
 
         // Cambia el tamaño del rectángulo para reflejar el padding
@@ -72,31 +70,5 @@ public class Tile extends Rectangle {
 
     public char getLabel() {
         return label;
-    }
-    
-    
-    // Método para aplicar pegante
-    public void applyGlue() {
-        if (!this.glueApplied) {
-            this.glueApplied = true;
-            this.changeColor(Color.GRAY);  // Cambia el color a gris para mostrar que tiene pegante
-        } else {
-            System.out.println("La baldosa ya tiene pegamento.");
-        }
-    }
-
-    // Método para remover pegante, solo si está aplicado
-    public void removeGlue() {
-        if (this.glueApplied) {
-            this.glueApplied = false;   // Quita el estado de pegante
-            this.changeColor(this.color);  // Restaura el color original de la baldosa
-        } else {
-            System.out.println("No hay pegamento aplicado.");
-        }
-    }
-
-    // Método para verificar si el pegante está aplicado
-    public boolean isGlueApplied() {
-        return glueApplied;
-    }
+    }    
 }

@@ -281,68 +281,6 @@ public class Puzzle {
         }
         return null;
     }
-
-    
-        // Método para adicionar pegante a una baldosa y baldosas adyacentes
-    public void addGlue(int row, int col) {
-        if (isInBounds(row, col)) {
-            applyGlue(row, col);
-            this.ok = true; //Accion exitosa
-        } else {
-            showMessage("La baldosa en esa posición no existe.", "Error");
-            this.ok = false; //Error message
-        }
-    
-        if (isInBounds(row + 1, col)) applyGlue(row + 1, col);
-        if (isInBounds(row - 1, col)) applyGlue(row - 1, col);
-        if (isInBounds(row, col + 1)) applyGlue(row, col + 1);
-        if (isInBounds(row, col - 1)) applyGlue(row, col - 1);
-    }
-    
-    // Método para eliminar pegante de una baldosa
-    public void removeGlue(int row, int col) {
-        if (isInBounds(row, col)) {
-            clearGlue(row, col);
-            this.ok = true; //Accion exitosa
-        } else {
-            showMessage("La baldosa en esa posición no existe.", "Error");
-            this.ok = false; //Error message
-        }
-    
-        if (isInBounds(row + 1, col)) clearGlue(row + 1, col);
-        if (isInBounds(row - 1, col)) clearGlue(row - 1, col);
-        if (isInBounds(row, col + 1)) clearGlue(row, col + 1);
-        if (isInBounds(row, col - 1)) clearGlue(row, col - 1);
-    }
-    
-    // Método para verificar si una posición está dentro del tablero
-    private boolean isInBounds(int row, int col) {
-        return row >= 0 && row < rows && col >= 0 && col < cols;
-    }
-    
-    // Método auxiliar para aplicar pegante
-    private void applyGlue(int row, int col) {
-        Tile previousTile = tiles.get(row).get(col);
-        if (previousTile != null && !previousTile.isGlueApplied()) {
-            previousTile.applyGlue();
-            this.ok = true; //Accion exitosa
-        } else {
-            showMessage("La baldosa ya tiene pegamento.", "Error");
-            this.ok = false; //Error message
-        }
-    }
-    
-    // Método auxiliar para remover pegante
-    private void clearGlue(int row, int col) {
-        Tile previousTile = tiles.get(row).get(col);
-        if (previousTile != null && previousTile.isGlueApplied()) {
-            previousTile.removeGlue();
-            this.ok = true; //Accion exitosa
-        } else {
-            showMessage("No hay pegamento para eliminar.", "Error");
-            this.ok = false; //Error message
-        }
-    }
     
     // Muestra un mensaje de error si el simulador es visible y cambia el estado de ok a false
     public void showMessage(String message, String title){

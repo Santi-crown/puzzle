@@ -10,11 +10,9 @@ public class Puzzle {
     private int margin;
     private int padding;
     private Rectangle startingBoard;
-    private Rectangle endingBoard;
     private char[][] starting;
     private char[][] ending;
     private List<List<Tile>> tiles;
-    private List<List<Tile>> referingTiles;
     private boolean visible = true;
     private boolean ok = true;
 
@@ -31,7 +29,6 @@ public class Puzzle {
         this.starting = starting;
         this.ending = ending;
         this.tiles = new ArrayList<>();
-        this.referingTiles = new ArrayList<>();
 
         // Crear el tablero inicial
         startingBoard = new Rectangle(cols * (tileSize + margin), rows * (tileSize + margin), lightBrown, 100, 50);
@@ -48,6 +45,18 @@ public class Puzzle {
                 rowList.add(tile);
             }
             tiles.add(rowList);
+        }
+    }
+
+    // Método para imprimir el estado del tablero
+    public void printBoardState() {
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                Tile tile = getTileAtPosition(row, col);
+                char label = tile.getLabel();
+                System.out.print(label + " ");
+            }
+            System.out.println();
         }
     }
 
@@ -317,7 +326,6 @@ public class Puzzle {
     private void moveTileUp(Tile tile, int steps) {
         if (steps == 0) return;
         int newRow = tile.getRow() - steps;
-        if (newRow < 0) newRow = 0; // Asegurar que no se salga del tablero
         tile.moveVertical(-steps * (tileSize + margin));
         tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
         tiles.get(newRow).set(tile.getCol(), tile);
@@ -335,7 +343,6 @@ public class Puzzle {
         // Mover baldosas a sus nuevas posiciones
         for (Tile tile : group) {
             int newRow = tile.getRow() - steps;
-            if (newRow < 0) newRow = 0; // Asegurar que no se salga del tablero
             tile.moveVertical(-steps * (tileSize + margin));
             tiles.get(newRow).set(tile.getCol(), tile);
             tile.setRow(newRow);
@@ -343,8 +350,6 @@ public class Puzzle {
     }
 
     // Métodos similares para movimientos hacia abajo, izquierda y derecha...
-
-    // [Implementación de los métodos de movimiento hacia abajo, izquierda y derecha, asegurando que los índices no se salgan de los límites]
 
     // Movimiento hacia abajo
     private int calculateMaxMoveDown(int row, int col, List<Tile> group) {
@@ -372,7 +377,6 @@ public class Puzzle {
     private void moveTileDown(Tile tile, int steps) {
         if (steps == 0) return;
         int newRow = tile.getRow() + steps;
-        if (newRow >= rows) newRow = rows - 1; // Asegurar que no se salga del tablero
         tile.moveVertical(steps * (tileSize + margin));
         tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
         tiles.get(newRow).set(tile.getCol(), tile);
@@ -390,7 +394,6 @@ public class Puzzle {
         // Mover baldosas a sus nuevas posiciones
         for (Tile tile : group) {
             int newRow = tile.getRow() + steps;
-            if (newRow >= rows) newRow = rows - 1; // Asegurar que no se salga del tablero
             tile.moveVertical(steps * (tileSize + margin));
             tiles.get(newRow).set(tile.getCol(), tile);
             tile.setRow(newRow);
@@ -423,7 +426,6 @@ public class Puzzle {
     private void moveTileRight(Tile tile, int steps) {
         if (steps == 0) return;
         int newCol = tile.getCol() + steps;
-        if (newCol >= cols) newCol = cols - 1; // Asegurar que no se salga del tablero
         tile.moveHorizontal(steps * (tileSize + margin));
         tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
         tiles.get(tile.getRow()).set(newCol, tile);
@@ -441,7 +443,6 @@ public class Puzzle {
         // Mover baldosas a sus nuevas posiciones
         for (Tile tile : group) {
             int newCol = tile.getCol() + steps;
-            if (newCol >= cols) newCol = cols - 1; // Asegurar que no se salga del tablero
             tile.moveHorizontal(steps * (tileSize + margin));
             tiles.get(tile.getRow()).set(newCol, tile);
             tile.setCol(newCol);
@@ -474,7 +475,6 @@ public class Puzzle {
     private void moveTileLeft(Tile tile, int steps) {
         if (steps == 0) return;
         int newCol = tile.getCol() - steps;
-        if (newCol < 0) newCol = 0; // Asegurar que no se salga del tablero
         tile.moveHorizontal(-steps * (tileSize + margin));
         tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
         tiles.get(tile.getRow()).set(newCol, tile);
@@ -492,7 +492,6 @@ public class Puzzle {
         // Mover baldosas a sus nuevas posiciones
         for (Tile tile : group) {
             int newCol = tile.getCol() - steps;
-            if (newCol < 0) newCol = 0; // Asegurar que no se salga del tablero
             tile.moveHorizontal(-steps * (tileSize + margin));
             tiles.get(tile.getRow()).set(newCol, tile);
             tile.setCol(newCol);
@@ -604,40 +603,34 @@ public class Puzzle {
 
     // Método principal para pruebas
     public static void main(String[] args) {
-        char[][] starting1 = {
-            {'y', 'g', 'y', 'b', 'r', 'g', 'b', 'y', 'r', 'b'},
-            {'b', 'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'g'},
-            {'g', 'b', '*', 'y', 'b', 'g', 'r', 'y', 'b', 'r'},
-            {'r', '*', 'g', 'b', 'r', '*', '*', 'b', 'r', 'g'},
-            {'b', 'g', 'r', 'y', 'b', 'g', 'r', 'y', 'b', 'r'},
-            {'y', '*', 'r', '*', 'y', 'b', 'r', 'g', 'y', 'b'},
-            {'*', 'r', 'y', 'b', 'g', '*', '*', 'b', 'g', 'r'},
-            {'*', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'b'},
-            {'*', 'b', 'g', 'r', 'y', '*', 'g', 'r', 'y', 'g'},
-            {'r', 'r', 'y', 'b', 'g', 'r', 'y', 'b', 'g', 'r'}
+        char[][] starting = {
+            {'b', '*', 'b', 'g', 'b', 'r', 'g', 'b', 'y', 'r'},
+            {'*', 'y', 'g', 'g', 'b', 'y', 'r', 'g', 'b', 'b'},
+            {'*', '*', 'r', 'b', 'y', 'b', 'g', 'r', 'y', 'y'},
+            {'*', 'g', 'b', 'g', 'b', 'r', 'b', 'r', 'g', 'b'},
+            {'*', 'g', 'r', 'g', 'r', 'y', 'b', 'g', 'r', 'y'},
+            {'*', 'r', 'r', 'y', 'b', 'r', 'g', 'y', 'b', 'g'},
+            {'*', '*', 'b', 'y', 'b', 'g', 'b', 'g', 'r', 'r'},
+            {'*', '*', 'r', 'y', 'r', 'g', 'b', 'y', 'r', 'b'},
+            {'*', '*', 'y', 'y', 'g', 'r', 'y', 'g', 'b', 'r'},
+            {'g', '*', '*', 'b', 'g', 'r', 'y', 'b', 'g', 'r'}
         };
 
-        char[][] ending1 = {
-            // Tu matriz ending1 (puedes dejarla vacía si no la necesitas)
+        char[][] ending = {
+            // Tu matriz ending (puedes dejarla vacía si no la necesitas)
         };
 
-        Puzzle pz4 = new Puzzle(starting1, ending1);
+        Puzzle pz4 = new Puzzle(starting, ending);
 
-        // Ejemplo de prueba
-        pz4.addGlue(9, 0);
+        // Imprimir estado inicial
+        System.out.println("Estado inicial del tablero:");
+        pz4.printBoardState();
 
-       /** // Intentar relocalizar una baldosa con pegamento (debería mostrar un error)
-        int[] from = {9, 0};
-        int[] to = {8, 0};
-        pz4.relocateTile(from, to);
-
-        // Intentar relocalizar una baldosa normal (sin pegamento)
-        int[] from2 = {8, 1};
-        int[] to2 = {7, 1};
-        pz4.relocateTile(from2, to2);
-        **/
+        // Realizar inclinación hacia abajo
         pz4.tilt('u');
-        pz4.tilt('u');
-        // Otras pruebas según sea necesario
+
+        // Imprimir estado después del movimiento
+        System.out.println("Estado del tablero después de tilt('d'):");
+        pz4.printBoardState();
     }
 }

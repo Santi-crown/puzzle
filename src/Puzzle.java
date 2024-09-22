@@ -11,7 +11,6 @@ public class Puzzle {
     private int padding;
     private Rectangle startingBoard;
     private Rectangle endingBoard;
-    private Color color;
     private char[][] starting;
     private char[][] ending;
     private List<List<Tile>> tiles;
@@ -19,7 +18,8 @@ public class Puzzle {
     private boolean visible = true;
     private boolean ok = true;
 
-    Color lightBrown = new Color(207, 126, 60);
+    // Definición del color lightBrown
+    private final Color lightBrown = new Color(207, 126, 60);
 
     // Constructor para inicializar el puzzle con matrices
     public Puzzle(char[][] starting, char[][] ending) {
@@ -44,30 +44,11 @@ public class Puzzle {
                 int xPosition = 105 + (col * (tileSize + margin));
                 int yPosition = 55 + (row * (tileSize + margin));
 
-                Tile tile = new Tile(tileSize, label, xPosition, yPosition, padding, row, col);
+                Tile tile = new Tile(tileSize, label, xPosition, yPosition, padding, row, col, lightBrown);
                 rowList.add(tile);
             }
             tiles.add(rowList);
         }
-
-        // Crear el tablero de referencia (opcional)
-        // Si no necesitas el tablero de referencia, puedes comentar o eliminar este bloque
-        /*
-        endingBoard = new Rectangle(cols * (tileSize + margin), rows * (tileSize + margin), lightBrown, cols * (tileSize + margin) + 350, 50);
-
-        for (int row = 0; row < ending.length; row++) {
-            List<Tile> rowList = new ArrayList<>();
-            for (int col = 0; col < ending[row].length; col++) {
-                char label = ending[row][col];
-                int xPosition = cols * (tileSize + margin) + 355 + (col * (tileSize + margin));
-                int yPosition = 55 + (row * (tileSize + margin));
-
-                Tile tile = new Tile(tileSize, label, xPosition, yPosition, padding, row, col);
-                rowList.add(tile);
-            }
-            referingTiles.add(rowList);
-        }
-        */
     }
 
     // Método para aplicar pegamento a una baldosa
@@ -361,7 +342,9 @@ public class Puzzle {
         }
     }
 
-    // Implementa métodos similares para abajo, izquierda y derecha, asegurando límites
+    // Métodos similares para movimientos hacia abajo, izquierda y derecha...
+
+    // [Implementación de los métodos de movimiento hacia abajo, izquierda y derecha, asegurando que los índices no se salgan de los límites]
 
     // Movimiento hacia abajo
     private int calculateMaxMoveDown(int row, int col, List<Tile> group) {
@@ -539,7 +522,7 @@ public class Puzzle {
     private Tile createEmptyTile(int row, int col) {
         int xPosition = 105 + (col * (tileSize + margin));
         int yPosition = 55 + (row * (tileSize + margin));
-        Tile emptyTile = new Tile(tileSize, '*', xPosition, yPosition, padding, row, col);
+        Tile emptyTile = new Tile(tileSize, '*', xPosition, yPosition, padding, row, col, lightBrown);
         return emptyTile;
     }
 
@@ -551,10 +534,9 @@ public class Puzzle {
         return null;
     }
 
-    // Método para verificar si una baldosa está vacía
+    // Método para verificar si una baldosa está vacía (basado en el color lightBrown)
     private boolean isTileEmpty(Tile tile) {
-        char label = tile.getLabel();
-        return label == '*' || label == 'n' || label == '\0';
+        return tile.getTileColor().equals(lightBrown);
     }
 
     // Resetear las banderas de visitado después de la inclinación
@@ -572,6 +554,52 @@ public class Puzzle {
             JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
             this.ok = false;
         }
+    }
+
+    // Método para relocalizar una baldosa
+    public void relocateTile(int[] from, int[] to) {
+        // Validar las coordenadas de entrada
+        if (!areValidCoordinates(from) || !areValidCoordinates(to)) {
+            showMessage("Coordenadas inválidas.", "Error");
+            this.ok = false;
+            return;
+        }
+
+        Tile fromTile = tiles.get(from[0]).get(from[1]);
+        Tile toTile = tiles.get(to[0]).get(to[1]);
+
+        // Validar existencia de la baldosa de origen y disponibilidad de la baldosa de destino
+        if (isTileEmpty(fromTile)) {
+            showMessage("No puedes mover una baldosa inexistente.", "Error");
+            this.ok = false;
+        } else if (!isTileEmpty(toTile)) {
+            showMessage("Ya hay una baldosa en la posición de destino.", "Error");
+            this.ok = false;
+        } else if (fromTile.hasGlue() || fromTile.isStuck()) {
+            showMessage("No puedes mover una baldosa que tiene pegamento o está pegada.", "Error");
+            this.ok = false;
+        } else {
+            // Realizar el movimiento
+            this.relocateTileMovement(fromTile, toTile, from, to);
+            this.ok = true;
+        }
+    }
+
+    // Método auxiliar para realizar el movimiento visual y actualizar la lista de baldosas
+    public void relocateTileMovement(Tile fromTile, Tile toTile, int[] from, int[] to) {
+        // Mover la instancia de la baldosa visualmente
+        fromTile.moveHorizontal((to[1] - from[1]) * (tileSize + margin));
+        fromTile.moveVertical((to[0] - from[0]) * (tileSize + margin));
+        // Actualizar la lista de baldosas: mover la baldosa a la nueva posición
+        tiles.get(to[0]).set(to[1], fromTile);
+        // Crear una nueva baldosa vacía en la posición original
+        Tile emptyTile = createEmptyTile(from[0], from[1]);
+        tiles.get(from[0]).set(from[1], emptyTile);
+    }
+
+    // Método para validar si las coordenadas son correctas
+    private boolean areValidCoordinates(int[] coords) {
+        return coords.length == 2 && coords[0] >= 0 && coords[0] < rows && coords[1] >= 0 && coords[1] < cols;
     }
 
     // Método principal para pruebas
@@ -597,11 +625,19 @@ public class Puzzle {
 
         // Ejemplo de prueba
         pz4.addGlue(9, 0);
-        pz4.deleteGlue(9, 1);
-        pz4.tilt('u');
 
-        // Otra prueba
-        pz4.addGlue(3, 1);
-        pz4.tilt('d');
+       /** // Intentar relocalizar una baldosa con pegamento (debería mostrar un error)
+        int[] from = {9, 0};
+        int[] to = {8, 0};
+        pz4.relocateTile(from, to);
+
+        // Intentar relocalizar una baldosa normal (sin pegamento)
+        int[] from2 = {8, 1};
+        int[] to2 = {7, 1};
+        pz4.relocateTile(from2, to2);
+        **/
+        pz4.tilt('u');
+        pz4.tilt('u');
+        // Otras pruebas según sea necesario
     }
 }

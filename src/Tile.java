@@ -1,68 +1,78 @@
 import java.awt.Color;
 
-public class Tile extends Rectangle {
-    private Color color;
-    private char label;
+public class Tile {
     private int size;
+    private char label;
+    private int x;
+    private int y;
     private int padding;
     private int row;
     private int col;
     private boolean hasGlue = false;
     private boolean isStuck = false;
-    private boolean visited = false; // For tracking during tilt
+    private boolean visited = false;
+    private Color tileColor;
     private Color originalColor;
+    private Rectangle rectangle;
+    private final Color lightBrown;
 
-    public Tile(int size, char label, int xPosition, int yPosition, int padding, int row, int col) {
-        super(size, size, Color.WHITE, xPosition, yPosition);
+    public Tile(int size, char label, int x, int y, int padding, int row, int col, Color lightBrown) {
         this.size = size;
-        this.padding = padding;
         this.label = label;
+        this.x = x;
+        this.y = y;
+        this.padding = padding;
         this.row = row;
         this.col = col;
-
-        this.setTileColor(label);
-        this.makeVisible();
+        this.lightBrown = lightBrown;
+        this.tileColor = getColorFromLabel(label);
+        this.originalColor = tileColor;
+        if (label != '*' && label != 'n' && label != '\0') {
+            rectangle = new Rectangle(size, size, tileColor, x, y);
+        }
     }
 
-    public void setTileColor(char label) {
-        Color lightBrown = new Color(207, 126, 60);
-
+    private Color getColorFromLabel(char label) {
         switch (label) {
             case 'r':
-                color = Color.RED;
-                break;
-            case 'b':
-                color = Color.BLUE;
-                break;
-            case 'y':
-                color = Color.YELLOW;
-                break;
+                return Color.RED;
             case 'g':
-                color = Color.GREEN;
-                break;
-            case 'n':
+                return Color.GREEN;
+            case 'b':
+                return Color.BLUE;
+            case 'y':
+                return Color.YELLOW;
             case '*':
-                color = lightBrown;
-                break;
+            case 'n':
+            case '\0':
+                return lightBrown;
             default:
-                color = lightBrown;
+                return Color.GRAY;
         }
-
-        this.originalColor = color;
-        this.changeColor(this.color);
     }
 
-    public Color getTileColor() {
-        return this.color;
+    // Métodos getters y setters
+
+    public char getLabel() {
+        return label;
     }
 
-    // New method to set the color directly
-    public void setTileColor(Color newColor) {
-        this.color = newColor;
-        this.changeColor(newColor);
+    public int getRow() {
+        return row;
     }
 
-    // Methods to manage glue and stuck states
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public int getCol() {
+        return col;
+    }
+
+    public void setCol(int col) {
+        this.col = col;
+    }
+
     public boolean hasGlue() {
         return hasGlue;
     }
@@ -79,40 +89,42 @@ public class Tile extends Rectangle {
         this.isStuck = isStuck;
     }
 
-    public Color getOriginalColor() {
-        return originalColor;
-    }
-
-    public void setRow(int newRow) {
-        this.row = newRow;
-    }
-
-    public void setCol(int newCol) {
-        this.col = newCol;
-    }
-
-    public int getRow() {
-        return row;
-    }
-
-    public int getCol() {
-        return col;
-    }
-
-    public char getLabel() {
-        return label;
-    }
-
-    public void setLabel(char newLabel) {
-        this.label = newLabel;
-    }
-
-    // For tracking during tilt
     public boolean isVisited() {
         return visited;
     }
 
     public void setVisited(boolean visited) {
         this.visited = visited;
+    }
+
+    public Color getTileColor() {
+        return tileColor;
+    }
+
+    public void setTileColor(Color color) {
+        this.tileColor = color;
+        if (rectangle != null) {
+            rectangle.changeColor(color);
+        }
+    }
+
+    public Color getOriginalColor() {
+        return originalColor;
+    }
+
+    // Métodos para mover la baldosa
+
+    public void moveVertical(int distance) {
+        if (rectangle != null) {
+            rectangle.moveVertical(distance);
+        }
+        this.y += distance;
+    }
+
+    public void moveHorizontal(int distance) {
+        if (rectangle != null) {
+            rectangle.moveHorizontal(distance);
+        }
+        this.x += distance;
     }
 }

@@ -899,10 +899,11 @@ public class Puzzle {
         Puzzle pz3 = new Puzzle(10, 10); // Tablero sin matrices
         Puzzle pz4 = new Puzzle(starting1, ending1); // Tablero con matrices
         
-        pz4.addTile(9,0,'r');
-        pz4.addGlue(9,1);
+        //pz4.addTile(9,0,'r');
+        //pz4.addGlue(9,1);
         pz4.tilt('u');
         pz4.tilt('r');
+        //pz4.actualArrangement();
         
         //pz4.addTile(5,1,'b');
         //pz4.deleteTile(5,1);

@@ -696,23 +696,32 @@ public class Puzzle {
         }
     }
     
-    // Método para verificar si el puzzle alcanzó el estado final
-    public boolean isGoal() {
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < cols; col++) {
-                if (starting[row][col] != ending[row][col]) {
-                    this.ok = false;
-                    return false;
-                }
+public boolean isGoal() {
+    // Recorrer el tablero actual (tiles) y compararlo con el tablero de referencia (ending)
+    for (int row = 0; row < rows; row++) {
+        for (int col = 0; col < cols; col++) {
+            Tile currentTile = tiles.get(row).get(col);  // Obtener la baldosa actual
+            char currentLabel = currentTile.getLabel();   // Obtener la etiqueta actual de la baldosa
+            char targetLabel = ending[row][col];          // Obtener la etiqueta esperada en la matriz de referencia
+
+            // Comparar la baldosa actual con la baldosa en el estado objetivo
+            if (currentLabel != targetLabel) {
+                return false;  // Si no coinciden, el estado final aún no se ha alcanzado
             }
         }
-        this.ok = true;
-        return true;
     }
     
-    // Hace visible el simulador
+    // Si todas las baldosas coinciden con las de la referencia, entonces hemos alcanzado el estado final
+    return true;
+}
+
+
+
     
-    public void makeVisible() {
+    // Hace visible el simulador
+    //This method consists in two parts cuz there are two different constructors to disappear rectangle or tiles(visible)
+    
+    public void makeVisibleTiles() {
         this.visible = true;
         for (List<Tile> row : tiles) {
             for (Tile tile : row) {
@@ -726,6 +735,11 @@ public class Puzzle {
             }
         }
         
+        this.ok = true;  // Indicar que la acción fue exitosa
+            
+    }
+    
+    public void makeVisibleRectangle(){
         // Verificar si los tableros han sido inicializados
         if (startingBoard != null) {
             startingBoard.makeVisible();  // Hace visible el tablero inicial
@@ -736,12 +750,13 @@ public class Puzzle {
         }
         
         this.ok = true;  // Indicar que la acción fue exitosa
-            
     }
-
-    // Hace invisible el simulador
     
-    public void makeInvisible() {
+    
+    // Hace invisible el simulador
+    //This method consists in two parts cuz there are two different constructors to disappear rectangle or tiles(invisible)
+    
+    public void makeInvisibleTiles() {
         this.visible = false;
         
         for (List<Tile> row : tiles) {
@@ -756,6 +771,10 @@ public class Puzzle {
             }
         }
         
+        this.ok = true;  // Indicar que la acción fue exitosa
+    }
+    
+    public void makeInvisibleRectangle(){
         // Verificar si los tableros han sido inicializados
         
         if (startingBoard != null) {
@@ -768,6 +787,7 @@ public class Puzzle {
         
         this.ok = true;  // Indicar que la acción fue exitosa
     }
+    
     
     // Termina el simulador
     public void finish() {
@@ -804,6 +824,22 @@ public class Puzzle {
         return this.ok;
     }
     
+    public void exchange() {
+        // Intercambia las referencias entre el tablero de edición (starting) y el tablero de referencia (ending)
+        char[][] temp = starting;  // Guarda la matriz de edición temporalmente
+        starting = ending;         // Asigna la matriz de referencia como la nueva matriz de edición
+        ending = temp;             // Asigna la matriz temporal (original de edición) como la nueva matriz de referencia
+    
+        // Intercambia las listas de baldosas entre tiles y referingTiles sin alterar el estado de las baldosas
+        List<List<Tile>> tempTiles = tiles;
+        tiles = referingTiles;
+        referingTiles = tempTiles;
+    
+        // No se alteran los colores ni el estado de pegamento de las baldosas. Simplemente intercambiamos los tableros activos.
+        System.out.println("Los tableros han sido intercambiados. Ahora estás editando el tablero que antes era la referencia.");
+    }
+
+
     
     public static void main(String[] args) {
         

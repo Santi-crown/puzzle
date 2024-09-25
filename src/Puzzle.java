@@ -713,6 +713,7 @@ public boolean isGoal() {
     
     // Si todas las baldosas coinciden con las de la referencia, entonces hemos alcanzado el estado final
     return true;
+
 }
 
 
@@ -907,38 +908,28 @@ public boolean isGoal() {
         
          //SECOND TEST
         char[][] starting1 = {
-        {'y', 'g', 'y', 'b', 'r', 'g', 'b', 'y', 'r', 'b'},
-        {'b', 'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'g'},
-        {'g', 'b', '*', 'y', 'b', 'g', 'r', 'y', 'b', 'r'},
-        {'r', '*', 'g', 'b', 'r', '*', '*', 'b', 'r', 'g'},
-        {'b', 'g', 'r', 'y', 'b', 'g', 'r', 'y', 'b', 'r'},
-        {'y', '*', 'r', '*', 'y', 'b', 'r', 'g', 'y', 'b'},
-        {'*', 'r', 'y', 'b', 'g', '*', '*', 'b', 'g', 'r'},
-        {'*', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'b'},
-        {'*', 'b', 'g', 'r', 'y', '*', 'g', 'r', 'y', 'g'},
-        {'*', 'r', 'y', 'b', 'g', 'r', 'y', 'b', 'g', 'r'}
-    };
+            {'y', 'g', 'y', 'b'},
+            {'b', 'r', 'g', 'b'},
+            {'*', 'b', '*', 'y'},
+            {'*', '*', 'g', 'b'}
+        };
+
         
         char[][] ending1 = {
-        {'y', 'r', 'g', 'r', 'y', 'b', 'g', 'r', 'y', 'b'},
-        {'g', 'b', 'g', 'b', 'r', 'g', 'b', 'y', 'r', 'g'},
-        {'b', 'g', 'y', 'r', 'y', 'b', 'g', 'r', 'y', 'b'},
-        {'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'g'},
-        {'y', 'b', 'g', 'r', 'y', 'b', 'g', '*', 'y', 'b'},
-        {'g', 'r', 'y', 'b', 'g', 'r', 'y', 'b', 'g', 'r'},
-        {'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'b'},
-        {'y', 'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r'},
-        {'g', 'b', 'y', 'r', 'g', 'b', 'y', '*', 'g', 'b'},
-        {'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'g'}
-    };
+            {'y', 'g', 'y', 'b'},
+            {'b', 'r', 'g', 'b'},
+            {'r', 'b', 'g', 'y'},
+            {'*', '*', '*', 'b'}
+        };
+
         
-        Puzzle pz3 = new Puzzle(10, 10); // Tablero sin matrices
+        Puzzle pz3 = new Puzzle(4, 4); // Tablero sin matrices
         Puzzle pz4 = new Puzzle(starting1, ending1); // Tablero con matrices
         
         //pz4.addTile(9,0,'r');
         //pz4.addGlue(9,1);
-        pz4.tilt('u');
-        pz4.tilt('r');
+        //pz4.tilt('u');
+        //pz4.tilt('r');
         //pz4.actualArrangement();
         
         //pz4.addTile(5,1,'b');
@@ -959,10 +950,20 @@ public boolean isGoal() {
     
         //pz4.tilt('l');
         //pz4.tilt('g');
-        pz4.addTile(6,0,'r');
+        //pz4.addTile(6,0,'r');
         
         int[] from4 = {6,0};
         int[] to4   = {3,1};
-        pz4.relocateTile(from4,to4);
+        //pz4.relocateTile(from4,to4);
+        pz4.addTile(3,0,'r');
+        pz4.tilt('u');
+        boolean value = pz4.isGoal();
+        if (value == true){
+            System.out.println("true");
+        }else {
+            System.out.println("false");
+        }
+        
+        pz4.printBoardState();
     }
 }

@@ -124,6 +124,7 @@ public class Puzzle {
             if(previousTile.getTileColor().equals(lightBrown)) {
                 //previousTile.getLabel();
                 previousTile.setTileColor(label);
+                previousTile.setLabel(label);
                 //System.out.println("Color cambiado a: " + previousTile.getTileColor());
                 //System.out.println("neo");
                 this.ok = true; //Acciòn exitosa
@@ -145,8 +146,9 @@ public class Puzzle {
 
             // Usa equals para comparar colores
             if(!previousTile.getTileColor().equals(lightBrown)) {
-                previousTile.setTileColor('n');  
-                this.ok = true; //Acciòn exitosa
+                previousTile.setTileColor('n');
+                previousTile.setLabel('*');
+                //this.ok = true; //Acciòn exitosa
             } else {
                 showMessage("There is a tile here now.", "Error");
                 this.ok = false; //Error message
@@ -697,24 +699,22 @@ public class Puzzle {
     }
     
 public boolean isGoal() {
-    // Recorrer el tablero actual (tiles) y compararlo con el tablero de referencia (ending)
     for (int row = 0; row < rows; row++) {
         for (int col = 0; col < cols; col++) {
-            Tile currentTile = tiles.get(row).get(col);  // Obtener la baldosa actual
-            char currentLabel = currentTile.getLabel();   // Obtener la etiqueta actual de la baldosa
-            char targetLabel = ending[row][col];          // Obtener la etiqueta esperada en la matriz de referencia
+            Tile currentTile = tiles.get(row).get(col);
+            char currentLabel = currentTile.getLabel();
 
-            // Comparar la baldosa actual con la baldosa en el estado objetivo
+            Tile targetTile = referingTiles.get(row).get(col);
+            char targetLabel = targetTile.getLabel();
+
             if (currentLabel != targetLabel) {
-                return false;  // Si no coinciden, el estado final aún no se ha alcanzado
+                return false;
             }
         }
     }
-    
-    // Si todas las baldosas coinciden con las de la referencia, entonces hemos alcanzado el estado final
     return true;
-
 }
+
 
 
 
@@ -911,15 +911,15 @@ public boolean isGoal() {
             {'y', 'g', 'y', 'b'},
             {'b', 'r', 'g', 'b'},
             {'*', 'b', '*', 'y'},
-            {'*', '*', 'g', 'b'}
+            {'*', 'r', 'g', 'b'}
         };
 
         
         char[][] ending1 = {
             {'y', 'g', 'y', 'b'},
             {'b', 'r', 'g', 'b'},
-            {'r', 'b', 'g', 'y'},
-            {'*', '*', '*', 'b'}
+            {'*', 'b', 'g', 'y'},
+            {'r', 'r', '*', 'b'}
         };
 
         
@@ -956,6 +956,7 @@ public boolean isGoal() {
         int[] to4   = {3,1};
         //pz4.relocateTile(from4,to4);
         pz4.addTile(3,0,'r');
+        pz4.addGlue(3,0);
         pz4.tilt('u');
         boolean value = pz4.isGoal();
         if (value == true){
@@ -965,5 +966,22 @@ public boolean isGoal() {
         }
         
         pz4.printBoardState();
+        pz4.exchange();
+        
+        pz4.addTile(3,2,'g');
+        boolean value1 = pz4.isGoal();
+        if (value1 == true){
+            System.out.println("true");
+        }else {
+            System.out.println("false");
+        }        
+        pz4.printBoardState();
+        pz4.deleteTile(3,2);
+        boolean value2 = pz4.isGoal();
+        if (value2 == true){
+            System.out.println("true");
+        }else {
+            System.out.println("false");
+        }
     }
 }

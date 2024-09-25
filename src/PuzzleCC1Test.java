@@ -44,14 +44,14 @@ public class PuzzleCC1Test {
     // Prueba para verificar la visibilidad
     @Test
     public void testMakeVisible() {
-        puzzle.makeInvisible(); // Primero lo hace invisible
-        puzzle.makeVisible(); // Luego lo hace visible
+        puzzle.makeInvisibleTiles(); // Primero lo hace invisible
+        puzzle.makeVisibleTiles(); // Luego lo hace visible
         assertTrue(puzzle.ok(), "El simulador debería ser visible.");
     }
 
     @Test
     public void testMakeInvisible() {
-        puzzle.makeInvisible();
+        puzzle.makeInvisibleTiles();
         // Verifica que después de hacer invisible, no afecta `ok()`
         assertTrue(puzzle.ok(), "El simulador debería estar en estado válido aunque no sea visible.");
     }

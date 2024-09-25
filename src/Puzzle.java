@@ -719,8 +719,9 @@ public boolean isGoal() {
 
     
     // Hace visible el simulador
+    //This method consists in two parts cuz there are two different constructors to disappear rectangle or tiles(visible)
     
-    public void makeVisible() {
+    public void makeVisibleTiles() {
         this.visible = true;
         for (List<Tile> row : tiles) {
             for (Tile tile : row) {
@@ -734,6 +735,11 @@ public boolean isGoal() {
             }
         }
         
+        this.ok = true;  // Indicar que la acción fue exitosa
+            
+    }
+    
+    public void makeVisibleRectangle(){
         // Verificar si los tableros han sido inicializados
         if (startingBoard != null) {
             startingBoard.makeVisible();  // Hace visible el tablero inicial
@@ -744,12 +750,13 @@ public boolean isGoal() {
         }
         
         this.ok = true;  // Indicar que la acción fue exitosa
-            
     }
-
-    // Hace invisible el simulador
     
-    public void makeInvisible() {
+    
+    // Hace invisible el simulador
+    //This method consists in two parts cuz there are two different constructors to disappear rectangle or tiles(invisible)
+    
+    public void makeInvisibleTiles() {
         this.visible = false;
         
         for (List<Tile> row : tiles) {
@@ -764,6 +771,10 @@ public boolean isGoal() {
             }
         }
         
+        this.ok = true;  // Indicar que la acción fue exitosa
+    }
+    
+    public void makeInvisibleRectangle(){
         // Verificar si los tableros han sido inicializados
         
         if (startingBoard != null) {
@@ -776,6 +787,7 @@ public boolean isGoal() {
         
         this.ok = true;  // Indicar que la acción fue exitosa
     }
+    
     
     // Termina el simulador
     public void finish() {

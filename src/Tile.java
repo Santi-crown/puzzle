@@ -125,4 +125,21 @@ public class Tile extends Rectangle {
     public void setVisited(boolean visited) {
         this.visited = visited;
     }
+    // Método para hacer que la baldosa parpadee
+    public void blink() {
+        if (!isVisible) return;
+        Thread thread = new Thread(() -> {
+            try {
+                for (int i = 0; i < 6; i++) {
+                    makeInvisible();
+                    Thread.sleep(200);
+                    makeVisible();
+                    Thread.sleep(200);
+                }
+            } catch (InterruptedException e) {
+                // Manejar excepción si es necesario
+            }
+        });
+        thread.start();
+    }
 }

@@ -882,12 +882,63 @@ public class Puzzle {
         referingTiles = tempTiles;
     
         // No se alteran los colores ni el estado de pegamento de las baldosas. Simplemente intercambiamos los tableros activos.
-        System.out.println("Los tableros han sido intercambiados. Ahora estás editando el tablero que antes era la referencia.");
+        System.out.println("Boards have been exchanged. Now, you're editing the board that was the reference board before.");
     }
     
     public void makeHole(int row, int col){
         
         circle = new Circle(45,100,200, Color.WHITE);
+    }
+    
+    public int [][] fixedTiles(){
+        List<int[]> fixedTilesPositions = new ArrayList<>();
+
+
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                Tile tile = getTileAtPosition(row, col);
+
+                if (!isTileEmpty(tile) && (tile.hasGlue() || tile.isStuck())) {
+                    // Agregar la posición a la lista
+                    fixedTilesPositions.add(new int[]{row, col});
+
+                    // Hacer que la baldosa parpadee si el simulador está visible
+                    if (visible) {
+                        tile.blink();
+                    }
+                }
+            }
+        }
+
+        // Convertir la lista a un arreglo bidimensional
+        int[][] result = new int[fixedTilesPositions.size()][2];
+        for (int i = 0; i < fixedTilesPositions.size(); i++) {
+            result[i] = fixedTilesPositions.get(i);
+        }
+
+        return result;
+    }
+
+
+    public int misplacedTiles(){
+        
+        int cont = 0;
+        
+        for (int row = 0; row < rows;row++){
+            for (int col = 0; col < cols;col++){
+                Tile tile = getTileAtPosition(row, col);
+                char currentLabel= tile.getLabel();
+                
+                Tile referingTile = getTileAtPosition(row, col);
+                char referenceLabel = referingTile.getLabel();
+                
+                if (currentLabel != referenceLabel && currentLabel != '*'){
+                    cont++;
+                }
+            }
+        }
+        
+        return cont;
     }
 
     

@@ -18,7 +18,7 @@ public class Rectangle{
     private int xPosition;
     private int yPosition;
     private Color color;
-    private boolean isVisible;
+    public boolean isVisible;
 
     /**
      * Create a new rectangle at default position with default color.

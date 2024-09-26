@@ -35,7 +35,8 @@ public class Tile extends Rectangle {
     }
     
     public void setTileColor(char label){
-        Color lightBrown = new Color(207, 126, 60);
+        Color lightBrown = new Color(207, 126, 60); 
+        this.label = label;
 
         switch (label) {
             case 'r':

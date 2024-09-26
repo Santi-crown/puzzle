@@ -18,7 +18,7 @@ public class Puzzle {
     private List<List<Tile>> referingTiles; // Tiles de referencia
     private boolean visible = true; //Determina si el simulador está visible
     private boolean ok = true; //Rastrea si la última acción fue exitosa
-    
+    private Circle circle;
     // Board color
     Color lightBrown = new Color(207, 126, 60);
 
@@ -50,7 +50,7 @@ public class Puzzle {
         startingBoard = new Rectangle(rows * (tileSize + margin), cols * (tileSize + margin), color,100,50);
             
         endingBoard = new Rectangle(rows * (tileSize + margin), cols * (tileSize + margin),color, rows * (tileSize + margin) + 350, 50);
-
+    
 
     }
 
@@ -97,6 +97,50 @@ public class Puzzle {
             referingTiles.add(rowList);            
         }
         
+    }
+    
+    // Constructor para inicializar vacio starting y con baldosas ending
+    public Puzzle(char [][] ending){    
+        this.tileSize = 50;  // Tamaño de cada tile
+        this.margin = 10;    // Margen entre tiles
+        this.padding = 10;    // Padding interno
+        this.rows = ending.length;
+        this.cols = ending[0].length;
+        //this.starting = starting;
+        this.ending = ending;
+        this.tiles = new ArrayList<>();
+        this.referingTiles = new ArrayList<>();
+       
+        // Crear las piezas del puzzle inicial    
+        for (int row = 0; row < rows; row++) {
+            List<Tile> rowList = new ArrayList<>();
+            for (int col = 0; col < cols; col++) {
+                char label = '*';
+                int xPosition = 105 + (col * (tileSize + margin));  // Ajustar la posición horizontal
+                int yPosition = 55 + (row * (tileSize + margin));   // Ajustar la posición vertical
+
+                // Crear la pieza y agregarla a la lista
+                Tile tile = new Tile(tileSize, label, xPosition, yPosition, padding,row, col);
+                //tiles.get(row).set(col, tile); // Agregar el tile a la sublista
+                rowList.add(tile); // Inicializa la fila con null                
+            }
+            tiles.add(rowList);
+        }
+
+        // Crear las piezas del puzzle final
+        for (int row = 0; row < rows; row++) {
+            List<Tile> rowList = new ArrayList<>();
+            for (int col = 0; col < cols; col++) {
+                char label = ending[row][col];
+                int xPosition = (rows * (tileSize + margin)) + 355 + (col * (tileSize + margin)); // Ajustar la posición horizontal
+                int yPosition = 55 + (row * (tileSize + margin));   // Ajustar la posición vertical
+
+                // Crear la pieza y agregarla a la lista
+                Tile tile = new Tile(tileSize, label, xPosition, yPosition, padding, row, col);
+                rowList.add(tile);
+            }
+            referingTiles.add(rowList);            
+        }
     }
     
     
@@ -696,24 +740,26 @@ public class Puzzle {
         }
     }
     
-public boolean isGoal() {
-    // Recorrer el tablero actual (tiles) y compararlo con el tablero de referencia (ending)
-    for (int row = 0; row < rows; row++) {
-        for (int col = 0; col < cols; col++) {
-            Tile currentTile = tiles.get(row).get(col);  // Obtener la baldosa actual
-            char currentLabel = currentTile.getLabel();   // Obtener la etiqueta actual de la baldosa
-            char targetLabel = ending[row][col];          // Obtener la etiqueta esperada en la matriz de referencia
-
-            // Comparar la baldosa actual con la baldosa en el estado objetivo
-            if (currentLabel != targetLabel) {
-                return false;  // Si no coinciden, el estado final aún no se ha alcanzado
+    public boolean isGoal() {
+        // Recorrer el tablero actual (tiles) y compararlo con el tablero de referencia (ending)
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                Tile currentTile = tiles.get(row).get(col);
+                char currentLabel = currentTile.getLabel();
+    
+                Tile targetTile = referingTiles.get(row).get(col);
+                char targetLabel = targetTile.getLabel();
+    
+                // Comparar la baldosa actual con la baldosa en el estado objetivo
+                if (currentLabel != targetLabel) {
+                    return false;  // Si no coinciden, el estado final aún no se ha alcanzado
+                }
             }
         }
+        
+        // Si todas las baldosas coinciden con las de la referencia, entonces hemos alcanzado el estado final
+        return true;
     }
-    
-    // Si todas las baldosas coinciden con las de la referencia, entonces hemos alcanzado el estado final
-    return true;
-}
 
 
 
@@ -838,7 +884,11 @@ public boolean isGoal() {
         // No se alteran los colores ni el estado de pegamento de las baldosas. Simplemente intercambiamos los tableros activos.
         System.out.println("Los tableros han sido intercambiados. Ahora estás editando el tablero que antes era la referencia.");
     }
-
+    
+    public void makeHole(int row, int col){
+        
+        circle = new Circle(45,100,200, Color.WHITE);
+    }
 
     
     public static void main(String[] args) {

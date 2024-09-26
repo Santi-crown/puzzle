@@ -29,31 +29,55 @@ public class Puzzle {
         this.padding = 5;    // Padding interno
         this.rows = rows;
         this.cols = cols;
-        this.color = lightBrown;
-        
-        /**
-        startingBoard = new Rectangle();
-        startingBoard.changeSize(rows * (tileSize + margin), cols * (tileSize + margin));
-        startingBoard.changeColor(color);
-        startingBoard.makeVisible();
-        startingBoard.moveHorizontal(100);
-        startingBoard.moveVertical(50);
-
-        endingBoard = new Rectangle();
-        endingBoard.changeSize(rows * (tileSize + margin), cols * (tileSize + margin));
-        endingBoard.changeColor(color);
-        endingBoard.makeVisible();
-        endingBoard.moveHorizontal(rows * (tileSize + margin) + 350);
-        endingBoard.moveVertical(50);
-        **/
-        
-        startingBoard = new Rectangle(rows * (tileSize + margin), cols * (tileSize + margin), color,100,50);
-            
+        this.color = lightBrown;        
+        startingBoard = new Rectangle(rows * (tileSize + margin), cols * (tileSize + margin), color,100,50);            
         endingBoard = new Rectangle(rows * (tileSize + margin), cols * (tileSize + margin),color, rows * (tileSize + margin) + 350, 50);
-
-
     }
+    
+    
+    // Constructor para inicializar vacio starting y con baldosas ending
+    public Puzzle(char [][] ending){    
+        this.tileSize = 50;  // Tamaño de cada tile
+        this.margin = 10;    // Margen entre tiles
+        this.padding = 10;    // Padding interno
+        this.rows = ending.length;
+        this.cols = ending[0].length;
+        //this.starting = starting;
+        this.ending = ending;
+        this.tiles = new ArrayList<>();
+        this.referingTiles = new ArrayList<>();
+       
+        // Crear las piezas del puzzle inicial    
+        for (int row = 0; row < rows; row++) {
+            List<Tile> rowList = new ArrayList<>();
+            for (int col = 0; col < cols; col++) {
+                char label = '*';
+                int xPosition = 105 + (col * (tileSize + margin));  // Ajustar la posición horizontal
+                int yPosition = 55 + (row * (tileSize + margin));   // Ajustar la posición vertical
 
+                // Crear la pieza y agregarla a la lista
+                Tile tile = new Tile(tileSize, label, xPosition, yPosition, padding,row, col);
+                //tiles.get(row).set(col, tile); // Agregar el tile a la sublista
+                rowList.add(tile); // Inicializa la fila con null                
+            }
+            tiles.add(rowList);
+        }
+
+        // Crear las piezas del puzzle final
+        for (int row = 0; row < rows; row++) {
+            List<Tile> rowList = new ArrayList<>();
+            for (int col = 0; col < cols; col++) {
+                char label = ending[row][col];
+                int xPosition = (rows * (tileSize + margin)) + 355 + (col * (tileSize + margin)); // Ajustar la posición horizontal
+                int yPosition = 55 + (row * (tileSize + margin));   // Ajustar la posición vertical
+
+                // Crear la pieza y agregarla a la lista
+                Tile tile = new Tile(tileSize, label, xPosition, yPosition, padding, row, col);
+                rowList.add(tile);
+            }
+            referingTiles.add(rowList);            
+        }
+    }
     // Constructor para inicializar los tableros con matrices
     public Puzzle(char[][] starting, char[][] ending) {
         this.tileSize = 50;  // Tamaño de cada tile

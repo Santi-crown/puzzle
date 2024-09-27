@@ -907,34 +907,11 @@ public class Puzzle {
        
     }
     
-    public int [][] fixedTiles(){
-        List<int[]> fixedTilesPositions = new ArrayList<>();
+    //public int [][] fixedTiles(){
+        // Al momento de hacer tilt, queremos que se tome una captura de la matriz antes y despues del tilt. La matriz con la configuracion antes del tilt me va a servir para comparar cuales fichas se movieron y cuales no al hacer tilt. Las que no se movieron es porque no se puede. Entonces, las que mantienen la misma posición en la nueva matriz despues de tilt, que las de antes de tilt, van a ser mis baldosas atascadas, las vamos a marcar y luego las vamos a hacer titilar. 
 
-
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < cols; col++) {
-                Tile tile = getTileAtPosition(row, col);
-
-                if (!isTileEmpty(tile) && (tile.hasGlue() || tile.isStuck())) {
-                    // Agregar la posición a la lista
-                    fixedTilesPositions.add(new int[]{row, col});
-
-                    // Hacer que la baldosa parpadee si el simulador está visible
-                    if (visible) {
-                        tile.blink();
-                    }
-                }
-            }
-        }
-
-        // Convertir la lista a un arreglo bidimensional
-        int[][] result = new int[fixedTilesPositions.size()][2];
-        for (int i = 0; i < fixedTilesPositions.size(); i++) {
-            result[i] = fixedTilesPositions.get(i);
-        }
-
-        return result;
-    }
+        // requisito, hacer que funcione el tilt de forma correcta y que al hacer tilt sobre un conjunto de fichas pegadas, sí se muevan si se pueden mover, no que toque hacer doble vez tilt para que si se muevan. 
+    //}
 
     // I used the same logic that method isGoal about comparing and to get the position on the tile with the label.
     public int misplacedTiles(){
@@ -1029,11 +1006,11 @@ public class Puzzle {
         {'b', 'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'g'},
         {'g', 'b', '*', 'y', 'b', 'g', 'r', 'y', 'b', 'r'},
         {'r', '*', 'g', 'b', 'r', '*', '*', 'b', 'r', 'g'},
-        {'b', 'g', 'r', 'y', 'b', 'g', 'r', 'y', 'b', 'r'},
-        {'y', '*', 'r', '*', 'y', 'b', 'r', 'g', 'y', 'b'},
-        {'*', 'r', 'y', 'b', 'g', '*', '*', 'b', 'g', 'r'},
-        {'*', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'b'},
-        {'*', 'b', 'g', 'r', 'y', '*', 'g', 'r', 'y', 'g'},
+        {'b', '*', '*', '*', 'b', 'g', 'r', 'y', 'b', 'r'},
+        {'y', '*', '*', '*', 'y', 'b', 'r', 'g', 'y', 'b'},
+        {'*', '*', '*', '*', 'g', '*', '*', 'b', 'g', 'r'},
+        {'*', '*', '*', '*', 'r', 'g', 'b', 'y', 'r', 'b'},
+        {'*', '*', 'g', '*', 'y', '*', 'g', 'r', 'y', 'g'},
         {'*', 'r', 'y', 'b', 'g', 'r', 'y', 'b', 'g', 'r'}
     };
         
@@ -1053,10 +1030,10 @@ public class Puzzle {
         Puzzle pz3 = new Puzzle(10, 10); // Tablero sin matrices
         Puzzle pz4 = new Puzzle(starting1, ending1); // Tablero con matrices
         
-        pz4.addTile(9,0,'r');
-        pz4.addGlue(9,1);
-        pz4.tilt('u');
-        pz4.tilt('r');
+        //pz4.addTile(9,0,'r');
+        //pz4.addGlue(9,1);
+        //pz4.tilt('u');
+        //pz4.tilt('r');
         
         //pz4.addTile(5,1,'b');
         //pz4.deleteTile(5,1);
@@ -1076,10 +1053,15 @@ public class Puzzle {
     
         //pz4.tilt('l');
         //pz4.tilt('g');
-        pz4.addTile(6,0,'r');
+        //pz4.addTile(6,0,'r');
         
         int[] from4 = {6,0};
         int[] to4   = {3,1};
-        pz4.relocateTile(from4,to4);
+        // pz4.relocateTile(from4,to4);
+        // int value = pz4.misplacedTiles();
+        //System.out.println(value);
+        pz4.addGlue(9,2);
+        pz4.tilt('r');
+        pz4.tilt('r');
     }
 }

@@ -19,8 +19,13 @@ public class Puzzle {
     private boolean visible = true; //Determina si el simulador está visible
     private boolean ok = true; //Rastrea si la última acción fue exitosa
     private Circle circle;
+    
     // Board color
     Color lightBrown = new Color(207, 126, 60);
+    
+    private boolean[][] holes; // Matriz para rastrear agujeros
+    private List<Circle> holeCircles; // Lista para almacenar círculos de agujeros
+    
 
     // Constructor para inicializar los tableros sin las matrices
     public Puzzle(int rows, int cols) {
@@ -30,6 +35,9 @@ public class Puzzle {
         this.rows = rows;
         this.cols = cols;
         this.color = lightBrown;
+         // Inicializar la matriz de agujeros y la lista de círculos
+        holes = new boolean[rows][cols];
+        holeCircles = new ArrayList<>();
         
         /**
         startingBoard = new Rectangle();
@@ -65,7 +73,10 @@ public class Puzzle {
         this.ending = ending;
         this.tiles = new ArrayList<>();
         this.referingTiles = new ArrayList<>();
-       
+        // Inicializar la matriz de agujeros y la lista de círculos
+        holes = new boolean[rows][cols];
+        holeCircles = new ArrayList<>();
+        
         // Crear las piezas del puzzle inicial    
         for (int row = 0; row < starting.length; row++) {
             List<Tile> rowList = new ArrayList<>();
@@ -156,28 +167,30 @@ public class Puzzle {
         }
     }
     
-    public void addTile(int row, int column, char label){                
-        if (row >= rows || column >= cols){
+    public void addTile(int row, int column, char label) {                
+        if (row >= rows || column >= cols) {
             showMessage("You have exceeded the puzzle space.", "Error"); 
-            this.ok = false; //Error message
-        }
-        else{
+            this.ok = false; // Error message
+        } else {
             Tile previousTile = tiles.get(row).get(column);
-
-            // Usa equals para comparar colores
-            if(previousTile.getTileColor().equals(lightBrown)) {
-                //previousTile.getLabel();
-                previousTile.setTileColor(label);
-                //System.out.println("Color cambiado a: " + previousTile.getTileColor());
-                //System.out.println("neo");
-                this.ok = true; //Acciòn exitosa
+    
+            // Verificar si la baldosa tiene un agujero
+            if (previousTile.getIsHole()) {
+                showMessage("You cannot add a tile in a tile with a hole.", "Error");
+                this.ok = false; // Error message
+            } 
+            // Verificar si la baldosa es una celda vacía (lightBrown)
+            else if (previousTile.getTileColor().equals(lightBrown)) {
+                previousTile.setTileColor(label); // Cambia el color de la baldosa
+                this.ok = true; // Acción exitosa
             } else {
-                showMessage("There is a tile here now.", "Error");
-                this.ok = false; //Error message
+                showMessage("There is already a tile here.", "Error");
+                this.ok = false; // Error message
             }                                               
         }
-             
     }
+
+
 
     public void deleteTile(int row, int column){
         if (row >= rows || column >= cols){
@@ -248,7 +261,7 @@ public class Puzzle {
     // Método para aplicar pegamento a una baldosa
     public void addGlue(int row, int col) {
         Tile tile = getTileAtPosition(row, col);
-        if (tile == null || isTileEmpty(tile)) {
+        if (tile == null || isTileEmpty(tile) || holes[row][col]) {
             showMessage("No se puede aplicar pegamento a una baldosa vacía.", "Error");
             this.ok = false;
             return;
@@ -885,27 +898,44 @@ public class Puzzle {
         System.out.println("Boards have been exchanged. Now, you're editing the board that was the reference board before.");
     }
     
-    public void makeHole(int row, int column){
-        if (row >= rows || column >= cols){
-            showMessage("You have exceeded the puzzle space.","Error");
-            this.ok = false; //Error Message
+    public void makeHole(int row, int column) {
+        // Validar las coordenadas
+        if (row >= rows || column >= cols || row < 0 || column < 0) {
+            showMessage("You have exceeded the puzzle space.", "Error");
+            this.ok = false; // Error Message
+            return;
         }
-        else{
-            Tile previousTile = tiles.get(row).get(column);
-            
-            if(previousTile.getTileColor().equals(lightBrown)) {
-                //previousTile.getLabel();
-                 circle = new Circle(20,(rows * (tileSize + margin)) + 355 + (column * (tileSize + margin)),55 + (row * (tileSize + margin)), Color.WHITE);
-                //System.out.println("Color cambiado a: " + previousTile.getTileColor());
-                //System.out.println("neo");
-                this.ok = true; //Acciòn exitosa
-            } else {
-                showMessage("There is a tile here now. You cannot make a hole in a non-empty tile", "Error");
-                this.ok = false; //Error message
-            }                                      
+    
+        Tile targetTile = tiles.get(row).get(column);
+    
+        // Verificar si la celda está vacía y no tiene ya un agujero
+        if (isTileEmpty(targetTile) && !targetTile.getIsHole()) {
+            int xPos = targetTile.getXPos();
+            int yPos = targetTile.getYPos();
+            int diameter = tileSize;
+    
+            // Calcular la posición centrada del círculo
+            int circleX = xPos + (tileSize - diameter) / 2;
+            int circleY = yPos + (tileSize - diameter) / 2;
+    
+            // Crear y hacer visible el círculo (agujero)
+            Circle hole = new Circle(diameter, circleX, circleY, Color.WHITE);
+            hole.makeVisible();
+    
+            // Marcar la baldosa como agujereada
+            targetTile.setLabel('h');
+            targetTile.setIsHole(true);
+            this.ok = true; // Acción exitosa
+        } else if (targetTile.getIsHole()) {
+            showMessage("This tile already has a hole.", "Error");
+            this.ok = false; // Error message
+        } else {
+            showMessage("You can only make a hole in an empty tile.", "Error");
+            this.ok = false; // Error message
         }
-       
     }
+
+
     
     //public int [][] fixedTiles(){
         // Al momento de hacer tilt, queremos que se tome una captura de la matriz antes y despues del tilt. La matriz con la configuracion antes del tilt me va a servir para comparar cuales fichas se movieron y cuales no al hacer tilt. Las que no se movieron es porque no se puede. Entonces, las que mantienen la misma posición en la nueva matriz despues de tilt, que las de antes de tilt, van a ser mis baldosas atascadas, las vamos a marcar y luego las vamos a hacer titilar. 

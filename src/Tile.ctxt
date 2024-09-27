@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=Tile
-comment1.params=size\ label\ xPosition\ yPosition\ padding\ row\ col
-comment1.target=Tile(int,\ char,\ int,\ int,\ int,\ int,\ int)
+comment1.params=label\ xPosition\ yPosition\ row\ col
+comment1.target=Tile(char,\ int,\ int,\ int,\ int)
 comment10.params=newRow
 comment10.target=void\ setRow(int)
 comment11.params=newCol

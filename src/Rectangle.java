@@ -29,13 +29,31 @@ public class Rectangle{
     }
     
    
-    public Rectangle(int height, int width, Color color, int xPosition, int yPosition){
+    /**
+     
+     public Rectangle(int height, int width, Color color, int xPosition, int yPosition){
         this.width = width;
         this.height = height;
         this.color = color;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.makeVisible();
+    }
+    **/
+    
+    public Rectangle(int rows, int cols, int xPosition, int yPosition, String boardName){
+            int tileSize = Tile.size;
+            int tileMargin = Tile.margin;
+            color = Puzzle.lightBrown;
+            this.width = rows * (tileSize + tileMargin);
+            this.height = cols * (tileSize + tileMargin);            
+            if (boardName.equals("starting")){
+                this.xPosition = xPosition;
+            } else{
+                this.xPosition = xPosition + width;
+            }
+            this.yPosition = yPosition;            
+            this.makeVisible();
     }
 
     /**

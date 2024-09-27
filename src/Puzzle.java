@@ -4,12 +4,12 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 public class Puzzle {
-    private int tileSize;
+    // private int tileSize; // Tile
     private int rows;
     private int cols;
-    private int margin; // Margen entre cada baldosas
-    private int padding; // Padding interno
-    private Rectangle startingBoard;
+    // private int margin; // Margen entre cada baldosas - Tile
+    // private int padding; // Padding interno - Tile
+    private Rectangle startingBoard; 
     private Rectangle endingBoard;
     private Color color;
     private char[][] starting;
@@ -19,9 +19,10 @@ public class Puzzle {
     private boolean visible = true; //Determina si el simulador está visible
     private boolean ok = true; //Rastrea si la última acción fue exitosa
     private Circle circle;
-    
     // Board color
-    Color lightBrown = new Color(207, 126, 60);
+    public static Color lightBrown = new Color(207, 126, 60);
+    
+    
     
     private boolean[][] holes; // Matriz para rastrear agujeros
     private List<Circle> holeCircles; // Lista para almacenar círculos de agujeros
@@ -29,9 +30,9 @@ public class Puzzle {
 
     // Constructor para inicializar los tableros sin las matrices
     public Puzzle(int rows, int cols) {
-        this.tileSize = 50;  // Tamaño de cada tile
-        this.margin = 10;    // Margen entre tiles
-        this.padding = 5;    // Padding interno
+        // this.tileSize = 50;  // Tamaño de cada tile
+        // this.margin = 10;    // Margen entre tiles
+        //this.padding = 10000000;    // Padding interno
         this.rows = rows;
         this.cols = cols;
         this.color = lightBrown;
@@ -55,18 +56,22 @@ public class Puzzle {
         endingBoard.moveVertical(50);
         **/
         
-        startingBoard = new Rectangle(rows * (tileSize + margin), cols * (tileSize + margin), color,100,50);
+        // This calculations should be done in the rentangle costructor
+        // Vamos a declarar en tile margin y tileSize como atributos protected, luego, desde rectangle vamos a acceder a estos atributos de la clase hija.
+        
+        // startingBoard = new Rectangle(rows * (tileSize + margin), cols * (tileSize + margin), color,100,50);
             
-        endingBoard = new Rectangle(rows * (tileSize + margin), cols * (tileSize + margin),color, rows * (tileSize + margin) + 350, 50);
-    
-
+        // endingBoard = new Rectangle(rows * (tileSize + margin), cols * (tileSize + margin),color, rows * (tileSize + margin) + 350, 50);
+        
+        startingBoard = new Rectangle(rows,cols,100,50,"starting");
+        endingBoard = new Rectangle(rows,cols,350,50,"ending");            
     }
 
     // Constructor para inicializar los tableros con matrices
     public Puzzle(char[][] starting, char[][] ending) {
-        this.tileSize = 50;  // Tamaño de cada tile
+        //this.tileSize = 50;  // Tamaño de cada tile
         this.margin = 10;    // Margen entre tiles
-        this.padding = 10;    // Padding interno
+        //this.padding = 100000000;    // Padding interno
         this.rows = starting.length;
         this.cols = starting[0].length;
         this.starting = starting;
@@ -82,11 +87,11 @@ public class Puzzle {
             List<Tile> rowList = new ArrayList<>();
             for (int col = 0; col < starting[row].length; col++) {
                 char label = starting[row][col];
-                int xPosition = 105 + (col * (tileSize + margin));  // Ajustar la posición horizontal
-                int yPosition = 55 + (row * (tileSize + margin));   // Ajustar la posición vertical
+                int xPosition = 105 + (col * (Tile.size + Tile.margin));  // Ajustar la posición horizontal
+                int yPosition = 55 + (row * (Tile.size + Tile.size));   // Ajustar la posición vertical
 
                 // Crear la pieza y agregarla a la lista
-                Tile tile = new Tile(tileSize, label, xPosition, yPosition, padding,row, col);
+                Tile tile = new Tile(label, xPosition, yPosition,row, col);
                 //tiles.get(row).set(col, tile); // Agregar el tile a la sublista
                 rowList.add(tile); // Inicializa la fila con null                
             }
@@ -98,11 +103,11 @@ public class Puzzle {
             List<Tile> rowList = new ArrayList<>();
             for (int col = 0; col < ending[row].length; col++) {
                 char label = ending[row][col];
-                int xPosition = (rows * (tileSize + margin)) + 355 + (col * (tileSize + margin)); // Ajustar la posición horizontal
-                int yPosition = 55 + (row * (tileSize + margin));   // Ajustar la posición vertical
+                int xPosition = (rows * (Tile.size + Tile.margin)) + 355 + (col * (Tile.size + Tile.margin)); // Ajustar la posición horizontal
+                int yPosition = 55 + (row * (Tile.size + Tile.margin));   // Ajustar la posición vertical
 
                 // Crear la pieza y agregarla a la lista
-                Tile tile = new Tile(tileSize, label, xPosition, yPosition, padding, row, col);
+                Tile tile = new Tile(label, xPosition, yPosition,row, col);
                 rowList.add(tile);
             }
             referingTiles.add(rowList);            

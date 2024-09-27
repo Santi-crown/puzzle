@@ -3,8 +3,9 @@ import java.awt.Color;
 public class Tile extends Rectangle {
     private Color color;
     private char label;
-    private int size;
-    private int padding; // Padding interno
+    public static final int size = 50;
+    public static final int margin = 10;
+    public static final int padding = 10; // Padding interno
     private int row; // Fila de la baldosa
     private int col; // Columna de la baldosa
     private boolean hasGlue = false;
@@ -15,10 +16,10 @@ public class Tile extends Rectangle {
     private int yPos;
     private boolean isHole;
     
-    public Tile(int size, char label, int xPosition, int yPosition, int padding, int row, int col) {
+    public Tile(char label, int xPosition, int yPosition, int row, int col) {
         //super(size, size, Color.WHITE, xPosition, yPosition);
-        this.size = size;
-        this.padding = padding; // Inicializa el padding
+        //this.size = size;
+        //this.padding = padding; // Inicializa el padding
         this.label = label;
         this.row = row;
         this.col = col;
@@ -38,7 +39,7 @@ public class Tile extends Rectangle {
     }
     
     public void setTileColor(char label){
-        Color lightBrown = new Color(207, 126, 60); 
+        Color lightBrown = Puzzle.lightBrown; 
         this.label = label;
 
         switch (label) {

@@ -11,8 +11,9 @@ public class Tile extends Rectangle {
     private boolean isStuck = false;
     private boolean visited = false; // For tracking during tilt
     private Color originalColor;
-    
-    
+    private int xPos;
+    private int yPos;
+    private boolean isHole;
     
     public Tile(int size, char label, int xPosition, int yPosition, int padding, int row, int col) {
         //super(size, size, Color.WHITE, xPosition, yPosition);
@@ -21,6 +22,8 @@ public class Tile extends Rectangle {
         this.label = label;
         this.row = row;
         this.col = col;
+        xPos = xPosition;
+        yPos = yPosition;
       
         int effectiveSize = size - 2 * padding; // Tamaño efectivo después de aplicar padding
 
@@ -124,6 +127,22 @@ public class Tile extends Rectangle {
 
     public void setVisited(boolean visited) {
         this.visited = visited;
+    }
+    
+    public int getXPos(){
+        return xPos;
+    }
+    
+    public int getYPos(){
+        return yPos;
+    }
+    
+    public boolean getIsHole(){
+        return isHole;
+    }
+    
+    public void setIsHole(boolean ishole){
+        this.isHole = isHole;
     }
     
     // Método para hacer que la baldosa parpadee

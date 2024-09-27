@@ -125,6 +125,7 @@ public class Tile extends Rectangle {
     public void setVisited(boolean visited) {
         this.visited = visited;
     }
+    
     // Método para hacer que la baldosa parpadee
     public void blink() {
         if (!isVisible) return;

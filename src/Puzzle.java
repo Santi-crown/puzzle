@@ -885,9 +885,26 @@ public class Puzzle {
         System.out.println("Boards have been exchanged. Now, you're editing the board that was the reference board before.");
     }
     
-    public void makeHole(int row, int col){
-        
-        circle = new Circle(45,100,200, Color.WHITE);
+    public void makeHole(int row, int column){
+        if (row >= rows || column >= cols){
+            showMessage("You have exceeded the puzzle space.","Error");
+            this.ok = false; //Error Message
+        }
+        else{
+            Tile previousTile = tiles.get(row).get(column);
+            
+            if(previousTile.getTileColor().equals(lightBrown)) {
+                //previousTile.getLabel();
+                 circle = new Circle(20,(rows * (tileSize + margin)) + 355 + (column * (tileSize + margin)),55 + (row * (tileSize + margin)), Color.WHITE);
+                //System.out.println("Color cambiado a: " + previousTile.getTileColor());
+                //System.out.println("neo");
+                this.ok = true; //Acciòn exitosa
+            } else {
+                showMessage("There is a tile here now. You cannot make a hole in a non-empty tile", "Error");
+                this.ok = false; //Error message
+            }                                      
+        }
+       
     }
     
     public int [][] fixedTiles(){
@@ -919,17 +936,17 @@ public class Puzzle {
         return result;
     }
 
-
+    // I used the same logic that method isGoal about comparing and to get the position on the tile with the label.
     public int misplacedTiles(){
         
         int cont = 0;
         
         for (int row = 0; row < rows;row++){
             for (int col = 0; col < cols;col++){
-                Tile tile = getTileAtPosition(row, col);
-                char currentLabel= tile.getLabel();
-                
-                Tile referingTile = getTileAtPosition(row, col);
+                Tile currentTile = tiles.get(row).get(col);
+                char currentLabel = currentTile.getLabel();
+    
+                Tile referingTile = referingTiles.get(row).get(col);
                 char referenceLabel = referingTile.getLabel();
                 
                 if (currentLabel != referenceLabel && currentLabel != '*'){

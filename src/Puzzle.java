@@ -406,9 +406,16 @@ public class Puzzle {
         int b = Math.min(255, color.getBlue() + palenessFactor);
         return new Color(r, g, b);
     }
-
+    
+    
+    public void tilt(char direction){
+        this.tiltImplementation(direction);
+        this.tiltImplementation(direction);
+    }
+    
+    
     // Método para inclinar el puzzle en una dirección
-    public void tilt(char direction) {
+    private void tiltImplementation(char direction) {
         switch (direction) {
             case 'd':
                 for (int col = 0; col < w; col++) {
@@ -1090,7 +1097,7 @@ public class Puzzle {
          * FIRST TEST
          */
         
-        
+        /**
         // Crear matrices de caracteres de ejemplo con 8 filas y 4 columnas
         char[][] starting = {
             {'b', 'b','y','y'},
@@ -1102,10 +1109,7 @@ public class Puzzle {
             {'b', 'b','y'},
             {'y', '*','r'},
             {'g','*','g'}
-        };
-        Puzzle pz1 = new Puzzle(3, 4); // Tablero sin matrices
-        Puzzle pz2 = new Puzzle(starting, ending); // Tablero con matrices
-        /**
+        };                
 
         // Instanciar los objetos de Puzzle
         Puzzle pz1 = new Puzzle(3, 4); // Tablero sin matrices
@@ -1150,29 +1154,35 @@ public class Puzzle {
         **/
         
         
-     /**   
+       
          //SECOND TEST
-        char[][] starting1 = {
-        {'y', 'r', 'g', 'r', 'y', 'b', 'g', 'r', 'y', 'b'},
-        {'g', 'b', 'g', 'b', 'r', 'g', 'b', 'y', 'r', 'g'},
-        {'b', 'g', 'y', 'r', 'y', 'b', 'g', 'r', 'y', 'b'},
-        {'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'g'},
-        {'y', 'b', 'g', 'r', 'y', 'b', 'g', '*', 'y', 'b'},
-        {'g', 'r', 'y', 'b', 'g', 'r', 'y', 'b', 'g', 'r'},
-        {'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'b'},
+            char[][] starting1 = {
+        {'*', '*', '*', '*', '*', '*', '*', 'y', 'r', 'b'},
+        {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
+        {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
+        {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
+        {'*', '*', 'r', 'y', 'b', '*', '*', '*', '*', '*'},
+        {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
+        {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
+        {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
+        {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
+        {'r', 'r', '*', '*', '*', 'r', 'y', 'g', '*', '*'}
     };
         
         char[][] ending1 = {
-        {'y', 'r', 'g', 'r', 'y', 'b', 'g', 'r', 'y', 'b'},
-        {'g', 'b', 'g', 'b', 'r', 'g', 'b', 'y', 'r', 'g'},
-        {'b', 'g', 'y', 'r', 'y', 'b', 'g', 'r', 'y', 'b'},
-        {'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'g'},
-        {'y', 'b', 'g', 'r', 'y', 'b', 'g', '*', 'y', 'b'},
-        {'g', 'r', 'y', 'b', 'g', 'r', 'y', 'b', 'g', 'r'},
-        {'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'b'},
+        {'*', '*', '*', '*', '*', '*', '*', 'y', 'r', 'b'},
+        {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
+        {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
+        {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
+        {'*', '*', 'r', 'y', 'b', '*', '*', '*', '*', '*'},
+        {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
+        {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
+        {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
+        {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
+        {'r', 'r', '*', '*', '*', 'r', 'y', 'g', '*', '*'}
     };
-        **/
-        /**
+        
+
         Puzzle pz3 = new Puzzle(7, 10); // Tablero sin matrices
         Puzzle pz4 = new Puzzle(starting1, ending1); // Tablero con matrices
         
@@ -1225,10 +1235,10 @@ public class Puzzle {
         pz4.addGlue(9,6);
         pz4.tilt('d');
         pz4.tilt('u');
-        pz4.tilt('u');
+        //pz4.tilt('u');
         // no deberían quedar todas en la fila 1, deberían moverse más las que pueden moverse. 
         
-        **/
+
         
         //pz4.printBoard();
     }

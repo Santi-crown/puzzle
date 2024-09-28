@@ -3,8 +3,9 @@ import java.awt.Color;
 public class Tile extends Rectangle {
     private Color color;
     private char label;
-    private int size;
-    private int padding; // Padding interno
+    public static final int SIZE = 50;
+    public static final int MARGIN = 10;
+    public static final int PADDING = 10; // Padding interno
     private int row; // Fila de la baldosa
     private int col; // Columna de la baldosa
     private boolean hasGlue = false;
@@ -15,20 +16,20 @@ public class Tile extends Rectangle {
     private int yPos;
     private boolean isHole;
     
-    public Tile(int size, char label, int xPosition, int yPosition, int padding, int row, int col) {
+    public Tile(char label, int xPosition, int yPosition,int row, int col) {
         //super(size, size, Color.WHITE, xPosition, yPosition);
-        this.size = size;
-        this.padding = padding; // Inicializa el padding
+        //this.size = size;
+        //this.padding = padding; // Inicializa el padding
         this.label = label;
         this.row = row;
         this.col = col;
         xPos = xPosition;
         yPos = yPosition;
       
-        int effectiveSize = size - 2 * padding; // Tamaño efectivo después de aplicar padding
+        int effectiveSize = SIZE - 2 * PADDING; // Tamaño efectivo después de aplicar padding
 
         // Cambia el tamaño del rectángulo para reflejar el padding
-        this.changeSize(size, size);
+        this.changeSize(SIZE, SIZE);
         
         // Cambia el color y mueve el rectángulo visible
         this.setTileColor(label);
@@ -38,7 +39,7 @@ public class Tile extends Rectangle {
     }
     
     public void setTileColor(char label){
-        Color lightBrown = new Color(207, 126, 60); 
+        Color lightBrown = Puzzle.lightBrown; 
         this.label = label;
 
         switch (label) {
@@ -143,6 +144,14 @@ public class Tile extends Rectangle {
     
     public void setIsHole(boolean ishole){
         this.isHole = isHole;
+    }
+    
+    public int getSize(){
+        return SIZE;
+    }
+    
+    public int getMargin(){
+        return MARGIN;
     }
     
     // Método para hacer que la baldosa parpadee

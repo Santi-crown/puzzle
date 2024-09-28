@@ -37,7 +37,22 @@ public class Rectangle{
         this.yPosition = yPosition;
         this.makeVisible();
     }
-
+    
+    public Rectangle(int h, int w, int xPosition, int yPosition, String boardName){
+        int tileSize = Tile.SIZE;
+        int tileMargin = Tile.MARGIN;
+        color = Puzzle.lightBrown;
+        this.width = w * (tileSize + tileMargin);
+        this.height = h * (tileSize + tileMargin);            
+        if (boardName.equals("starting")){
+            this.xPosition = xPosition;
+        } else{
+            this.xPosition = xPosition + width;
+        }
+        this.yPosition = yPosition;            
+        this.makeVisible();
+    }
+    
     /**
      * Make this rectangle visible. If it was already visible, do nothing.
      */

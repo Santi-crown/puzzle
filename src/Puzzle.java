@@ -102,7 +102,7 @@ public class Puzzle {
         // Crear baldosas
         
         createTiles(starting, tiles, 105, 55); // Posición inicial de las baldosas iniciales
-        createTiles(ending, referingTiles, h * (Tile.SIZE+ Tile.MARGIN) + 355, 55); // Posición inicial del tablero de referencia
+        createTiles(ending, referingTiles, w * (Tile.SIZE+ Tile.MARGIN) + 355, 55); // Posición inicial del tablero de referencia
         
     }
     
@@ -1076,19 +1076,22 @@ public class Puzzle {
          * FIRST TEST
          */
         
-        /**
+        
         // Crear matrices de caracteres de ejemplo con 8 filas y 4 columnas
         char[][] starting = {
-            {'b', 'b','y','b'},
+            {'b', 'b','y','y'},
             {'y', '*','r','y'},
-            {'g','*','g','b'} 
+            {'g','*','g','y'} 
         };
 
         char[][] ending = {
-            {'y', '*','*','r'},
-            {'*', 'b','g','b'},
-            {'*','g','y','*'}
+            {'b', 'b','y'},
+            {'y', '*','r'},
+            {'g','*','g'}
         };
+        Puzzle pz1 = new Puzzle(3, 4); // Tablero sin matrices
+        Puzzle pz2 = new Puzzle(starting, ending); // Tablero con matrices
+        /**
 
         // Instanciar los objetos de Puzzle
         Puzzle pz1 = new Puzzle(3, 4); // Tablero sin matrices
@@ -1133,19 +1136,16 @@ public class Puzzle {
         **/
         
         
-        
+     /**   
          //SECOND TEST
         char[][] starting1 = {
-        {'y', 'g', 'y', 'b', 'r', 'g', 'b', 'y', 'r', 'b'},
-        {'b', 'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'g'},
-        {'g', 'b', '*', 'y', 'b', 'g', 'r', 'y', 'b', 'r'},
-        {'r', '*', 'g', 'b', 'r', '*', '*', 'b', 'r', 'g'},
-        {'b', 'g', 'r', 'y', 'b', 'g', 'r', 'y', 'b', 'r'},
-        {'y', '*', 'r', '*', 'y', 'b', 'r', 'g', 'y', 'b'},
-        {'*', 'r', 'y', 'b', 'g', '*', '*', 'b', 'g', 'r'},
-        {'*', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'b'},
-        {'*', 'b', 'g', 'r', 'y', '*', 'g', 'r', 'y', 'g'},
-        {'*', 'r', 'y', 'b', 'g', 'r', 'y', 'b', 'g', 'r'}
+        {'y', 'r', 'g', 'r', 'y', 'b', 'g', 'r', 'y', 'b'},
+        {'g', 'b', 'g', 'b', 'r', 'g', 'b', 'y', 'r', 'g'},
+        {'b', 'g', 'y', 'r', 'y', 'b', 'g', 'r', 'y', 'b'},
+        {'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'g'},
+        {'y', 'b', 'g', 'r', 'y', 'b', 'g', '*', 'y', 'b'},
+        {'g', 'r', 'y', 'b', 'g', 'r', 'y', 'b', 'g', 'r'},
+        {'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'b'},
     };
         
         char[][] ending1 = {
@@ -1156,18 +1156,16 @@ public class Puzzle {
         {'y', 'b', 'g', 'r', 'y', 'b', 'g', '*', 'y', 'b'},
         {'g', 'r', 'y', 'b', 'g', 'r', 'y', 'b', 'g', 'r'},
         {'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'b'},
-        {'y', 'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r'},
-        {'g', 'b', 'y', 'r', 'g', 'b', 'y', '*', 'g', 'b'},
-        {'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'g'}
     };
-        
-        Puzzle pz3 = new Puzzle(10, 10); // Tablero sin matrices
+        **/
+        /**
+        Puzzle pz3 = new Puzzle(7, 10); // Tablero sin matrices
         Puzzle pz4 = new Puzzle(starting1, ending1); // Tablero con matrices
         
-        pz4.addTile(9,0,'r');
-        pz4.addGlue(9,1);
-        pz4.tilt('u');
-        pz4.tilt('r');
+        // pz4.addTile(9,0,'r');
+        // pz4.addGlue(9,1);
+        // pz4.tilt('u');
+        // pz4.tilt('r');
         
         //pz4.addTile(5,1,'b');
         //pz4.deleteTile(5,1);
@@ -1187,10 +1185,37 @@ public class Puzzle {
     
         //pz4.tilt('l');
         //pz4.tilt('g');
-        pz4.addTile(6,0,'r');
+        // pz4.addTile(6,0,'r');
         
         int[] from4 = {6,0};
         int[] to4   = {3,1};
-        pz4.relocateTile(from4,to4);
+        // pz4.relocateTile(from4,to4);
+        // caso problema 1.1
+        // pz4.addGlue(4,3);
+        //pz4.addGlue(9,1);    
+        //pz4.addGlue(9,5);
+        //pz4.addGlue(0,8);
+        //pz4.addGlue(0,4);
+        //pz4.tilt('u');
+        //pz4.tilt('u');
+        
+        // pz4.tilt('d');
+        // pz4.tilt('d');
+        // pz4.tilt('d');
+        
+        // pz4.tilt('u');
+        // pz4.tilt('u');
+        // pz4.tilt('u');
+        pz4.addGlue(9,1);
+        pz4.addGlue(4,3);
+        pz4.addGlue(9,6);
+        pz4.tilt('d');
+        pz4.tilt('u');
+        pz4.tilt('u');
+        // no deberían quedar todas en la fila 1, deberían moverse más las que pueden moverse. 
+        
+        **/
+        
+        //pz4.printBoard();
     }
 }

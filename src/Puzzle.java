@@ -39,7 +39,6 @@ public class Puzzle {
         this.tiles = new ArrayList<>();
         this.referingTiles = new ArrayList<>();
         
-        
         // Inicializar la matriz de agujeros y la lista de círculos        
         holeCircles = new ArrayList<>();
         
@@ -58,6 +57,7 @@ public class Puzzle {
         endingBoard.moveHorizontal(h * (Tile.SIZE + Tile.MARGIN) + 350);
         endingBoard.moveVertical(50);
         **/ 
+        
         if (h > 0 && w > 0){
             holes = new boolean[h][w];
             //startingBoard = new Rectangle(h * (Tile.SIZE + Tile.MARGIN), w * (Tile.SIZE + Tile.MARGIN), color,100,50);
@@ -66,15 +66,16 @@ public class Puzzle {
             startingBoard = new Rectangle(h,w,100,50,"starting");
             endingBoard = new Rectangle(h,w,350,50,"ending"); 
             
+            // Crear baldosas vacías en el tablero inicial y baldosas en el tablero final
+            createEmptyTiles();
+            createEmptyreferingTiles();
+            
         }
-        else{
+        else {
             showMessage("You cannot create the two boards with negative or zero h,w", "Error");
             this.ok = false; //Acción no exitosa
         }
         
-        // Crear baldosas vacías en el tablero inicial y baldosas en el tablero final
-        createEmptyTiles();
-        createEmptyTiles();
     }
 
     // Constructor para inicializar los tableros con matrices
@@ -102,7 +103,7 @@ public class Puzzle {
         // Crear baldosas
         
         createTiles(starting, tiles, 105, 55); // Posición inicial de las baldosas iniciales
-        createTiles(ending, referingTiles, h * (Tile.SIZE+ Tile.MARGIN) + 355, 55); // Posición inicial del tablero de referencia
+        createTiles(ending, referingTiles, w * (Tile.SIZE+ Tile.MARGIN) + 355, 55); // Posición inicial del tablero de referencia
         
     }
     
@@ -159,6 +160,20 @@ public class Puzzle {
             tiles.add(rowList);
         }
     }
+    
+    private void createEmptyreferingTiles() {
+        for (int row = 0; row < h; row++) {
+            List<Tile> rowList = new ArrayList<>();
+            for (int col = 0; col < w; col++) {
+                char label = '*';  // Baldosa vacía
+                int xPosition = (w * (Tile.SIZE + Tile.MARGIN)) + 355 + (col * (Tile.SIZE + Tile.MARGIN));
+                int yPosition = 55 + (row * (Tile.SIZE + Tile.MARGIN));
+                Tile tile = new Tile(label, xPosition, yPosition,row, col);
+                rowList.add(tile);
+            }
+            referingTiles.add(rowList);
+        }
+    }    
 
     
     public void addTile(int row, int column, char label) {                
@@ -172,7 +187,7 @@ public class Puzzle {
             Tile previousTile = tiles.get(row).get(column);
     
             // Verificar si la baldosa tiene un agujero
-            if (previousTile.getIsHole()) {
+            if (previousTile.getLabel() == 'h') {
                 showMessage("You cannot add a tile in a tile with a hole.", "Error");
                 this.ok = false; // Error message
             } 
@@ -180,6 +195,7 @@ public class Puzzle {
             else if (previousTile.getTileColor().equals(lightBrown)) {
                 previousTile.setTileColor(label); // Cambia el color de la baldosa
                 this.ok = true; // Acción exitosa
+            
             } else {
                 showMessage("There is already a tile here.", "Error");
                 this.ok = false; // Error message
@@ -194,19 +210,25 @@ public class Puzzle {
             showMessage("You have exceeded the puzzle space.", "Error");
             this.ok = false; //Error messag
             
-        } else if (row < 0 || column <0 ){
+        } else if (row < 0 || column < 0 ){
             showMessage("You're searching for a non-exist tile, with negative position.", "Error"); 
             this.ok = false; // Error message
         }
         else{
             Tile previousTile = tiles.get(row).get(column);
-
+            
+            // Verificar si la baldosa tiene un agujero
+            if (previousTile.getLabel() == 'h') {
+                showMessage("You cannot delete a tile that is a hole.", "Error");
+                this.ok = false; // Error message
+            } 
+            
             // Usa equals para comparar colores
-            if(!previousTile.getTileColor().equals(lightBrown)) {
+            else if(!previousTile.getTileColor().equals(lightBrown)) {
                 previousTile.setTileColor('n');  
                 this.ok = true; //Acciòn exitosa
             } else {
-                showMessage("There is a tile here now.", "Error");
+                showMessage("You're trying to delete for a non-exist tile.", "Error");
                 this.ok = false; //Error message
             }
         }
@@ -221,21 +243,32 @@ public class Puzzle {
             this.ok = false;
             return;
         }
-
+        
         Tile fromTile = tiles.get(from[0]).get(from[1]);
         Tile toTile = tiles.get(to[0]).get(to[1]);
 
         // Validar existencia de la baldosa de origen y disponibilidad de la baldosa de destino
-        if (isTileEmpty(fromTile)) {
+        if (fromTile.getLabel() == 'h'){
+            showMessage("You cannot move a hole tile.", "Error");
+            this.ok = false;
+            
+        } else if (toTile.getLabel() == 'h'){
+            showMessage("You cannot relocate a tile with a position that has a hole tile.", "Error");
+            this.ok = false;
+            
+        }else if (isTileEmpty(fromTile)) {
             showMessage("No puedes mover una baldosa inexistente.", "Error");
             this.ok = false;
+            
         } else if (!isTileEmpty(toTile)) {
             showMessage("Ya hay una baldosa en la posición de destino.", "Error");
             this.ok = false;
+            
         } else if (fromTile.hasGlue() || fromTile.isStuck()) {
             showMessage("No puedes mover una baldosa que tiene pegamento o está pegada.", "Error");
             this.ok = false;
-        } else {
+            
+        }else {
             // Realizar el movimiento
             this.relocateTileMovement(fromTile, toTile, from, to);
             this.ok = true;
@@ -262,65 +295,74 @@ public class Puzzle {
     // Método para aplicar pegamento a una baldosa
     public void addGlue(int row, int col) {
         Tile tile = getTileAtPosition(row, col);
-        if (tile == null || isTileEmpty(tile) || holes[row][col]) {
+        if (tile.getLabel() == 'h'){
+            showMessage("You cannot add glue in a hole tile.", "Error");
+            this.ok = false;
+
+        }else if (tile == null || isTileEmpty(tile) || holes[row][col]) {
             showMessage("No se puede aplicar pegamento a una baldosa vacía.", "Error");
             this.ok = false;
-            return;
         }
-        if (tile.hasGlue()) {
+        else if (tile.hasGlue()) {
             showMessage("Esta baldosa ya tiene pegamento aplicado.", "Error");
             this.ok = false;
-            return;
+            
         }
+        else{
+            tile.setHasGlue(true);
 
-        tile.setHasGlue(true);
-
-        // Cambiar el color de la baldosa a una versión más pálida
-        Color evenPalerColor = getPaleColor(tile.getOriginalColor(), 150);
-        tile.setTileColor(evenPalerColor);
-
-        // Actualizar las baldosas adyacentes
-        updateAdjacentTiles(tile);
-
-        // Recolectar el grupo de baldosas pegadas
-        List<Tile> group = new ArrayList<>();
-        collectStuckGroup(tile, group);
-
-        // Resetear las banderas de visitado
-        resetVisitedFlags();
-
-        this.ok = true;
+            // Cambiar el color de la baldosa a una versión más pálida
+            Color evenPalerColor = getPaleColor(tile.getOriginalColor(), 150);
+            tile.setTileColor(evenPalerColor);
+    
+            // Actualizar las baldosas adyacentes
+            updateAdjacentTiles(tile);
+    
+            // Recolectar el grupo de baldosas pegadas
+            List<Tile> group = new ArrayList<>();
+            collectStuckGroup(tile, group);
+    
+            // Resetear las banderas de visitado
+            resetVisitedFlags();
+            tile.setLabel('p');
+            this.ok = true;
+        }
+        
     }
 
     // Método para eliminar el pegamento de una baldosa
     public void deleteGlue(int row, int col) {
         Tile tile = getTileAtPosition(row, col);
-        if (tile == null || !tile.hasGlue()) {
+        if (tile.getLabel() == 'h'){
+            showMessage("You cannot delete glue in a hole tile.", "Error");
+            this.ok = false;
+        } else if (tile == null || !tile.hasGlue()) {
             showMessage("No hay pegamento para eliminar en esta baldosa.", "Error");
             this.ok = false;
-            return;
+            
+        } else{
+            tile.setHasGlue(false);
+
+            // Si la baldosa ya no está pegada a ninguna otra, ajustar el color
+            if (!tile.isStuck()) {
+                // Cambiar el color a una versión ligeramente más clara
+                Color slightlyPalerColor = getPaleColor(tile.getOriginalColor(), 50);
+                tile.setTileColor(slightlyPalerColor);
+            }
+    
+            // Actualizar las baldosas adyacentes
+            updateAdjacentTilesAfterGlueRemoval(tile);
+    
+            // Recolectar el grupo de baldosas pegadas para actualizar estados
+            List<Tile> group = new ArrayList<>();
+            collectStuckGroup(tile, group);
+    
+            // Resetear las banderas de visitado
+            resetVisitedFlags();
+    
+            this.ok = true;
         }
-
-        tile.setHasGlue(false);
-
-        // Si la baldosa ya no está pegada a ninguna otra, ajustar el color
-        if (!tile.isStuck()) {
-            // Cambiar el color a una versión ligeramente más clara
-            Color slightlyPalerColor = getPaleColor(tile.getOriginalColor(), 50);
-            tile.setTileColor(slightlyPalerColor);
-        }
-
-        // Actualizar las baldosas adyacentes
-        updateAdjacentTilesAfterGlueRemoval(tile);
-
-        // Recolectar el grupo de baldosas pegadas para actualizar estados
-        List<Tile> group = new ArrayList<>();
-        collectStuckGroup(tile, group);
-
-        // Resetear las banderas de visitado
-        resetVisitedFlags();
-
-        this.ok = true;
+     
     }
 
     // Método para actualizar las baldosas adyacentes después de aplicar pegamento
@@ -392,9 +434,14 @@ public class Puzzle {
         int b = Math.min(255, color.getBlue() + palenessFactor);
         return new Color(r, g, b);
     }
-
+    
+    public void tilt(char direction){
+        this.tiltImplementation(direction);
+        this.tiltImplementation(direction);
+    }
+    
     // Método para inclinar el puzzle en una dirección
-    public void tilt(char direction) {
+    private void tiltImplementation(char direction) {
         switch (direction) {
             case 'd':
                 for (int col = 0; col < w; col++) {
@@ -747,7 +794,7 @@ public class Puzzle {
     }
     
     // Muestra un mensaje de error si el simulador es visible y cambia el estado de ok a false
-    public void showMessage(String message, String title){
+    private void showMessage(String message, String title){
         if(this.visible){
             JOptionPane.showMessageDialog(null,message,title,JOptionPane.ERROR_MESSAGE);
             this.ok = false;
@@ -776,8 +823,6 @@ public class Puzzle {
     }
 
 
-
-    
     // Hace visible el simulador
     //This method consists in two parts cuz there are two different constructors to disappear rectangle or tiles(visible)
     
@@ -935,6 +980,7 @@ public class Puzzle {
             System.out.println();
         }
         
+        System.out.println();
         
         for (int row = 0; row < h; row++) {
             for (int col = 0; col < w; col++) {
@@ -982,30 +1028,31 @@ public class Puzzle {
             showMessage("You cannot make a hole in a non-exist tile with negative position.", "Error");
             this.ok = false; // Error Message
             
-        } else{
+        }else{
             
             Tile targetTile = tiles.get(row).get(column);
-    
-            // Verificar si la celda está vacía y no tiene ya un agujero
-            if (isTileEmpty(targetTile) && !targetTile.getIsHole()) {
+            
+            if (isTileEmpty(targetTile) && !targetTile.getIsHole()){
+                
+                // Verificar si la celda está vacía y no tiene ya un agujero
                 int xPos = targetTile.getXPos();
                 int yPos = targetTile.getYPos();
                 int diameter = Tile.SIZE;
-        
+            
                 // Calcular la posición centrada del círculo
                 int circleX = xPos + (Tile.SIZE - diameter) / 2;
                 int circleY = yPos + (Tile.SIZE - diameter) / 2;
-        
+            
                 // Crear y hacer visible el círculo (agujero)
                 Circle hole = new Circle(diameter, circleX, circleY, Color.WHITE);
                 hole.makeVisible();
-        
+            
                 // Marcar la baldosa como agujereada
                 targetTile.setLabel('h');
                 targetTile.setIsHole(true);
-                this.ok = true; // Acción exitosa
+                this.ok = true; // Acción exitosa  
                 
-            } else if (targetTile.getIsHole()) {
+            }else if (targetTile.getLabel() == 'h') {
                 showMessage("This tile already has a hole.", "Error");
                 this.ok = false; // Error message
             } else {
@@ -1013,8 +1060,10 @@ public class Puzzle {
                 this.ok = false; // Error message
             }
         }
-          
+            
     }
+        
+
 
     /**
     public int [][] fixedTiles(){

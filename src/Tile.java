@@ -14,7 +14,7 @@ public class Tile extends Rectangle {
     private Color originalColor;
     private int xPos;
     private int yPos;
-    private boolean isHole;
+    private boolean isHole = false;
     
     public Tile(char label, int xPosition, int yPosition,int row, int col) {
         //super(size, size, Color.WHITE, xPosition, yPosition);

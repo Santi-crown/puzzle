@@ -4,11 +4,8 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 public class Puzzle {
-    //private int Tile.SIZE;
     private int h;
     private int w;
-    //private int Tile.MARGIN; // Margen entre cada baldosas - Tile
-    //private int padding; // Padding interno - Tile
     private Rectangle startingBoard;
     private Rectangle endingBoard;
     private Color color;
@@ -30,9 +27,6 @@ public class Puzzle {
     
     // Constructor para inicializar los tableros sin las matrices
     public Puzzle(int h, int w) {
-        //this.Tile.SIZE = 50;  // Tamaño de cada tile
-        //this.Tile.MARGIN = 10;    // Margen entre tiles
-        //this.padding = 5;    // Padding interno
         this.h = h;
         this.w = w;
         this.color = lightBrown;
@@ -41,22 +35,6 @@ public class Puzzle {
         
         // Inicializar la matriz de agujeros y la lista de círculos        
         holeCircles = new ArrayList<>();
-        
-        /**
-        startingBoard = new Rectangle();
-        startingBoard.changeTile.SIZE(h * (Tile.SIZE + Tile.MARGIN), w * (Tile.SIZE + Tile.MARGIN));
-        startingBoard.changeColor(color);
-        startingBoard.makeVisible();
-        startingBoard.moveHorizontal(100);
-        startingBoard.moveVertical(50);
-
-        endingBoard = new Rectangle();
-        endingBoard.changeTile.SIZE(h * (Tile.SIZE + Tile.MARGIN), w * (Tile.SIZE + Tile.MARGIN));
-        endingBoard.changeColor(color);
-        endingBoard.makeVisible();
-        endingBoard.moveHorizontal(h * (Tile.SIZE + Tile.MARGIN) + 350);
-        endingBoard.moveVertical(50);
-        **/ 
         
         if (h > 0 && w > 0){
             holes = new boolean[h][w];
@@ -80,10 +58,6 @@ public class Puzzle {
 
     // Constructor para inicializar los tableros con matrices
     public Puzzle(char[][] starting, char[][] ending) {
-        
-        //this.Tile.SIZE = 50;  // Tamaño de cada tile
-        //this.Tile.MARGIN = 10;    // Margen entre tiles
-        //this.padding = 10;    // Padding interno
         this.h = starting.length;
         this.w = starting[0].length;
         this.starting = starting;
@@ -109,10 +83,6 @@ public class Puzzle {
     
     // Constructor para inicializar vacio starting y con baldosas ending
     public Puzzle(char [][] ending){    
-    
-        //this.Tile.SIZE = 50;  // Tamaño de cada tile
-        //this.Tile.MARGIN = 10;    // Margen entre tiles
-        //this.padding = 10;    // Padding interno
         this.h = ending.length;
         this.w = ending[0].length;
         //this.starting = starting;
@@ -1009,15 +979,37 @@ public class Puzzle {
     
     public void exchange() {
         // Intercambia las referencias entre el tablero de edición (starting) y el tablero de referencia (ending)
-        char[][] temp = starting;  // Guarda la matriz de edición temporalmente
-        starting = ending;         // Asigna la matriz de referencia como la nueva matriz de edición
-        ending = temp;             // Asigna la matriz temporal (original de edición) como la nueva matriz de referencia
+        //char[][] temp = starting;  // Guarda la matriz de edición temporalmente
+        //starting = ending;         // Asigna la matriz de referencia como la nueva matriz de edición
+        //ending = temp;             // Asigna la matriz temporal (original de edición) como la nueva matriz de referencia
     
         // Intercambia las listas de baldosas entre tiles y referingTiles sin alterar el estado de las baldosas
         List<List<Tile>> tempTiles = tiles;
-        tiles = referingTiles;
-        referingTiles = tempTiles;
-    
+        //tiles = referingTiles;
+        //referingTiles = tempTiles;
+        
+        for (int row = 0; row < h; row++) {
+            List<Tile> rowList = new ArrayList<>();
+            for (int col = 0; col < w; col++) {
+                int xTemporalPosition = 0;
+                int yTemporalPosition = 0;
+                
+                Tile startingTile = tiles.get(row).get(col);
+                int xPositionStartingTile = startingTile.getXPos();
+                
+                Tile endingTile = referingTiles.get(row).get(col);
+                int xPositionEndingTile = startingTile.getXPos();
+                /**
+                char label = board[row][col];
+                int xPosition = xOffset + (col * (Tile.SIZE + Tile.MARGIN));
+                int yPosition = yOffset + (row * (Tile.SIZE + Tile.MARGIN));
+                Tile tile = new Tile(label, xPosition, yPosition,row, col);
+                **/
+                //rowList.add(tile);
+            }
+            //tileList.add(rowList);
+        }
+        
         // No se alteran los colores ni el estado de pegamento de las baldosas. Simplemente intercambiamos los tableros activos.
         System.out.println("Boards have been exchanged. Now, you're editing the board that was the reference board before.");
     }

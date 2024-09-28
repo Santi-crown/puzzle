@@ -1002,41 +1002,50 @@ public class Puzzle {
     }
     
     public void exchange() {
-        // Intercambia las referencias entre el tablero de edición (starting) y el tablero de referencia (ending)
-        //char[][] temp = starting;  // Guarda la matriz de edición temporalmente
-        //starting = ending;         // Asigna la matriz de referencia como la nueva matriz de edición
-        //ending = temp;             // Asigna la matriz temporal (original de edición) como la nueva matriz de referencia
+    // Intercambiar matrices de caracteres
+    char[][] temp = starting;
+    starting = ending;
+    ending = temp;
+
+    // Intercambiar listas de baldosas
+    List<List<Tile>> tempTiles = tiles;
+    tiles = referingTiles;
+    referingTiles = tempTiles;
     
-        // Intercambia las listas de baldosas entre tiles y referingTiles sin alterar el estado de las baldosas
-        List<List<Tile>> tempTiles = tiles;
-        //tiles = referingTiles;
-        //referingTiles = tempTiles;
-        
-        for (int row = 0; row < h; row++) {
-            List<Tile> rowList = new ArrayList<>();
-            for (int col = 0; col < w; col++) {
-                int xTemporalPosition = 0;
-                int yTemporalPosition = 0;
-                
-                Tile startingTile = tiles.get(row).get(col);
-                int xPositionStartingTile = startingTile.getXPos();
-                
-                Tile endingTile = referingTiles.get(row).get(col);
-                int xPositionEndingTile = startingTile.getXPos();
-                /**
-                char label = board[row][col];
-                int xPosition = xOffset + (col * (Tile.SIZE + Tile.MARGIN));
-                int yPosition = yOffset + (row * (Tile.SIZE + Tile.MARGIN));
-                Tile tile = new Tile(label, xPosition, yPosition,row, col);
-                **/
-                //rowList.add(tile);
-            }
-            //tileList.add(rowList);
+    // Intercambiar visualmente las posiciones de las baldosas
+    for (int row = 0; row < h; row++) {
+        for (int col = 0; col < w; col++) {
+            Tile startingTile = tiles.get(row).get(col);
+            int xPositionStartingTile = startingTile.getXPos();
+            int yPositionStartingTile = startingTile.getYPos();
+
+            Tile endingTile = referingTiles.get(row).get(col);
+            int xPositionEndingTile = endingTile.getXPos();
+            int yPositionEndingTile = endingTile.getYPos();
+
+            // Calcular la diferencia en posiciones
+            int deltaXStarting = xPositionEndingTile - xPositionStartingTile;
+            int deltaYStarting = yPositionEndingTile - yPositionStartingTile;
+
+            int deltaXEnding = xPositionStartingTile - xPositionEndingTile;
+            int deltaYEnding = yPositionStartingTile - yPositionEndingTile;
+
+            // Mover las baldosas a sus nuevas posiciones
+            startingTile.moveHorizontal(deltaXStarting);
+            startingTile.moveVertical(deltaYStarting);
+            startingTile.setXPos(xPositionEndingTile);
+            startingTile.setYPos(yPositionEndingTile);
+
+            endingTile.moveHorizontal(deltaXEnding);
+            endingTile.moveVertical(deltaYEnding);
+            endingTile.setXPos(xPositionStartingTile);
+            endingTile.setYPos(yPositionStartingTile);
         }
-        
-        // No se alteran los colores ni el estado de pegamento de las baldosas. Simplemente intercambiamos los tableros activos.
-        System.out.println("Boards have been exchanged. Now, you're editing the board that was the reference board before.");
     }
+
+    System.out.println("Boards have been exchanged. Now, you're editing the board that was the reference board before.");
+}
+
     
     public void makeHole(int row, int column) {
         // Validar las coordenadas

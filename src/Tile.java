@@ -55,6 +55,9 @@ public class Tile extends Rectangle {
             case 'g':
                 color = Color.GREEN;
                 break;
+            case 'h':
+                color = Color.WHITE;
+                break;
             case 'n':
                 color = lightBrown;
                 break;
@@ -139,10 +142,10 @@ public class Tile extends Rectangle {
     }
     
     public boolean getIsHole(){
-        return isHole;
+        return this.isHole;
     }
     
-    public void setIsHole(boolean ishole){
+    public void setIsHole(boolean isHole){
         this.isHole = isHole;
     }
     

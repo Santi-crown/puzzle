@@ -127,7 +127,7 @@ public class Puzzle {
         
         // Crear baldosas vacías en el tablero inicial y baldosas en el tablero final
         createEmptyTiles();
-        createTiles(ending, referingTiles, h * (Tile.SIZE + Tile.MARGIN) + 355, 55);
+        createTiles(ending, referingTiles, w * (Tile.SIZE + Tile.MARGIN) + 355, 55);
     }
     
     
@@ -807,14 +807,18 @@ public class Puzzle {
             for (int col = 0; col < w; col++) {
                 Tile currentTile = tiles.get(row).get(col);
                 char currentLabel = currentTile.getLabel();
-    
+                
                 Tile targetTile = referingTiles.get(row).get(col);
                 char targetLabel = targetTile.getLabel();
-    
+                
+                if (currentLabel == 'h' || targetLabel == 'h'){
+                    continue;
+                }
                 // Comparar la baldosa actual con la baldosa en el estado objetivo
                 if (currentLabel != targetLabel) {
                     return false;  // Si no coinciden, el estado final aún no se ha alcanzado
                 }
+                
             }
         }
         
@@ -1032,7 +1036,11 @@ public class Puzzle {
             
             Tile targetTile = tiles.get(row).get(column);
             
-            if (isTileEmpty(targetTile) && !targetTile.getIsHole()){
+            if (targetTile.getLabel() == 'h'){
+                showMessage("This tile already has a hole.", "Error");
+                this.ok = false; // Error message
+            }
+            else if (isTileEmpty(targetTile) && !targetTile.getIsHole()){
                 
                 // Verificar si la celda está vacía y no tiene ya un agujero
                 int xPos = targetTile.getXPos();
@@ -1052,10 +1060,7 @@ public class Puzzle {
                 targetTile.setIsHole(true);
                 this.ok = true; // Acción exitosa  
                 
-            }else if (targetTile.getLabel() == 'h') {
-                showMessage("This tile already has a hole.", "Error");
-                this.ok = false; // Error message
-            } else {
+            }else {
                 showMessage("You can only make a hole in an empty tile.", "Error");
                 this.ok = false; // Error message
             }

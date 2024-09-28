@@ -74,7 +74,7 @@ public class Puzzle {
         
         // Crear baldosas vacías en el tablero inicial y baldosas en el tablero final
         createEmptyTiles();
-        createEmptyTiles();
+        createEmptyreferingTiles();
     }
 
     // Constructor para inicializar los tableros con matrices
@@ -159,6 +159,20 @@ public class Puzzle {
             tiles.add(rowList);
         }
     }
+    
+    private void createEmptyreferingTiles() {
+        for (int row = 0; row < h; row++) {
+            List<Tile> rowList = new ArrayList<>();
+            for (int col = 0; col < w; col++) {
+                char label = '*';  // Baldosa vacía
+                int xPosition = (w * (Tile.SIZE + Tile.MARGIN)) + 355 + (col * (Tile.SIZE + Tile.MARGIN));
+                int yPosition = 55 + (row * (Tile.SIZE + Tile.MARGIN));
+                Tile tile = new Tile(label, xPosition, yPosition,row, col);
+                rowList.add(tile);
+            }
+            referingTiles.add(rowList);
+        }
+    }    
 
     
     public void addTile(int row, int column, char label) {                

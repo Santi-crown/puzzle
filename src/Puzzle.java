@@ -176,7 +176,31 @@ public class Puzzle {
     }    
 
     
-    public void addTile(int row, int column, char label) {                
+    public void addTile(int row, int column, char label) {  
+        
+        //Allowed list for tile 
+        char [] validLabels = {'r','g','b','y'};
+        
+        //Initialize if the label is valid
+        boolean isValidLabel = false;
+        
+        //Moving into the char []
+        for (char validLabel: validLabels){
+            if (label == validLabel){
+                isValidLabel = true; //Change the condition
+                break;
+            }
+        }
+        
+        //If label is invalid, show the error
+        if (!isValidLabel){
+            showMessage("Invalid label. Accepted labels are: r, g, b, y, *.", "Error"); 
+            this.ok = false; // Error message 
+            return; //Leaves the method
+        }
+        
+        
+        //Other validations
         if (row >= h || column >= w) {
             showMessage("You have exceeded the puzzle space.", "Error"); 
             this.ok = false; // Error message

@@ -44,8 +44,9 @@ public class Rectangle{
         color = Puzzle.lightBrown;
         this.width = w * (tileSize + tileMargin);
         this.height = h * (tileSize + tileMargin);            
+        this.xPosition = xPosition;
         if (boardName.equals("starting")){
-            this.xPosition = xPosition;
+            
         } else{
             this.xPosition = xPosition + width;
         }

@@ -177,123 +177,122 @@ public class Puzzle {
     }    
 
     
-    public void addTile(int row, int column, char label) {  
-        
-        //Allowed list for tile 
-        char [] validLabels = {'r','g','b','y'};
-        
-        //Initialize if the label is valid
+    public void addTile(int row, int column, char label) {
+
+        // Allowed list for tile
+        char[] validLabels = {'r', 'g', 'b', 'y'};
+
+        // Initialize if the label is valid
         boolean isValidLabel = false;
-        
-        //Moving into the char []
-        for (char validLabel: validLabels){
-            if (label == validLabel){
-                isValidLabel = true; //Change the condition
+
+        // Moving into the char []
+        for (char validLabel : validLabels) {
+            if (label == validLabel) {
+                isValidLabel = true; // Change the condition
                 break;
             }
         }
-        
-        //If label is invalid, show the error
-        if (!isValidLabel){
-            showMessage("Invalid label. Accepted labels are: r, g, b, y, *.", "Error"); 
-            this.ok = false; // Error message 
-            return; //Leaves the method
-        }
-        
-        
-        //Other validations
-        if (row >= h || column >= w) {
-            showMessage("You have exceeded the puzzle space.", "Error"); 
+
+        // If label is invalid, show the error
+        if (!isValidLabel) {
+            showMessage("Invalid label. Accepted labels are: r, g, b, y.", "Error");
             this.ok = false; // Error message
-        } else if (row < 0 || column < 0){
-            showMessage("You're searching for a non-exist tile, with negative position.", "Error"); 
+            return; // Leaves the method
+        }
+
+        // Other validations
+        if (row >= h || column >= w) {
+            showMessage("You have exceeded the puzzle space.", "Error");
+            this.ok = false; // Error message
+        } else if (row < 0 || column < 0) {
+            showMessage("You're searching for a non-existent tile with negative position.", "Error");
             this.ok = false; // Error message
         } else {
             Tile previousTile = tiles.get(row).get(column);
-    
+
             // Verificar si la baldosa tiene un agujero
             if (previousTile.getLabel() == 'h') {
-                showMessage("You cannot add a tile in a tile with a hole.", "Error");
+                showMessage("You cannot add a tile on a hole.", "Error");
                 this.ok = false; // Error message
-            } 
-            // Verificar si la baldosa es una celda vacía (lightBrown)
-            else if (previousTile.getTileColor().equals(lightBrown)) {
+            }
+            // Verificar si la baldosa es una celda vacía
+            else if (isTileEmpty(previousTile)) {
                 previousTile.setTileColor(label); // Cambia el color de la baldosa
+                previousTile.setLabel(label);
+                previousTile.makeVisible();
                 this.ok = true; // Acción exitosa
-            
+
             } else {
                 showMessage("There is already a tile here.", "Error");
                 this.ok = false; // Error message
-            }                                               
+            }
         }
     }
 
-
-
-    public void deleteTile(int row, int column){
-        if (row >= h || column >= w){
+    public void deleteTile(int row, int column) {
+        if (row >= h || column >= w) {
             showMessage("You have exceeded the puzzle space.", "Error");
-            this.ok = false; //Error messag
-            
-        } else if (row < 0 || column < 0 ){
-            showMessage("You're searching for a non-exist tile, with negative position.", "Error"); 
             this.ok = false; // Error message
-        }
-        else{
+
+        } else if (row < 0 || column < 0) {
+            showMessage("You're searching for a non-existent tile with negative position.", "Error");
+            this.ok = false; // Error message
+        } else {
             Tile previousTile = tiles.get(row).get(column);
-            
+
             // Verificar si la baldosa tiene un agujero
             if (previousTile.getLabel() == 'h') {
                 showMessage("You cannot delete a tile that is a hole.", "Error");
                 this.ok = false; // Error message
-            } 
-            
-            // Usa equals para comparar colores
-            else if(!previousTile.getTileColor().equals(lightBrown)) {
-                previousTile.setTileColor('n');  
-                this.ok = true; //Acciòn exitosa
+            }
+
+            else if (!isTileEmpty(previousTile)) {
+                previousTile.setTileColor('n');
+                previousTile.setLabel('*');
+                previousTile.makeInvisible();
+                this.ok = true; // Acción exitosa
             } else {
-                showMessage("You're trying to delete for a non-exist tile.", "Error");
-                this.ok = false; //Error message
+                showMessage("You're trying to delete a non-existent tile.", "Error");
+                this.ok = false; // Error message
             }
         }
-        
+
     }
-    
+
     // Método para relocalizar una baldosa
     public void relocateTile(int[] from, int[] to) {
         // Validar las coordenadas de entrada
         if (!areValidCoordinates(from) || !areValidCoordinates(to)) {
-            showMessage("Coordenadas inválidas.", "Error");
+            showMessage("Invalid coordinates.", "Error");
             this.ok = false;
             return;
         }
-        
+
         Tile fromTile = tiles.get(from[0]).get(from[1]);
         Tile toTile = tiles.get(to[0]).get(to[1]);
 
         // Validar existencia de la baldosa de origen y disponibilidad de la baldosa de destino
-        if (fromTile.getLabel() == 'h'){
+        if (fromTile.getLabel() == 'h') {
             showMessage("You cannot move a hole tile.", "Error");
             this.ok = false;
-            
-        } else if (toTile.getLabel() == 'h'){
-            showMessage("You cannot relocate a tile with a position that has a hole tile.", "Error");
+
+        } else if (toTile.getLabel() == 'h') {
+            showMessage("You cannot relocate a tile to a position that has a hole.", "Error");
             this.ok = false;
-            
-        }else if (isTileEmpty(fromTile)) {
-            showMessage("No puedes mover una baldosa inexistente.", "Error");
+
+        } else if (isTileEmpty(fromTile)) {
+            showMessage("You cannot move a non-existent tile.", "Error");
             this.ok = false;
-            
+
         } else if (!isTileEmpty(toTile)) {
-            showMessage("Ya hay una baldosa en la posición de destino.", "Error");
+            showMessage("There is already a tile in the destination position.", "Error");
             this.ok = false;
-            
+
         } else if (fromTile.hasGlue() || fromTile.isStuck()) {
-            showMessage("No puedes mover una baldosa que tiene pegamento o está pegada.", "Error");
+            showMessage("You cannot move a tile that has glue or is stuck.", "Error");
             this.ok = false;
-            
-        }else {
+
+        } else {
             // Realizar el movimiento
             this.relocateTileMovement(fromTile, toTile, from, to);
             this.ok = true;
@@ -307,11 +306,14 @@ public class Puzzle {
         fromTile.moveVertical((to[0] - from[0]) * (Tile.SIZE + Tile.MARGIN));
         // Actualizar la lista de baldosas: mover la baldosa a la nueva posición
         tiles.get(to[0]).set(to[1], fromTile);
+        // Actualizar la posición interna de la baldosa
+        fromTile.setRow(to[0]);
+        fromTile.setCol(to[1]);
         // Crear una nueva baldosa vacía en la posición original
         Tile emptyTile = createEmptyTile(from[0], from[1]);
         tiles.get(from[0]).set(from[1], emptyTile);
     }
-
+    
     // Método para validar si las coordenadas son correctas
     private boolean areValidCoordinates(int[] coords) {
         return coords.length == 2 && coords[0] >= 0 && coords[0] < h && coords[1] >= 0 && coords[1] < w;
@@ -932,7 +934,6 @@ public class Puzzle {
             }
         }
     }
-
 
     // Método para crear una baldosa vacía
     private Tile createEmptyTile(int row, int col) {

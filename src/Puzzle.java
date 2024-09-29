@@ -320,52 +320,56 @@ public class Puzzle {
     // Método para aplicar pegamento a una baldosa
     public void addGlue(int row, int col) {
         Tile tile = getTileAtPosition(row, col);
-        if (tile.getLabel() == 'h'){
-            showMessage("You cannot add glue in a hole tile.", "Error");
+        if (tile == null) {
+            showMessage("Invalid position.", "Error");
+            this.ok = false;
+        } else if (tile.getLabel() == 'h') {
+            showMessage("You cannot add glue on a hole tile.", "Error");
             this.ok = false;
 
-        }else if (tile == null || isTileEmpty(tile) || holes[row][col]) {
-            showMessage("No se puede aplicar pegamento a una baldosa vacía.", "Error");
+        } else if (isTileEmpty(tile)) {
+            showMessage("Cannot apply glue to an empty tile.", "Error");
             this.ok = false;
-        }
-        else if (tile.hasGlue()) {
-            showMessage("Esta baldosa ya tiene pegamento aplicado.", "Error");
+        } else if (tile.hasGlue()) {
+            showMessage("This tile already has glue applied.", "Error");
             this.ok = false;
-            
-        }
-        else{
+
+        } else {
             tile.setHasGlue(true);
 
             // Cambiar el color de la baldosa a una versión más pálida
             Color evenPalerColor = getPaleColor(tile.getOriginalColor(), 150);
             tile.setTileColor(evenPalerColor);
-    
+
             // Actualizar las baldosas adyacentes
             updateAdjacentTiles(tile);
-    
+
             // Recolectar el grupo de baldosas pegadas
             List<Tile> group = new ArrayList<>();
             collectStuckGroup(tile, group);
-    
+
             // Resetear las banderas de visitado
             resetVisitedFlags();
             tile.setLabel('p');
             this.ok = true;
         }
-        
+
     }
 
     // Método para eliminar el pegamento de una baldosa
     public void deleteGlue(int row, int col) {
         Tile tile = getTileAtPosition(row, col);
-        if (tile.getLabel() == 'h'){
-            showMessage("You cannot delete glue in a hole tile.", "Error");
+        if (tile == null) {
+            showMessage("Invalid position.", "Error");
             this.ok = false;
-        } else if (tile == null || !tile.hasGlue()) {
-            showMessage("No hay pegamento para eliminar en esta baldosa.", "Error");
+        } else if (tile.getLabel() == 'h') {
+            showMessage("You cannot delete glue on a hole tile.", "Error");
             this.ok = false;
-            
-        } else{
+        } else if (!tile.hasGlue()) {
+            showMessage("There is no glue to remove on this tile.", "Error");
+            this.ok = false;
+
+        } else {
             tile.setHasGlue(false);
 
             // Si la baldosa ya no está pegada a ninguna otra, ajustar el color
@@ -374,20 +378,20 @@ public class Puzzle {
                 Color slightlyPalerColor = getPaleColor(tile.getOriginalColor(), 50);
                 tile.setTileColor(slightlyPalerColor);
             }
-    
+
             // Actualizar las baldosas adyacentes
             updateAdjacentTilesAfterGlueRemoval(tile);
-    
+
             // Recolectar el grupo de baldosas pegadas para actualizar estados
             List<Tile> group = new ArrayList<>();
             collectStuckGroup(tile, group);
-    
+
             // Resetear las banderas de visitado
             resetVisitedFlags();
-    
+
             this.ok = true;
         }
-     
+
     }
 
     // Método para actualizar las baldosas adyacentes después de aplicar pegamento
@@ -400,7 +404,7 @@ public class Puzzle {
             int adjCol = col + dir[1];
             Tile adjacentTile = getTileAtPosition(adjRow, adjCol);
 
-            if (adjacentTile != null && !isTileEmpty(adjacentTile) && !adjacentTile.isStuck()) {
+            if (adjacentTile != null && !isTileEmpty(adjacentTile) && !adjacentTile.isStuck() && !adjacentTile.getIsHole()) {
                 adjacentTile.setIsStuck(true);
                 // Cambiar el color a una versión pálida
                 Color paleColor = getPaleColor(adjacentTile.getOriginalColor(), 100);
@@ -419,7 +423,7 @@ public class Puzzle {
             int adjCol = col + dir[1];
             Tile adjacentTile = getTileAtPosition(adjRow, adjCol);
 
-            if (adjacentTile != null && !isTileEmpty(adjacentTile)) {
+            if (adjacentTile != null && !isTileEmpty(adjacentTile) && !adjacentTile.getIsHole()) {
                 if (isAdjacentToGlue(adjacentTile)) {
                     // Si aún está adyacente a otra baldosa con pegamento, se mantiene pegada
                     continue;
@@ -461,7 +465,7 @@ public class Puzzle {
     }
     
     // Método de inclinación que llama a tiltImplementation una sola vez
-    public void tilt(char direction){
+    public void tilt(char direction) {
         switch (direction) {
             case 'd':
                 for (int col = 0; col < w; col++) {
@@ -484,13 +488,13 @@ public class Puzzle {
                 }
                 break;
             default:
-                showMessage("Dirección inválida.", "Error");
+                showMessage("Invalid direction.", "Error");
                 this.ok = false;
         }
         resetVisitedFlags(); // Resetear las banderas de visitado después de la inclinación
     }
 
-    // Métodos de inclinación considerando agujeros y baldosas pegadas
+    // Métodos de inclinación ajustados para manejar agujeros
 
     // Inclinación hacia arriba
     private void tiltUpWithGlue(int col) {
@@ -498,7 +502,7 @@ public class Puzzle {
 
         for (int row = 0; row < h; row++) {
             Tile tile = getTileAtPosition(row, col);
-            if (!isTileEmpty(tile) && !tile.isVisited()) {
+            if (!isTileEmpty(tile) && !tile.isVisited() && !tile.getIsHole()) {
                 List<Tile> group = new ArrayList<>();
                 boolean isGluedOrStuck = tile.isStuck() || tile.hasGlue();
                 if (isGluedOrStuck) {
@@ -522,16 +526,15 @@ public class Puzzle {
             boolean isGluedOrStuck = group.get(0).isStuck() || group.get(0).hasGlue();
             int maxMove = calculateMaxMoveUpGroup(group, isGluedOrStuck);
             if (maxMove == -1) {
-                // Baldosa o grupo libre caería en un agujero
                 if (!isGluedOrStuck) {
-                    // Eliminar baldosas libres
+                    // Eliminar baldosas libres que caen en el agujero
                     for (Tile tile : group) {
                         tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
                         tile.makeInvisible();
                         tile.setLabel('*');
                     }
                 }
-                // Si está pegado, no se mueve
+                // Las baldosas pegadas o con pegamento no se mueven
             } else {
                 moveGroupUp(group, maxMove);
             }
@@ -544,7 +547,7 @@ public class Puzzle {
 
         for (int row = h - 1; row >= 0; row--) {
             Tile tile = getTileAtPosition(row, col);
-            if (!isTileEmpty(tile) && !tile.isVisited()) {
+            if (!isTileEmpty(tile) && !tile.isVisited() && !tile.getIsHole()) {
                 List<Tile> group = new ArrayList<>();
                 boolean isGluedOrStuck = tile.isStuck() || tile.hasGlue();
                 if (isGluedOrStuck) {
@@ -572,16 +575,15 @@ public class Puzzle {
             boolean isGluedOrStuck = group.get(0).isStuck() || group.get(0).hasGlue();
             int maxMove = calculateMaxMoveDownGroup(group, isGluedOrStuck);
             if (maxMove == -1) {
-                // Baldosa o grupo libre caería en un agujero
                 if (!isGluedOrStuck) {
-                    // Eliminar baldosas libres
+                    // Eliminar baldosas libres que caen en el agujero
                     for (Tile tile : group) {
                         tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
                         tile.makeInvisible();
                         tile.setLabel('*');
                     }
                 }
-                // Si está pegado, no se mueve
+                // Las baldosas pegadas o con pegamento no se mueven
             } else {
                 moveGroupDown(group, maxMove);
             }
@@ -594,7 +596,7 @@ public class Puzzle {
 
         for (int col = 0; col < w; col++) {
             Tile tile = getTileAtPosition(row, col);
-            if (!isTileEmpty(tile) && !tile.isVisited()) {
+            if (!isTileEmpty(tile) && !tile.isVisited() && !tile.getIsHole()) {
                 List<Tile> group = new ArrayList<>();
                 boolean isGluedOrStuck = tile.isStuck() || tile.hasGlue();
                 if (isGluedOrStuck) {
@@ -610,7 +612,7 @@ public class Puzzle {
         // Resetear las banderas de visitado
         resetVisitedFlags();
 
-        // Ordenar los grupos por la columna mínima (más a la izquierda primero)
+        // Ordenar los grupos por la columna mínima (los más a la izquierda primero)
         groups.sort(Comparator.comparingInt(g -> g.stream().mapToInt(Tile::getCol).min().orElse(w)));
 
         // Mover los grupos
@@ -618,16 +620,15 @@ public class Puzzle {
             boolean isGluedOrStuck = group.get(0).isStuck() || group.get(0).hasGlue();
             int maxMove = calculateMaxMoveLeftGroup(group, isGluedOrStuck);
             if (maxMove == -1) {
-                // Baldosa o grupo libre caería en un agujero
                 if (!isGluedOrStuck) {
-                    // Eliminar baldosas libres
+                    // Eliminar baldosas libres que caen en el agujero
                     for (Tile tile : group) {
                         tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
                         tile.makeInvisible();
                         tile.setLabel('*');
                     }
                 }
-                // Si está pegado, no se mueve
+                // Las baldosas pegadas o con pegamento no se mueven
             } else {
                 moveGroupLeft(group, maxMove);
             }
@@ -640,7 +641,7 @@ public class Puzzle {
 
         for (int col = w - 1; col >= 0; col--) {
             Tile tile = getTileAtPosition(row, col);
-            if (!isTileEmpty(tile) && !tile.isVisited()) {
+            if (!isTileEmpty(tile) && !tile.isVisited() && !tile.getIsHole()) {
                 List<Tile> group = new ArrayList<>();
                 boolean isGluedOrStuck = tile.isStuck() || tile.hasGlue();
                 if (isGluedOrStuck) {
@@ -656,7 +657,7 @@ public class Puzzle {
         // Resetear las banderas de visitado
         resetVisitedFlags();
 
-        // Ordenar los grupos por la columna máxima (más a la derecha primero)
+        // Ordenar los grupos por la columna máxima (los más a la derecha primero)
         groups.sort((g1, g2) -> {
             int maxCol1 = g1.stream().mapToInt(Tile::getCol).max().orElse(-1);
             int maxCol2 = g2.stream().mapToInt(Tile::getCol).max().orElse(-1);
@@ -668,30 +669,29 @@ public class Puzzle {
             boolean isGluedOrStuck = group.get(0).isStuck() || group.get(0).hasGlue();
             int maxMove = calculateMaxMoveRightGroup(group, isGluedOrStuck);
             if (maxMove == -1) {
-                // Baldosa o grupo libre caería en un agujero
                 if (!isGluedOrStuck) {
-                    // Eliminar baldosas libres
+                    // Eliminar baldosas libres que caen en el agujero
                     for (Tile tile : group) {
                         tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
                         tile.makeInvisible();
                         tile.setLabel('*');
                     }
                 }
-                // Si está pegado, no se mueve
+                // Las baldosas pegadas o con pegamento no se mueven
             } else {
                 moveGroupRight(group, maxMove);
             }
         }
     }
 
-    // Métodos auxiliares para calcular el movimiento máximo y mover baldosas/grupos
+    // Métodos de cálculo de movimiento máximo ajustados para manejar agujeros
 
     // Movimiento hacia arriba
     private int calculateMaxMoveUp(int row, int col, List<Tile> group, boolean isGluedOrStuck) {
         int maxMove = 0;
         for (int i = row - 1; i >= 0; i--) {
             Tile nextTile = getTileAtPosition(i, col);
-            if (nextTile.getLabel() == 'h') {
+            if (nextTile.getIsHole()) {
                 if (isGluedOrStuck) {
                     // Baldosa pegada: no puede moverse al agujero, detenerse antes
                     break;
@@ -721,22 +721,109 @@ public class Puzzle {
         return maxMove;
     }
 
-    private void moveTileUp(Tile tile, int steps) {
-        if (steps == 0) return;
-        int newRow = tile.getRow() - steps;
-        tile.moveVertical(-steps * (Tile.SIZE + Tile.MARGIN));
-        tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
-        tiles.get(newRow).set(tile.getCol(), tile);
-        tile.setRow(newRow);
+    // Movimiento hacia abajo
+    private int calculateMaxMoveDown(int row, int col, List<Tile> group, boolean isGluedOrStuck) {
+        int maxMove = 0;
+        for (int i = row + 1; i < h; i++) {
+            Tile nextTile = getTileAtPosition(i, col);
+            if (nextTile.getIsHole()) {
+                if (isGluedOrStuck) {
+                    break;
+                } else {
+                    return -1;
+                }
+            } else if (isTileEmpty(nextTile) || (group != null && group.contains(nextTile))) {
+                maxMove++;
+            } else {
+                break;
+            }
+        }
+        return maxMove;
     }
 
-    // Métodos de inclinación considerando agujeros y baldosas pegadas
+    private int calculateMaxMoveDownGroup(List<Tile> group, boolean isGluedOrStuck) {
+        int maxMove = h;
+        for (Tile tile : group) {
+            int tileMaxMove = calculateMaxMoveDown(tile.getRow(), tile.getCol(), group, isGluedOrStuck);
+            if (tileMaxMove == -1) {
+                return -1;
+            }
+            maxMove = Math.min(maxMove, tileMaxMove);
+        }
+        return maxMove;
+    }
+
+    // Movimiento hacia la izquierda
+    private int calculateMaxMoveLeft(int row, int col, List<Tile> group, boolean isGluedOrStuck) {
+        int maxMove = 0;
+        for (int i = col - 1; i >= 0; i--) {
+            Tile nextTile = getTileAtPosition(row, i);
+            if (nextTile.getIsHole()) {
+                if (isGluedOrStuck) {
+                    break;
+                } else {
+                    return -1;
+                }
+            } else if (isTileEmpty(nextTile) || (group != null && group.contains(nextTile))) {
+                maxMove++;
+            } else {
+                break;
+            }
+        }
+        return maxMove;
+    }
+
+    private int calculateMaxMoveLeftGroup(List<Tile> group, boolean isGluedOrStuck) {
+        int maxMove = w;
+        for (Tile tile : group) {
+            int tileMaxMove = calculateMaxMoveLeft(tile.getRow(), tile.getCol(), group, isGluedOrStuck);
+            if (tileMaxMove == -1) {
+                return -1;
+            }
+            maxMove = Math.min(maxMove, tileMaxMove);
+        }
+        return maxMove;
+    }
+
+    // Movimiento hacia la derecha
+    private int calculateMaxMoveRight(int row, int col, List<Tile> group, boolean isGluedOrStuck) {
+        int maxMove = 0;
+        for (int i = col + 1; i < w; i++) {
+            Tile nextTile = getTileAtPosition(row, i);
+            if (nextTile.getIsHole()) {
+                if (isGluedOrStuck) {
+                    break;
+                } else {
+                    return -1;
+                }
+            } else if (isTileEmpty(nextTile) || (group != null && group.contains(nextTile))) {
+                maxMove++;
+            } else {
+                break;
+            }
+        }
+        return maxMove;
+    }
+
+    private int calculateMaxMoveRightGroup(List<Tile> group, boolean isGluedOrStuck) {
+        int maxMove = w;
+        for (Tile tile : group) {
+            int tileMaxMove = calculateMaxMoveRight(tile.getRow(), tile.getCol(), group, isGluedOrStuck);
+            if (tileMaxMove == -1) {
+                return -1;
+            }
+            maxMove = Math.min(maxMove, tileMaxMove);
+        }
+        return maxMove;
+    }
+
+    // Métodos de movimiento de grupos
 
     // Movimiento hacia arriba
     private void moveGroupUp(List<Tile> group, int steps) {
         if (steps == 0) return;
         // Ordenar el grupo para que las baldosas superiores se muevan primero
-        group.sort((t1, t2) -> Integer.compare(t1.getRow(), t2.getRow()));
+        group.sort(Comparator.comparingInt(Tile::getRow));
         // Eliminar baldosas de sus posiciones antiguas
         for (Tile tile : group) {
             tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
@@ -768,6 +855,24 @@ public class Puzzle {
         }
     }
 
+    // Movimiento hacia la izquierda
+    private void moveGroupLeft(List<Tile> group, int steps) {
+        if (steps == 0) return;
+        // Ordenar el grupo para que las baldosas con columnas más bajas se muevan primero
+        group.sort(Comparator.comparingInt(Tile::getCol));
+        // Eliminar baldosas de sus posiciones antiguas
+        for (Tile tile : group) {
+            tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
+        }
+        // Mover baldosas a sus nuevas posiciones
+        for (Tile tile : group) {
+            int newCol = tile.getCol() - steps;
+            tile.moveHorizontal(-steps * (Tile.SIZE + Tile.MARGIN));
+            tiles.get(tile.getRow()).set(newCol, tile);
+            tile.setCol(newCol);
+        }
+    }
+
     // Movimiento hacia la derecha
     private void moveGroupRight(List<Tile> group, int steps) {
         if (steps == 0) return;
@@ -786,137 +891,6 @@ public class Puzzle {
         }
     }
 
-    // Movimiento hacia la izquierda
-    private void moveGroupLeft(List<Tile> group, int steps) {
-        if (steps == 0) return;
-        // Ordenar el grupo para que las baldosas con columnas más bajas se muevan primero
-        group.sort((t1, t2) -> Integer.compare(t1.getCol(), t2.getCol()));
-        // Eliminar baldosas de sus posiciones antiguas
-        for (Tile tile : group) {
-            tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
-        }
-        // Mover baldosas a sus nuevas posiciones
-        for (Tile tile : group) {
-            int newCol = tile.getCol() - steps;
-            tile.moveHorizontal(-steps * (Tile.SIZE + Tile.MARGIN));
-            tiles.get(tile.getRow()).set(newCol, tile);
-            tile.setCol(newCol);
-        }
-    }
-
-    // Métodos de cálculo de movimiento máximo ajustados para manejar agujeros
-
-    
-
-    // Movimiento hacia abajo
-    private int calculateMaxMoveDown(int row, int col, List<Tile> group, boolean isGluedOrStuck) {
-        int maxMove = 0;
-        for (int i = row + 1; i < h; i++) {
-            Tile nextTile = getTileAtPosition(i, col);
-            if (nextTile.getLabel() == 'h') {
-                if (isGluedOrStuck) {
-                    // Baldosa pegada: no puede moverse al agujero, detenerse antes
-                    break;
-                } else {
-                    // Baldosa libre: caería en el agujero
-                    return -1; // Indica que la baldosa libre caerá en el agujero
-                }
-            } else if (isTileEmpty(nextTile) || (group != null && group.contains(nextTile))) {
-                maxMove++;
-            } else {
-                break;
-            }
-        }
-        return maxMove;
-    }
-
-    private int calculateMaxMoveDownGroup(List<Tile> group, boolean isGluedOrStuck) {
-        int maxMove = h;
-        for (Tile tile : group) {
-            int tileMaxMove = calculateMaxMoveDown(tile.getRow(), tile.getCol(), group, isGluedOrStuck);
-            if (tileMaxMove == -1) {
-                // Una de las baldosas libres del grupo caería en un agujero
-                return -1;
-            }
-            maxMove = Math.min(maxMove, tileMaxMove);
-        }
-        return maxMove;
-    }
-
-    // Movimiento hacia la izquierda
-    private int calculateMaxMoveLeft(int row, int col, List<Tile> group, boolean isGluedOrStuck) {
-        int maxMove = 0;
-        for (int i = col - 1; i >= 0; i--) {
-            Tile nextTile = getTileAtPosition(row, i);
-            if (nextTile.getLabel() == 'h') {
-                if (isGluedOrStuck) {
-                    // Baldosa pegada: no puede moverse al agujero, detenerse antes
-                    break;
-                } else {
-                    // Baldosa libre: caería en el agujero
-                    return -1; // Indica que la baldosa libre caerá en el agujero
-                }
-            } else if (isTileEmpty(nextTile) || (group != null && group.contains(nextTile))) {
-                maxMove++;
-            } else {
-                break;
-            }
-        }
-        return maxMove;
-    }
-
-    private int calculateMaxMoveLeftGroup(List<Tile> group, boolean isGluedOrStuck) {
-        int maxMove = w;
-        for (Tile tile : group) {
-            int tileMaxMove = calculateMaxMoveLeft(tile.getRow(), tile.getCol(), group, isGluedOrStuck);
-            if (tileMaxMove == -1) {
-                // Una de las baldosas libres del grupo caería en un agujero
-                return -1;
-            }
-            maxMove = Math.min(maxMove, tileMaxMove);
-        }
-        return maxMove;
-    }
-
-    // Movimiento hacia la derecha
-    private int calculateMaxMoveRight(int row, int col, List<Tile> group, boolean isGluedOrStuck) {
-        int maxMove = 0;
-        for (int i = col + 1; i < w; i++) {
-            Tile nextTile = getTileAtPosition(row, i);
-            if (nextTile.getLabel() == 'h') {
-                if (isGluedOrStuck) {
-                    // Baldosa pegada: no puede moverse al agujero, detenerse antes
-                    break;
-                } else {
-                    // Baldosa libre: caería en el agujero
-                    return -1; // Indica que la baldosa libre caerá en el agujero
-                }
-            } else if (isTileEmpty(nextTile) || (group != null && group.contains(nextTile))) {
-                maxMove++;
-            } else {
-                break;
-            }
-        }
-        return maxMove;
-    }
-
-    private int calculateMaxMoveRightGroup(List<Tile> group, boolean isGluedOrStuck) {
-        int maxMove = w;
-        for (Tile tile : group) {
-            int tileMaxMove = calculateMaxMoveRight(tile.getRow(), tile.getCol(), group, isGluedOrStuck);
-            if (tileMaxMove == -1) {
-                // Una de las baldosas libres del grupo caería en un agujero
-                return -1;
-            }
-            maxMove = Math.min(maxMove, tileMaxMove);
-        }
-        return maxMove;
-    }
-
-    // Métodos de inclinación ajustados para manejar agujeros
-
-    
-
     // Método para recolectar todas las baldosas en un grupo pegado
     private void collectStuckGroup(Tile tile, List<Tile> group) {
         if (tile.isVisited()) return;
@@ -930,19 +904,10 @@ public class Puzzle {
             int adjCol = col + dir[1];
             Tile adjacentTile = getTileAtPosition(adjRow, adjCol);
             if (adjacentTile != null && !adjacentTile.isVisited() && !isTileEmpty(adjacentTile) &&
-                (adjacentTile.isStuck() || adjacentTile.hasGlue())) {
+                    (adjacentTile.isStuck() || adjacentTile.hasGlue()) && !adjacentTile.getIsHole()) {
                 collectStuckGroup(adjacentTile, group);
             }
         }
-    }
-
-
-    // Método para crear una baldosa vacía
-    private Tile createEmptyTile(int row, int col) {
-        int xPosition = 105 + (col * (Tile.SIZE + Tile.MARGIN));
-        int yPosition = 55 + (row * (Tile.SIZE + Tile.MARGIN));
-        Tile emptyTile = new Tile('*', xPosition, yPosition,row, col);
-        return emptyTile;
     }
 
     // Método para obtener una baldosa en una posición específica
@@ -953,9 +918,10 @@ public class Puzzle {
         return null;
     }
 
-    // Método para verificar si una baldosa está vacía (basado en el color lightBrown)
+    // Método para verificar si una baldosa está vacía
     private boolean isTileEmpty(Tile tile) {
-        return tile.getLabel() == 'h' ? false : tile.getTileColor().equals(lightBrown);
+        if (tile == null) return false;
+        return !tile.getIsHole() && tile.getLabel() == '*';
     }
 
     // Resetear las banderas de visitado después de la inclinación
@@ -965,6 +931,22 @@ public class Puzzle {
                 tile.setVisited(false);
             }
         }
+    }
+
+
+    // Método para crear una baldosa vacía
+    private Tile createEmptyTile(int row, int col) {
+        int xPosition = 105 + (col * (Tile.SIZE + Tile.MARGIN));
+        int yPosition = 55 + (row * (Tile.SIZE + Tile.MARGIN));
+        Tile emptyTile;
+        if (holes[row][col]) {
+            emptyTile = new Tile('h', xPosition, yPosition, row, col);
+            emptyTile.setIsHole(true);
+            createHoleCircle(emptyTile);
+        } else {
+            emptyTile = new Tile('*', xPosition, yPosition, row, col);
+        }
+        return emptyTile;
     }
     
     // Muestra un mensaje de error si el simulador es visible y cambia el estado de ok a false
@@ -1226,52 +1208,55 @@ public class Puzzle {
         System.out.println("Boards have been exchanged. Now, you're editing the board that was the reference board before.");
     }
     
+    // Método para crear un agujero en una posición dada
     public void makeHole(int row, int column) {
         // Validar las coordenadas
         if (row >= h || column >= w) {
             showMessage("You have exceeded the puzzle space.", "Error");
             this.ok = false; // Error Message
-            
-        } else if (row < 0 || column < 0){
-            showMessage("You cannot make a hole in a non-exist tile with negative position.", "Error");
+
+        } else if (row < 0 || column < 0) {
+            showMessage("You cannot make a hole in a non-existent tile with negative position.", "Error");
             this.ok = false; // Error Message
-            
-        }else{
-            
+
+        } else {
+
             Tile targetTile = tiles.get(row).get(column);
-            
-            if (targetTile.getLabel() == 'h'){
+
+            if (targetTile.getLabel() == 'h') {
                 showMessage("This tile already has a hole.", "Error");
                 this.ok = false; // Error message
-            }
-            else if (isTileEmpty(targetTile) && !targetTile.getIsHole()){
-                
-                // Verificar si la celda está vacía y no tiene ya un agujero
-                int xPos = targetTile.getXPos();
-                int yPos = targetTile.getYPos();
-                int diameter = Tile.SIZE;
-            
-                // Calcular la posición centrada del círculo
-                int circleX = xPos + (Tile.SIZE - diameter) / 2;
-                int circleY = yPos + (Tile.SIZE - diameter) / 2;
-            
-                // Crear y hacer visible el círculo (agujero)
-                Circle hole = new Circle(diameter, circleX, circleY, Color.WHITE);
-                hole.makeVisible();
-            
-                // Marcar la baldosa como agujereada
+            } else if (isTileEmpty(targetTile) && !targetTile.getIsHole()) {
+
+                // Marcar la baldosa como agujero
                 targetTile.setLabel('h');
                 targetTile.setIsHole(true);
-                this.ok = true; // Acción exitosa  
-                
-            }else {
+                holes[row][column] = true;
+                createHoleCircle(targetTile);
+                this.ok = true; // Acción exitosa
+
+            } else {
                 showMessage("You can only make a hole in an empty tile.", "Error");
                 this.ok = false; // Error message
             }
         }
-            
     }
-        
+    
+    // Método para crear un agujero visualmente
+    private void createHoleCircle(Tile tile) {
+        int xPos = tile.getXPos();
+        int yPos = tile.getYPos();
+        int diameter = Tile.SIZE;
+
+        // Calcular la posición centrada del círculo
+        int circleX = xPos;
+        int circleY = yPos;
+
+        // Crear y hacer visible el círculo (agujero)
+        Circle hole = new Circle(diameter, circleX, circleY, Color.WHITE);
+        hole.makeVisible();
+        holeCircles.add(hole);
+    }
 
 
     /**

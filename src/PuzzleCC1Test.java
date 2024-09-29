@@ -12,11 +12,11 @@ public class PuzzleCC1Test {
     @BeforeEach
     public void setUp() {
         // Configurar un estado inicial del puzzle con matrices de ejemplo
-        starting = new char[][]{
-            {'*', 'b', 'g', 'y'},
-            {'b', 'y', 'r', 'g'},
-            {'g', 'r', '*', 'y'}
-        };
+            starting = new char[][]{
+                {'*', '*', '*', 'y'},
+                {'b', '*', 'r', 'g'},
+                {'g', '*', '*', 'y'}
+            };
 
         ending = new char[][]{
             {'r', 'b', 'g', 'y'},

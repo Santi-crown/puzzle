@@ -141,6 +141,14 @@ public class Tile extends Rectangle {
         return yPos;
     }
     
+    public void setXPos(int xPos){
+        this.xPos = xPos;
+    }
+    
+    public void setYPos(int yPos){
+        this.yPos = yPos;
+    }
+    
     public boolean getIsHole(){
         return this.isHole;
     }

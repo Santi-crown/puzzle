@@ -1259,38 +1259,11 @@ public class Puzzle {
         holeCircles.add(hole);
     }
 
-
-    /**
-    public int [][] fixedTiles(){
-        List<int[]> fixedTilesPositions = new ArrayList<>();
-
-
-        for (int row = 0; row < h; row++) {
-            for (int col = 0; col < w; col++) {
-                Tile tile = getTileAtPosition(row, col);
-
-                if (!isTileEmpty(tile) && (tile.hasGlue() || tile.isStuck())) {
-                    // Agregar la posición a la lista
-                    fixedTilesPositions.add(new int[]{row, col});
-
-                    // Hacer que la baldosa parpadee si el simulador está visible
-                    if (visible) {
-                        tile.blink();
-                    }
-                }
-            }
-        }
-
-        // Convertir la lista a un arreglo bidimensional
-        int[][] result = new int[fixedTilesPositions.Tile.SIZE()][2];
-        for (int i = 0; i < fixedTilesPositions.Tile.SIZE(); i++) {
-            result[i] = fixedTilesPositions.get(i);
-        }
-
-        return result;
+/**
+        public int [][] fixedTiles(){
+        
     }
-    **/
-    
+**/    
     // I used the same logic that method isGoal about comparing and to get the position on the tile with the label.
     public int misplacedTiles(){
         

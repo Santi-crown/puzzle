@@ -95,7 +95,7 @@ comment5.params=
 comment5.target=void\ createEmptyTiles()
 comment50.params=
 comment50.target=int\ misplacedTiles()
-comment50.text=\r\n\ \ \ \ public\ int\ [][]\ fixedTiles(){\r\n\ \ \ \ \ \ \ \ List<int[]>\ fixedTilesPositions\ \=\ new\ ArrayList<>();\r\n\r\n\r\n\ \ \ \ \ \ \ \ for\ (int\ row\ \=\ 0;\ row\ <\ h;\ row++)\ {\r\n\ \ \ \ \ \ \ \ \ \ \ \ for\ (int\ col\ \=\ 0;\ col\ <\ w;\ col++)\ {\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Tile\ tile\ \=\ getTileAtPosition(row,\ col);\r\n\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ (\!isTileEmpty(tile)\ &&\ (tile.hasGlue()\ ||\ tile.isStuck()))\ {\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ //\ Agregar\ la\ posici\u00F3n\ a\ la\ lista\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fixedTilesPositions.add(new\ int[]{row,\ col});\r\n\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ //\ Hacer\ que\ la\ baldosa\ parpadee\ si\ el\ simulador\ est\u00E1\ visible\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ (visible)\ {\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tile.blink();\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\r\n\ \ \ \ \ \ \ \ \ \ \ \ }\r\n\ \ \ \ \ \ \ \ }\r\n\r\n\ \ \ \ \ \ \ \ //\ Convertir\ la\ lista\ a\ un\ arreglo\ bidimensional\r\n\ \ \ \ \ \ \ \ int[][]\ result\ \=\ new\ int[fixedTilesPositions.Tile.SIZE()][2];\r\n\ \ \ \ \ \ \ \ for\ (int\ i\ \=\ 0;\ i\ <\ fixedTilesPositions.Tile.SIZE();\ i++)\ {\r\n\ \ \ \ \ \ \ \ \ \ \ \ result[i]\ \=\ fixedTilesPositions.get(i);\r\n\ \ \ \ \ \ \ \ }\r\n\r\n\ \ \ \ \ \ \ \ return\ result;\r\n\ \ \ \ }\r\n
+comment50.text=\r\n\ \ \ \ \ \ \ \ public\ int\ [][]\ fixedTiles(){\r\n\ \ \ \ \ \ \ \ \r\n\ \ \ \ }\r\n
 comment51.params=args
 comment51.target=void\ main(java.lang.String[])
 comment6.params=

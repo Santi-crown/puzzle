@@ -15,7 +15,7 @@ public class Tile extends Rectangle {
     private int xPos;
     private int yPos;
     private boolean isHole = false;
-    
+    public static Color fixedTile = new Color(139, 0, 0); 
     public Tile(char label, int xPosition, int yPosition,int row, int col) {
         //super(size, size, Color.WHITE, xPosition, yPosition);
         //this.size = size;
@@ -166,20 +166,10 @@ public class Tile extends Rectangle {
     }
     
     // Método para hacer que la baldosa parpadee
-    public void blink() {
-        if (!isVisible) return;
-        Thread thread = new Thread(() -> {
-            try {
-                for (int i = 0; i < 6; i++) {
-                    makeInvisible();
-                    Thread.sleep(200);
-                    makeVisible();
-                    Thread.sleep(200);
-                }
-            } catch (InterruptedException e) {
-                // Manejar excepción si es necesario
-            }
-        });
-        thread.start();
+    public void isFixed(Color tileColor) {
+        color = fixedTile;
+        color = tileColor;
+        color = fixedTile;
+        color = tileColor;        
     }
 }

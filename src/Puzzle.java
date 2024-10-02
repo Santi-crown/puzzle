@@ -4,12 +4,9 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import java.util.Comparator;
 
-public class Puzzle {
-    //private int Tile.SIZE;
+public class Puzzle {    
     private int h;
     private int w;
-    //private int Tile.MARGIN; // Margen entre cada baldosas - Tile
-    //private int padding; // Padding interno - Tile
     private Rectangle startingBoard;
     private Rectangle endingBoard;
     private Color color;
@@ -31,9 +28,6 @@ public class Puzzle {
     
     // Constructor para inicializar los tableros sin las matrices
     public Puzzle(int h, int w) {
-        //this.Tile.SIZE = 50;  // Tamaño de cada tile
-        //this.Tile.MARGIN = 10;    // Margen entre tiles
-        //this.padding = 5;    // Padding interno
         this.h = h;
         this.w = w;
         this.color = lightBrown;
@@ -42,22 +36,6 @@ public class Puzzle {
         
         // Inicializar la matriz de agujeros y la lista de círculos        
         holeCircles = new ArrayList<>();
-        
-        /**
-        startingBoard = new Rectangle();
-        startingBoard.changeTile.SIZE(h * (Tile.SIZE + Tile.MARGIN), w * (Tile.SIZE + Tile.MARGIN));
-        startingBoard.changeColor(color);
-        startingBoard.makeVisible();
-        startingBoard.moveHorizontal(100);
-        startingBoard.moveVertical(50);
-
-        endingBoard = new Rectangle();
-        endingBoard.changeTile.SIZE(h * (Tile.SIZE + Tile.MARGIN), w * (Tile.SIZE + Tile.MARGIN));
-        endingBoard.changeColor(color);
-        endingBoard.makeVisible();
-        endingBoard.moveHorizontal(h * (Tile.SIZE + Tile.MARGIN) + 350);
-        endingBoard.moveVertical(50);
-        **/ 
         
         if (h > 0 && w > 0){
             holes = new boolean[h][w];
@@ -80,11 +58,7 @@ public class Puzzle {
     }
 
     // Constructor para inicializar los tableros con matrices
-    public Puzzle(char[][] starting, char[][] ending) {
-        
-        //this.Tile.SIZE = 50;  // Tamaño de cada tile
-        //this.Tile.MARGIN = 10;    // Margen entre tiles
-        //this.padding = 10;    // Padding interno
+    public Puzzle(char[][] starting, char[][] ending) {    
         this.h = starting.length;
         this.w = starting[0].length;
         this.starting = starting;
@@ -110,10 +84,6 @@ public class Puzzle {
     
     // Constructor para inicializar vacio starting y con baldosas ending
     public Puzzle(char [][] ending){    
-    
-        //this.Tile.SIZE = 50;  // Tamaño de cada tile
-        //this.Tile.MARGIN = 10;    // Margen entre tiles
-        //this.padding = 10;    // Padding interno
         this.h = ending.length;
         this.w = ending[0].length;
         //this.starting = starting;
@@ -1015,40 +985,6 @@ public class Puzzle {
         this.ok = true;  // Indicar que la acción fue exitosa
         
     }
-    /**
-    public void makeVisibleTiles() {
-        this.visible = true;
-        for (List<Tile> row : tiles) {
-            for (Tile tile : row) {
-                tile.makeVisible();
-            }
-        }
-        
-        for (List<Tile> row : referingTiles) {
-            for (Tile tile : row) {
-                tile.makeVisible();
-            }
-        }
-        
-        this.ok = true;  // Indicar que la acción fue exitosa
-            
-    }
-    
-    public void makeVisibleRectangle(){
-        // Verificar si los tableros han sido inicializados
-        if (startingBoard != null) {
-            startingBoard.makeVisible();  // Hace visible el tablero inicial
-        }
-        
-        if (endingBoard != null) {
-            endingBoard.makeVisible();    // Hace visible el tablero final
-        }
-        
-        this.ok = true;  // Indicar que la acción fue exitosa
-    }
-    
-    **/
-    
     // Hace invisible el simulador
     //This method consists in two parts cuz there are two different constructors to disappear rectangle or tiles(invisible)
     
@@ -1080,42 +1016,6 @@ public class Puzzle {
         this.ok = true;  // Indicar que la acción fue exitosa
     }
 
-    
-    /**
-    public void makeInvisibleTiles() {
-        this.visible = false;
-        
-        for (List<Tile> row : tiles) {
-            for (Tile tile : row) {
-                tile.makeInvisible();
-            }
-        }
-        
-        for (List<Tile> row : referingTiles) {
-            for (Tile tile : row) {
-                tile.makeInvisible();
-            }
-        }
-        
-        this.ok = true;  // Indicar que la acción fue exitosa
-    }
-    
-    public void makeInvisibleRectangle(){
-        // Verificar si los tableros han sido inicializados
-        
-        if (startingBoard != null) {
-            startingBoard.makeInvisible();  // Hace invisible el tablero inicial
-        }
-        
-        if (endingBoard != null) {
-            endingBoard.makeInvisible();    // Hace invisible el tablero final
-        }
-        
-        this.ok = true;  // Indicar que la acción fue exitosa
-    }
-    
-    **/
-    
     // Termina el simulador
     public void finish() {
         System.out.println("El simulador ha finalizado.");
@@ -1288,67 +1188,6 @@ public class Puzzle {
 
     
     public static void main(String[] args) {
-        
-        /**
-         * FIRST TEST
-         */
-        
-        /**
-        // Crear matrices de caracteres de ejemplo con 8 filas y 4 columnas
-        char[][] starting = {
-            {'b', 'b','y','b'},
-            {'y', '*','r','y'},
-            {'g','*','g','b'} 
-        };
-
-        char[][] ending = {
-            {'y', '*','*','r'},
-            {'*', 'b','g','b'},
-            {'*','g','y','*'}
-        };
-
-        // Instanciar los objetos de Puzzle
-        Puzzle pz1 = new Puzzle(3, 4); // Tablero sin matrices
-        Puzzle pz2 = new Puzzle(starting, ending); // Tablero con matrices
-        
-        //pz2.addTile(77,81,'b');
-        //pz2.addTile(0,1,'r');
-        //pz2.addTile(2,3,'b');
-        //pz2.addTile(1,1,'g');
-        
-        //pz2.addTile(0,0,Color.BLACK);
-        
-        //pz2.addGlue(0,0);
-        //pz2.addGlue(1,2);
-        
-        //pz2.removeGlue(1,2);
-        
-        //pz2.deleteTile(8,0);
-        //pz2.deleteTile(1,1);
-        
-        int[] from = {0,1};
-        int[] to   = {1,2};  
-        //pz2.relocateTile(from, to);
-        
-        int[] from1 = {2,3};
-        int[] to1   = {0,1};  
-        //pz2.relocateTile(from1, to1);
-        
-        int[] from2 = {4124,414};
-        int[] to2   = {0,131};  
-        //pz2.relocateTile(from2, to2);
-        
-        int[] from3 = {2,0};
-        int[] to3   = {0,2};  
-        //pz2.relocateTile(from3, to3);
-        
-        //pz2.tilt('r');
-        //pz2.tilt('l');
-        //pz2.tilt('u');
-        //pz2.tilt('d');
-        
-        **/
-        
         
         
          //SECOND TEST

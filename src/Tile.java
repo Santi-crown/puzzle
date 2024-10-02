@@ -17,9 +17,6 @@ public class Tile extends Rectangle {
     private boolean isHole = false;
     public static Color fixedTile = new Color(139, 0, 0); 
     public Tile(char label, int xPosition, int yPosition,int row, int col) {
-        //super(size, size, Color.WHITE, xPosition, yPosition);
-        //this.size = size;
-        //this.padding = padding; // Inicializa el padding
         this.label = label;
         this.row = row;
         this.col = col;
@@ -160,11 +157,7 @@ public class Tile extends Rectangle {
     public int getSize(){
         return SIZE;
     }
-    
-    public int getMargin(){
-        return MARGIN;
-    }
-    
+      
     // Método para hacer que la baldosa parpadee
     public void isFixed(Color tileColor) {
         color = fixedTile;

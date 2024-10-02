@@ -1156,15 +1156,10 @@ public class Puzzle {
         // Crear y hacer visible el círculo (agujero)
         Circle hole = new Circle(diameter, circleX, circleY, Color.WHITE);
         hole.makeVisible();
-        holeCircles.add(hole);
+        holeCircles.add(hole);            
     }
-
-/**
-        public int [][] fixedTiles(){
-        
-    }
-**/    
-    // I used the same logic that method isGoal about comparing and to get the position on the tile with the label.
+    
+        // I used the same logic that method isGoal about comparing and to get the position on the tile with the label.
     public int misplacedTiles(){
         
         int cont = 0;
@@ -1185,45 +1180,132 @@ public class Puzzle {
         
         return cont;
     }
+    
+    // <----------------------------------- IMPLEMENTING FIXEDTILES METHOD ----------------------------------->
+    
+public int[][] fixedTiles() {
+    int[][] fixedTilesMatrix = new int[h][w];
+    
+    for (int row = 0; row < h; row++) {
+        for (int col = 0; col < w; col++) {
+            Tile tile = getTileAtPosition(row, col);
+            
+            // Skip if tile is empty or a hole
+            if (isTileEmpty(tile) || tile.getIsHole()) {
+                fixedTilesMatrix[row][col] = 0;
+                continue;
+            }
+            
+            boolean canMoveUp = canTileMove(tile, 'u');
+            boolean canMoveDown = canTileMove(tile, 'd');
+            boolean canMoveLeft = canTileMove(tile, 'l');
+            boolean canMoveRight = canTileMove(tile, 'r');
+            
+            if (!canMoveUp && !canMoveDown && !canMoveLeft && !canMoveRight) {
+                fixedTilesMatrix[row][col] = 1;
+                if (visible) {
+                    tiles.get(row).get(col).blink();
+                }
+            } else {
+                fixedTilesMatrix[row][col] = 0;
+            }
+        }
+    }
+    
+    // Print the fixed tiles matrix to the console
+    System.out.println("Fixed Tiles Matrix:");
+    for (int row = 0; row < h; row++) {
+        for (int col = 0; col < w; col++) {
+            System.out.print(fixedTilesMatrix[row][col] + " ");
+        }
+        System.out.println();
+    }
+    System.out.println();
+    
+    return fixedTilesMatrix;
+}
+
+
+private boolean canTileMove(Tile tile, char direction) {
+    // Reset visited flags before checking
+    resetVisitedFlags();
+    
+    List<Tile> group = new ArrayList<>();
+    boolean isGluedOrStuck = tile.isStuck() || tile.hasGlue();
+    
+    if (isGluedOrStuck) {
+        collectStuckGroup(tile, group);
+    } else {
+        group.add(tile);
+    }
+    
+    int maxMove = 0;
+    switch (direction) {
+        case 'u':
+            maxMove = calculateMaxMoveUpGroup(group, isGluedOrStuck);
+            break;
+        case 'd':
+            maxMove = calculateMaxMoveDownGroup(group, isGluedOrStuck);
+            break;
+        case 'l':
+            maxMove = calculateMaxMoveLeftGroup(group, isGluedOrStuck);
+            break;
+        case 'r':
+            maxMove = calculateMaxMoveRightGroup(group, isGluedOrStuck);
+            break;
+    }
+    
+    if (maxMove > 0 || (maxMove == -1 && !isGluedOrStuck)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+public void printFixedTilesMatrix() {
+    int[][] fixedTilesMatrix = fixedTiles(); // Llamar a tu método que devuelve la matriz
+    
+    for (int row = 0; row < fixedTilesMatrix.length; row++) {
+        for (int col = 0; col < fixedTilesMatrix[0].length; col++) {
+            // Imprimir el valor en la posición (row, col)
+            System.out.print(fixedTilesMatrix[row][col] + " ");
+        }
+        System.out.println(); // Salto de línea para la siguiente fila
+    }
+}
+
+
+   
+
 
     
     public static void main(String[] args) {
         
         
          //SECOND TEST
-        char[][] starting1 = {
-        {'y', 'g', 'y', 'b', 'r', 'g', 'b', 'y', 'r', 'b'},
-        {'b', 'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'g'},
-        {'g', 'b', '*', 'y', 'b', 'g', 'r', 'y', 'b', 'r'},
-        {'r', '*', 'g', 'b', 'r', '*', '*', 'b', 'r', 'g'},
-        {'b', 'g', 'r', 'y', 'b', 'g', 'r', 'y', 'b', 'r'},
-        {'y', '*', 'r', '*', 'y', 'b', 'r', 'g', 'y', 'b'},
-        {'*', 'r', 'y', 'b', 'g', '*', '*', 'b', 'g', 'r'},
-        {'*', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'b'},
-        {'*', 'b', 'g', 'r', 'y', '*', 'g', 'r', 'y', 'g'},
-        {'*', 'r', 'y', 'b', 'g', 'r', 'y', 'b', 'g', 'r'}
+        char[][] starting1 = {        
+        {'y', 'g', 'y', 'b', 'r'},
+        {'b', 'r', 'g', 'b', 'y'},
+        {'g', 'b', '*', 'y', 'b'},
+        {'r', '*', 'g', 'b', 'r'},
+        {'b', 'g', 'r', 'y', 'b'}
     };
         
         char[][] ending1 = {
-        {'y', 'r', 'g', 'r', 'y', 'b', 'g', 'r', 'y', 'b'},
-        {'g', 'b', 'g', 'b', 'r', 'g', 'b', 'y', 'r', 'g'},
-        {'b', 'g', 'y', 'r', 'y', 'b', 'g', 'r', 'y', 'b'},
-        {'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'g'},
-        {'y', 'b', 'g', 'r', 'y', 'b', 'g', '*', 'y', 'b'},
-        {'g', 'r', 'y', 'b', 'g', 'r', 'y', 'b', 'g', 'r'},
-        {'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'b'},
-        {'y', 'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r'},
-        {'g', 'b', 'y', 'r', 'g', 'b', 'y', '*', 'g', 'b'},
-        {'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'g'}
+        {'y', 'g', 'y', 'b', 'r'},
+        {'b', 'r', 'g', 'b', 'y'},
+        {'g', 'b', '*', 'y', 'b'},
+        {'r', '*', 'g', 'b', 'r'},
+        {'b', 'g', 'r', 'y', 'b'}
     };
         
-        Puzzle pz3 = new Puzzle(10, 10); // Tablero sin matrices
+        Puzzle pz3 = new Puzzle(5, 5); // Tablero sin matrices
         Puzzle pz4 = new Puzzle(starting1, ending1); // Tablero con matrices
         
-        pz4.addTile(9,0,'r');
-        pz4.addGlue(9,1);
-        pz4.tilt('u');
-        pz4.tilt('r');
+        // pz4.addTile(9,0,'r');
+        // pz4.addGlue(9,1);
+        // pz4.tilt('u');
+        // pz4.tilt('r');
         
         //pz4.addTile(5,1,'b');
         //pz4.deleteTile(5,1);
@@ -1243,10 +1325,13 @@ public class Puzzle {
     
         //pz4.tilt('l');
         //pz4.tilt('g');
-        pz4.addTile(6,0,'r');
+        // pz4.addTile(6,0,'r');
         
         int[] from4 = {6,0};
         int[] to4   = {3,1};
-        pz4.relocateTile(from4,to4);
+        // pz4.relocateTile(from4,to4);
+        // pz4.fixedTiles();
+        // pz4.actualArrangement();
+        pz4.fixedTiles();
     }
 }

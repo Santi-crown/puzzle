@@ -169,25 +169,36 @@ public class Tile extends Rectangle {
     // // <----------------------------------- IMPLEMENTING FIXEDTILES METHOD ----------------------------------->
     public void blink() {
     // Store the original color
-    /** 
-     * 
-     Color originalColor = this.color;
-    
-    // Create a new thread to handle the blinking effect
-    new Thread(() -> {
-        try {
-            for (int i = 0; i < 4; i++) { // Blink 4 times
-                this.changeColor(Color.WHITE);
-                Thread.sleep(200); // 200 milliseconds
+     
+    Color originalColor = this.color;
+        for (int i = 0; i < 4; i++) { // Blink 4 times
+                this.changeColor(fixedTile);
+                this.changeColor(fixedTile);
+                this.changeColor(fixedTile);
+                this.changeColor(fixedTile);
+                this.changeColor(fixedTile);
+                //Thread.sleep(200); // 200 milliseconds
                 this.changeColor(originalColor);
-                Thread.sleep(200);
+                this.changeColor(originalColor);
+                this.changeColor(originalColor);
+                this.changeColor(originalColor);
+                this.changeColor(originalColor);
+                //Thread.sleep(200);
+                this.changeColor(fixedTile);
+                this.changeColor(fixedTile);
+                this.changeColor(fixedTile);
+                this.changeColor(fixedTile);
+                this.changeColor(fixedTile);
+                
+                this.changeColor(originalColor);
+                this.changeColor(originalColor);
+                this.changeColor(originalColor);    
+                this.changeColor(originalColor);    
+                this.changeColor(originalColor);    
+                
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }).start();
-    **/
-    return;
-}
+
+    
+    }
 
 }

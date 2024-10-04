@@ -1,13 +1,13 @@
 import java.awt.Color;
 
-public class Tile extends Rectangle {
+public class Tile extends Rectangle{
     private Color color;
     private char label;
     public static final int SIZE = 50;
     public static final int MARGIN = 10;
     public static final int PADDING = 10; // Padding interno
     private int row; // Fila de la baldosa
-    private int col; // Columna de la baldosa
+    private int column; // Columna de la baldosa
     private boolean hasGlue = false;
     private boolean isStuck = false;
     private boolean visited = false; // For tracking during tilt
@@ -15,14 +15,12 @@ public class Tile extends Rectangle {
     private int xPos;
     private int yPos;
     private boolean isHole = false;
+    public static Color fixedTile = new Color(139, 0, 0); 
     
-    public Tile(char label, int xPosition, int yPosition,int row, int col) {
-        //super(size, size, Color.WHITE, xPosition, yPosition);
-        //this.size = size;
-        //this.padding = padding; // Inicializa el padding
+    public Tile(char label, int xPosition, int yPosition,int row, int column) {
         this.label = label;
         this.row = row;
-        this.col = col;
+        this.column = column;
         xPos = xPosition;
         yPos = yPosition;
       
@@ -105,7 +103,7 @@ public class Tile extends Rectangle {
     }
 
     public void setCol(int newCol) {
-        this.col = newCol;
+        this.column = newCol;
     }
 
     public int getRow() {
@@ -113,7 +111,7 @@ public class Tile extends Rectangle {
     }
 
     public int getCol() {
-        return col;
+        return column;
     }
 
     public char getLabel() {
@@ -160,26 +158,39 @@ public class Tile extends Rectangle {
     public int getSize(){
         return SIZE;
     }
-    
-    public int getMargin(){
-        return MARGIN;
-    }
-    
-    // Método para hacer que la baldosa parpadee
+      
+     // // <----------------------------------- IMPLEMENTING FIXEDTILES METHOD ----------------------------------->
     public void blink() {
-        if (!isVisible) return;
-        Thread thread = new Thread(() -> {
-            try {
-                for (int i = 0; i < 6; i++) {
-                    makeInvisible();
-                    Thread.sleep(200);
-                    makeVisible();
-                    Thread.sleep(200);
+        // Store the original color
+         
+        Color originalColor = this.color;
+            for (int i = 0; i < 4; i++) { // Blink 4 times
+                    this.changeColor(fixedTile);
+                    this.changeColor(fixedTile);
+                    this.changeColor(fixedTile);
+                    this.changeColor(fixedTile);
+                    this.changeColor(fixedTile);
+                    //Thread.sleep(200); // 200 milliseconds
+                    this.changeColor(originalColor);
+                    this.changeColor(originalColor);
+                    this.changeColor(originalColor);
+                    this.changeColor(originalColor);
+                    this.changeColor(originalColor);
+                    //Thread.sleep(200);
+                    this.changeColor(fixedTile);
+                    this.changeColor(fixedTile);
+                    this.changeColor(fixedTile);
+                    this.changeColor(fixedTile);
+                    this.changeColor(fixedTile);
+                    
+                    this.changeColor(originalColor);
+                    this.changeColor(originalColor);
+                    this.changeColor(originalColor);    
+                    this.changeColor(originalColor);    
+                    this.changeColor(originalColor);    
+                    
                 }
-            } catch (InterruptedException e) {
-                // Manejar excepción si es necesario
-            }
-        });
-        thread.start();
+
+    
     }
 }

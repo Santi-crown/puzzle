@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Tile
-comment1.params=label\ xPosition\ yPosition\ row\ col
+comment1.params=label\ xPosition\ yPosition\ row\ column
 comment1.target=Tile(char,\ int,\ int,\ int,\ int)
 comment10.params=newRow
 comment10.target=void\ setRow(int)
@@ -35,9 +35,7 @@ comment23.target=void\ setIsHole(boolean)
 comment24.params=
 comment24.target=int\ getSize()
 comment25.params=
-comment25.target=int\ getMargin()
-comment26.params=
-comment26.target=void\ blink()
+comment25.target=void\ blink()
 comment3.params=
 comment3.target=java.awt.Color\ getTileColor()
 comment4.params=newColor
@@ -52,4 +50,4 @@ comment8.params=isStuck
 comment8.target=void\ setIsStuck(boolean)
 comment9.params=
 comment9.target=java.awt.Color\ getOriginalColor()
-numComments=27
+numComments=26

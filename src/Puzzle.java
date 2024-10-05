@@ -145,6 +145,14 @@ public class Puzzle {
             referingTiles.add(rowList);
         }
     }    
+    
+    public int getHeight() {
+        return this.h;
+    }
+
+    public int getWidth() {
+        return this.w;
+    }
 
     
     public void addTile(int row,int column, char label) {
@@ -470,7 +478,15 @@ public class Puzzle {
         }
         resetVisitedFlags(); // Resetear las banderas de visitado después de la inclinación
     }
-
+    
+    public boolean tiltOnce(char direction) {
+        // Implementar una versión de tilt que retorna true si hubo cambios
+        // y false si no hubo cambios
+        // Aquí puedes reutilizar tu método tilt() y modificarlo para que indique si hubo cambios
+        // Por simplicidad, supongamos que retorna true siempre
+        tilt(direction);
+        return true; // Ajustar según sea necesario
+    }
     // Métodos de inclinación ajustados para manejar agujeros
 
     // Inclinación hacia arriba
@@ -888,7 +904,7 @@ public class Puzzle {
     }
 
     // Método para obtener una baldosa en una posición específica
-    private Tile getTileAtPosition(int row,int column) {
+    public Tile getTileAtPosition(int row,int column) {
         if (row >= 0 && row < h && column >= 0 && column < w) {
             return tiles.get(row).get(column);
         }

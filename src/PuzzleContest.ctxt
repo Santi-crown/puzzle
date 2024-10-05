@@ -1,0 +1,25 @@
+#BlueJ class context
+comment0.target=PuzzleContest
+comment1.params=starting\ ending
+comment1.target=boolean\ solve(char[][],\ char[][])
+comment10.params=puzzle
+comment10.target=void\ printBoard(Puzzle)
+comment11.params=args
+comment11.target=void\ main(java.lang.String[])
+comment2.params=starting\ ending
+comment2.target=void\ simulate(char[][],\ char[][])
+comment3.params=starting\ ending
+comment3.target=java.util.List\ bfsSolve(char[][],\ char[][])
+comment4.params=board1\ board2
+comment4.target=boolean\ boardsEqual(char[][],\ char[][])
+comment5.params=board
+comment5.target=char[][]\ copyBoard(char[][])
+comment6.params=starting\ ending
+comment6.target=boolean\ tileCountsMatch(char[][],\ char[][])
+comment7.params=board
+comment7.target=java.util.Map\ countTiles(char[][])
+comment8.params=board\ direction
+comment8.target=char[][]\ tiltBoard(char[][],\ char)
+comment9.params=direction
+comment9.target=java.lang.String\ directionToString(char)
+numComments=12

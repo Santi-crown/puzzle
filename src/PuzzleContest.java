@@ -42,10 +42,10 @@ public class PuzzleContest {
             printBoard(puzzle);
             step++;
         }
-
+        System.out.println("Finalizado");
         // Verificar si se alcanzó la configuración final
         if (puzzle.isGoal()) {
-            System.out.println("Se ha alcanzado la configuración final.");
+            JOptionPane.showMessageDialog(null,"Se ha alcanzado la configuración final\n starting = ending", "Icono de Octopocto", 0, new ImageIcon("img/matrixEqual.png"));
         } else {
             JOptionPane.showMessageDialog(null,"No se ha podido alcanzar la configuración final con las inclinaciones realizadas.");
         }

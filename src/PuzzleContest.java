@@ -2,39 +2,61 @@ import java.util.*;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 
+
+/**
+ * Write a description of class Hola here.
+ *
+ * @author: Andersson David Sánchez Méndez
+ * @author: Cristian Santiago Pedraza Rodríguez
+ * @version (2024)
+ */
+
 public class PuzzleContest {
 
-    // Método para determinar si el puzzle puede ser resuelto
+    /**
+     * Method to determine if the puzzle can be solved from the starting configuration to the ending configuration.
+     * Uses BFS to find if there is a sequence of tilts that transforms the starting board into the ending board.
+     *
+     * @param starting The starting configuration of the puzzle as a 2D char array.
+     * @param ending The ending configuration of the puzzle as a 2D char array.
+     * @return True if the puzzle can be solved, false otherwise.
+     */
     public boolean solve(char[][] starting, char[][] ending) {
-        // Verificar si los tableros tienen la misma cantidad de fichas de cada color
+        // Check if both boards have the same count of tiles for each color
         if (!tileCountsMatch(starting, ending)) {
             JOptionPane.showMessageDialog(null,"No");
             return false;
         }
         
         JOptionPane.showMessageDialog(null,"Yes", "Icono de Octopocto", 0, new ImageIcon("img/checkMark.png"));
-        // Implementar BFS para encontrar si existe una secuencia de inclinaciones que transforme starting en ending
+        // Implement BFS to find if there exists a sequence of tilts that transforms starting into ending
         return bfsSolve(starting, ending) != null;
     }
 
-    // Método para simular los movimientos y mostrar paso a paso
+    /**
+     * Method to simulate the solution by showing each step from the starting configuration to the ending configuration.
+     * It first checks if a solution exists, then applies the sequence of tilts step by step, displaying the intermediate configurations.
+     *
+     * @param starting The starting configuration of the puzzle as a 2D char array.
+     * @param ending The ending configuration of the puzzle as a 2D char array.
+     */    
     public void simulate(char[][] starting, char[][] ending) {
-        // Primero, verificar si hay solución
+        // First, check if a solution exists
         List<Character> moves = bfsSolve(starting, ending);
         if (moves == null) {
             JOptionPane.showMessageDialog(null,"No hay solución posible");
             return;
         }
 
-        // Crear una instancia de Puzzle con la configuración inicial
+        // Create an instance of Puzzle with the initial configuration
         Puzzle puzzle = new Puzzle(starting, ending);
         puzzle.makeVisible();
 
-        // Mostrar la configuración inicial
+        // Display the initial configuration
         System.out.println("Configuración inicial:");
         printBoard(puzzle);
 
-        // Aplicar los movimientos y mostrar paso a paso
+        // Apply the moves and display each step
         int step = 1;
         for (char move : moves) {
             puzzle.tilt(move);
@@ -43,7 +65,8 @@ public class PuzzleContest {
             step++;
         }
         System.out.println("Finalizado");
-        // Verificar si se alcanzó la configuración final
+
+        // Check if the goal configuration has been reached
         if (puzzle.isGoal()) {
             JOptionPane.showMessageDialog(null,"Se ha alcanzado la configuración final\n starting = ending", "Icono de Octopocto", 0, new ImageIcon("img/matrixEqual.png"));
         } else {
@@ -51,12 +74,18 @@ public class PuzzleContest {
         }
     }
 
-    // Implementación de BFS para encontrar la secuencia de inclinaciones
+     /**
+     * Breadth-First Search (BFS) implementation to find the sequence of tilts that transforms the starting board into the ending board.
+     *
+     * @param starting The starting configuration of the puzzle as a 2D char array.
+     * @param ending The ending configuration of the puzzle as a 2D char array.
+     * @return A list of characters representing the sequence of tilts, or null if no solution is found.
+     */
     private List<Character> bfsSolve(char[][] starting, char[][] ending) {
         int h = starting.length;
         int w = starting[0].length;
 
-        // Representación del estado del tablero
+        // Inner class to represent the state of the board
         class State {
             char[][] board;
             List<Character> moves;
@@ -66,7 +95,7 @@ public class PuzzleContest {
                 this.moves = moves;
             }
 
-            // Generar una clave única para el estado del tablero
+            // Generate a unique key for the board state
             String getKey() {
                 StringBuilder sb = new StringBuilder();
                 for (char[] row : board) {
@@ -76,14 +105,14 @@ public class PuzzleContest {
             }
         }
 
-        // Direcciones de las inclinaciones
+        // Possible tilt directions
         char[] directions = { 'u', 'd', 'l', 'r' };
 
-        // Inicializar la cola para BFS y el conjunto de estados visitados
+        // Initialize the queue for BFS and the set of visited states
         Queue<State> queue = new LinkedList<>();
         Set<String> visited = new HashSet<>();
 
-        // Estado inicial
+        // Initial state
         State initialState = new State(copyBoard(starting), new ArrayList<>());
         queue.add(initialState);
         visited.add(initialState.getKey());
@@ -91,12 +120,12 @@ public class PuzzleContest {
         while (!queue.isEmpty()) {
             State currentState = queue.poll();
 
-            // Verificar si hemos alcanzado el estado final
+            // Check if we have reached the final state
             if (boardsEqual(currentState.board, ending)) {
                 return currentState.moves;
             }
 
-            // Generar estados vecinos
+            // Generate neighboring states
             for (char dir : directions) {
                 char[][] newBoard = tiltBoard(currentState.board, dir);
                 State newState = new State(newBoard, new ArrayList<>(currentState.moves));
@@ -110,13 +139,19 @@ public class PuzzleContest {
             }
         }
 
-        // No se encontró solución
+        // No solution found
         return null;
     }
 
-    // Métodos auxiliares
+    // Auxiliar methods
 
-    // Verificar si dos tableros son iguales
+    /**
+     * Check if two boards are equal.
+     *
+     * @param board1 The first board.
+     * @param board2 The second board.
+     * @return True if both boards are equal, false otherwise.
+     */
     private boolean boardsEqual(char[][] board1, char[][] board2) {
         int h = board1.length;
         for (int i = 0; i < h; i++) {
@@ -127,7 +162,12 @@ public class PuzzleContest {
         return true;
     }
 
-    // Copiar un tablero
+    /**
+     * Copy a board.
+     *
+     * @param board The board to copy.
+     * @return A copy of the given board.
+     */
     private char[][] copyBoard(char[][] board) {
         int h = board.length;
         char[][] newBoard = new char[h][];
@@ -137,14 +177,25 @@ public class PuzzleContest {
         return newBoard;
     }
 
-    // Verificar si los recuentos de fichas coinciden
+        /**
+     * Check if the tile counts match between two boards.
+     *
+     * @param starting The starting board.
+     * @param ending The ending board.
+     * @return True if the tile counts match, false otherwise.
+     */
     private boolean tileCountsMatch(char[][] starting, char[][] ending) {
         Map<Character, Integer> startingCounts = countTiles(starting);
         Map<Character, Integer> endingCounts = countTiles(ending);
         return startingCounts.equals(endingCounts);
     }
 
-    // Contar las fichas de cada color en una matriz
+    /**
+     * Count the tiles of each color on a board.
+     *
+     * @param board The board to count tiles on.
+     * @return A map of tile colors and their respective counts.
+     */
     private Map<Character, Integer> countTiles(char[][] board) {
         Map<Character, Integer> counts = new HashMap<>();
         for (char[] row : board) {
@@ -157,7 +208,13 @@ public class PuzzleContest {
         return counts;
     }
 
-    // Aplicar una inclinación a un tablero y devolver el nuevo tablero
+    /**
+     * Apply a tilt to a board and return the new board.
+     *
+     * @param board The current board.
+     * @param direction The direction of the tilt ('u', 'd', 'l', 'r').
+     * @return The new board after applying the tilt.
+     */
     private char[][] tiltBoard(char[][] board, char direction) {
         int h = board.length;
         int w = board[0].length;
@@ -221,7 +278,12 @@ public class PuzzleContest {
         return newBoard;
     }
 
-    // Convertir la dirección a una cadena legible
+     /**
+     * Convert the direction character to a readable string.
+     *
+     * @param direction The direction character ('u', 'd', 'l', 'r').
+     * @return The string representation of the direction.
+     */
     private String directionToString(char direction) {
         switch (direction) {
             case 'u':
@@ -237,7 +299,11 @@ public class PuzzleContest {
         }
     }
 
-    // Imprimir el tablero actual
+    /**
+     * Print the current board state of the puzzle.
+     *
+     * @param puzzle The puzzle instance to print.
+     */
     private void printBoard(Puzzle puzzle) {
         int h = puzzle.getHeight();
         int w = puzzle.getWidth();
@@ -251,7 +317,11 @@ public class PuzzleContest {
         System.out.println();
     }
 
-    // Método principal para pruebas
+    /**
+     * Main method for testing the PuzzleContest class.
+     * 
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         PuzzleContest contest = new PuzzleContest();
 
@@ -270,11 +340,11 @@ public class PuzzleContest {
             { '*', '*', '*', 'b' }
         };
 
-        // Probar solve
+        // Test solve method
         boolean canSolve = contest.solve(starting1, ending1);
         System.out.println("¿Es posible resolver el puzzle? " + (canSolve ? "Sí" : "No"));
 
-        // Probar simulate
+        // Test simulate method
         contest.simulate(starting1, ending1);
     }
 }

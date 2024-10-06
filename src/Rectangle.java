@@ -21,14 +21,24 @@ public class Rectangle{
     private boolean isVisible;
 
     /**
-     * Create a new rectangle at default position with default color.
+     * Default constructor for Rectangle.
+     * Creates a rectangle at a default position with no specified height, width, or color.
+     * The rectangle will need to be configured before it becomes useful.
      */
     
     public Rectangle(){
-        
+        // Empty constructor, attributes will be initialized later
     }
     
-   
+    /**
+     * Constructor to create a rectangle with specified dimensions, color, and position.
+     * 
+     * @param height The height of the rectangle in pixels.
+     * @param width The width of the rectangle in pixels.
+     * @param color The color of the rectangle.
+     * @param xPosition The x-coordinate of the rectangle's position on the canvas.
+     * @param yPosition The y-coordinate of the rectangle's position on the canvas.
+     */   
     public Rectangle(int height, int width, Color color, int xPosition, int yPosition){
         this.width = width;
         this.height = height;
@@ -38,6 +48,16 @@ public class Rectangle{
         this.makeVisible();
     }
     
+    /**
+     * Constructor to create a rectangle with a specific board configuration, used in puzzles.
+     * It automatically sets its size based on tiles, margin, and board name.
+     * 
+     * @param h The height in terms of the number of tiles.
+     * @param w The width in terms of the number of tiles.
+     * @param xPosition The x-coordinate of the rectangle's starting position.
+     * @param yPosition The y-coordinate of the rectangle's starting position.
+     * @param boardName The name of the board configuration (e.g., "starting" or other positions).
+     */    
     public Rectangle(int h, int w, int xPosition, int yPosition, String boardName){
         int tileSize = Tile.SIZE;
         int tileMargin = Tile.MARGIN;

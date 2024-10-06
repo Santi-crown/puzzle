@@ -26,6 +26,7 @@ comment16.target=void\ changeColor(java.awt.Color)
 comment16.text=\r\n\ Change\ the\ color.\ \r\n\ @param\ color\ the\ new\ color.\ Valid\ colors\ are\ "red",\ "yellow",\ "blue",\ "green",\r\n\ "magenta"\ and\ "black".\r\n
 comment2.params=diameter\ xPosition\ yPosition\ color
 comment2.target=Circle(int,\ int,\ int,\ java.awt.Color)
+comment2.text=\r\n\ Create\ a\ circle\ with\ characteristics\ of\ a\ hole\r\n\ @param\ diameter\ the\ desired\ diameter\ of\ hole\r\n\ @param\ xPosition\ the\ desired\ horizontal\ position\ of\ hole\r\n\ @param\ color\ the\ desired\ color\ of\ hole\r\n
 comment3.params=
 comment3.target=void\ makeVisible()
 comment4.params=

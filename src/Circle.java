@@ -22,6 +22,12 @@ public class Circle{
     public Circle(){
     }
     
+     /**
+     * Create a circle with characteristics of a hole
+     * @param diameter the desired diameter of hole
+     * @param xPosition the desired horizontal position of hole
+     * @param color the desired color of hole
+     */
     public Circle(int diameter, int xPosition, int yPosition, Color color){
         this.diameter = diameter;
         this.xPosition = xPosition;

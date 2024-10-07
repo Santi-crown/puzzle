@@ -1479,108 +1479,97 @@ public class Puzzle {
   // <----------------------------------- IMPLEMENTING FIXED_TILES METHOD ----------------------------------->
     /**
      * Identifies and returns a matrix indicating the fixed tiles that cannot move.
-     *
-     * @return A matrix of fixed tiles
+     * 
+     * @return A matrix of fixed tiles, where 0 indicates a fixed tile and 1 indicates a movable tile.
      */
     public int[][] fixedTiles() {
-        int[][] fixedTilesMatrix = new int[h][w];
-        
-        for (int row = 0; row < h; row++) {
-            for (int col = 0; col < w; col++) {
-                Tile tile = getTileAtPosition(row, col);
-                
-                // Skip if tile is empty or a hole
-                if (isTileEmpty(tile) || tile.getIsHole()) {
-                    fixedTilesMatrix[row][col] = 0;
-                    continue;
-                }
-                
-                boolean canMoveUp = canTileMove(tile, 'u');
-                boolean canMoveDown = canTileMove(tile, 'd');
-                boolean canMoveLeft = canTileMove(tile, 'l');
-                boolean canMoveRight = canTileMove(tile, 'r');
-                
-                if (!canMoveUp && !canMoveDown && !canMoveLeft && !canMoveRight) {
-                    fixedTilesMatrix[row][col] = 1;
-                    if (visible) {
-                        tiles.get(row).get(col).blink();
-                    }
-                } else {
-                    fixedTilesMatrix[row][col] = 0;
+    // Validates each row to check if there is an empty tile or a hole. 
+    // If an empty tile or a hole is found, mark the entire row as not fixed.
+    for (int i = 0; i < h; i++) {
+        boolean flag = findEmptyTileOrHoleSegmentRow(i);
+        if (flag) {
+            for (int j = 0; j < w; j++) {
+                Tile tile = getTileAtPosition(i, j);
+                if (tile.getFixedStatus()) {
+                    tile.setIsNotFixed();
                 }
             }
         }
-        
-        // Print the fixed tiles matrix to the console
-        System.out.println("Fixed Tiles Matrix:");
-        for (int row = 0; row < h; row++) {
-            for (int col = 0; col < w; col++) {
-                System.out.print(fixedTilesMatrix[row][col] + " ");
+    }
+
+    // Validates each column to check if there is an empty tile or a hole. 
+    // If an empty tile or a hole is found, mark the entire column as not fixed.
+    for (int j = 0; j < w; j++) {
+        boolean flag = findEmptyTileOrHoleSegmentColumn(j);
+        if (flag) {
+            for (int i = 0; i < h; i++) {
+                Tile tile = getTileAtPosition(i, j);
+                if (tile.getFixedStatus()) {
+                    tile.setIsNotFixed();
+                }
             }
-            System.out.println();
+        }
+    }
+
+    // Create a matrix representing the fixed tiles, with 1's and 0's.
+    // 0 represents a fixed tile, while 1 represents a movable tile.
+    int[][] fixedTilesMatrix = new int[h][w];
+    for (int i = 0; i < h; i++) {
+        for (int j = 0; j < w; j++) {
+            Tile targetTile = getTileAtPosition(i, j);
+            if (targetTile.getFixedStatus()) {
+                fixedTilesMatrix[i][j] = 0;
+            } else {
+                fixedTilesMatrix[i][j] = 1;
+            }
+        }
+    }
+
+    // Print the fixed tiles matrix to the console
+    System.out.println("Fixed Tiles Matrix:");
+    for (int row = 0; row < h; row++) {
+        for (int col = 0; col < w; col++) {
+            System.out.print(fixedTilesMatrix[row][col] + " ");
         }
         System.out.println();
-        
-        return fixedTilesMatrix;
     }
-    
-    /**
-     * Checks if a tile can move in a specified direction.
-     *
-     * @param tile The tile to check
-     * @param direction The direction to check ('u', 'd', 'l', 'r')
-     * @return True if the tile can move, false otherwise
-     */
-    private boolean canTileMove(Tile tile, char direction) {
-        // Reset visited flags before checking
-        resetVisitedFlags();
-        
-        List<Tile> group = new ArrayList<>();
-        boolean isGluedOrStuck = tile.isStuck() || tile.hasGlue();
-        
-        if (isGluedOrStuck) {
-            collectStuckGroup(tile, group);
-        } else {
-            group.add(tile);
-        }
-        
-        int maxMove = 0;
-        switch (direction) {
-            case 'u':
-                maxMove = calculateMaxMoveUpGroup(group, isGluedOrStuck);
-                break;
-            case 'd':
-                maxMove = calculateMaxMoveDownGroup(group, isGluedOrStuck);
-                break;
-            case 'l':
-                maxMove = calculateMaxMoveLeftGroup(group, isGluedOrStuck);
-                break;
-            case 'r':
-                maxMove = calculateMaxMoveRightGroup(group, isGluedOrStuck);
-                break;
-        }
-        
-        if (maxMove > 0 || (maxMove == -1 && !isGluedOrStuck)) {
+    System.out.println();
+
+    return fixedTilesMatrix;
+}
+
+/**
+ * Finds an empty tile or a hole in the specified row.
+ * 
+ * @param row The row index to check.
+ * @return true if an empty tile or a hole is found in the row, false otherwise.
+ */
+private boolean findEmptyTileOrHoleSegmentRow(int row) {
+    for (int col = 0; col < w; col++) {
+        Tile currentTile = getTileAtPosition(row, col);
+        if (currentTile.getLabel() == 'h' || currentTile.getLabel() == '*') {
             return true;
-        } else {
-            return false;
         }
     }
+    return false;
+}
+
+/**
+ * Finds an empty tile or a hole in the specified column.
+ * 
+ * @param col The column index to check.
+ * @return true if an empty tile or a hole is found in the column, false otherwise.
+ */
+private boolean findEmptyTileOrHoleSegmentColumn(int col) {
+    for (int row = 0; row < h; row++) {
+        Tile currentTile = getTileAtPosition(row, col);
+        if (currentTile.getLabel() == 'h' || currentTile.getLabel() == '*') {
+            return true;
+        }
+    }
+    return false;
+}
     
-    /**
-     * Prints the matrix of fixed tiles to the console.
-     */
-    public void printFixedTilesMatrix() {
-        int[][] fixedTilesMatrix = fixedTiles(); // Call the method that returns the matrix
-        
-        for (int row = 0; row < fixedTilesMatrix.length; row++) {
-            for (int col = 0; col < fixedTilesMatrix[0].length; col++) {
-                // Print the value in the position(row, col)
-                System.out.print(fixedTilesMatrix[row][col] + " ");
-            }
-            System.out.println(); // Jump line for the next row 
-        }
-    }
     
     
     // I used the same logic that method isGoal about comparing and to get the position on the tile with the label.
@@ -1644,10 +1633,10 @@ public class Puzzle {
         Puzzle pz3 = new Puzzle(10, 10); // Tablero sin matrices
         Puzzle pz4 = new Puzzle(starting1, ending1); // Tablero con matrices
         
-        pz4.addTile(9,0,'r');
-        pz4.addGlue(9,1);
-        pz4.tilt('u');
-        pz4.tilt('r');
+        // pz4.addTile(9,0,'r');
+        // pz4.addGlue(9,1);
+        // pz4.tilt('u');
+        // pz4.tilt('r');
         
         //pz4.addTile(5,1,'b');
         //pz4.deleteTile(5,1);
@@ -1667,10 +1656,11 @@ public class Puzzle {
     
         //pz4.tilt('l');
         //pz4.tilt('g');
-        pz4.addTile(6,0,'r');
+        //pz4.addTile(6,0,'r');
         
         int[] from4 = {6,0};
         int[] to4   = {3,1};
-        pz4.relocateTile(from4,to4);
+        // pz4.relocateTile(from4,to4);
+        pz4.fixedTiles();
     }
 }

@@ -29,6 +29,7 @@ public class Tile extends Rectangle{
     private int xPos;
     private int yPos;
     private boolean isHole = false;
+    private boolean isFixed = true; // It is true because if after validate col and row it still is true, it's because it is really fixed. 
      
     /**
      * Constructor to create a new Tile object with specified label, position, row, and column.
@@ -303,5 +304,23 @@ public class Tile extends Rectangle{
         for (int i = 0; i < times; i++) {
             this.changeColor(color);
         }
+    }
+    
+    /**
+     * Sets a tile as not fixed
+     *     
+     */    
+    public void setIsNotFixed(){
+        isFixed = false;
+    }
+    
+    
+/**
+ * Gets the fixed status of the tile.
+ * 
+ * @return true if the tile is fixed (cannot move), false otherwise.
+ */
+    public boolean getFixedStatus(){
+        return isFixed;
     }
 }

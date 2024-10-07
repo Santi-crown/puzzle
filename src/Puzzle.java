@@ -1519,6 +1519,11 @@ public class Puzzle {
             Tile targetTile = getTileAtPosition(i, j);
             if (targetTile.getFixedStatus()) {
                 fixedTilesMatrix[i][j] = 0;
+                if (visible) {                        
+                        if (visible) {                        
+                            targetTile.blink();
+                        }
+                    }
             } else {
                 fixedTilesMatrix[i][j] = 1;
             }

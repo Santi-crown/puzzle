@@ -14,8 +14,7 @@ public class Tile extends Rectangle{
     // Constants
     public static final int SIZE = 50;
     public static final int MARGIN = 10;
-    public static final int PADDING = 10; // Intern Padding 
-    public static Color FIXED_TILE_COLOR = new Color(139, 0, 0);
+    public static final int PADDING = 10; // Intern Padding     
 
     // Attributes
     private Color color;
@@ -289,7 +288,7 @@ public class Tile extends Rectangle{
     public void blink() {
         Color originalColor = this.color;
         for (int i = 0; i < 4; i++) {
-            changeColorMultipleTimes(FIXED_TILE_COLOR, 5);
+            changeColorMultipleTimes(Puzzle.lightBrown, 5);
             changeColorMultipleTimes(originalColor, 5);
         }
     }
@@ -302,6 +301,7 @@ public class Tile extends Rectangle{
      */
     private void changeColorMultipleTimes(Color color, int times) {
         for (int i = 0; i < times; i++) {
+            this.changeColor(color);
             this.changeColor(color);
         }
     }

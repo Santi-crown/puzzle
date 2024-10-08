@@ -1,13 +1,12 @@
 import java.awt.Color;
 
-
 /**
  * The Tile class represents a tile in a puzzle. It extends Rectangle to inherit graphical properties.
  * Each tile has a color, a label, coordinates for its position in the grid, and other attributes for managing its state. 
  *
  * @author: Andersson David Sánchez Méndez
  * @author: Cristian Santiago Pedraza Rodríguez
- * @version (2024) 
+ * @version 2024
  */
 
 public class Tile extends Rectangle{
@@ -29,6 +28,7 @@ public class Tile extends Rectangle{
     private int xPos;
     private int yPos;
     private boolean isHole = false;
+    private boolean isFixed = true; // It is true because if after validate col and row it still is true, it's because it is really fixed. 
      
     /**
      * Constructor to create a new Tile object with specified label, position, row, and column.
@@ -288,7 +288,7 @@ public class Tile extends Rectangle{
     public void blink() {
         Color originalColor = this.color;
         for (int i = 0; i < 4; i++) {
-            changeColorMultipleTimes(FIXED_TILE_COLOR, 5);
+            changeColorMultipleTimes(Puzzle.lightBrown, 5);
             changeColorMultipleTimes(originalColor, 5);
         }
     }
@@ -302,6 +302,25 @@ public class Tile extends Rectangle{
     private void changeColorMultipleTimes(Color color, int times) {
         for (int i = 0; i < times; i++) {
             this.changeColor(color);
+            this.changeColor(color);
         }
+    }
+    
+    /**
+     * Sets a tile as not fixed
+     *     
+     */    
+    public void setIsNotFixed(){
+        isFixed = false;
+    }
+    
+    
+    /**
+     * Gets the fixed status of the tile.
+     * 
+     * @return true if the tile is fixed (cannot move), false otherwise.
+     */
+    public boolean getFixedStatus(){
+        return isFixed;
     }
 }

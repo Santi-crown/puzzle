@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=PuzzleContest
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Hola\ here.\r\n\r\n\ @author\:\ Andersson\ David\ S\u00E1nchez\ M\u00E9ndez\r\n\ @author\:\ Cristian\ Santiago\ Pedraza\ Rodr\u00EDguez\r\n\ @version\ (2024)\r\n
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Hola\ here.\r\n\r\n\ @author\:\ Andersson\ David\ S\u00E1nchez\ M\u00E9ndez\r\n\ @author\:\ Cristian\ Santiago\ Pedraza\ Rodr\u00EDguez\r\n\ @version\ 2024\r\n
 comment1.params=starting\ ending
 comment1.target=boolean\ solve(char[][],\ char[][])
 comment1.text=\r\n\ Method\ to\ determine\ if\ the\ puzzle\ can\ be\ solved\ from\ the\ starting\ configuration\ to\ the\ ending\ configuration.\r\n\ Uses\ BFS\ to\ find\ if\ there\ is\ a\ sequence\ of\ tilts\ that\ transforms\ the\ starting\ board\ into\ the\ ending\ board.\r\n\r\n\ @param\ starting\ The\ starting\ configuration\ of\ the\ puzzle\ as\ a\ 2D\ char\ array.\r\n\ @param\ ending\ The\ ending\ configuration\ of\ the\ puzzle\ as\ a\ 2D\ char\ array.\r\n\ @return\ True\ if\ the\ puzzle\ can\ be\ solved,\ false\ otherwise.\r\n

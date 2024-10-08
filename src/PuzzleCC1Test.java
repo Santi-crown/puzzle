@@ -2,8 +2,17 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PuzzleCC1Test {
+/**
+ * The test class PuzzleC1Test.
+ *
+ * @author Andersson David Sánchez Méndez
+ * @author Cristian Santiago Pedraza Rodríguez
+ * @version 2024
+ */
 
+public class PuzzleCC1Test {
+    
+    // Elementary attributes to make tests
     private Puzzle puzzle;
     private Puzzle puzzleBoard;
     private char[][] starting;

@@ -1,5 +1,3 @@
-
-
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,17 +6,18 @@ import org.junit.jupiter.api.Test;
 /**
  * The test class PuzzleCC2Test.
  *
- * @author  (your name)
- * @version (a version number or a date)
+ * @author Andersson David Sánchez Méndez
+ * @author Cristian Santiago Pedraza Rodríguez
+ * @version 2024
  */
 public class PuzzleCC2Test
 {
-    /**
-     * Default constructor for test class PuzzleCC2Test
-     */
-    public PuzzleCC2Test()
-    {
-    }
+    // Elementary attributes to make tests
+    private Puzzle puzzle;
+    //private Puzzle puzzleI;
+    //private Puzzle puzzleF;
+    private char[][] starting;
+    private char[][] ending;
 
     /**
      * Sets up the test fixture.

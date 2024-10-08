@@ -1,24 +1,23 @@
-
-
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * The test class PuzzleC3Test.
+ * The test class PuzzleContestCTest.
  *
- * @author  (your name)
- * @version (a version number or a date)
+ * @author Andersson David Sánchez Méndez
+ * @author Cristian Santiago Pedraza Rodríguez
+ * @version 2024
  */
-public class PuzzleC3Test
+public class PuzzleContestCTest
 {
-    /**
-     * Default constructor for test class PuzzleC3Test
-     */
-    public PuzzleC3Test()
-    {
-    }
+    // Elementary attributes to make tests
+    private Puzzle puzzle;
+    //private Puzzle puzzleI;
+    //private Puzzle puzzleF;
+    private char[][] starting;
+    private char[][] ending;
 
     /**
      * Sets up the test fixture.

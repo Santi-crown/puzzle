@@ -2,13 +2,12 @@ import java.util.*;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 
-
 /**
  * Write a description of class Hola here.
  *
  * @author: Andersson David Sánchez Méndez
  * @author: Cristian Santiago Pedraza Rodríguez
- * @version (2024)
+ * @version 2024
  */
 
 public class PuzzleContest {
@@ -60,7 +59,7 @@ public class PuzzleContest {
         int step = 1;
         for (char move : moves) {
             puzzle.tilt(move);
-            System.out.println("Step " + step + ": Tilt to" + directionToString(move));
+            System.out.println("Step " + step + ": Tilt to " + directionToString(move));
             printBoard(puzzle);
             step++;
         }
@@ -68,7 +67,7 @@ public class PuzzleContest {
 
         // Check if the goal configuration has been reached
         if (puzzle.isGoal()) {
-            JOptionPane.showMessageDialog(null,"It reached th final configuration\n starting = ending", "Icono de Octopocto", 0, new ImageIcon("img/matrixEqual.png"));
+            JOptionPane.showMessageDialog(null,"It reached the final configuration\n starting = ending", "Icono de Octopocto", 0, new ImageIcon("img/matrixEqual.png"));
         } else {
             JOptionPane.showMessageDialog(null,"It didn't reach the final configuration with the realized tilts.");
         }

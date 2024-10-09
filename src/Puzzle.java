@@ -1621,226 +1621,199 @@ public class Puzzle {
     }
     
 
+/**
+ * Smart tilt method that performs an intelligent tilt to bring the puzzle closer to the solution.
+ */
+public void tilt() {
+    // Get the current board configuration
+    char[][] currentArrangement = getCurrentArrangement();
 
-    /**
-     * Método smartTilt que realiza un tilt inteligente para acercar el puzzle a la solución.
-     */
-    public void tilt() {
-        // Obtener la configuración actual del tablero
-        char[][] currentArrangement = getCurrentArrangement();
+    // Use BFS to find the sequence of moves from the current configuration to the solution
+    List<Character> moves = bfsSolve(currentArrangement, ending);
 
-        // Utilizar BFS para encontrar la secuencia de movimientos desde la configuración actual hasta la solución
-        List<Character> moves = bfsSolve(currentArrangement, ending);
+    // If a sequence of moves is found, apply the first move
+    if (moves != null && !moves.isEmpty()) {
+        char firstMove = moves.get(0);
+        tilt(firstMove);
+        System.out.println("An intelligent tilt has been applied towards " + directionToString(firstMove));
+        this.ok = true;
+    } else {
+        System.out.println("No possible moves to bring the puzzle closer to the solution.");
+        this.ok = false;
+    }
+}
 
-        // Si se encontró una secuencia de movimientos, aplicar el primero
-        if (moves != null && !moves.isEmpty()) {
-            char firstMove = moves.get(0);
-            tilt(firstMove);
-            System.out.println("Se ha aplicado un tilt inteligente hacia " + directionToString(firstMove));
-            this.ok = true;
-        } else {
-            System.out.println("No hay movimientos posibles para acercar el puzzle a la solución.");
-            this.ok = false;
+/**
+ * Private method to get the current board configuration.
+ */
+private char[][] getCurrentArrangement() {
+    char[][] currentArrangement = new char[h][w];
+    for (int row = 0; row < h; row++) {
+        for (int col = 0; col < w; col++) {
+            Tile tile = getTileAtPosition(row, col);
+            currentArrangement[row][col] = tile.getLabel();
+        }
+    }
+    return currentArrangement;
+}
+
+/**
+ * BFS implementation to find the sequence of tilts from the current configuration to the solution.
+ */
+private List<Character> bfsSolve(char[][] startConfig, char[][] goalConfig) {
+    // Inner class to represent the state of the board
+    class State {
+        char[][] board;
+        List<Character> moves;
+
+        State(char[][] board, List<Character> moves) {
+            this.board = board;
+            this.moves = moves;
+        }
+
+        // Generate a unique key for the board state
+        String getKey() {
+            return Arrays.deepToString(board);
         }
     }
 
-    /**
-     * Método privado para obtener la configuración actual del tablero.
-     */
-    private char[][] getCurrentArrangement() {
-        char[][] currentArrangement = new char[h][w];
-        for (int row = 0; row < h; row++) {
+    // Possible tilt directions
+    char[] directions = {'u', 'd', 'l', 'r'};
+
+    // Initialize the BFS queue and the set of visited states
+    Queue<State> queue = new LinkedList<>();
+    Set<String> visited = new HashSet<>();
+
+    // Add initial state to the queue
+    State initialState = new State(copyBoard(startConfig), new ArrayList<>());
+    queue.add(initialState);
+    visited.add(initialState.getKey());
+
+    while (!queue.isEmpty()) {
+        State currentState = queue.poll();
+
+        // Check if the current state matches the goal configuration
+        if (boardsEqual(currentState.board, goalConfig)) {
+            return currentState.moves;
+        }
+
+        // Generate next possible states
+        for (char direction : directions) {
+            char[][] newBoard = tiltBoard(currentState.board, direction);
+            String key = Arrays.deepToString(newBoard);
+
+            if (!visited.contains(key)) {
+                visited.add(key);
+                List<Character> newMoves = new ArrayList<>(currentState.moves);
+                newMoves.add(direction);
+                queue.add(new State(newBoard, newMoves));
+            }
+        }
+    }
+
+    // Return null if no solution is found
+    return null;
+}
+
+// Helper methods for BFS and board manipulation
+
+/**
+ * Copy a board.
+ */
+private char[][] copyBoard(char[][] board) {
+    return Arrays.stream(board).map(char[]::clone).toArray(char[][]::new);
+}
+
+/**
+ * Check if two boards are equal.
+ */
+private boolean boardsEqual(char[][] board1, char[][] board2) {
+    return Arrays.deepEquals(board1, board2);
+}
+
+/**
+ * Apply a tilt to a board and return the resulting new board.
+ */
+private char[][] tiltBoard(char[][] board, char direction) {
+    int h = board.length;
+    int w = board[0].length;
+    char[][] newBoard = copyBoard(board);
+
+    switch (direction) {
+        case 'u':
             for (int col = 0; col < w; col++) {
-                Tile tile = getTileAtPosition(row, col);
-                char label = tile.getLabel();
-                currentArrangement[row][col] = label;
-            }
-        }
-        return currentArrangement;
-    }
-
-    /**
-     * Implementación de BFS para encontrar la secuencia de inclinaciones desde la configuración actual hasta la solución.
-     */
-    private List<Character> bfsSolve(char[][] starting, char[][] ending) {
-        int h = starting.length;
-        int w = starting[0].length;
-
-        // Clase interna para representar el estado del tablero
-        class State {
-            char[][] board;
-            List<Character> moves;
-
-            State(char[][] board, List<Character> moves) {
-                this.board = board;
-                this.moves = moves;
-            }
-
-            // Generar una clave única para el estado del tablero
-            String getKey() {
-                StringBuilder sb = new StringBuilder();
-                for (char[] row : board) {
-                    sb.append(row);
-                }
-                return sb.toString();
-            }
-        }
-
-        // Direcciones de inclinación posibles
-        char[] directions = { 'u', 'd', 'l', 'r' };
-
-        // Inicializar la cola para BFS y el conjunto de estados visitados
-        Queue<State> queue = new LinkedList<>();
-        Set<String> visited = new HashSet<>();
-
-        // Estado inicial
-        State initialState = new State(copyBoard(starting), new ArrayList<>());
-        queue.add(initialState);
-        visited.add(initialState.getKey());
-
-        while (!queue.isEmpty()) {
-            State currentState = queue.poll();
-
-            // Verificar si hemos alcanzado el estado final
-            if (boardsEqual(currentState.board, ending)) {
-                return currentState.moves;
-            }
-
-            // Generar estados vecinos
-            for (char dir : directions) {
-                char[][] newBoard = tiltBoard(currentState.board, dir);
-                State newState = new State(newBoard, new ArrayList<>(currentState.moves));
-                newState.moves.add(dir);
-
-                String key = newState.getKey();
-                if (!visited.contains(key)) {
-                    visited.add(key);
-                    queue.add(newState);
-                }
-            }
-        }
-
-        // No se encontró solución
-        return null;
-    }
-
-    // Métodos auxiliares para BFS y manipulación de tableros
-
-    /**
-     * Copiar un tablero.
-     */
-    private char[][] copyBoard(char[][] board) {
-        int h = board.length;
-        char[][] newBoard = new char[h][];
-        for (int i = 0; i < h; i++) {
-            newBoard[i] = board[i].clone();
-        }
-        return newBoard;
-    }
-
-    /**
-     * Verificar si dos tableros son iguales.
-     */
-    private boolean boardsEqual(char[][] board1, char[][] board2) {
-        int h = board1.length;
-        for (int i = 0; i < h; i++) {
-            if (!Arrays.equals(board1[i], board2[i])) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Aplicar una inclinación a un tablero y devolver el nuevo tablero resultante.
-     */
-    private char[][] tiltBoard(char[][] board, char direction) {
-        int h = board.length;
-        int w = board[0].length;
-        char[][] newBoard = copyBoard(board);
-
-        switch (direction) {
-            case 'u':
-                for (int col = 0; col < w; col++) {
-                    int insertPos = 0;
-                    for (int row = 0; row < h; row++) {
-                        if (newBoard[row][col] != '*') {
-                            char temp = newBoard[row][col];
-                            newBoard[row][col] = '*';
-                            newBoard[insertPos][col] = temp;
-                            insertPos++;
-                        }
-                    }
-                }
-                break;
-            case 'd':
-                for (int col = 0; col < w; col++) {
-                    int insertPos = h - 1;
-                    for (int row = h - 1; row >= 0; row--) {
-                        if (newBoard[row][col] != '*') {
-                            char temp = newBoard[row][col];
-                            newBoard[row][col] = '*';
-                            newBoard[insertPos][col] = temp;
-                            insertPos--;
-                        }
-                    }
-                }
-                break;
-            case 'l':
+                int insertPos = 0;
                 for (int row = 0; row < h; row++) {
-                    int insertPos = 0;
-                    for (int col = 0; col < w; col++) {
-                        if (newBoard[row][col] != '*') {
-                            char temp = newBoard[row][col];
+                    if (newBoard[row][col] != '*') {
+                        newBoard[insertPos++][col] = newBoard[row][col];
+                        if (insertPos - 1 != row) {
                             newBoard[row][col] = '*';
-                            newBoard[row][insertPos] = temp;
-                            insertPos++;
                         }
                     }
                 }
-                break;
-            case 'r':
-                for (int row = 0; row < h; row++) {
-                    int insertPos = w - 1;
-                    for (int col = w - 1; col >= 0; col--) {
-                        if (newBoard[row][col] != '*') {
-                            char temp = newBoard[row][col];
+            }
+            break;
+        case 'd':
+            for (int col = 0; col < w; col++) {
+                int insertPos = h - 1;
+                for (int row = h - 1; row >= 0; row--) {
+                    if (newBoard[row][col] != '*') {
+                        newBoard[insertPos--][col] = newBoard[row][col];
+                        if (insertPos + 1 != row) {
                             newBoard[row][col] = '*';
-                            newBoard[row][insertPos] = temp;
-                            insertPos--;
                         }
                     }
                 }
-                break;
-        }
-
-        return newBoard;
+            }
+            break;
+        case 'l':
+            for (int row = 0; row < h; row++) {
+                int insertPos = 0;
+                for (int col = 0; col < w; col++) {
+                    if (newBoard[row][col] != '*') {
+                        newBoard[row][insertPos++] = newBoard[row][col];
+                        if (insertPos - 1 != col) {
+                            newBoard[row][col] = '*';
+                        }
+                    }
+                }
+            }
+            break;
+        case 'r':
+            for (int row = 0; row < h; row++) {
+                int insertPos = w - 1;
+                for (int col = w - 1; col >= 0; col--) {
+                    if (newBoard[row][col] != '*') {
+                        newBoard[row][insertPos--] = newBoard[row][col];
+                        if (insertPos + 1 != col) {
+                            newBoard[row][col] = '*';
+                        }
+                    }
+                }
+            }
+            break;
     }
 
-    /**
-     * Convertir la dirección a una cadena legible.
-     */
-    private String directionToString(char direction) {
-        switch (direction) {
-            case 'u':
-                return "arriba";
-            case 'd':
-                return "abajo";
-            case 'l':
-                return "la izquierda";
-            case 'r':
-                return "la derecha";
-            default:
-                return "";
-        }
+    return newBoard;
+}
+
+/**
+ * Convert the direction to a readable string.
+ */
+private String directionToString(char direction) {
+    switch (direction) {
+        case 'u':
+            return "up";
+        case 'd':
+            return "down";
+        case 'l':
+            return "left";
+        case 'r':
+            return "right";
+        default:
+            return "";
     }
-
-    // ... (resto de la clase y métodos existentes)
-
-    // Asegúrate de que los métodos getTileAtPosition, tilt, isGoal, etc., estén correctamente implementados.
-
-
-
+}
         
     public static void main(String[] args) {
         

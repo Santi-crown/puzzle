@@ -3,6 +3,11 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.*;
 
 
 /**
@@ -1614,45 +1619,254 @@ public class Puzzle {
         
         return cont;
     }
-
     
+
+
+    /**
+     * Método smartTilt que realiza un tilt inteligente para acercar el puzzle a la solución.
+     */
+    public void tilt() {
+        // Obtener la configuración actual del tablero
+        char[][] currentArrangement = getCurrentArrangement();
+
+        // Utilizar BFS para encontrar la secuencia de movimientos desde la configuración actual hasta la solución
+        List<Character> moves = bfsSolve(currentArrangement, ending);
+
+        // Si se encontró una secuencia de movimientos, aplicar el primero
+        if (moves != null && !moves.isEmpty()) {
+            char firstMove = moves.get(0);
+            tilt(firstMove);
+            System.out.println("Se ha aplicado un tilt inteligente hacia " + directionToString(firstMove));
+            this.ok = true;
+        } else {
+            System.out.println("No hay movimientos posibles para acercar el puzzle a la solución.");
+            this.ok = false;
+        }
+    }
+
+    /**
+     * Método privado para obtener la configuración actual del tablero.
+     */
+    private char[][] getCurrentArrangement() {
+        char[][] currentArrangement = new char[h][w];
+        for (int row = 0; row < h; row++) {
+            for (int col = 0; col < w; col++) {
+                Tile tile = getTileAtPosition(row, col);
+                char label = tile.getLabel();
+                currentArrangement[row][col] = label;
+            }
+        }
+        return currentArrangement;
+    }
+
+    /**
+     * Implementación de BFS para encontrar la secuencia de inclinaciones desde la configuración actual hasta la solución.
+     */
+    private List<Character> bfsSolve(char[][] starting, char[][] ending) {
+        int h = starting.length;
+        int w = starting[0].length;
+
+        // Clase interna para representar el estado del tablero
+        class State {
+            char[][] board;
+            List<Character> moves;
+
+            State(char[][] board, List<Character> moves) {
+                this.board = board;
+                this.moves = moves;
+            }
+
+            // Generar una clave única para el estado del tablero
+            String getKey() {
+                StringBuilder sb = new StringBuilder();
+                for (char[] row : board) {
+                    sb.append(row);
+                }
+                return sb.toString();
+            }
+        }
+
+        // Direcciones de inclinación posibles
+        char[] directions = { 'u', 'd', 'l', 'r' };
+
+        // Inicializar la cola para BFS y el conjunto de estados visitados
+        Queue<State> queue = new LinkedList<>();
+        Set<String> visited = new HashSet<>();
+
+        // Estado inicial
+        State initialState = new State(copyBoard(starting), new ArrayList<>());
+        queue.add(initialState);
+        visited.add(initialState.getKey());
+
+        while (!queue.isEmpty()) {
+            State currentState = queue.poll();
+
+            // Verificar si hemos alcanzado el estado final
+            if (boardsEqual(currentState.board, ending)) {
+                return currentState.moves;
+            }
+
+            // Generar estados vecinos
+            for (char dir : directions) {
+                char[][] newBoard = tiltBoard(currentState.board, dir);
+                State newState = new State(newBoard, new ArrayList<>(currentState.moves));
+                newState.moves.add(dir);
+
+                String key = newState.getKey();
+                if (!visited.contains(key)) {
+                    visited.add(key);
+                    queue.add(newState);
+                }
+            }
+        }
+
+        // No se encontró solución
+        return null;
+    }
+
+    // Métodos auxiliares para BFS y manipulación de tableros
+
+    /**
+     * Copiar un tablero.
+     */
+    private char[][] copyBoard(char[][] board) {
+        int h = board.length;
+        char[][] newBoard = new char[h][];
+        for (int i = 0; i < h; i++) {
+            newBoard[i] = board[i].clone();
+        }
+        return newBoard;
+    }
+
+    /**
+     * Verificar si dos tableros son iguales.
+     */
+    private boolean boardsEqual(char[][] board1, char[][] board2) {
+        int h = board1.length;
+        for (int i = 0; i < h; i++) {
+            if (!Arrays.equals(board1[i], board2[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Aplicar una inclinación a un tablero y devolver el nuevo tablero resultante.
+     */
+    private char[][] tiltBoard(char[][] board, char direction) {
+        int h = board.length;
+        int w = board[0].length;
+        char[][] newBoard = copyBoard(board);
+
+        switch (direction) {
+            case 'u':
+                for (int col = 0; col < w; col++) {
+                    int insertPos = 0;
+                    for (int row = 0; row < h; row++) {
+                        if (newBoard[row][col] != '*') {
+                            char temp = newBoard[row][col];
+                            newBoard[row][col] = '*';
+                            newBoard[insertPos][col] = temp;
+                            insertPos++;
+                        }
+                    }
+                }
+                break;
+            case 'd':
+                for (int col = 0; col < w; col++) {
+                    int insertPos = h - 1;
+                    for (int row = h - 1; row >= 0; row--) {
+                        if (newBoard[row][col] != '*') {
+                            char temp = newBoard[row][col];
+                            newBoard[row][col] = '*';
+                            newBoard[insertPos][col] = temp;
+                            insertPos--;
+                        }
+                    }
+                }
+                break;
+            case 'l':
+                for (int row = 0; row < h; row++) {
+                    int insertPos = 0;
+                    for (int col = 0; col < w; col++) {
+                        if (newBoard[row][col] != '*') {
+                            char temp = newBoard[row][col];
+                            newBoard[row][col] = '*';
+                            newBoard[row][insertPos] = temp;
+                            insertPos++;
+                        }
+                    }
+                }
+                break;
+            case 'r':
+                for (int row = 0; row < h; row++) {
+                    int insertPos = w - 1;
+                    for (int col = w - 1; col >= 0; col--) {
+                        if (newBoard[row][col] != '*') {
+                            char temp = newBoard[row][col];
+                            newBoard[row][col] = '*';
+                            newBoard[row][insertPos] = temp;
+                            insertPos--;
+                        }
+                    }
+                }
+                break;
+        }
+
+        return newBoard;
+    }
+
+    /**
+     * Convertir la dirección a una cadena legible.
+     */
+    private String directionToString(char direction) {
+        switch (direction) {
+            case 'u':
+                return "arriba";
+            case 'd':
+                return "abajo";
+            case 'l':
+                return "la izquierda";
+            case 'r':
+                return "la derecha";
+            default:
+                return "";
+        }
+    }
+
+    // ... (resto de la clase y métodos existentes)
+
+    // Asegúrate de que los métodos getTileAtPosition, tilt, isGoal, etc., estén correctamente implementados.
+
+
+
+        
     public static void main(String[] args) {
         
         
          //SECOND TEST
         char[][] starting1 = {
-        {'y', 'g', 'y', 'b', 'r', 'g', 'b', 'y', 'r', 'b'},
-        {'b', 'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'g'},
-        {'g', 'b', '*', 'y', 'b', 'g', 'r', 'y', 'b', 'r'},
-        {'r', '*', 'g', 'b', 'r', '*', '*', 'b', 'r', 'g'},
-        {'b', 'g', 'r', 'y', 'b', 'g', 'r', 'y', 'b', 'r'},
-        {'y', '*', 'r', '*', 'y', 'b', 'r', 'g', 'y', 'b'},
-        {'*', 'r', 'y', 'b', 'g', '*', '*', 'b', 'g', 'r'},
-        {'*', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'b'},
-        {'*', 'b', 'g', 'r', 'y', '*', 'g', 'r', 'y', 'g'},
-        {'*', 'r', 'y', 'b', 'g', 'r', 'y', 'b', 'g', 'r'}
-    };
+            { '*', 'r', '*', '*' },
+            { 'r', 'g', 'y', 'b' },
+            { '*', 'b', '*', '*' },
+            { '*', 'y', 'r', '*' }
+        };
         
-        char[][] ending1 = {
-        {'y', 'r', 'g', 'r', 'y', 'b', 'g', 'r', 'y', 'b'},
-        {'g', 'b', 'g', 'b', 'r', 'g', 'b', 'y', 'r', 'g'},
-        {'b', 'g', 'y', 'r', 'y', 'b', 'g', 'r', 'y', 'b'},
-        {'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'g'},
-        {'y', 'b', 'g', 'r', 'y', 'b', 'g', '*', 'y', 'b'},
-        {'g', 'r', 'y', 'b', 'g', 'r', 'y', 'b', 'g', 'r'},
-        {'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'b'},
-        {'y', 'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r'},
-        {'g', 'b', 'y', 'r', 'g', 'b', 'y', '*', 'g', 'b'},
-        {'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'g'}
-    };
+        char[][] ending1 =  {
+            { '*', '*', '*', 'r' },
+            { '*', '*', '*', 'b' },
+            { '*', '*', 'y', 'b' },
+            { 'r', 'g', 'y', 'r' }
+        };;
         
-        Puzzle pz3 = new Puzzle(10, 10); // Tablero sin matrices
+        Puzzle pz3 = new Puzzle(4, 4); // Tablero sin matrices
         Puzzle pz4 = new Puzzle(starting1, ending1); // Tablero con matrices
         
-        pz4.addTile(9,0,'r');
-        pz4.addGlue(9,1);
-        pz4.tilt('u');
-        pz4.tilt('r');
+        //pz4.addTile(9,0,'r');
+        //pz4.addGlue(9,1);
+        //pz4.tilt('u');
+        //pz4.tilt('r');
         
         //pz4.addTile(5,1,'b');
         //pz4.deleteTile(5,1);
@@ -1672,10 +1886,12 @@ public class Puzzle {
     
         //pz4.tilt('l');
         //pz4.tilt('g');
-        pz4.addTile(6,0,'r');
+        //pz4.addTile(6,0,'r');
         
         int[] from4 = {6,0};
         int[] to4   = {3,1};
-        pz4.relocateTile(from4,to4);
+        //pz4.relocateTile(from4,to4);
+        pz4.tilt();
+        pz4.tilt();
     }
 }

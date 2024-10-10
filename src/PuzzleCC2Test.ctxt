@@ -1,10 +1,15 @@
 #BlueJ class context
 comment0.target=PuzzleCC2Test
-comment0.text=\r\n\ The\ test\ class\ PuzzleCC2Test.\r\n\r\n\ @author\ Andersson\ David\ S\u00E1nchez\ M\u00E9ndez\r\n\ @author\ Cristian\ Santiago\ Pedraza\ Rodr\u00EDguez\r\n\ @version\ 2024\r\n
+comment0.text=\r\n\ Unit\ test\ class\ for\ the\ Puzzle\ class.\r\n\ Robust\ tests\ covering\ all\ cycle\ 2\ methods.\r\n\ \r\n\ @version\r\n
 comment1.params=
 comment1.target=void\ setUp()
-comment1.text=\r\n\ Sets\ up\ the\ test\ fixture.\r\n\r\n\ Called\ before\ every\ test\ case\ method.\r\n
 comment2.params=
-comment2.target=void\ tearDown()
-comment2.text=\r\n\ Tears\ down\ the\ test\ fixture.\r\n\r\n\ Called\ after\ every\ test\ case\ method.\r\n
-numComments=3
+comment2.target=void\ testPuzzleConstructorWithDimensions()
+comment2.text=\r\n\ Robust\ test\ for\ the\ Puzzle(int\ h,\ int\ w)\ constructor.\r\n\ This\ test\ covers\ all\ cycle\ 2\ methods.\r\n
+comment3.params=
+comment3.target=void\ testPuzzleConstructorWithStartingAndEndingMatrices()
+comment3.text=\r\n\ Robust\ test\ for\ the\ Puzzle(char[][]\ starting,\ char[][]\ ending)\ constructor.\r\n\ This\ test\ covers\ all\ cycle\ 2\ methods.\r\n
+comment4.params=
+comment4.target=void\ testPuzzleConstructorWithEndingMatrix()
+comment4.text=\r\n\ Robust\ test\ for\ the\ Puzzle(char[][]\ ending)\ constructor.\r\n\ This\ test\ covers\ all\ cycle\ 2\ methods.\r\n
+numComments=5

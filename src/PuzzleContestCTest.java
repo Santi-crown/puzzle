@@ -1,41 +1,71 @@
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * The test class PuzzleContestCTest.
- *
- * @author Andersson David Sánchez Méndez
- * @author Cristian Santiago Pedraza Rodríguez
- * @version 2024
+ * Unit test class for the PuzzleContest class.
+ * This class tests the `simulate` and `solve` methods with a 12x12 board configuration.
  */
-public class PuzzleContestCTest
-{
-    // Elementary attributes to make tests
-    private Puzzle puzzle;
-    //private Puzzle puzzleI;
-    //private Puzzle puzzleF;
+public class PuzzleContestCTest {
+    private PuzzleContest contest;
     private char[][] starting;
     private char[][] ending;
 
-    /**
-     * Sets up the test fixture.
-     *
-     * Called before every test case method.
-     */
     @BeforeEach
-    public void setUp()
-    {
+    public void setUp() {
+        contest = new PuzzleContest();
+
+        // 12x12 starting and ending matrices
+        starting = new char[][] {
+            { '*', '*', 'r', 'g', '*', '*', 'b', 'y', '*', '*', 'g', 'b' },
+            { 'r', 'b', '*', '*', 'y', 'r', '*', '*', 'y', 'g', '*', '*' },
+            { '*', '*', 'g', 'b', '*', '*', 'r', '*', '*', 'r', 'b', 'g' },
+            { 'g', 'y', '*', 'r', '*', 'y', 'b', '*', '*', 'g', '*', '*' },
+            { '*', '*', 'y', 'b', 'g', '*', '*', 'r', 'y', '*', 'r', '*' },
+            { 'b', '*', '*', 'g', '*', 'y', 'r', '*', '*', 'b', 'g', '*' },
+            { '*', 'y', 'r', '*', 'b', '*', '*', 'g', '*', 'y', 'r', 'b' },
+            { 'r', '*', '*', 'y', 'g', '*', '*', 'b', '*', '*', 'g', 'y' },
+            { '*', '*', 'b', '*', '*', 'r', 'y', 'g', '*', 'b', '*', '*' },
+            { 'y', 'g', '*', '*', 'r', '*', '*', 'b', 'y', '*', 'g', '*' },
+            { '*', 'r', '*', 'b', '*', '*', 'y', 'r', '*', '*', 'b', 'g' },
+            { 'g', '*', '*', 'y', 'r', '*', 'b', 'g', '*', '*', 'y', '*' }
+        };
+
+        ending = new char[][] {
+            { 'y', '*', 'r', 'g', 'b', '*', '*', 'y', 'g', 'b', 'r', '*' },
+            { '*', 'g', 'y', '*', '*', 'r', 'b', '*', '*', 'y', 'g', '*' },
+            { 'r', '*', '*', 'y', 'g', 'b', '*', '*', 'r', '*', 'b', '*' },
+            { '*', 'y', '*', '*', 'r', '*', 'b', 'g', 'y', 'r', '*', '*' },
+            { 'g', 'r', '*', '*', 'b', 'y', '*', '*', 'g', '*', 'y', 'b' },
+            { '*', 'b', 'y', '*', '*', 'g', 'r', '*', '*', 'b', 'y', '*' },
+            { 'y', '*', 'g', 'b', '*', '*', 'r', '*', 'y', 'g', '*', '*' },
+            { '*', '*', 'r', 'b', 'y', '*', 'g', 'y', '*', '*', 'b', '*' },
+            { 'g', '*', '*', 'y', 'r', '*', '*', 'b', '*', 'g', '*', 'y' },
+            { 'r', 'y', '*', 'g', '*', '*', 'b', '*', 'r', '*', 'y', '*' },
+            { '*', '*', 'b', '*', 'y', 'g', '*', '*', 'r', 'b', '*', '*' },
+            { '*', 'g', '*', '*', 'b', 'y', 'r', 'g', '*', '*', 'r', 'y' }
+        };
     }
 
     /**
-     * Tears down the test fixture.
-     *
-     * Called after every test case method.
+     * Tests the solve method to determine if there is a solution from the starting to the ending configuration.
      */
-    @AfterEach
-    public void tearDown()
-    {
+    @Test
+    public void testSolveMethod() {
+        boolean result = contest.solve(starting, ending);
+        
+        assertTrue(result, "The puzzle should be solvable from the starting configuration to the ending configuration.");
+    }
+
+    /**
+     * Tests the simulate method to confirm it correctly displays the steps to solve the puzzle if a solution exists.
+     */
+    @Test
+    public void testSimulateMethod() {
+        // This test will visually confirm that each step moves towards the solution.
+        contest.simulate(starting, ending);
+        
+        // No assert statement is required here as we are simulating the puzzle and visually inspecting each step.
+        // Ensure the visual output matches the expected steps towards the solution.
     }
 }

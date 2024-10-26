@@ -141,7 +141,9 @@ public class Puzzle {
         
         // Create empty char list, it is gonna be used as emptyCharList
         char[][] emptyCharList = createCharEmptyList();
+        // Create empty tiles for starting board
         createTiles(emptyCharList, tiles, true);
+        // Create tiles for ending board
         createTiles(ending, referingTiles, false);
         
         this.ok = true;
@@ -173,6 +175,7 @@ public class Puzzle {
     private void createTiles(char[][] board ,List<List<Tile>> tileList, boolean startingBoard) {
         int xOffset = 105;
         int yOffset = 55;
+        // if it's not starting board, it is gonna have a ending coordinates for x
         if (startingBoard == false){
               xOffset = w * (Tile.SIZE + Tile.MARGIN) + 355;              
         }

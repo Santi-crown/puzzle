@@ -1,15 +1,8 @@
 package puzzle;
-import shapes.*;
-
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.*;
 import javax.swing.JOptionPane;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.HashSet;
-import java.util.Set;
+import shapes.*;
 
 
 /**
@@ -85,9 +78,10 @@ public class Puzzle {
             startingBoard = new Rectangle(h,w,100,50,"starting");
             endingBoard = new Rectangle(h,w,350,50,"ending"); 
             
-            // Create empty tiles on the initial board and reference tiles
-            createEmptyTiles();
-            createEmptyreferingTiles();
+            // Create empty char list to be used as board argument to create both boards empty
+            char[][] emptyCharList = createCharEmptyList();
+            createTiles(emptyCharList, tiles, true);
+            createTiles(emptyCharList, referingTiles, false);
             this.ok = true;
             
         }
@@ -122,8 +116,8 @@ public class Puzzle {
         endingBoard = new Rectangle(h, w, 350, 50, "ending");
         
         // Create tiles based on the initial and final matrices
-        createTiles(starting, tiles, 105, 55); // Initial position of the initial tiles
-        createTiles(ending, referingTiles, w * (Tile.SIZE + Tile.MARGIN) + 355, 55); // Initial position of the reference board
+        createTiles(starting, tiles, true); // Initial position of the initial tiles
+        createTiles(ending, referingTiles, false); // Initial position of the reference board
         
         this.ok = true;
     }
@@ -142,29 +136,49 @@ public class Puzzle {
         this.color = lightBrown;
        
         // Create the boards
-        startingBoard = new Rectangle(h, w, 100, 50, "starting");
+        startingBoard = new Rectangle(h,w,100,50,"starting");
         endingBoard = new Rectangle(h, w, 350, 50, "ending");
         
-        // Create empty tiles on the initial board and tiles on the final board
-        createEmptyTiles();
-        createTiles(ending, referingTiles, w * (Tile.SIZE + Tile.MARGIN) + 355, 55);
+        // Create empty char list, it is gonna be used as emptyCharList
+        char[][] emptyCharList = createCharEmptyList();
+        createTiles(emptyCharList, tiles, true);
+        createTiles(ending, referingTiles, false);
         
         this.ok = true;
     }
-    
+
+    /**
+     *Method to create a empty char list of lists representation
+     *@return a char[][] filled with '*'.
+    */
+
+
+    private char[][] createCharEmptyList(){
+        char[][] emptyCharList = new char[h][w];
+        for(int row = 0;row < h;row++){
+            for (int col = 0; col < w; col++){
+                emptyCharList[row][col] = '*';
+            }
+        }
+        return emptyCharList;
+    }
     
     /**
      * Method to create tiles in a list of lists, given the reference board.
      * 
      * @param board Character matrix representing the board.
      * @param tileList List of lists to store the created tiles.
-     * @param xOffset X offset for positioning the tiles.
-     * @param yOffset Y offset for positioning the tiles.
+     * @param startingBoard boolean value to determinate if it is the starging or ending board
      */
-    private void createTiles(char[][] board, List<List<Tile>> tileList, int xOffset, int yOffset) {
-        for (int row = 0; row < board.length; row++) {
+    private void createTiles(char[][] board ,List<List<Tile>> tileList, boolean startingBoard) {
+        int xOffset = 105;
+        int yOffset = 55;
+        if (startingBoard == false){
+              xOffset = w * (Tile.SIZE + Tile.MARGIN) + 355;              
+        }
+        for (int row = 0; row < h; row++) {
             List<Tile> rowList = new ArrayList<>();
-            for (int col = 0; col < board[row].length; col++) {
+            for (int col = 0; col < w; col++) {
                 char label = board[row][col];
                 int xPosition = xOffset + (col * (Tile.SIZE + Tile.MARGIN));
                 int yPosition = yOffset + (row * (Tile.SIZE + Tile.MARGIN));
@@ -175,40 +189,6 @@ public class Puzzle {
         }
     }
 
-    /**
-     * Method to create empty tiles on the initial board.
-     */
-    private void createEmptyTiles() {
-        for (int row = 0; row < h; row++) {
-            List<Tile> rowList = new ArrayList<>();
-            for (int col = 0; col < w; col++) {
-                char label = '*';  // Empty tile
-                int xPosition = 105 + (col * (Tile.SIZE + Tile.MARGIN));
-                int yPosition = 55 + (row * (Tile.SIZE + Tile.MARGIN));
-                Tile tile = new Tile(label, xPosition, yPosition, row, col);
-                rowList.add(tile);
-            }
-            tiles.add(rowList);
-        }
-    }
-    
-    /**
-     * Method to create empty reference tiles on the reference board.
-     */
-    private void createEmptyreferingTiles() {
-        for (int row = 0; row < h; row++) {
-            List<Tile> rowList = new ArrayList<>();
-            for (int col = 0; col < w; col++) {
-                char label = '*';  // Empty tile
-                int xPosition = (w * (Tile.SIZE + Tile.MARGIN)) + 355 + (col * (Tile.SIZE + Tile.MARGIN));
-                int yPosition = 55 + (row * (Tile.SIZE + Tile.MARGIN));
-                Tile tile = new Tile(label, xPosition, yPosition, row, col);
-                rowList.add(tile);
-            }
-            referingTiles.add(rowList);
-        }
-    }
-    
     /**
      * Gets the height of the board.
      * 
@@ -1848,36 +1828,37 @@ public class Puzzle {
     };
         
         Puzzle pz3 = new Puzzle(10, 10); // Tablero sin matrices
-        Puzzle pz4 = new Puzzle(starting1, ending1); // Tablero con matrices
+        // Puzzle pz4 = new Puzzle(starting1, ending1); // Tablero con matrices
+        Puzzle pz4 = new Puzzle(ending1);
         
-        pz4.addTile(9,0,'r');
-        pz4.addGlue(9,1);
-        pz4.tilt('u');
-        pz4.tilt('r');
+        // pz4.addTile(9,0,'r');
+        // pz4.addGlue(9,1);
+        // pz4.tilt('u');
+        // pz4.tilt('r');
         
-        //pz4.addTile(5,1,'b');
-        //pz4.deleteTile(5,1);
-        //pz4.deleteTile(9,8);
+        // //pz4.addTile(5,1,'b');
+        // //pz4.deleteTile(5,1);
+        // //pz4.deleteTile(9,8);
         
-        int[] from1 = {9,9};
-        int[] to1   = {3,1};
-        //pz4.relocateTile(from1,to1);
+        // int[] from1 = {9,9};
+        // int[] to1   = {3,1};
+        // //pz4.relocateTile(from1,to1);
         
-        int[] from3 = {3,1};
-        int[] to3   = {9,9};
-        //pz4.relocateTile(from3,to3);
+        // int[] from3 = {3,1};
+        // int[] to3   = {9,9};
+        // //pz4.relocateTile(from3,to3);
         
-        int[] from2 = {1,9};
-        int[] to2   = {3,2};
-        //pz4.relocateTile(from2,to2);
+        // int[] from2 = {1,9};
+        // int[] to2   = {3,2};
+        // //pz4.relocateTile(from2,to2);
     
-        //pz4.tilt('l');
-        //pz4.tilt('g');
-        pz4.addTile(6,0,'r');
+        // //pz4.tilt('l');
+        // //pz4.tilt('g');
+        // pz4.addTile(6,0,'r');
         
-        int[] from4 = {6,0};
-        int[] to4   = {3,1};
-        pz4.relocateTile(from4,to4);
+        // int[] from4 = {6,0};
+        // int[] to4   = {3,1};
+        // pz4.relocateTile(from4,to4);
     }
 }
 

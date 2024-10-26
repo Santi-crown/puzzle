@@ -62,16 +62,17 @@ public class Puzzle {
      * @param w Width of the board.
      */
     public Puzzle(int h, int w) {
-        this.h = h;
-        this.w = w;
-        this.color = lightBrown;
-        this.tiles = new ArrayList<>();
-        this.referingTiles = new ArrayList<>();
-        
-        // Initialize the hole matrix and the list of circles        
-        holeCircles = new ArrayList<>();
-        
-        if (h > 0 && w > 0){
+        try {
+            if (h < 0 || w < 0) throw new PuzzleException(PuzzleException.NEGATIVE_VALUES);
+            this.h = h; 
+            this.w = w;
+            this.color = lightBrown;
+            this.tiles = new ArrayList<>();
+            this.referingTiles = new ArrayList<>();
+            
+            // Initialize the hole matrix and the list of circles        
+            holeCircles = new ArrayList<>();
+            
             holes = new boolean[h][w];
             
             // Create the initial and final boards
@@ -83,13 +84,10 @@ public class Puzzle {
             createTiles(emptyCharList, tiles, true);
             createTiles(emptyCharList, referingTiles, false);
             this.ok = true;
-            
-        }
-        else {
-            showMessage("You cannot create the two boards with negative or zero h,w", "Error");
+        } catch (PuzzleException e){                
+            showMessage(e.getMessage(), "Error");
             this.ok = false; // Unsuccessful action
-        }
-        
+        }        
     }
 
      /**
@@ -1830,9 +1828,9 @@ public class Puzzle {
         {'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'g'}
     };
         
-        Puzzle pz3 = new Puzzle(10, 10); // Tablero sin matrices
+        Puzzle pz3 = new Puzzle(-10, 10); // Tablero sin matrices
         // Puzzle pz4 = new Puzzle(starting1, ending1); // Tablero con matrices
-        Puzzle pz4 = new Puzzle(ending1);
+        //Puzzle pz4 = new Puzzle(ending1);
         
         // pz4.addTile(9,0,'r');
         // pz4.addGlue(9,1);

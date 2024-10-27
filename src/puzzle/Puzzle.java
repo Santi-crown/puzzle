@@ -63,7 +63,8 @@ public class Puzzle {
      */
     public Puzzle(int h, int w) {
         try {
-            if (h < 0 || w < 0) throw new PuzzleException(PuzzleException.NEGATIVE_VALUES);
+            if (h < 1 || w < 1) throw new PuzzleException(PuzzleException.INVALID_HW_NEGATIVE_VALUES);
+            if (h > 500 || w > 500) throw new PuzzleException(PuzzleException.INVALID_HW_GREATER_VALUES);
             this.h = h; 
             this.w = w;
             this.color = lightBrown;
@@ -1828,7 +1829,7 @@ public class Puzzle {
         {'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'g'}
     };
         
-        Puzzle pz3 = new Puzzle(-10, 10); // Tablero sin matrices
+        Puzzle pz3 = new Puzzle(4, 501); // Tablero sin matrices
         // Puzzle pz4 = new Puzzle(starting1, ending1); // Tablero con matrices
         //Puzzle pz4 = new Puzzle(ending1);
         

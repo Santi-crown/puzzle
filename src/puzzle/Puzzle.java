@@ -11,7 +11,7 @@ import shapes.*;
  * and applying or removing glue.
  *
  * @author Andersson David Sánchez Méndez
- * @author Cristian Santiago Pedraza Rodríguez
+ * @author      
 
  * @version 2024
 */
@@ -1829,8 +1829,8 @@ public class Puzzle {
         {'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'g'}
     };
         
-        Puzzle pz3 = new Puzzle(4, 501); // Tablero sin matrices
-        // Puzzle pz4 = new Puzzle(starting1, ending1); // Tablero con matrices
+        Puzzle pz3 = new Puzzle(10, 10); // Tablero sin matrices
+        Puzzle pz4 = new Puzzle(starting1, ending1); // Tablero con matrices
         //Puzzle pz4 = new Puzzle(ending1);
         
         // pz4.addTile(9,0,'r');

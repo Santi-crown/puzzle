@@ -1,7 +1,6 @@
 package shapes;
-import puzzle.*;
-
 import java.awt.*;
+import puzzle.*;
 
 /**
  * A rectangle that can be manipulated and that draws itself on a canvas.

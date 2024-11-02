@@ -35,8 +35,8 @@ public class Puzzle {
     private char[][] ending;
     
     // Lists of lists of tiles representing the current board state and reference state
-    private List<List<Tile>> tiles; // List of lists of tiles
-    private List<List<Tile>> referingTiles; // List of lists of reference tiles
+    private List<List<BaseTile>> tiles; // List of lists of tiles
+    private List<List<BaseTile>> referingTiles; // List of lists of reference tiles
     
     // Determines if the simulator is visible
     private boolean visible = true;
@@ -171,7 +171,7 @@ public class Puzzle {
      * @param tileList List of lists to store the created tiles.
      * @param startingBoard boolean value to determinate if it is the starging or ending board
      */
-    private void createTiles(char[][] board ,List<List<Tile>> tileList, boolean startingBoard) {
+    private void createTiles(char[][] board ,List<List<BaseTile>> tileList, boolean startingBoard) {
         int xOffset = 105;
         int yOffset = 55;
         // if it's not starting board, it is gonna have a ending coordinates for x
@@ -179,7 +179,7 @@ public class Puzzle {
               xOffset = w * (Tile.SIZE + Tile.MARGIN) + 355;              
         }
         for (int row = 0; row < h; row++) {
-            List<Tile> rowList = new ArrayList<>();
+            List<BaseTile> rowList = new ArrayList<>();
             for (int col = 0; col < w; col++) {
                 char label = board[row][col];
                 int xPosition = xOffset + (col * (Tile.SIZE + Tile.MARGIN));
@@ -209,8 +209,31 @@ public class Puzzle {
         return this.w;
     }
 
-    
-    /**
+    // Método de fábrica en la clase Puzzle 
+    // Recibe un string de la forma [f r]
+    // En donde el primer caracter es el tipo de tile, un espacio, y el label de la tile 
+private BaseTile createTile(String tileData, int xPosition, int yPosition, int row, int column) {
+    String[] tileInformation = tileData.split(" ");
+    String kindOfTile = tileInformation[0];
+    char label = tileInformation[1].charAt(0);
+
+    switch (kindOfTile) {
+        case "f":  // Ejemplo de etiqueta para FixedTile
+            return new FixedTile(label, xPosition, yPosition, row, column);
+        case "r":  // Ejemplo de etiqueta para RoughTile
+            return new RoughTile(label, xPosition, yPosition, row, column);
+        case "l":  // Ejemplo de etiqueta para FreelanceTile
+            return new FreelanceTile(label, xPosition, yPosition, row, column);
+        case "y":  // Ejemplo de etiqueta para FlyingTile
+            return new FlyingTile(label, xPosition, yPosition, row, column);
+        // Puedes añadir más casos para otros tipos de baldosas.
+        default:
+            return new Tile(label, xPosition, yPosition, row, column); // Instancia de Tile normal
+    }
+}
+
+
+     /**
      * Adds a tile to the board at the specified position.
      * 
      * @param row Row index of the tile.
@@ -245,7 +268,7 @@ public class Puzzle {
             showMessage("You're searching for a non-existent tile with negative position.", "Error");
             this.ok = false; // Error
         } else {
-            Tile previousTile = tiles.get(row).get(column);
+            BaseTile previousTile = tiles.get(row).get(column);
 
             // Check if the tile has a hole
             if (previousTile.getLabel() == 'h') {
@@ -265,6 +288,49 @@ public class Puzzle {
             }
         }
     }
+    /**
+     * Adds a tile to the board at the specified position.
+     * // Sobre cargamos el método addTile, cuando queremos crear un tipo de tile diferente al normal, tenemos que recurrir a este mediante 
+     * envío de la información de la tile como un string.
+     * 
+     * @param row Row index of the tile.
+     * @param column Column index of the tile.
+     * @param label Label of the tile.
+     */
+    public void addTile(int row, int column, String tileData) {
+        if (row >= h || column >= w) {
+            showMessage("You have exceeded the puzzle space.", "Error");
+            this.ok = false;
+            return;
+        } else if (row < 0 || column < 0) {
+            showMessage("Invalid position with negative values.", "Error");
+            this.ok = false;
+            return;
+        }
+    
+        BaseTile currentTile = tiles.get(row).get(column);
+        
+        if (currentTile.getLabel() == 'h') {
+            showMessage("Cannot add tile on a hole.", "Error");
+            this.ok = false;
+            return;
+        } else if (isTileEmpty(currentTile)) {
+            int xPosition = 105 + (column * (Tile.SIZE + Tile.MARGIN));
+            int yPosition = 55 + (row * (Tile.SIZE + Tile.MARGIN));
+            
+            // Crear el tipo de baldosa adecuado usando el método de fábrica
+            BaseTile newTile = createTile(tileData, xPosition, yPosition, row, column);
+            
+            // Reemplazar la baldosa en la lista de tiles
+            tiles.get(row).set(column, newTile);
+            newTile.makeVisible();
+            this.ok = true;
+        } else {
+            showMessage("A tile already exists here.", "Error");
+            this.ok = false;
+        }
+    }
+    
 
     /**
      * Removes a tile from the board at the specified position.
@@ -280,7 +346,7 @@ public class Puzzle {
             showMessage("You're searching for a non-existent tile with negative position.", "Error");
             this.ok = false; // Error
         } else {
-            Tile previousTile = tiles.get(row).get(column);
+            BaseTile previousTile = tiles.get(row).get(column);
 
             // Check if the tile has a hole
             if (previousTile.getLabel() == 'h') {
@@ -315,8 +381,8 @@ public class Puzzle {
             return;
         }
 
-        Tile fromTile = tiles.get(from[0]).get(from[1]);
-        Tile toTile = tiles.get(to[0]).get(to[1]);
+        BaseTile fromTile = tiles.get(from[0]).get(from[1]);
+        BaseTile toTile = tiles.get(to[0]).get(to[1]);
 
         // Validate existence of the source tile and availability of the destination tile
         if (fromTile.getLabel() == 'h') {
@@ -354,7 +420,7 @@ public class Puzzle {
      * @param from     the source coordinates as an integer array [row, col].
      * @param to       the destination coordinates as an integer array [row, col].
      */
-    private void relocateTileMovement(Tile fromTile, Tile toTile, int[] from, int[] to) {
+    private void relocateTileMovement(BaseTile fromTile, BaseTile toTile, int[] from, int[] to) {
         // Visually move the tile by updating its position
         fromTile.moveHorizontal((to[1] - from[1]) * (Tile.SIZE + Tile.MARGIN));
         fromTile.moveVertical((to[0] - from[0]) * (Tile.SIZE + Tile.MARGIN));
@@ -389,7 +455,7 @@ public class Puzzle {
      * @param column the column of the tile.
      */
     public void addGlue(int row, int column) {
-        Tile tile = getTileAtPosition(row, column);
+        BaseTile tile = getTileAtPosition(row, column);
         if (tile == null) {
             showMessage("Invalid position.", "Error");
             this.ok = false;
@@ -415,7 +481,7 @@ public class Puzzle {
             updateAdjacentTiles(tile);
 
             // Collect the group of stuck tiles
-            List<Tile> group = new ArrayList<>();
+            List<BaseTile> group = new ArrayList<>();
             collectStuckGroup(tile, group);
 
             // Reset visited flags
@@ -432,7 +498,7 @@ public class Puzzle {
      * @param column the column of the tile.
      */
     public void deleteGlue(int row, int column) {
-        Tile tile = getTileAtPosition(row, column);
+        BaseTile tile = getTileAtPosition(row, column);
         if (tile == null) {
             showMessage("Invalid position.", "Error");
             this.ok = false;
@@ -462,7 +528,7 @@ public class Puzzle {
             updateAdjacentTilesAfterGlueRemoval(tile);
 
             // Collect the group of stuck tiles to update states
-            List<Tile> group = new ArrayList<>();
+            List<BaseTile> group = new ArrayList<>();
             collectStuckGroup(tile, group);
 
             // Reset visited flags
@@ -477,14 +543,14 @@ public class Puzzle {
      * 
      * @param tile the tile to which glue has been applied.
      */
-    private void updateAdjacentTiles(Tile tile) {
+    private void updateAdjacentTiles(BaseTile tile) {
         int row = tile.getRow();
         int column = tile.getCol();
         int[][] directions = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
         for (int[] dir : directions) {
             int adjRow = row + dir[0];
             int adjCol = column + dir[1];
-            Tile adjacentTile = getTileAtPosition(adjRow, adjCol);
+            BaseTile adjacentTile = getTileAtPosition(adjRow, adjCol);
 
             if (adjacentTile != null && !isTileEmpty(adjacentTile) && !adjacentTile.isStuck()
                     && !adjacentTile.getIsHole()) {
@@ -502,14 +568,14 @@ public class Puzzle {
      * 
      * @param tile the tile from which glue has been removed.
      */
-    private void updateAdjacentTilesAfterGlueRemoval(Tile tile) {
+    private void updateAdjacentTilesAfterGlueRemoval(BaseTile tile) {
         int row = tile.getRow();
         int column = tile.getCol();
         int[][] directions = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
         for (int[] dir : directions) {
             int adjRow = row + dir[0];
             int adjCol = column + dir[1];
-            Tile adjacentTile = getTileAtPosition(adjRow, adjCol);
+            BaseTile adjacentTile = getTileAtPosition(adjRow, adjCol);
 
             if (adjacentTile != null && !isTileEmpty(adjacentTile) && !adjacentTile.getIsHole()) {
                 if (isAdjacentToGlue(adjacentTile)) {
@@ -533,7 +599,7 @@ public class Puzzle {
      * @param tile the tile to check.
      * @return {@code true} if adjacent to a tile with glue; {@code false} otherwise.
      */
-    private boolean isAdjacentToGlue(Tile tile) {
+    private boolean isAdjacentToGlue(BaseTile tile) {
         int row = tile.getRow();
         int column = tile.getCol();
         int[][] directions = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
@@ -541,7 +607,7 @@ public class Puzzle {
         for (int[] dir : directions) {
             int adjRow = row + dir[0];
             int adjCol = column + dir[1];
-            Tile adjacentTile = getTileAtPosition(adjRow, adjCol);
+            BaseTile adjacentTile = getTileAtPosition(adjRow, adjCol);
             if (adjacentTile != null && adjacentTile.hasGlue()) {
                 return true;
             }
@@ -618,12 +684,12 @@ public class Puzzle {
      * @param col the column to tilt upwards.
      */
     private void tiltUpWithGlue(int col) {
-        List<List<Tile>> groups = new ArrayList<>();
+        List<List<BaseTile>> groups = new ArrayList<>();
 
         for (int row = 0; row < h; row++) {
-            Tile tile = getTileAtPosition(row, col);
+            BaseTile tile = getTileAtPosition(row, col);
             if (!isTileEmpty(tile) && !tile.isVisited() && !tile.getIsHole()) {
-                List<Tile> group = new ArrayList<>();
+                List<BaseTile> group = new ArrayList<>();
                 boolean isGluedOrStuck = tile.isStuck() || tile.hasGlue();
                 if (isGluedOrStuck) {
                     collectStuckGroup(tile, group);
@@ -639,16 +705,16 @@ public class Puzzle {
         resetVisitedFlags();
 
         // Sort groups by the minimum row (upper tiles first)
-        groups.sort(Comparator.comparingInt(g -> g.stream().mapToInt(Tile::getRow).min().orElse(h)));
+        groups.sort(Comparator.comparingInt(g -> g.stream().mapToInt(BaseTile::getRow).min().orElse(h)));
 
         // Move the groups
-        for (List<Tile> group : groups) {
+        for (List<BaseTile> group : groups) {
             boolean isGluedOrStuck = group.get(0).isStuck() || group.get(0).hasGlue();
             int maxMove = calculateMaxMoveUpGroup(group, isGluedOrStuck);
             if (maxMove == -1) {
                 if (!isGluedOrStuck) {
                     // Remove free tiles that fall into a hole
-                    for (Tile tile : group) {
+                    for (BaseTile tile : group) {
                         tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
                         tile.makeInvisible();
                         tile.setLabel('*');
@@ -667,12 +733,12 @@ public class Puzzle {
      * @param col the column to tilt downwards.
      */
     private void tiltDownWithGlue(int col) {
-        List<List<Tile>> groups = new ArrayList<>();
+        List<List<BaseTile>> groups = new ArrayList<>();
 
         for (int row = h - 1; row >= 0; row--) {
-            Tile tile = getTileAtPosition(row, col);
+            BaseTile tile = getTileAtPosition(row, col);
             if (!isTileEmpty(tile) && !tile.isVisited() && !tile.getIsHole()) {
-                List<Tile> group = new ArrayList<>();
+                List<BaseTile> group = new ArrayList<>();
                 boolean isGluedOrStuck = tile.isStuck() || tile.hasGlue();
                 if (isGluedOrStuck) {
                     collectStuckGroup(tile, group);
@@ -689,19 +755,19 @@ public class Puzzle {
 
         // Sort groups by the maximum row (lower tiles first)
         groups.sort((g1, g2) -> {
-            int maxRow1 = g1.stream().mapToInt(Tile::getRow).max().orElse(-1);
-            int maxRow2 = g2.stream().mapToInt(Tile::getRow).max().orElse(-1);
+            int maxRow1 = g1.stream().mapToInt(BaseTile::getRow).max().orElse(-1);
+            int maxRow2 = g2.stream().mapToInt(BaseTile::getRow).max().orElse(-1);
             return Integer.compare(maxRow2, maxRow1);
         });
 
         // Move the groups
-        for (List<Tile> group : groups) {
+        for (List<BaseTile> group : groups) {
             boolean isGluedOrStuck = group.get(0).isStuck() || group.get(0).hasGlue();
             int maxMove = calculateMaxMoveDownGroup(group, isGluedOrStuck);
             if (maxMove == -1) {
                 if (!isGluedOrStuck) {
                     // Remove free tiles that fall into a hole
-                    for (Tile tile : group) {
+                    for (BaseTile tile : group) {
                         tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
                         tile.makeInvisible();
                         tile.setLabel('*');
@@ -720,12 +786,12 @@ public class Puzzle {
      * @param row the row to tilt to the left.
      */
     private void tiltLeftWithGlue(int row) {
-        List<List<Tile>> groups = new ArrayList<>();
+        List<List<BaseTile>> groups = new ArrayList<>();
 
         for (int col = 0; col < w; col++) {
-            Tile tile = getTileAtPosition(row, col);
+            BaseTile tile = getTileAtPosition(row, col);
             if (!isTileEmpty(tile) && !tile.isVisited() && !tile.getIsHole()) {
-                List<Tile> group = new ArrayList<>();
+                List<BaseTile> group = new ArrayList<>();
                 boolean isGluedOrStuck = tile.isStuck() || tile.hasGlue();
                 if (isGluedOrStuck) {
                     collectStuckGroup(tile, group);
@@ -741,16 +807,16 @@ public class Puzzle {
         resetVisitedFlags();
 
         // Sort groups by the minimum column (leftmost tiles first)
-        groups.sort(Comparator.comparingInt(g -> g.stream().mapToInt(Tile::getCol).min().orElse(w)));
+        groups.sort(Comparator.comparingInt(g -> g.stream().mapToInt(BaseTile::getCol).min().orElse(w)));
 
         // Move the groups
-        for (List<Tile> group : groups) {
+        for (List<BaseTile> group : groups) {
             boolean isGluedOrStuck = group.get(0).isStuck() || group.get(0).hasGlue();
             int maxMove = calculateMaxMoveLeftGroup(group, isGluedOrStuck);
             if (maxMove == -1) {
                 if (!isGluedOrStuck) {
                     // Remove free tiles that fall into a hole
-                    for (Tile tile : group) {
+                    for (BaseTile tile : group) {
                         tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
                         tile.makeInvisible();
                         tile.setLabel('*');
@@ -770,13 +836,13 @@ public class Puzzle {
      * @param row the row index to tilt to the right.
      */
     private void tiltRightWithGlue(int row) {
-        List<List<Tile>> groups = new ArrayList<>();
+        List<List<BaseTile>> groups = new ArrayList<>();
     
         // Iterate from the rightmost column to the left
         for (int col = w - 1; col >= 0; col--) {
-            Tile tile = getTileAtPosition(row, col);
+            BaseTile tile = getTileAtPosition(row, col);
             if (!isTileEmpty(tile) && !tile.isVisited() && !tile.getIsHole()) {
-                List<Tile> group = new ArrayList<>();
+                List<BaseTile> group = new ArrayList<>();
                 boolean isGluedOrStuck = tile.isStuck() || tile.hasGlue();
                 if (isGluedOrStuck) {
                     // Collect all tiles that are glued or stuck together
@@ -795,19 +861,19 @@ public class Puzzle {
     
         // Sort the groups based on the maximum column index (rightmost first)
         groups.sort((g1, g2) -> {
-            int maxCol1 = g1.stream().mapToInt(Tile::getCol).max().orElse(-1);
-            int maxCol2 = g2.stream().mapToInt(Tile::getCol).max().orElse(-1);
+            int maxCol1 = g1.stream().mapToInt(BaseTile::getCol).max().orElse(-1);
+            int maxCol2 = g2.stream().mapToInt(BaseTile::getCol).max().orElse(-1);
             return Integer.compare(maxCol2, maxCol1);
         });
     
         // Move each group to the right
-        for (List<Tile> group : groups) {
+        for (List<BaseTile> group : groups) {
             boolean isGluedOrStuck = group.get(0).isStuck() || group.get(0).hasGlue();
             int maxMove = calculateMaxMoveRightGroup(group, isGluedOrStuck);
             if (maxMove == -1) {
                 if (!isGluedOrStuck) {
                     // Remove free tiles that fall into a hole
-                    for (Tile tile : group) {
+                    for (BaseTile tile : group) {
                         tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
                         tile.makeInvisible();
                         tile.setLabel('*');
@@ -834,10 +900,10 @@ public class Puzzle {
      * @param isGluedOrStuck Indicates if the tile is glued or stuck.
      * @return The maximum number of steps the tile can move up, or -1 if it would fall into a hole.
      */
-    private int calculateMaxMoveUp(int row,int column, List<Tile> group, boolean isGluedOrStuck) {
+    private int calculateMaxMoveUp(int row,int column, List<BaseTile> group, boolean isGluedOrStuck) {
         int maxMove = 0;
         for (int i = row - 1; i >= 0; i--) {
-            Tile nextTile = getTileAtPosition(i, column);
+            BaseTile nextTile = getTileAtPosition(i, column);
             if (nextTile.getIsHole()) {
                 if (isGluedOrStuck) {
                     // Stuck tile: it cannot move to the hole, stop before
@@ -862,9 +928,9 @@ public class Puzzle {
      * @param isGluedOrStuck Indicates if the tiles are glued or stuck.
      * @return The maximum number of steps the group can move up, or -1 if any tile would fall into a hole.
      */
-    private int calculateMaxMoveUpGroup(List<Tile> group, boolean isGluedOrStuck) {
+    private int calculateMaxMoveUpGroup(List<BaseTile> group, boolean isGluedOrStuck) {
         int maxMove = h;
-        for (Tile tile : group) {
+        for (BaseTile tile : group) {
             int tileMaxMove = calculateMaxMoveUp(tile.getRow(), tile.getCol(), group, isGluedOrStuck);
             if (tileMaxMove == -1) {
                 // One of the free tile of the group will fall in a hole
@@ -886,10 +952,10 @@ public class Puzzle {
      * @param isGluedOrStuck Indicates if the tile is glued or stuck.
      * @return The maximum number of steps the tile can move down, or -1 if it would fall into a hole.
      */
-    private int calculateMaxMoveDown(int row,int column, List<Tile> group, boolean isGluedOrStuck) {
+    private int calculateMaxMoveDown(int row,int column, List<BaseTile> group, boolean isGluedOrStuck) {
         int maxMove = 0;
         for (int i = row + 1; i < h; i++) {
-            Tile nextTile = getTileAtPosition(i, column);
+            BaseTile nextTile = getTileAtPosition(i, column);
             if (nextTile.getIsHole()) {
                 if (isGluedOrStuck) {
                     break;
@@ -912,9 +978,9 @@ public class Puzzle {
      * @param isGluedOrStuck Indicates if the tiles are glued or stuck.
      * @return The maximum number of steps the group can move down, or -1 if any tile would fall into a hole.
      */
-    private int calculateMaxMoveDownGroup(List<Tile> group, boolean isGluedOrStuck) {
+    private int calculateMaxMoveDownGroup(List<BaseTile> group, boolean isGluedOrStuck) {
         int maxMove = h;
-        for (Tile tile : group) {
+        for (BaseTile tile : group) {
             int tileMaxMove = calculateMaxMoveDown(tile.getRow(), tile.getCol(), group, isGluedOrStuck);
             if (tileMaxMove == -1) {
                 return -1;
@@ -934,10 +1000,10 @@ public class Puzzle {
      * @param isGluedOrStuck Indicates if the tile is glued or stuck.
      * @return The maximum number of steps the tile can move left, or -1 if it would fall into a hole.
      */
-    private int calculateMaxMoveLeft(int row,int column, List<Tile> group, boolean isGluedOrStuck) {
+    private int calculateMaxMoveLeft(int row,int column, List<BaseTile> group, boolean isGluedOrStuck) {
         int maxMove = 0;
         for (int i = column - 1; i >= 0; i--) {
-            Tile nextTile = getTileAtPosition(row, i);
+            BaseTile nextTile = getTileAtPosition(row, i);
             if (nextTile.getIsHole()) {
                 if (isGluedOrStuck) {
                     break;
@@ -960,9 +1026,9 @@ public class Puzzle {
      * @param isGluedOrStuck Indicates if the tiles are glued or stuck.
      * @return The maximum number of steps the group can move left, or -1 if any tile would fall into a hole.
      */
-    private int calculateMaxMoveLeftGroup(List<Tile> group, boolean isGluedOrStuck) {
+    private int calculateMaxMoveLeftGroup(List<BaseTile> group, boolean isGluedOrStuck) {
         int maxMove = w;
-        for (Tile tile : group) {
+        for (BaseTile tile : group) {
             int tileMaxMove = calculateMaxMoveLeft(tile.getRow(), tile.getCol(), group, isGluedOrStuck);
             if (tileMaxMove == -1) {
                 return -1;
@@ -982,10 +1048,10 @@ public class Puzzle {
      * @param isGluedOrStuck Indicates if the tile is glued or stuck.
      * @return The maximum number of steps the tile can move right, or -1 if it would fall into a hole.
      */
-    private int calculateMaxMoveRight(int row,int column, List<Tile> group, boolean isGluedOrStuck) {
+    private int calculateMaxMoveRight(int row,int column, List<BaseTile> group, boolean isGluedOrStuck) {
         int maxMove = 0;
         for (int i = column + 1; i < w; i++) {
-            Tile nextTile = getTileAtPosition(row, i);
+            BaseTile nextTile = getTileAtPosition(row, i);
             if (nextTile.getIsHole()) {
                 if (isGluedOrStuck) {
                     break;
@@ -1008,9 +1074,9 @@ public class Puzzle {
      * @param isGluedOrStuck Indicates if the tiles are glued or stuck.
      * @return The maximum number of steps the group can move right, or -1 if any tile would fall into a hole.
      */
-    private int calculateMaxMoveRightGroup(List<Tile> group, boolean isGluedOrStuck) {
+    private int calculateMaxMoveRightGroup(List<BaseTile> group, boolean isGluedOrStuck) {
         int maxMove = w;
-        for (Tile tile : group) {
+        for (BaseTile tile : group) {
             int tileMaxMove = calculateMaxMoveRight(tile.getRow(), tile.getCol(), group, isGluedOrStuck);
             if (tileMaxMove == -1) {
                 return -1;
@@ -1029,16 +1095,16 @@ public class Puzzle {
      * @param group List of tiles to be moved
      * @param steps Number of steps to move upward
      */
-    private void moveGroupUp(List<Tile> group, int steps) {
+    private void moveGroupUp(List<BaseTile> group, int steps) {
         if (steps == 0) return;
         // Order the group because the higher tiles move firstly
-        group.sort(Comparator.comparingInt(Tile::getRow));
+        group.sort(Comparator.comparingInt(BaseTile::getRow));
         // Delete tiles of last positions 
-        for (Tile tile : group) {
+        for (BaseTile tile : group) {
             tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
         }
         // Move tiles to the new positions
-        for (Tile tile : group) {
+        for (BaseTile tile : group) {
             int newRow = tile.getRow() - steps;
             tile.moveVertical(-steps * (Tile.SIZE + Tile.MARGIN));
             tiles.get(newRow).set(tile.getCol(), tile);
@@ -1053,16 +1119,16 @@ public class Puzzle {
      * @param group List of tiles to be moved
      * @param steps Number of steps to move downward
      */
-    private void moveGroupDown(List<Tile> group, int steps) {
+    private void moveGroupDown(List<BaseTile> group, int steps) {
         if (steps == 0) return;
         // Order the group because the lower tiles move firstly
         group.sort((t1, t2) -> Integer.compare(t2.getRow(), t1.getRow()));
         // Delete tiles of last positions 
-        for (Tile tile : group) {
+        for (BaseTile tile : group) {
             tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
         }
         // Move tiles to the new positions
-        for (Tile tile : group) {
+        for (BaseTile tile : group) {
             int newRow = tile.getRow() + steps;
             tile.moveVertical(steps * (Tile.SIZE + Tile.MARGIN));
             tiles.get(newRow).set(tile.getCol(), tile);
@@ -1077,16 +1143,16 @@ public class Puzzle {
      * @param group List of tiles to be moved
      * @param steps Number of steps to move to the left
      */
-    private void moveGroupLeft(List<Tile> group, int steps) {
+    private void moveGroupLeft(List<BaseTile> group, int steps) {
         if (steps == 0) return;
         // Order the group because the tiles with lower columnsa move firstly
-        group.sort(Comparator.comparingInt(Tile::getCol));
+        group.sort(Comparator.comparingInt(BaseTile::getCol));
         // Delete tiles of last positions
-        for (Tile tile : group) {
+        for (BaseTile tile : group) {
             tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
         }
         // Move tiles to the new positions
-        for (Tile tile : group) {
+        for (BaseTile tile : group) {
             int newCol = tile.getCol() - steps;
             tile.moveHorizontal(-steps * (Tile.SIZE + Tile.MARGIN));
             tiles.get(tile.getRow()).set(newCol, tile);
@@ -1101,16 +1167,16 @@ public class Puzzle {
      * @param group List of tiles to be moved
      * @param steps Number of steps to move to the right
      */
-    private void moveGroupRight(List<Tile> group, int steps) {
+    private void moveGroupRight(List<BaseTile> group, int steps) {
         if (steps == 0) return;
         // Order the group because the tiles with higher columns move firstly
         group.sort((t1, t2) -> Integer.compare(t2.getCol(), t1.getCol()));
         // Delete tiles of last positions
-        for (Tile tile : group) {
+        for (BaseTile tile : group) {
             tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
         }
         // Move tiles to the new positions
-        for (Tile tile : group) {
+        for (BaseTile tile : group) {
             int newCol = tile.getCol() + steps;
             tile.moveHorizontal(steps * (Tile.SIZE + Tile.MARGIN));
             tiles.get(tile.getRow()).set(newCol, tile);
@@ -1125,7 +1191,7 @@ public class Puzzle {
      * @param tile The starting tile
      * @param group List to store the collected tiles
      */
-    private void collectStuckGroup(Tile tile, List<Tile> group) {
+    private void collectStuckGroup(BaseTile tile, List<BaseTile> group) {
         if (tile.isVisited()) return;
         tile.setVisited(true);
         group.add(tile);
@@ -1135,7 +1201,7 @@ public class Puzzle {
         for (int[] dir : directions) {
             int adjRow = row + dir[0];
             int adjCol = column + dir[1];
-            Tile adjacentTile = getTileAtPosition(adjRow, adjCol);
+            BaseTile adjacentTile = getTileAtPosition(adjRow, adjCol);
             if (adjacentTile != null && !adjacentTile.isVisited() && !isTileEmpty(adjacentTile) &&
                     (adjacentTile.isStuck() || adjacentTile.hasGlue()) && !adjacentTile.getIsHole()) {
                 collectStuckGroup(adjacentTile, group);
@@ -1150,7 +1216,7 @@ public class Puzzle {
      * @param column Column index
      * @return The tile at the specified position, or null if out of bounds
      */
-    public Tile getTileAtPosition(int row,int column) {
+    public BaseTile getTileAtPosition(int row,int column) {
         if (row >= 0 && row < h && column >= 0 && column < w) {
             return tiles.get(row).get(column);
         }
@@ -1163,7 +1229,7 @@ public class Puzzle {
      * @param tile The tile to check
      * @return True if the tile is empty, false otherwise
      */
-    private boolean isTileEmpty(Tile tile) {
+    private boolean isTileEmpty(BaseTile tile) {
         if (tile == null) return false;
         return !tile.getIsHole() && tile.getLabel() == '*';
     }
@@ -1172,8 +1238,8 @@ public class Puzzle {
      * Resets the "visited" flags for all tiles after a tilt operation.
      */
     private void resetVisitedFlags() {
-        for (List<Tile> rowList : tiles) {
-            for (Tile tile : rowList) {
+        for (List<BaseTile> rowList : tiles) {
+            for (BaseTile tile : rowList) {
                 tile.setVisited(false);
             }
         }
@@ -1222,10 +1288,10 @@ public class Puzzle {
         // Move in in the actual board(tiles) and compare it with the reference board(ending)
         for (int row = 0; row < h; row++) {
             for (int col = 0; col < w; col++) {
-                Tile currentTile = tiles.get(row).get(col);
+                BaseTile currentTile = tiles.get(row).get(col);
                 char currentLabel = currentTile.getLabel();
                 
-                Tile targetTile = referingTiles.get(row).get(col);
+                BaseTile targetTile = referingTiles.get(row).get(col);
                 char targetLabel = targetTile.getLabel();
                 
                 if (currentLabel == 'h' || targetLabel == 'h'){
@@ -1263,14 +1329,14 @@ public class Puzzle {
         }
         
         
-        for (List<Tile> row : tiles) {
-            for (Tile tile : row) {
+        for (List<BaseTile> row : tiles) {
+            for (BaseTile tile : row) {
                 tile.makeVisible();
             }
         }
         
-        for (List<Tile> row : referingTiles) {
-            for (Tile tile : row) {
+        for (List<BaseTile> row : referingTiles) {
+            for (BaseTile tile : row) {
                 tile.makeVisible();
             }
         }
@@ -1287,14 +1353,14 @@ public class Puzzle {
         this.visible = false;
         
         // Hacer invisibles las baldosas
-        for (List<Tile> row : tiles) {
-            for (Tile tile : row) {
+        for (List<BaseTile> row : tiles) {
+            for (BaseTile tile : row) {
                 tile.makeInvisible();
             }
         }
         
-        for (List<Tile> row : referingTiles) {
-            for (Tile tile : row) {
+        for (List<BaseTile> row : referingTiles) {
+            for (BaseTile tile : row) {
                 tile.makeInvisible();
             }
         }
@@ -1332,7 +1398,7 @@ public class Puzzle {
         
         for (int row = 0; row < h; row++) {
             for (int col = 0; col < w; col++) {
-                Tile tile = getTileAtPosition(row, col);
+                BaseTile tile = getTileAtPosition(row, col);
                 char label = tile.getLabel();
                 System.out.print(label + " ");
             }
@@ -1346,7 +1412,7 @@ public class Puzzle {
                 currentArrangement[row][col] = starting[row][col]; // Copia el valor actual
     
                 // Simulation of painting or showing the tiles
-                Tile tile = tiles.get(row).get(col);
+                BaseTile tile = tiles.get(row).get(col);
                 System.out.println("Baldosa en (" + row + ", " + col + "): " + tile.getLabel());
             }
         }
@@ -1379,18 +1445,18 @@ public class Puzzle {
         ending = temp;
     
         // Exchange tiles lists
-        List<List<Tile>> tempTiles = tiles;
+        List<List<BaseTile>> tempTiles = tiles;
         tiles = referingTiles;
         referingTiles = tempTiles;
         
         // Exchange tiles positions visually 
         for (int row = 0; row < h; row++) {
             for (int col = 0; col < w; col++) {
-                Tile startingTile = tiles.get(row).get(col);
+                BaseTile startingTile = tiles.get(row).get(col);
                 int xPositionStartingTile = startingTile.getXPos();
                 int yPositionStartingTile = startingTile.getYPos();
     
-                Tile endingTile = referingTiles.get(row).get(col);
+                BaseTile endingTile = referingTiles.get(row).get(col);
                 int xPositionEndingTile = endingTile.getXPos();
                 int yPositionEndingTile = endingTile.getYPos();
     
@@ -1436,7 +1502,7 @@ public class Puzzle {
 
         } else {
 
-            Tile targetTile = tiles.get(row).get(column);
+            BaseTile targetTile = tiles.get(row).get(column);
 
             if (targetTile.getLabel() == 'h') {
                 showMessage("This tile already has a hole.", "Error");
@@ -1486,7 +1552,7 @@ public class Puzzle {
         char[][] currentArrangement = new char[h][w];
         for (int row = 0; row < h; row++) {
             for (int col = 0; col < w; col++) {
-                Tile tile = getTileAtPosition(row, col);
+                BaseTile tile = getTileAtPosition(row, col);
                 currentArrangement[row][col] = tile.getLabel();
             }
         }
@@ -1656,7 +1722,7 @@ public class Puzzle {
      *
      * @param tile The tile to create the hole in
      */
-    private void createHoleCircle(Tile tile) {
+    private void createHoleCircle(BaseTile tile) {
         int xPos = tile.getXPos();
         int yPos = tile.getYPos();
         int diameter = Tile.SIZE;
@@ -1684,7 +1750,7 @@ public class Puzzle {
             boolean flag = findEmptyTileOrHoleSegmentRow(i);
             if (flag) {
                 for (int j = 0; j < w; j++) {
-                    Tile tile = getTileAtPosition(i, j);
+                    BaseTile tile = getTileAtPosition(i, j);
                     if (tile.getFixedStatus()) {
                         tile.setIsNotFixed();
                     }
@@ -1698,7 +1764,7 @@ public class Puzzle {
             boolean flag = findEmptyTileOrHoleSegmentColumn(j);
             if (flag) {
                 for (int i = 0; i < h; i++) {
-                    Tile tile = getTileAtPosition(i, j);
+                    BaseTile tile = getTileAtPosition(i, j);
                     if (tile.getFixedStatus()) {
                         tile.setIsNotFixed();
                     }
@@ -1711,7 +1777,7 @@ public class Puzzle {
         int[][] fixedTilesMatrix = new int[h][w];
         for (int i = 0; i < h; i++) {
             for (int j = 0; j < w; j++) {
-                Tile targetTile = getTileAtPosition(i, j);
+                BaseTile targetTile = getTileAtPosition(i, j);
                 if (targetTile.getFixedStatus()) {
                     fixedTilesMatrix[i][j] = 0;
                     if (visible) {                        
@@ -1746,7 +1812,7 @@ public class Puzzle {
      */
     private boolean findEmptyTileOrHoleSegmentRow(int row) {
         for (int col = 0; col < w; col++) {
-            Tile currentTile = getTileAtPosition(row, col);
+            BaseTile currentTile = getTileAtPosition(row, col);
             if (currentTile.getLabel() == 'h' || currentTile.getLabel() == '*') {
                 return true;
             }
@@ -1762,7 +1828,7 @@ public class Puzzle {
      */
     private boolean findEmptyTileOrHoleSegmentColumn(int col) {
         for (int row = 0; row < h; row++) {
-            Tile currentTile = getTileAtPosition(row, col);
+            BaseTile currentTile = getTileAtPosition(row, col);
             if (currentTile.getLabel() == 'h' || currentTile.getLabel() == '*') {
                 return true;
             }
@@ -1783,10 +1849,10 @@ public class Puzzle {
         
         for (int row = 0; row < h;row++){
             for (int col = 0; col < w;col++){
-                Tile currentTile = tiles.get(row).get(col);
+                BaseTile currentTile = tiles.get(row).get(col);
                 char currentLabel = currentTile.getLabel();
     
-                Tile referingTile = referingTiles.get(row).get(col);
+                BaseTile referingTile = referingTiles.get(row).get(col);
                 char referenceLabel = referingTile.getLabel();
                 
                 if (currentLabel != referenceLabel && currentLabel != '*'){

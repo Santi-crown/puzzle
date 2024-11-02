@@ -28,6 +28,7 @@ public class Tile extends BaseTile{
      * @param column The column index of the tile in the grid.
      */
     public Tile(char label, int xPosition, int yPosition,int row, int column) {
-        super(label, xPosition, yPosition, row, column);                              
+        super(label, xPosition, yPosition, row, column);
+        this.makeVisible();                              
     }
 }

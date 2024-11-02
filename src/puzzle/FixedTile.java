@@ -1,8 +1,22 @@
 package puzzle;
+import java.awt.Color;
 import shapes.*;
 
-public class FixedTile extends BaseTile{
-    public FixedTile(char label, int xPosition, int yPosition,int row, int column) {
-        super(label, xPosition, yPosition, row, column);                              
+
+public class FixedTile extends BaseTile {
+    private Rectangle innerRectangle; // Rectángulo interior de color blanco
+
+    public FixedTile(char label, int xPosition, int yPosition, int row, int column) {
+        super(label, xPosition, yPosition, row, column);
+        int innerSize = Tile.SIZE - 10; // Reducimos 5 píxeles en cada lado para dejar el borde
+        int innerXPosition = this.getXPos() + 5;
+        int innerYPosition = this.getYPos() + 5;
+        innerRectangle = new Rectangle(innerSize, innerSize, Color.WHITE, innerXPosition, innerYPosition);
+        innerRectangle.makeVisible(); // Aseguramos que se dibuje después del rectángulo rojo
+        this.makeVisible();
+        
     }
+
+
+
 }

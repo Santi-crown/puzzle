@@ -42,4 +42,16 @@ public class RoughTile extends BaseTile{
 
         return color;
     }
+
+    @Override
+    public void makeVisible(){
+        super.makeVisible();
+        if (outerBorder != null) outerBorder.makeVisible();    
+    }
+
+    @Override
+    public void makeInvisible(){
+        super.makeInvisible();
+        if (outerBorder != null) outerBorder.makeInvisible();
+    }
 }

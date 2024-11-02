@@ -15,4 +15,16 @@ public class FixedTile extends BaseTile {
         this.makeVisible();
         innerRectangle.makeVisible(); // Aseguramos que se dibuje después del rectángulo rojo
     }
+
+    @Override
+    public void makeVisible(){
+        super.makeVisible();
+        if (innerRectangle != null) innerRectangle.makeVisible();
+    }
+
+    @Override
+    public void makeInvisible(){
+        super.makeInvisible();
+        if (innerRectangle != null) innerRectangle.makeInvisible();
+    }
 }

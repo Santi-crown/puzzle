@@ -218,13 +218,13 @@
         char label = tileInformation[1].charAt(0);
 
         switch (kindOfTile) {
-            case "f":  // Ejemplo de etiqueta para FixedTile
+            case "fi":  // Ejemplo de etiqueta para FixedTile
                 return new FixedTile(label, xPosition, yPosition, row, column);
-            case "r":  // Ejemplo de etiqueta para RoughTile
+            case "ro":  // Ejemplo de etiqueta para RoughTile
                 return new RoughTile(label, xPosition, yPosition, row, column);
-            case "l":  // Ejemplo de etiqueta para FreelanceTile
+            case "fr":  // Ejemplo de etiqueta para FreelanceTile
                 return new FreelanceTile(label, xPosition, yPosition, row, column);
-            case "y":  // Ejemplo de etiqueta para FlyingTile
+            case "fl":  // Ejemplo de etiqueta para FlyingTile
                 return new FlyingTile(label, xPosition, yPosition, row, column);
             // Puedes añadir más casos para otros tipos de baldosas.
             default:
@@ -1899,7 +1899,13 @@
             Puzzle pz4 = new Puzzle(starting1, ending1); // Tablero con matrices
             //Puzzle pz4 = new Puzzle(ending1);
             
-            pz4.addTile(9,0,"r y");
+            pz4.addTile(9,0,"fl y");
+            pz4.addTile(8,0,"fi r");
+            pz4.addTile(7,0,"fr g");
+            pz4.addTile(6,0,"ro b");
+            pz4.makeInvisible();
+            pz4.makeVisible();
+
             //pz4.addGlue(9,1);
             //pz4.tilt('u');
             // pz4.tilt('r');

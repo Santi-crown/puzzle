@@ -1899,9 +1899,9 @@
             Puzzle pz4 = new Puzzle(starting1, ending1); // Tablero con matrices
             //Puzzle pz4 = new Puzzle(ending1);
             
-            pz4.addTile(9,0,"f r");
+            pz4.addTile(9,0,"r y");
             //pz4.addGlue(9,1);
-            pz4.tilt('u');
+            //pz4.tilt('u');
             // pz4.tilt('r');
             
             // //pz4.addTile(5,1,'b');

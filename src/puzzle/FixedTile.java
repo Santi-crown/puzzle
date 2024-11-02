@@ -12,8 +12,9 @@ public class FixedTile extends BaseTile {
         int innerXPosition = this.getXPos() + 5;
         int innerYPosition = this.getYPos() + 5;
         innerRectangle = new Rectangle(innerSize, innerSize, Color.WHITE, innerXPosition, innerYPosition);
-        innerRectangle.makeVisible(); // Aseguramos que se dibuje después del rectángulo rojo
         this.makeVisible();
+        innerRectangle.makeVisible(); // Aseguramos que se dibuje después del rectángulo rojo
+        
         
     }
 

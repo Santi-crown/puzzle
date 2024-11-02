@@ -28,6 +28,7 @@ public abstract class BaseTile extends Rectangle{
         setTileColor(label);
         this.moveHorizontal(xPosition);
         this.moveVertical(yPosition);
+        //this.makeVisible();
     }
 
      /**

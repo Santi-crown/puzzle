@@ -323,7 +323,7 @@
                 
                 // Reemplazar la baldosa en la lista de tiles
                 tiles.get(row).set(column, newTile);
-                newTile.makeVisible();
+                //newTile.makeVisible();
                 this.ok = true;
             } else {
                 showMessage("A tile already exists here.", "Error");
@@ -1901,7 +1901,7 @@
             
             pz4.addTile(9,0,"f r");
             //pz4.addGlue(9,1);
-            //pz4.tilt('u');
+            pz4.tilt('u');
             // pz4.tilt('r');
             
             // //pz4.addTile(5,1,'b');

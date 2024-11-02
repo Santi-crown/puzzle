@@ -2,8 +2,8 @@ package puzzle;
 
 
 import java.util.*;
-import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  * Write a description of class Hola here.
@@ -311,7 +311,7 @@ public class PuzzleContest {
         int w = puzzle.getWidth();
         for (int row = 0; row < h; row++) {
             for (int col = 0; col < w; col++) {
-                Tile tile = puzzle.getTileAtPosition(row, col);
+                BaseTile tile = puzzle.getTileAtPosition(row, col);
                 System.out.print(tile.getLabel());
             }
             System.out.println();

@@ -1899,9 +1899,9 @@ private BaseTile createTile(String tileData, int xPosition, int yPosition, int r
         Puzzle pz4 = new Puzzle(starting1, ending1); // Tablero con matrices
         //Puzzle pz4 = new Puzzle(ending1);
         
-        // pz4.addTile(9,0,'r');
-        // pz4.addGlue(9,1);
-        // pz4.tilt('u');
+        pz4.addTile(9,0,'r');
+        pz4.addGlue(9,1);
+        pz4.tilt('u');
         // pz4.tilt('r');
         
         // //pz4.addTile(5,1,'b');

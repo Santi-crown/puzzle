@@ -476,7 +476,11 @@
                 showMessage("This tile already has glue applied.", "Error");
                 this.ok = false;
 
-            } else {
+            } else if (tile instanceof FreelanceTile){
+                showMessage("This tile already has glue applied.", "Error");
+                this.ok = false;
+            } 
+            else {
                 tile.setHasGlue(true);
 
                 // Change the tile color to a paler version
@@ -694,7 +698,7 @@
 
             for (int row = 0; row < h; row++) {
                 BaseTile tile = getTileAtPosition(row, col);
-                if (!isTileEmpty(tile) && !tile.isVisited() && !tile.getIsHole()) {
+                if (!isTileEmpty(tile) && !tile.isVisited() && !tile.getIsHole() && !(tile instanceof RoughTile)) {
                     List<BaseTile> group = new ArrayList<>();
                     boolean isGluedOrStuck = tile.isStuck() || tile.hasGlue();
                     if (isGluedOrStuck) {
@@ -743,7 +747,7 @@
 
             for (int row = h - 1; row >= 0; row--) {
                 BaseTile tile = getTileAtPosition(row, col);
-                if (!isTileEmpty(tile) && !tile.isVisited() && !tile.getIsHole()) {
+                if (!isTileEmpty(tile) && !tile.isVisited() && !tile.getIsHole() && !(tile instanceof RoughTile)) {
                     List<BaseTile> group = new ArrayList<>();
                     boolean isGluedOrStuck = tile.isStuck() || tile.hasGlue();
                     if (isGluedOrStuck) {
@@ -796,7 +800,7 @@
 
             for (int col = 0; col < w; col++) {
                 BaseTile tile = getTileAtPosition(row, col);
-                if (!isTileEmpty(tile) && !tile.isVisited() && !tile.getIsHole()) {
+                if (!isTileEmpty(tile) && !tile.isVisited() && !tile.getIsHole() && !(tile instanceof RoughTile)) {
                     List<BaseTile> group = new ArrayList<>();
                     boolean isGluedOrStuck = tile.isStuck() || tile.hasGlue();
                     if (isGluedOrStuck) {
@@ -847,7 +851,7 @@
             // Iterate from the rightmost column to the left
             for (int col = w - 1; col >= 0; col--) {
                 BaseTile tile = getTileAtPosition(row, col);
-                if (!isTileEmpty(tile) && !tile.isVisited() && !tile.getIsHole()) {
+                if (!isTileEmpty(tile) && !tile.isVisited() && !tile.getIsHole() && !(tile instanceof RoughTile)) {
                     List<BaseTile> group = new ArrayList<>();
                     boolean isGluedOrStuck = tile.isStuck() || tile.hasGlue();
                     if (isGluedOrStuck) {
@@ -1884,7 +1888,7 @@
                 {'g', 'r', 'y', 'b', 'g', 'r', 'y', '*', 'g', 'r'},
                 {'r', 'g', 'b', 'y', 'r', 'g', 'b', '*', 'r', 'b'},
                 {'y', 'r', 'g', 'b', 'y', 'r', 'g', '*', 'y', 'r'},
-                {'g', 'b', 'y', 'r', 'g', 'b', 'y', '*', 'g', 'b'},
+                {'g', 'b', 'y', 'r', 'g', 'b', 'y', 'y', 'g', 'b'},
                 {'r', 'g', 'b', 'y', 'r', 'g', 'b', '*', 'r', 'g'}
             };
             
@@ -1906,7 +1910,7 @@
             //Puzzle pz4 = new Puzzle(ending1);
             
             //pz4.addTile(9,0,"fl y");
-            pz4.addTile(9,7,"fi r");
+            pz4.addTile(9,7,"ro r");
             //pz4.deleteTile(9, 7);
             //pz4.addTile(9, 7, 'r');
             int[] from1 = {9,7};

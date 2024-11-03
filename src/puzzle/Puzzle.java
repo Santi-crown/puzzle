@@ -355,12 +355,16 @@
                 }else if (previousTile.hasGlue() || previousTile.isStuck()) {
                     showMessage("You cannot delete a tile that has glue or is stuck.", "Error");
                     this.ok = false;
-                } else if (!isTileEmpty(previousTile)) {
+                } else if (previousTile instanceof FixedTile){
+                    showMessage("You cannot delete a Fixed tile", "Error");
+                }                 
+                else if (!isTileEmpty(previousTile)) {
                     previousTile.setTileColor('n');
                     previousTile.setLabel('*');
                     previousTile.makeInvisible();
                     this.ok = true; // Successful action
-                } else {
+                }                 
+                else {
                     showMessage("You're trying to delete a non-existent tile.", "Error");
                     this.ok = false; // Error
                 }
@@ -404,7 +408,9 @@
             } else if (fromTile.hasGlue() || fromTile.isStuck()) {
                 showMessage("You cannot move a tile that has glue or is stuck.", "Error");
                 this.ok = false;
-
+            }else if (fromTile instanceof FixedTile){
+                showMessage("You cannot relocate a fixedTile.", "Error");
+                this.ok = false; 
             } else {
                 // Perform the movement
                 this.relocateTileMovement(fromTile, toTile, from, to);
@@ -1901,6 +1907,12 @@
             
             //pz4.addTile(9,0,"fl y");
             pz4.addTile(9,7,"fi r");
+            //pz4.deleteTile(9, 7);
+            //pz4.addTile(9, 7, 'r');
+            int[] from1 = {9,7};
+            int[] to1   = {8,7};            
+            //pz4.relocateTile(from1, to1);
+            //pz4.addTile(8, 7, 'r');
             // pz4.addTile(7,0,"fr g");
             // pz4.addTile(6,0,"ro b");
             //pz4.makeInvisible();
@@ -1908,7 +1920,7 @@
 
             //pz4.addGlue(9,1);
             pz4.tilt('u');
-            if (pz4.isGoal()) System.out.println("You go it");
+            // if (pz4.isGoal()) System.out.println("You go it");
             // pz4.tilt('r');
             
             // //pz4.addTile(5,1,'b');

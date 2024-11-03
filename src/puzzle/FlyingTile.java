@@ -26,5 +26,15 @@ public class FlyingTile extends BaseTile{
         if (innerCircle != null) innerCircle.makeInvisible();
     }
 
+    @Override
+    public void moveVertical(int distance){
+        super.moveVertical(distance);
+        if (innerCircle != null) innerCircle.moveVertical(distance);
+    }
 
+    @Override
+    public void moveHorizontal(int distance){
+        super.moveHorizontal(distance);
+        if (innerCircle != null) innerCircle.moveHorizontal(distance);
+    }
 }

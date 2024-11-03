@@ -1870,44 +1870,45 @@
             
             //SECOND TEST
             char[][] starting1 = {
-            {'y', 'g', 'y', 'b', 'r', 'g', 'b', 'y', 'r', 'b'},
-            {'b', 'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'g'},
-            {'g', 'b', '*', 'y', 'b', 'g', 'r', 'y', 'b', 'r'},
-            {'r', '*', 'g', 'b', 'r', '*', '*', 'b', 'r', 'g'},
-            {'b', 'g', 'r', 'y', 'b', 'g', 'r', 'y', 'b', 'r'},
-            {'y', '*', 'r', '*', 'y', 'b', 'r', 'g', 'y', 'b'},
-            {'*', 'r', 'y', 'b', 'g', '*', '*', 'b', 'g', 'r'},
-            {'*', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'b'},
-            {'*', 'b', 'g', 'r', 'y', '*', 'g', 'r', 'y', 'g'},
-            {'*', 'r', 'y', 'b', 'g', 'r', 'y', 'b', 'g', 'r'}
-        };
+                {'y', 'r', 'g', 'r', 'y', 'b', 'g', 'r', 'y', 'b'},
+                {'g', 'b', 'g', 'b', 'r', 'g', 'b', 'y', 'r', 'g'},
+                {'b', 'g', 'y', 'r', 'y', 'b', 'g', 'r', 'y', 'b'},
+                {'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'g'},
+                {'y', 'b', 'g', 'r', 'y', 'b', 'g', '*', 'y', 'b'},
+                {'g', 'r', 'y', 'b', 'g', 'r', 'y', '*', 'g', 'r'},
+                {'r', 'g', 'b', 'y', 'r', 'g', 'b', '*', 'r', 'b'},
+                {'y', 'r', 'g', 'b', 'y', 'r', 'g', '*', 'y', 'r'},
+                {'g', 'b', 'y', 'r', 'g', 'b', 'y', '*', 'g', 'b'},
+                {'r', 'g', 'b', 'y', 'r', 'g', 'b', '*', 'r', 'g'}
+            };
             
             char[][] ending1 = {
             {'y', 'r', 'g', 'r', 'y', 'b', 'g', 'r', 'y', 'b'},
             {'g', 'b', 'g', 'b', 'r', 'g', 'b', 'y', 'r', 'g'},
             {'b', 'g', 'y', 'r', 'y', 'b', 'g', 'r', 'y', 'b'},
             {'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'g'},
-            {'y', 'b', 'g', 'r', 'y', 'b', 'g', '*', 'y', 'b'},
-            {'g', 'r', 'y', 'b', 'g', 'r', 'y', 'b', 'g', 'r'},
-            {'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'b'},
-            {'y', 'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r'},
+            {'y', 'b', 'g', 'r', 'y', 'b', 'g', 'r', 'y', 'b'},
+            {'g', 'r', 'y', 'b', 'g', 'r', 'y', '*', 'g', 'r'},
+            {'r', 'g', 'b', 'y', 'r', 'g', 'b', '*', 'r', 'b'},
+            {'y', 'r', 'g', 'b', 'y', 'r', 'g', '*', 'y', 'r'},
             {'g', 'b', 'y', 'r', 'g', 'b', 'y', '*', 'g', 'b'},
-            {'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'g'}
+            {'r', 'g', 'b', 'y', 'r', 'g', 'b', '*', 'r', 'g'}
         };
             
             Puzzle pz3 = new Puzzle(10, 10); // Tablero sin matrices
             Puzzle pz4 = new Puzzle(starting1, ending1); // Tablero con matrices
             //Puzzle pz4 = new Puzzle(ending1);
             
-            pz4.addTile(9,0,"fl y");
-            pz4.addTile(8,0,"fi r");
-            pz4.addTile(7,0,"fr g");
-            pz4.addTile(6,0,"ro b");
-            pz4.makeInvisible();
-            pz4.makeVisible();
+            //pz4.addTile(9,0,"fl y");
+            pz4.addTile(9,7,"fi r");
+            // pz4.addTile(7,0,"fr g");
+            // pz4.addTile(6,0,"ro b");
+            //pz4.makeInvisible();
+            //pz4.makeVisible();
 
             //pz4.addGlue(9,1);
-            //pz4.tilt('u');
+            pz4.tilt('u');
+            if (pz4.isGoal()) System.out.println("You go it");
             // pz4.tilt('r');
             
             // //pz4.addTile(5,1,'b');

@@ -27,4 +27,16 @@ public class FixedTile extends BaseTile {
         super.makeInvisible();
         if (innerRectangle != null) innerRectangle.makeInvisible();
     }
+
+    @Override
+    public void moveVertical(int distance){
+        super.moveVertical(distance);
+        if (innerRectangle != null) innerRectangle.moveVertical(distance);
+    }
+
+    @Override
+    public void moveHorizontal(int distance){
+        super.moveHorizontal(distance);
+        if (innerRectangle != null) innerRectangle.moveHorizontal(distance);
+    }
 }

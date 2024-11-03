@@ -477,7 +477,7 @@
                 this.ok = false;
 
             } else if (tile instanceof FreelanceTile){
-                showMessage("This tile already has glue applied.", "Error");
+                showMessage("You cannot aply glue to a freelance tile.", "Error");
                 this.ok = false;
             } 
             else {
@@ -1910,7 +1910,8 @@
             //Puzzle pz4 = new Puzzle(ending1);
             
             //pz4.addTile(9,0,"fl y");
-            pz4.addTile(9,7,"ro r");
+            pz4.addTile(9,7,"fr r");
+            pz4.addGlue(9, 7);
             //pz4.deleteTile(9, 7);
             //pz4.addTile(9, 7, 'r');
             int[] from1 = {9,7};
@@ -1923,7 +1924,7 @@
             //pz4.makeVisible();
 
             //pz4.addGlue(9,1);
-            pz4.tilt('u');
+            //pz4.tilt('u');
             // if (pz4.isGoal()) System.out.println("You go it");
             // pz4.tilt('r');
             

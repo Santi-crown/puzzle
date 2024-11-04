@@ -550,9 +550,8 @@ import shapes.Rectangle;
 
             // Determinar el tipo de pegante basado en glueType
             if (glueType.equalsIgnoreCase("super")) {
-            	// tile.setHasGlue(true);
-                // Cambiar el color de la baldosa si es pegante normal
-            	
+            	tile.setHasGlue(true);            	
+                // Cambiar el color de la baldosa si es pegante normal            	
                 Color evenPalerColor = getPaleColor(tile.getOriginalColor(), 150);
                 tile.setTileColor(evenPalerColor);
                 tile.setSuperGlue(true);
@@ -614,14 +613,11 @@ import shapes.Rectangle;
                 this.ok = false;
 
             } else {
-            
+            	tile.setHasGlue(false);
                 if (tile.hasSuperGlue()) {
                 	tile.setSuperGlue(false);
-                }
-                else {
-                	tile.setHasGlue(false);
-                }
-
+                	
+                }                                               
                 // If the tile is no longer stuck to any other, adjust its color
                 if (!tile.isStuck()) {
                     // Change the color to a slightly paler version
@@ -2133,8 +2129,8 @@ import shapes.Rectangle;
                 {'y', 'b', 'g', 'r', 'y', 'b', 'g', '*', 'y', 'b'},
                 {'g', 'r', 'y', 'b', 'g', 'r', 'y', '*', 'g', 'r'},
                 {'r', 'g', 'b', 'y', 'r', 'g', 'b', '*', 'r', 'b'},
-                {'y', 'r', 'g', 'b', 'y', 'r', 'g', '*', 'y', 'r'},
-                {'g', 'b', 'y', 'r', 'g', 'b', 'y', 'y', 'g', 'b'},
+                {'y', 'r', 'g', 'b', 'y', 'r', 'g', '*', '*', '*'},
+                {'g', 'b', 'y', 'r', 'g', 'b', 'y', 'y', '*', '*'},
                 {'r', 'g', 'b', 'y', 'r', 'g', 'b', '*', '*', '*'}
             };
             
@@ -2177,7 +2173,7 @@ import shapes.Rectangle;
 
             //pz4.addGlue(9,1);
             //pz4.tilt('r');
-            //pz4.tilt('l');
+            pz4.tilt('r');
             //pz4.tilt('d');
             // if (pz4.isGoal()) System.out.println("You go it");
             // pz4.tilt('r');

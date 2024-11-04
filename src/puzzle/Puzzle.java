@@ -550,17 +550,30 @@ import shapes.Rectangle;
 
             // Determinar el tipo de pegante basado en glueType
             if (glueType.equalsIgnoreCase("super")) {
-            	tile.setHasGlue(true);
+            	// tile.setHasGlue(true);
                 // Cambiar el color de la baldosa si es pegante normal
+            	
                 Color evenPalerColor = getPaleColor(tile.getOriginalColor(), 150);
                 tile.setTileColor(evenPalerColor);
-                
-                //Add triangle
                 tile.setSuperGlue(true);
+                //Add triangle                
                 tile.setLabel('p');
             }
             
-	        this.ok = true;
+         // Determinar el tipo de pegante basado en glueType
+            if (glueType.equalsIgnoreCase("fragile")) {
+            	
+                // Cambiar el color de la baldosa si es pegante normal
+                Color evenPalerColor = getPaleColor(tile.getOriginalColor(), 150);
+                tile.setTileColor(evenPalerColor);
+                tile.setHasGlue(true);
+                
+                //Add triangle
+                //tile.setFragileGlue(true);
+                tile.setLabel('p');
+            }
+            
+            this.ok = true;
                        
         }
 
@@ -601,7 +614,13 @@ import shapes.Rectangle;
                 this.ok = false;
 
             } else {
-                tile.setHasGlue(false);
+            
+                if (tile.hasSuperGlue()) {
+                	tile.setSuperGlue(false);
+                }
+                else {
+                	tile.setHasGlue(false);
+                }
 
                 // If the tile is no longer stuck to any other, adjust its color
                 if (!tile.isStuck()) {
@@ -2150,7 +2169,8 @@ import shapes.Rectangle;
             //pz4.addTile(6,0,"ro b");
             
             pz4.addGlue(7, 6,"super");
-            //pz4.addGlue(7, 6);
+            //pz4.addGlue(7, 6);         
+            pz4.deleteGlue(7, 6);
             
             //pz4.makeInvisible();
             //pz4.makeVisible();
@@ -2169,7 +2189,7 @@ import shapes.Rectangle;
             int[] from1 = {7,6};
             int[] to1   = {4,7};
             //pz4.relocateTile(from1,to1);
-            pz4.tilt('r');
+            //pz4.tilt('r');
             
             //pz4.exchange();
             

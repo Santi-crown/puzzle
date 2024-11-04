@@ -20,6 +20,7 @@ public abstract class BaseTile extends Rectangle{
     protected boolean isHole = false;
     protected boolean isFixed = true; // It is true because if after validate col and row it still is true, it's because it is really fixed. 
     protected boolean superGlue = false; // Define super glue type
+    protected boolean fragileGlue = false; // Define fragile glue type
     protected Triangle glueTriangle;
     
     public BaseTile(char label, int xPosition, int yPosition,int row, int column) {
@@ -35,11 +36,6 @@ public abstract class BaseTile extends Rectangle{
         this.moveHorizontal(xPosition);
         this.moveVertical(yPosition);
         //this.makeVisible();
-        
-        glueTriangle = new Triangle();
-        glueTriangle.changeSize(10, 10); // Tamaño pequeño
-        glueTriangle.changeColor(Color.BLACK); // Color del triángulo
-        glueTriangle.makeInvisible();
     }
 
      /**
@@ -126,7 +122,7 @@ public abstract class BaseTile extends Rectangle{
      * @param hasGlue True if the tile should have glue, false otherwise.
      */
     public void setHasGlue(boolean hasGlue) {
-        this.hasGlue = hasGlue;
+        this.hasGlue = hasGlue;        
     }
     
     
@@ -336,8 +332,13 @@ public abstract class BaseTile extends Rectangle{
     }
 
     public void setSuperGlue(boolean superGlue) {
+    	
         this.superGlue = superGlue;
         if (superGlue) {
+        	glueTriangle = new Triangle();
+            glueTriangle.changeSize(10, 10); // Tamaño pequeño
+            glueTriangle.changeColor(Color.BLACK); // Color del triángulo
+            //glueTriangle.makeInvisible();
             // Posicionar el triángulo en el centro de la baldosa
             int centerX = this.getXPos() + Tile.SIZE / 2 - glueTriangle.getWidth() / 2 + 4;
             int centerY = this.getYPos() + Tile.SIZE / 2 - glueTriangle.getHeight() / 2 + 1;

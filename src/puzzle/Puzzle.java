@@ -538,7 +538,7 @@ import shapes.Rectangle;
                 showMessage("No puedes añadir pegante en una baldosa vacía.", "Error");
                 this.ok = false;
                 return;
-            } else if (tile.hasGlue() || tile.hasSuperGlue()) {
+            } else if (tile.hasGlue() || tile.hasSuperGlue() || tile.hasFragileGlue()) {
                 showMessage("Esta baldosa ya tiene pegante.", "Error");
                 this.ok = false;
                 return;
@@ -547,33 +547,20 @@ import shapes.Rectangle;
                 this.ok = false;
                 return;
             }
-
+            
+            tile.setHasGlue(true);
+         // Cambiar el color de la baldosa si es pegante normal            	
+            Color evenPalerColor = getPaleColor(tile.getOriginalColor(), 150);
+            tile.setTileColor(evenPalerColor);
+            tile.setLabel('p');
             // Determinar el tipo de pegante basado en glueType
-            if (glueType.equalsIgnoreCase("super")) {
-            	tile.setHasGlue(true);            	
-                // Cambiar el color de la baldosa si es pegante normal            	
-                Color evenPalerColor = getPaleColor(tile.getOriginalColor(), 150);
-                tile.setTileColor(evenPalerColor);
-                tile.setSuperGlue(true);
-                //Add triangle                
-                tile.setLabel('p');
-            }
-            
-         // Determinar el tipo de pegante basado en glueType
-            if (glueType.equalsIgnoreCase("fragile")) {
-            	
-                // Cambiar el color de la baldosa si es pegante normal
-                Color evenPalerColor = getPaleColor(tile.getOriginalColor(), 150);
-                tile.setTileColor(evenPalerColor);
-                tile.setHasGlue(true);
-                
-                //Add triangle
-                //tile.setFragileGlue(true);
-                tile.setLabel('p');
-            }
-            
-            this.ok = true;
-                       
+            //Add triangle 
+            if (glueType.equalsIgnoreCase("super")) {            	                          
+                tile.setSuperGlue(true);                                              
+            } else {
+            	tile.setFragileGlue(true);
+            }                        
+            this.ok = true;                       
         }
 
         /**
@@ -617,6 +604,8 @@ import shapes.Rectangle;
                 if (tile.hasSuperGlue()) {
                 	tile.setSuperGlue(false);
                 	
+                } else if (tile.hasFragileGlue()) {
+                	tile.setFragileGlue(false);
                 }                                               
                 // If the tile is no longer stuck to any other, adjust its color
                 if (!tile.isStuck()) {
@@ -2164,9 +2153,9 @@ import shapes.Rectangle;
             //pz4.addTile(7,0,"fr g");
             //pz4.addTile(6,0,"ro b");
             
-            pz4.addGlue(7, 6,"super");
+            pz4.addGlue(7, 6,"fragile");
             //pz4.addGlue(7, 6);         
-            pz4.deleteGlue(7, 6);
+            //pz4.deleteGlue(7, 6);
             
             //pz4.makeInvisible();
             //pz4.makeVisible();

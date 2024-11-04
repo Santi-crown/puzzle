@@ -330,7 +330,12 @@ public abstract class BaseTile extends Rectangle{
     public boolean hasSuperGlue() {
         return superGlue;
     }
-
+    
+    public boolean hasFragileGlue()
+    {
+    	return fragileGlue;
+    }
+    
     public void setSuperGlue(boolean superGlue) {
     	
         this.superGlue = superGlue;
@@ -351,12 +356,31 @@ public abstract class BaseTile extends Rectangle{
             glueTriangle.makeInvisible();
         }
     }
+    
+    
+    public void setFragileGlue(boolean fragileGlue) {
+    	this.fragileGlue = fragileGlue;
+    	if (fragileGlue) {
+        	glueTriangle = new Triangle();
+            glueTriangle.changeSize(40, 40); // Tamaño pequeño
+            glueTriangle.changeColor(new Color(200, 162, 200)); // Color del triángulo
+            //glueTriangle.makeInvisible();
+            // Posicionar el triángulo en el centro de la baldosa
+            int centerX = this.getXPos() + Tile.SIZE / 2 - glueTriangle.getWidth() / 2 + 20;
+            int centerY = this.getYPos() + Tile.SIZE / 2 - glueTriangle.getHeight() / 2;
+            glueTriangle.setPosition(centerX, centerY);
+            glueTriangle.makeVisible();            
+
+        } else {
+            glueTriangle.makeInvisible();
+        }
+    }
 
     // Sobrescribir los métodos de movimiento si superGlue está activo
     @Override
     public void moveHorizontal(int distance){
         super.moveHorizontal(distance);
-        if (superGlue && glueTriangle != null) {
+        if ((superGlue || fragileGlue) && glueTriangle != null) {
             glueTriangle.moveHorizontal(distance);
         }
     }
@@ -364,7 +388,7 @@ public abstract class BaseTile extends Rectangle{
     @Override
     public void moveVertical(int distance){
         super.moveVertical(distance);
-        if (superGlue && glueTriangle != null) {
+        if ((superGlue || fragileGlue) && glueTriangle != null) {
             glueTriangle.moveVertical(distance);
         }
     }

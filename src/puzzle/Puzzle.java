@@ -1,8 +1,18 @@
     package puzzle;
     import java.awt.Color;
-    import java.util.*;
-    import javax.swing.JOptionPane;
-    import shapes.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.Set;
+
+import javax.swing.JOptionPane;
+
+import shapes.Circle;
+import shapes.Rectangle;
 
 
     /**
@@ -695,24 +705,36 @@
          */
         private void tiltUpWithGlue(int col) {
             List<List<BaseTile>> groups = new ArrayList<>();
+            List<BaseTile> flyingTiles = new ArrayList<>();
 
             for (int row = 0; row < h; row++) {
                 BaseTile tile = getTileAtPosition(row, col);
                 if (!isTileEmpty(tile) && !tile.isVisited() && !tile.getIsHole() && !(tile instanceof RoughTile)) {
-                    List<BaseTile> group = new ArrayList<>();
-                    boolean isGluedOrStuck = tile.isStuck() || tile.hasGlue();
-                    if (isGluedOrStuck) {
-                        collectStuckGroup(tile, group);
-                    } else {
+                    if (tile instanceof FlyingTile) {
                         tile.setVisited(true);
-                        group.add(tile);
+                        flyingTiles.add(tile);
+                    } else {
+                        List<BaseTile> group = new ArrayList<>();
+                        boolean isGluedOrStuck = tile.isStuck() || tile.hasGlue();
+                        if (isGluedOrStuck) {
+                            collectStuckGroup(tile, group);
+                        } else {
+                            tile.setVisited(true);
+                            group.add(tile);
+                        }
+                        groups.add(group);
                     }
-                    groups.add(group);
                 }
             }
 
             // Reset visited flags
             resetVisitedFlags();
+
+            // First, process the flying tiles
+            for (BaseTile tile : flyingTiles) {
+                int maxMove = calculateMaxMoveUpFlyingTile(tile);
+                moveTileUp(tile, maxMove);
+            }
 
             // Sort groups by the minimum row (upper tiles first)
             groups.sort(Comparator.comparingInt(g -> g.stream().mapToInt(BaseTile::getRow).min().orElse(h)));
@@ -737,6 +759,7 @@
             }
         }
 
+
         /**
          * Tilts the specified column downwards, handling glue and stuck tiles.
          * 
@@ -744,24 +767,36 @@
          */
         private void tiltDownWithGlue(int col) {
             List<List<BaseTile>> groups = new ArrayList<>();
+            List<BaseTile> flyingTiles = new ArrayList<>();
 
             for (int row = h - 1; row >= 0; row--) {
                 BaseTile tile = getTileAtPosition(row, col);
                 if (!isTileEmpty(tile) && !tile.isVisited() && !tile.getIsHole() && !(tile instanceof RoughTile)) {
-                    List<BaseTile> group = new ArrayList<>();
-                    boolean isGluedOrStuck = tile.isStuck() || tile.hasGlue();
-                    if (isGluedOrStuck) {
-                        collectStuckGroup(tile, group);
-                    } else {
+                    if (tile instanceof FlyingTile) {
                         tile.setVisited(true);
-                        group.add(tile);
+                        flyingTiles.add(tile);
+                    } else {
+                        List<BaseTile> group = new ArrayList<>();
+                        boolean isGluedOrStuck = tile.isStuck() || tile.hasGlue();
+                        if (isGluedOrStuck) {
+                            collectStuckGroup(tile, group);
+                        } else {
+                            tile.setVisited(true);
+                            group.add(tile);
+                        }
+                        groups.add(group);
                     }
-                    groups.add(group);
                 }
             }
 
             // Reset visited flags
             resetVisitedFlags();
+
+            // First, process the flying tiles
+            for (BaseTile tile : flyingTiles) {
+                int maxMove = calculateMaxMoveDownFlyingTile(tile);
+                moveTileDown(tile, maxMove);
+            }
 
             // Sort groups by the maximum row (lower tiles first)
             groups.sort((g1, g2) -> {
@@ -797,24 +832,36 @@
          */
         private void tiltLeftWithGlue(int row) {
             List<List<BaseTile>> groups = new ArrayList<>();
+            List<BaseTile> flyingTiles = new ArrayList<>();
 
             for (int col = 0; col < w; col++) {
                 BaseTile tile = getTileAtPosition(row, col);
                 if (!isTileEmpty(tile) && !tile.isVisited() && !tile.getIsHole() && !(tile instanceof RoughTile)) {
-                    List<BaseTile> group = new ArrayList<>();
-                    boolean isGluedOrStuck = tile.isStuck() || tile.hasGlue();
-                    if (isGluedOrStuck) {
-                        collectStuckGroup(tile, group);
-                    } else {
+                    if (tile instanceof FlyingTile) {
                         tile.setVisited(true);
-                        group.add(tile);
+                        flyingTiles.add(tile);
+                    } else {
+                        List<BaseTile> group = new ArrayList<>();
+                        boolean isGluedOrStuck = tile.isStuck() || tile.hasGlue();
+                        if (isGluedOrStuck) {
+                            collectStuckGroup(tile, group);
+                        } else {
+                            tile.setVisited(true);
+                            group.add(tile);
+                        }
+                        groups.add(group);
                     }
-                    groups.add(group);
                 }
             }
 
             // Reset visited flags
             resetVisitedFlags();
+
+            // First, process the flying tiles
+            for (BaseTile tile : flyingTiles) {
+                int maxMove = calculateMaxMoveLeftFlyingTile(tile);
+                moveTileLeft(tile, maxMove);
+            }
 
             // Sort groups by the minimum column (leftmost tiles first)
             groups.sort(Comparator.comparingInt(g -> g.stream().mapToInt(BaseTile::getCol).min().orElse(w)));
@@ -840,6 +887,7 @@
         }
 
 
+
         /**
          * Tilts the specified row to the right, considering glue and stuck tiles.
          * 
@@ -847,36 +895,45 @@
          */
         private void tiltRightWithGlue(int row) {
             List<List<BaseTile>> groups = new ArrayList<>();
-        
-            // Iterate from the rightmost column to the left
+            List<BaseTile> flyingTiles = new ArrayList<>();
+
             for (int col = w - 1; col >= 0; col--) {
                 BaseTile tile = getTileAtPosition(row, col);
                 if (!isTileEmpty(tile) && !tile.isVisited() && !tile.getIsHole() && !(tile instanceof RoughTile)) {
-                    List<BaseTile> group = new ArrayList<>();
-                    boolean isGluedOrStuck = tile.isStuck() || tile.hasGlue();
-                    if (isGluedOrStuck) {
-                        // Collect all tiles that are glued or stuck together
-                        collectStuckGroup(tile, group);
-                    } else {
-                        // Mark the tile as visited and add it to the group
+                    if (tile instanceof FlyingTile) {
                         tile.setVisited(true);
-                        group.add(tile);
+                        flyingTiles.add(tile);
+                    } else {
+                        List<BaseTile> group = new ArrayList<>();
+                        boolean isGluedOrStuck = tile.isStuck() || tile.hasGlue();
+                        if (isGluedOrStuck) {
+                            collectStuckGroup(tile, group);
+                        } else {
+                            tile.setVisited(true);
+                            group.add(tile);
+                        }
+                        groups.add(group);
                     }
-                    groups.add(group);
                 }
             }
-        
-            // Reset the visited flags for all tiles
+
+            // Reset visited flags
             resetVisitedFlags();
-        
-            // Sort the groups based on the maximum column index (rightmost first)
+
+            // First, process the flying tiles
+            for (BaseTile tile : flyingTiles) {
+                int maxMove = calculateMaxMoveRightFlyingTile(tile);
+                moveTileRight(tile, maxMove);
+            }
+
+            // Sort groups by the maximum column (rightmost tiles first)
             groups.sort((g1, g2) -> {
                 int maxCol1 = g1.stream().mapToInt(BaseTile::getCol).max().orElse(-1);
                 int maxCol2 = g2.stream().mapToInt(BaseTile::getCol).max().orElse(-1);
                 return Integer.compare(maxCol2, maxCol1);
             });
-        
-            // Move each group to the right
+
+            // Move the groups
             for (List<BaseTile> group : groups) {
                 boolean isGluedOrStuck = group.get(0).isStuck() || group.get(0).hasGlue();
                 int maxMove = calculateMaxMoveRightGroup(group, isGluedOrStuck);
@@ -891,10 +948,113 @@
                     }
                     // Glued or stuck tiles do not move
                 } else {
-                    // Move the group to the right by the maximum possible steps
                     moveGroupRight(group, maxMove);
                 }
             }
+        }
+
+        private int calculateMaxMoveUpFlyingTile(BaseTile tile) {
+            int row = tile.getRow();
+            int col = tile.getCol();
+            int maxMove = 0;
+            for (int i = row - 1; i >= 0; i--) {
+                BaseTile nextTile = getTileAtPosition(i, col);
+                if (isTileEmpty(nextTile) || nextTile.getIsHole()) {
+                    maxMove++;
+                } else {
+                    break;
+                }
+            }
+            return maxMove;
+        }
+
+        private void moveTileUp(BaseTile tile, int steps) {
+            if (steps == 0) return;
+            // Remove tile from current position
+            tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
+            // Move tile
+            int newRow = tile.getRow() - steps;
+            tile.moveVertical(-steps * (Tile.SIZE + Tile.MARGIN));
+            tiles.get(newRow).set(tile.getCol(), tile);
+            tile.setRow(newRow);
+        }
+
+        private int calculateMaxMoveDownFlyingTile(BaseTile tile) {
+            int row = tile.getRow();
+            int col = tile.getCol();
+            int maxMove = 0;
+            for (int i = row + 1; i < h; i++) {
+                BaseTile nextTile = getTileAtPosition(i, col);
+                if (isTileEmpty(nextTile) || nextTile.getIsHole()) {
+                    maxMove++;
+                } else {
+                    break;
+                }
+            }
+            return maxMove;
+        }
+
+        private void moveTileDown(BaseTile tile, int steps) {
+            if (steps == 0) return;
+            // Remove tile from current position
+            tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
+            // Move tile
+            int newRow = tile.getRow() + steps;
+            tile.moveVertical(steps * (Tile.SIZE + Tile.MARGIN));
+            tiles.get(newRow).set(tile.getCol(), tile);
+            tile.setRow(newRow);
+        }
+
+        private int calculateMaxMoveLeftFlyingTile(BaseTile tile) {
+            int row = tile.getRow();
+            int col = tile.getCol();
+            int maxMove = 0;
+            for (int i = col - 1; i >= 0; i--) {
+                BaseTile nextTile = getTileAtPosition(row, i);
+                if (isTileEmpty(nextTile) || nextTile.getIsHole()) {
+                    maxMove++;
+                } else {
+                    break;
+                }
+            }
+            return maxMove;
+        }
+
+        private void moveTileLeft(BaseTile tile, int steps) {
+            if (steps == 0) return;
+            // Remove tile from current position
+            tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
+            // Move tile
+            int newCol = tile.getCol() - steps;
+            tile.moveHorizontal(-steps * (Tile.SIZE + Tile.MARGIN));
+            tiles.get(tile.getRow()).set(newCol, tile);
+            tile.setCol(newCol);
+        }
+
+        private int calculateMaxMoveRightFlyingTile(BaseTile tile) {
+            int row = tile.getRow();
+            int col = tile.getCol();
+            int maxMove = 0;
+            for (int i = col + 1; i < w; i++) {
+                BaseTile nextTile = getTileAtPosition(row, i);
+                if (isTileEmpty(nextTile) || nextTile.getIsHole()) {
+                    maxMove++;
+                } else {
+                    break;
+                }
+            }
+            return maxMove;
+        }
+
+        private void moveTileRight(BaseTile tile, int steps) {
+            if (steps == 0) return;
+            // Remove tile from current position
+            tiles.get(tile.getRow()).set(tile.getCol(), createEmptyTile(tile.getRow(), tile.getCol()));
+            // Move tile
+            int newCol = tile.getCol() + steps;
+            tile.moveHorizontal(steps * (Tile.SIZE + Tile.MARGIN));
+            tiles.get(tile.getRow()).set(newCol, tile);
+            tile.setCol(newCol);
         }
 
 
@@ -1206,13 +1366,14 @@
             tile.setVisited(true);
             group.add(tile);
             int row = tile.getRow();
-        int column = tile.getCol();
+            int column = tile.getCol();
             int[][] directions = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
             for (int[] dir : directions) {
                 int adjRow = row + dir[0];
                 int adjCol = column + dir[1];
                 BaseTile adjacentTile = getTileAtPosition(adjRow, adjCol);
                 if (adjacentTile != null && !adjacentTile.isVisited() && !isTileEmpty(adjacentTile) &&
+                        !(adjacentTile instanceof FlyingTile) &&
                         (adjacentTile.isStuck() || adjacentTile.hasGlue()) && !adjacentTile.getIsHole()) {
                     collectStuckGroup(adjacentTile, group);
                 }
@@ -1889,7 +2050,7 @@
                 {'r', 'g', 'b', 'y', 'r', 'g', 'b', '*', 'r', 'b'},
                 {'y', 'r', 'g', 'b', 'y', 'r', 'g', '*', 'y', 'r'},
                 {'g', 'b', 'y', 'r', 'g', 'b', 'y', 'y', 'g', 'b'},
-                {'r', 'g', 'b', 'y', 'r', 'g', 'b', '*', 'r', 'g'}
+                {'r', 'g', 'b', 'y', 'r', 'g', 'b', '*', 'h', 'g'}
             };
             
             char[][] ending1 = {
@@ -1910,8 +2071,8 @@
             //Puzzle pz4 = new Puzzle(ending1);
             
             //pz4.addTile(9,0,"fl y");
-            pz4.addTile(9,7,"fr r");
-            pz4.addGlue(9, 7);
+            //pz4.addTile(9,7,"fl r");
+            //pz4.addGlue(9, 7);
             //pz4.deleteTile(9, 7);
             //pz4.addTile(9, 7, 'r');
             int[] from1 = {9,7};
@@ -1924,7 +2085,7 @@
             //pz4.makeVisible();
 
             //pz4.addGlue(9,1);
-            //pz4.tilt('u');
+            pz4.tilt('r');
             // if (pz4.isGoal()) System.out.println("You go it");
             // pz4.tilt('r');
             

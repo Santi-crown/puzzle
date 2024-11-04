@@ -64,6 +64,8 @@ import shapes.Rectangle;
         private boolean[][] holes;
         private List<Circle> holeCircles;
         
+        // Colo que servira para almacenar las tiles que tiene fragileGlue, esto para al hacer tilt, despues del tilt, a todas se les deberá remover el pegante 
+        private ArrayList<BaseTile> fragileGlueTilesQueue;
         
         /**
          * Constructor to initialize the boards without initial and final matrices.
@@ -81,10 +83,12 @@ import shapes.Rectangle;
                 this.tiles = new ArrayList<>();
                 this.referingTiles = new ArrayList<>();
                 
-                // Initialize the hole matrix and the list of circles        
+                // Initialize the hole matrix and the list of circles
+                holes = new boolean[h][w];
                 holeCircles = new ArrayList<>();
                 
-                holes = new boolean[h][w];
+                // Initialize Fragile glue tiles matrix
+                fragileGlueTilesQueue = new ArrayList<>();
                 
                 // Create the initial and final boards
                 startingBoard = new Rectangle(h,w,100,50,"starting");
@@ -120,6 +124,10 @@ import shapes.Rectangle;
             holes = new boolean[h][w];
             holeCircles = new ArrayList<>();
             
+            // Initialize Fragile glue tiles matrix
+            fragileGlueTilesQueue = new ArrayList<>();
+            
+            
             // Create the boards
             startingBoard = new Rectangle(h, w, 100, 50, "starting");
             endingBoard = new Rectangle(h, w, 350, 50, "ending");
@@ -144,6 +152,13 @@ import shapes.Rectangle;
             this.referingTiles = new ArrayList<>();
             this.color = lightBrown;
         
+            // Initialize the hole matrix and the list of circles
+            holes = new boolean[h][w];
+            holeCircles = new ArrayList<>();
+            
+            // Initialize Fragile glue tiles matrix
+            fragileGlueTilesQueue = new ArrayList<>();
+            
             // Create the boards
             startingBoard = new Rectangle(h,w,100,50,"starting");
             endingBoard = new Rectangle(h, w, 350, 50, "ending");
@@ -559,6 +574,8 @@ import shapes.Rectangle;
                 tile.setSuperGlue(true);                                              
             } else {
             	tile.setFragileGlue(true);
+            	// Añadimos las tiles cuyo pegamento es fragile
+            	fragileGlueTilesQueue.add(tile);
             }                        
             this.ok = true;                       
         }
@@ -751,6 +768,13 @@ import shapes.Rectangle;
                     this.ok = false;
             }
             resetVisitedFlags(); // Reset visited flags after tilting
+            
+            if (!fragileGlueTilesQueue.isEmpty()) {
+            	for (BaseTile tile : fragileGlueTilesQueue) {
+            		this.deleteGlue(tile.getRow(), tile.getCol());
+            	}
+            	fragileGlueTilesQueue.clear();	
+            }
         }
 
         /**
@@ -1783,8 +1807,10 @@ import shapes.Rectangle;
             } else {
                 System.out.println("No possible moves to bring the puzzle closer to the solution.");
                 this.ok = false;
-            }
+            }                     
         }
+        
+       
         
         /**
          * Private method to get the current board configuration.
@@ -2154,6 +2180,8 @@ import shapes.Rectangle;
             //pz4.addTile(6,0,"ro b");
             
             pz4.addGlue(7, 6,"fragile");
+            pz4.addGlue(0, 6,"fragile");
+            pz4.addGlue(4, 6,"fragile");
             //pz4.addGlue(7, 6);         
             //pz4.deleteGlue(7, 6);
             
@@ -2163,6 +2191,7 @@ import shapes.Rectangle;
             //pz4.addGlue(9,1);
             //pz4.tilt('r');
             pz4.tilt('r');
+            pz4.tilt('l');
             //pz4.tilt('d');
             // if (pz4.isGoal()) System.out.println("You go it");
             // pz4.tilt('r');

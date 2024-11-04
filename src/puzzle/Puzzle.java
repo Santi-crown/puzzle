@@ -2050,7 +2050,7 @@ import shapes.Rectangle;
                 {'r', 'g', 'b', 'y', 'r', 'g', 'b', '*', 'r', 'b'},
                 {'y', 'r', 'g', 'b', 'y', 'r', 'g', '*', 'y', 'r'},
                 {'g', 'b', 'y', 'r', 'g', 'b', 'y', 'y', 'g', 'b'},
-                {'r', 'g', 'b', 'y', 'r', 'g', 'b', '*', 'h', 'g'}
+                {'r', 'g', 'b', 'y', 'r', 'g', 'b', '*', '*', '*'}
             };
             
             char[][] ending1 = {
@@ -2071,8 +2071,9 @@ import shapes.Rectangle;
             //Puzzle pz4 = new Puzzle(ending1);
             
             //pz4.addTile(9,0,"fl y");
-            //pz4.addTile(9,7,"fl r");
+            pz4.addTile(9,7,"fl r");            
             //pz4.addGlue(9, 7);
+            pz4.makeHole(9,8);
             //pz4.deleteTile(9, 7);
             //pz4.addTile(9, 7, 'r');
             int[] from1 = {9,7};
@@ -2086,6 +2087,8 @@ import shapes.Rectangle;
 
             //pz4.addGlue(9,1);
             pz4.tilt('r');
+            pz4.tilt('l');
+            pz4.tilt('d');
             // if (pz4.isGoal()) System.out.println("You go it");
             // pz4.tilt('r');
             
@@ -2114,4 +2117,3 @@ import shapes.Rectangle;
             // pz4.relocateTile(from4,to4);
         }
     }
-

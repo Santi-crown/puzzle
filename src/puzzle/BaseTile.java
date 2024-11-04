@@ -1,6 +1,9 @@
 package puzzle;
 import java.awt.Color;
-import shapes.*;
+
+import shapes.Circle;
+import shapes.Rectangle;
+import shapes.Triangle;
 
 public abstract class BaseTile extends Rectangle{
     // Attributes
@@ -16,8 +19,11 @@ public abstract class BaseTile extends Rectangle{
     protected int yPos;
     protected boolean isHole = false;
     protected boolean isFixed = true; // It is true because if after validate col and row it still is true, it's because it is really fixed. 
+    protected boolean superGlue = false; // Define super glue type
+    protected Triangle glueTriangle;
     
     public BaseTile(char label, int xPosition, int yPosition,int row, int column) {
+    	
         xPos = xPosition;
         yPos = yPosition;
         this.row = row;
@@ -29,6 +35,11 @@ public abstract class BaseTile extends Rectangle{
         this.moveHorizontal(xPosition);
         this.moveVertical(yPosition);
         //this.makeVisible();
+        
+        glueTriangle = new Triangle();
+        glueTriangle.changeSize(10, 10); // Tamaño pequeño
+        glueTriangle.changeColor(Color.BLACK); // Color del triángulo
+        glueTriangle.makeInvisible();
     }
 
      /**
@@ -59,6 +70,18 @@ public abstract class BaseTile extends Rectangle{
             case 'n':
                 color = lightBrown;
                 break;
+            case 'f':
+            	color = Color.GRAY;
+            	break;
+            case 'l':
+            	color = Color.WHITE;
+            	break;
+            case 'x':
+            	color = Color.GREEN;
+            	break;
+            case 'o':
+            	color = lightBrown;
+            	break;
             default:
                 color = lightBrown;
         }
@@ -105,6 +128,8 @@ public abstract class BaseTile extends Rectangle{
     public void setHasGlue(boolean hasGlue) {
         this.hasGlue = hasGlue;
     }
+    
+    
     public boolean isStuck() {
         return isStuck;
     }
@@ -304,7 +329,44 @@ public abstract class BaseTile extends Rectangle{
         return isFixed;
     }
 
+    
+ // Getter y Setter para superGlue
+    public boolean hasSuperGlue() {
+        return superGlue;
+    }
 
+    public void setSuperGlue(boolean superGlue) {
+        this.superGlue = superGlue;
+        if (superGlue) {
+            // Posicionar el triángulo en el centro de la baldosa
+            int centerX = this.getXPos() + Tile.SIZE / 2 - glueTriangle.getWidth() / 2 + 4;
+            int centerY = this.getYPos() + Tile.SIZE / 2 - glueTriangle.getHeight() / 2 + 1;
+            glueTriangle.setPosition(centerX, centerY);
+            glueTriangle.makeVisible();
+            
+            // Depuración
+            //System.out.println("Triángulo de superGlue posicionado en: (" + centerX + ", " + centerY + ")");
+        } else {
+            glueTriangle.makeInvisible();
+        }
+    }
+
+    // Sobrescribir los métodos de movimiento si superGlue está activo
+    @Override
+    public void moveHorizontal(int distance){
+        super.moveHorizontal(distance);
+        if (superGlue && glueTriangle != null) {
+            glueTriangle.moveHorizontal(distance);
+        }
+    }
+
+    @Override
+    public void moveVertical(int distance){
+        super.moveVertical(distance);
+        if (superGlue && glueTriangle != null) {
+            glueTriangle.moveVertical(distance);
+        }
+    }
     
     
 }

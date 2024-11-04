@@ -3,6 +3,8 @@ package shapes;
 
 import java.awt.*;
 
+import puzzle.Tile;
+
 /**
  * A triangle that can be manipulated and that draws itself on a canvas.
  * 
@@ -20,33 +22,39 @@ public class Triangle{
     private int yPosition;
     private Color color;
     private boolean isVisible;
-
+    
+    
+   
     /**
      * Create a new triangle at default position with default color.
      */
     public Triangle(){
-        height = 30;
-        width = 40;
-        xPosition = 140;
-        yPosition = 15;
-        color = Color.GREEN;
+        height = 10;
+        width = 10;
+        xPosition = 0;
+        yPosition = 0;
+        color = Color.BLACK;
         isVisible = false;
     }
-
+    
     /**
      * Make this triangle visible. If it was already visible, do nothing.
      */
     public void makeVisible(){
-        isVisible = true;
-        draw();
+        if(!isVisible) {
+            isVisible = true;
+            draw();
+        }
     }
     
     /**
      * Make this triangle invisible. If it was already invisible, do nothing.
      */
     public void makeInvisible(){
-        erase();
-        isVisible = false;
+        if(isVisible) {
+            erase();
+            isVisible = false;
+        }
     }
     
     /**
@@ -82,9 +90,11 @@ public class Triangle{
      * @param distance the desired distance in pixels
      */
     public void moveHorizontal(int distance){
-        erase();
-        xPosition += distance;
-        draw();
+        if(isVisible) {
+            erase();
+            xPosition += distance;
+            draw();
+        }
     }
 
     /**
@@ -92,9 +102,11 @@ public class Triangle{
      * @param distance the desired distance in pixels
      */
     public void moveVertical(int distance){
-        erase();
-        yPosition += distance;
-        draw();
+        if(isVisible) {
+            erase();
+            yPosition += distance;
+            draw();
+        }
     }
 
     /**
@@ -112,8 +124,7 @@ public class Triangle{
         }
 
         for(int i = 0; i < distance; i++){
-            xPosition += delta;
-            draw();
+            moveHorizontal(delta);
         }
     }
 
@@ -132,15 +143,14 @@ public class Triangle{
         }
 
         for(int i = 0; i < distance; i++){
-            yPosition += delta;
-            draw();
+            moveVertical(delta);
         }
     }
 
     /**
      * Change the size to the new size
      * @param newHeight the new height in pixels. newHeight must be >=0.
-     * @param newWidht the new width in pixels. newWidht must be >=0.
+     * @param newWidth the new width in pixels. newWidth must be >=0.
      */
     public void changeSize(int newHeight, int newWidth) {
         erase();
@@ -151,11 +161,22 @@ public class Triangle{
     
     /**
      * Change the color. 
-     * @param color the new color. Valid colors are "red", "yellow", "blue", "green",
-     * "magenta" and "black".
+     * @param newColor the new color of the triangle.
      */
     public void changeColor(Color newColor){
         color = newColor;
+        draw();
+    }
+
+    /**
+     * Set the absolute position of the triangle.
+     * @param x The x-coordinate on the canvas.
+     * @param y The y-coordinate on the canvas.
+     */
+    public void setPosition(int x, int y){
+        erase();
+        xPosition = x;
+        yPosition = y;
         draw();
     }
 
@@ -165,9 +186,10 @@ public class Triangle{
     private void draw(){
         if(isVisible) {
             Canvas canvas = Canvas.getCanvas();
-            int[] xpoints = { xPosition, xPosition + (width/2), xPosition - (width/2) };
+            int[] xpoints = { xPosition, xPosition + (width / 2), xPosition - (width / 2) };
             int[] ypoints = { yPosition, yPosition + height, yPosition + height };
-            canvas.draw(this, color, new Polygon(xpoints, ypoints, 3));
+            Polygon polygon = new Polygon(xpoints, ypoints, VERTICES);
+            canvas.draw(this, color, polygon);
             canvas.wait(10);
         }
     }
@@ -181,4 +203,21 @@ public class Triangle{
             canvas.erase(this);
         }
     }
+    
+    public int getWidth() {
+    	return this.width;
+    }
+    
+    public int getHeight() {
+    	return this.height;
+    }
+
+    public int getXPos() {
+    	return this.xPosition;
+    }
+    
+    public int getYPos() {
+    	return this.yPosition;
+    }
+    
 }

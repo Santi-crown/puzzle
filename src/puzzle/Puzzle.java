@@ -21,7 +21,7 @@ import shapes.Rectangle;
      * and applying or removing glue.
      *
      * @author Andersson David Sánchez Méndez
-     * @author      
+     * @author Cristian Santiago Pedraza Rodríguez   
 
     * @version 2024
     */
@@ -334,6 +334,12 @@ import shapes.Rectangle;
                 // Reemplazar la baldosa en la lista de tiles
                 tiles.get(row).set(column, newTile);
                 //newTile.makeVisible();
+                
+                if(tileData.substring(0, 2).equals("fr")) newTile.setLabel('l');
+                if(tileData.substring(0, 2).equals("fl")) newTile.setLabel('f');
+                if(tileData.substring(0, 2).equals("ro")) newTile.setLabel('o');
+                if(tileData.substring(0, 2).equals("fi")) newTile.setLabel('x');
+                
                 this.ok = true;
             } else {
                 showMessage("A tile already exists here.", "Error");
@@ -509,6 +515,66 @@ import shapes.Rectangle;
                 tile.setLabel('p');
                 this.ok = true;
             }
+        }
+        
+        /**
+         * Aplica pegante a una baldosa en la posición especificada.
+         *
+         * @param row La fila de la baldosa.
+         * @param column La columna de la baldosa.
+         * @param glueType El tipo de pegante ("normal" o "super").
+         */
+        public void addGlue(int row, int column, String glueType) {
+            BaseTile tile = getTileAtPosition(row, column);
+            if (tile == null) {
+                showMessage("Posición inválida.", "Error");
+                this.ok = false;
+                return;
+            } else if (tile.getLabel() == 'h') {
+                showMessage("No puedes añadir pegante en una baldosa con agujero.", "Error");
+                this.ok = false;
+                return;
+            } else if (isTileEmpty(tile)) {
+                showMessage("No puedes añadir pegante en una baldosa vacía.", "Error");
+                this.ok = false;
+                return;
+            } else if (tile.hasGlue() || tile.hasSuperGlue()) {
+                showMessage("Esta baldosa ya tiene pegante.", "Error");
+                this.ok = false;
+                return;
+            } else if (tile instanceof FreelanceTile){
+                showMessage("No puedes añadir pegante a una baldosa Freelance.", "Error");
+                this.ok = false;
+                return;
+            }
+
+            // Determinar el tipo de pegante basado en glueType
+            if (glueType.equalsIgnoreCase("super")) {
+            	tile.setHasGlue(true);
+                // Cambiar el color de la baldosa si es pegante normal
+                Color evenPalerColor = getPaleColor(tile.getOriginalColor(), 150);
+                tile.setTileColor(evenPalerColor);
+                
+                //Add triangle
+                tile.setSuperGlue(true);
+                tile.setLabel('p');
+            }
+            
+	        this.ok = true;
+                       
+        }
+
+        /**
+         * Método auxiliar para verificar si la baldosa tiene superGlue.
+         *
+         * @param tile La baldosa a verificar.
+         * @return true si la baldosa tiene superGlue, false en caso contrario.
+         */
+        private boolean hasSuperGlue(BaseTile tile) {
+            if (tile instanceof BaseTile) {
+                return ((BaseTile) tile).hasSuperGlue();
+            }
+            return false;
         }
 
         /**
@@ -2066,29 +2132,33 @@ import shapes.Rectangle;
             {'r', 'g', 'b', 'y', 'r', 'g', 'b', '*', 'r', 'g'}
         };
             
-            Puzzle pz3 = new Puzzle(10, 10); // Tablero sin matrices
+            //Puzzle pz3 = new Puzzle(10, 10); // Tablero sin matrices
             Puzzle pz4 = new Puzzle(starting1, ending1); // Tablero con matrices
             //Puzzle pz4 = new Puzzle(ending1);
             
             //pz4.addTile(9,0,"fl y");
-            pz4.addTile(9,7,"fl r");            
+            //pz4.addTile(9,7,"fl r");            
             //pz4.addGlue(9, 7);
-            pz4.makeHole(9,8);
+            //pz4.makeHole(9,8);
             //pz4.deleteTile(9, 7);
             //pz4.addTile(9, 7, 'r');
-            int[] from1 = {9,7};
-            int[] to1   = {8,7};            
+            //int[] from1 = {9,7};
+            //int[] to1   = {8,7};            
             //pz4.relocateTile(from1, to1);
             //pz4.addTile(8, 7, 'r');
-            // pz4.addTile(7,0,"fr g");
-            // pz4.addTile(6,0,"ro b");
+            //pz4.addTile(7,0,"fr g");
+            //pz4.addTile(6,0,"ro b");
+            
+            pz4.addGlue(7, 6,"super");
+            //pz4.addGlue(7, 6);
+            
             //pz4.makeInvisible();
             //pz4.makeVisible();
 
             //pz4.addGlue(9,1);
-            pz4.tilt('r');
-            pz4.tilt('l');
-            pz4.tilt('d');
+            //pz4.tilt('r');
+            //pz4.tilt('l');
+            //pz4.tilt('d');
             // if (pz4.isGoal()) System.out.println("You go it");
             // pz4.tilt('r');
             
@@ -2096,9 +2166,12 @@ import shapes.Rectangle;
             // //pz4.deleteTile(5,1);
             // //pz4.deleteTile(9,8);
             
-            // int[] from1 = {9,9};
-            // int[] to1   = {3,1};
-            // //pz4.relocateTile(from1,to1);
+            int[] from1 = {7,6};
+            int[] to1   = {4,7};
+            //pz4.relocateTile(from1,to1);
+            pz4.tilt('r');
+            
+            //pz4.exchange();
             
             // int[] from3 = {3,1};
             // int[] to3   = {9,9};

@@ -1,18 +1,19 @@
     package puzzle;
+    
     import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-import java.util.Set;
+	import java.util.ArrayList;
+	import java.util.Arrays;
+	import java.util.Comparator;
+	import java.util.HashSet;
+	import java.util.LinkedList;
+	import java.util.List;
+	import java.util.Queue;
+	import java.util.Set;
+	import javax.swing.JOptionPane;
 
-import javax.swing.JOptionPane;
 
-import shapes.Circle;
-import shapes.Rectangle;
+	import shapes.Circle;
+	import shapes.Rectangle;
 
 
     /**
@@ -64,27 +65,35 @@ import shapes.Rectangle;
         private boolean[][] holes;
         private List<Circle> holeCircles;
         
+        // Queue that will be useful to store tiles with fragileGlue (reason because of tilt), after tilt, all tiles must remove glue 
+        private ArrayList<BaseTile> fragileGlueTilesQueue;
         
         /**
          * Constructor to initialize the boards without initial and final matrices.
          * 
          * @param h Height of the board.
          * @param w Width of the board.
+         * @throws PuzzleExceptions.ExceedPuzzleSpaceException if the specified height or width exceeds 500.
+         * @throws PuzzleExceptions.ConstructorsExceptions if the specified height or width is less than 1.
          */
-        public Puzzle(int h, int w) {
+        public Puzzle(int h, int w) throws puzzle.PuzzleExceptions.ExceedPuzzleSpaceException,puzzle.PuzzleExceptions.ConstructorsExceptions {
             try {
-                if (h < 1 || w < 1) throw new PuzzleException(PuzzleException.INVALID_HW_NEGATIVE_VALUES);
-                if (h > 500 || w > 500) throw new PuzzleException(PuzzleException.INVALID_HW_GREATER_VALUES);
+                if (h < 1 || w < 1) throw new PuzzleExceptions.ConstructorsExceptions(PuzzleExceptions.ConstructorsExceptions.NO_BOARDS_HW_NEGATIVE);
+                if (h > 500 || w > 500) throw new PuzzleExceptions.ExceedPuzzleSpaceException (PuzzleExceptions.ExceedPuzzleSpaceException.EXCEED_PUZZLE_SPACE);
                 this.h = h; 
                 this.w = w;
                 this.color = lightBrown;
                 this.tiles = new ArrayList<>();
                 this.referingTiles = new ArrayList<>();
                 
-                // Initialize the hole matrix and the list of circles        
+                // Initialize the hole matrix and the list of circles 
                 holeCircles = new ArrayList<>();
-                
                 holes = new boolean[h][w];
+                
+                
+                // Initialize Fragile glue tiles matrix
+                fragileGlueTilesQueue = new ArrayList<>();
+                
                 
                 // Create the initial and final boards
                 startingBoard = new Rectangle(h,w,100,50,"starting");
@@ -95,11 +104,13 @@ import shapes.Rectangle;
                 createTiles(emptyCharList, tiles, true);
                 createTiles(emptyCharList, referingTiles, false);
                 this.ok = true;
-            } catch (PuzzleException e){                
+            } catch (PuzzleExceptions.ConstructorsExceptions e){                
                 showMessage(e.getMessage(), "Error");
                 this.ok = false; // Unsuccessful action
+                throw e;
             }        
         }
+        
 
         /**
          * Constructor to initialize the boards with initial and final character matrices.
@@ -108,28 +119,40 @@ import shapes.Rectangle;
          * @param ending Final state of the board.
          */
         public Puzzle(char[][] starting, char[][] ending) {
-            this.h = starting.length;
-            this.w = starting[0].length;
-            this.starting = starting;
-            this.ending = ending;
-            this.tiles = new ArrayList<>();
-            this.referingTiles = new ArrayList<>();
-            this.color = lightBrown;
+        	try {
+                if(starting == null || ending == null) throw new PuzzleExceptions.ConstructorsExceptions(PuzzleExceptions.ConstructorsExceptions.NO_STARTING_ENDING_NULL); 
+                this.h = starting.length;
+                this.w = starting[0].length;
+                this.starting = starting;
+                this.ending = ending;
+                this.tiles = new ArrayList<>();
+                this.referingTiles = new ArrayList<>();
+                this.color = lightBrown;
             
-            // Initialize the hole matrix and the list of circles
-            holes = new boolean[h][w];
-            holeCircles = new ArrayList<>();
+                // Initialize the hole matrix and the list of circles
+                holeCircles = new ArrayList<>();
+                holes = new boolean[h][w];
+                
+                // Initialize Fragile glue tiles matrix
+                fragileGlueTilesQueue = new ArrayList<>();
             
-            // Create the boards
-            startingBoard = new Rectangle(h, w, 100, 50, "starting");
-            endingBoard = new Rectangle(h, w, 350, 50, "ending");
+                // Create the boards
+                startingBoard = new Rectangle(h, w, 100, 50, "starting");
+                endingBoard = new Rectangle(h, w, 350, 50, "ending");
+                
+                // Create tiles based on the initial and final matrices
+                createTiles(starting, tiles, true); // Initial position of the initial tiles
+                createTiles(ending, referingTiles, false); // Initial position of the reference board
+                
+                this.ok = true;
             
-            // Create tiles based on the initial and final matrices
-            createTiles(starting, tiles, true); // Initial position of the initial tiles
-            createTiles(ending, referingTiles, false); // Initial position of the reference board
-            
-            this.ok = true;
+            }catch(PuzzleExceptions.ConstructorsExceptions e){
+                showMessage(e.getMessage(), "Error");
+                this.ok = false; // Unsuccessful action
+                
+            }
         }
+        
         
         /**
          * Constructor to initialize an empty initial board and a final board with tiles.
@@ -137,33 +160,48 @@ import shapes.Rectangle;
          * @param ending Final state of the board.
          */
         public Puzzle(char[][] ending) {
-            this.h = ending.length;
-            this.w = ending[0].length;
-            this.ending = ending;
-            this.tiles = new ArrayList<>();
-            this.referingTiles = new ArrayList<>();
-            this.color = lightBrown;
-        
-            // Create the boards
-            startingBoard = new Rectangle(h,w,100,50,"starting");
-            endingBoard = new Rectangle(h, w, 350, 50, "ending");
+        	try {
+                if(ending == null) throw new PuzzleExceptions.ConstructorsExceptions(PuzzleExceptions.ConstructorsExceptions.NO_ENDING_NULL);
+                this.h = ending.length;
+                this.w = ending[0].length;
+                this.ending = ending;
+                this.tiles = new ArrayList<>();
+                this.referingTiles = new ArrayList<>();
+                this.color = lightBrown;
+               
+                
+                // Initialize the hole matrix and the list of circles
+                holeCircles = new ArrayList<>();
+                holes = new boolean[h][w];
+                
+                // Initialize Fragile glue tiles matrix
+                fragileGlueTilesQueue = new ArrayList<>();
+                
+                // Create the boards
+                startingBoard = new Rectangle(h,w,100,50,"starting");
+                endingBoard = new Rectangle(h, w, 350, 50, "ending");
+                
+                // Create empty char list, it is going to be used as emptyCharList
+                char[][] emptyCharList = createCharEmptyList();
+                // Create empty tiles for starting board
+                createTiles(emptyCharList, tiles, true);
+                // Create tiles for ending board
+                createTiles(ending, referingTiles, false);
+                
+                this.ok = true;
             
-            // Create empty char list, it is gonna be used as emptyCharList
-            char[][] emptyCharList = createCharEmptyList();
-            // Create empty tiles for starting board
-            createTiles(emptyCharList, tiles, true);
-            // Create tiles for ending board
-            createTiles(ending, referingTiles, false);
             
-            this.ok = true;
+            }catch(PuzzleExceptions.ConstructorsExceptions e){
+                showMessage(e.getMessage(), "Error");
+                this.ok = false; // Unsuccessful action
+            }
         }
+        
 
         /**
          *Method to create a empty char list of lists representation
-        *@return a char[][] filled with '*'.
+        * @return a char[][] filled with '*'.
         */
-
-
         private char[][] createCharEmptyList(){
             char[][] emptyCharList = new char[h][w];
             for(int row = 0;row < h;row++){
@@ -179,12 +217,12 @@ import shapes.Rectangle;
          * 
          * @param board Character matrix representing the board.
          * @param tileList List of lists to store the created tiles.
-         * @param startingBoard boolean value to determinate if it is the starging or ending board
+         * @param startingBoard boolean value to determinate if it is the starting or ending board
          */
         private void createTiles(char[][] board ,List<List<BaseTile>> tileList, boolean startingBoard) {
             int xOffset = 105;
             int yOffset = 55;
-            // if it's not starting board, it is gonna have a ending coordinates for x
+            // if it's not starting board, it is going to have a ending coordinates for x
             if (startingBoard == false){
                 xOffset = w * (Tile.SIZE + Tile.MARGIN) + 355;              
             }
@@ -210,6 +248,7 @@ import shapes.Rectangle;
             return this.h;
         }
 
+        
         /**
          * Gets the width of the board.
          * 
@@ -219,133 +258,157 @@ import shapes.Rectangle;
             return this.w;
         }
 
-        // Método de fábrica en la clase Puzzle 
-        // Recibe un string de la forma [f r]
-        // En donde el primer caracter es el tipo de tile, un espacio, y el label de la tile 
-    private BaseTile createTile(String tileData, int xPosition, int yPosition, int row, int column) {
-        String[] tileInformation = tileData.split(" ");
-        String kindOfTile = tileInformation[0];
-        char label = tileInformation[1].charAt(0);
-
-        switch (kindOfTile) {
-            case "fi":  // Ejemplo de etiqueta para FixedTile
-                return new FixedTile(label, xPosition, yPosition, row, column);
-            case "ro":  // Ejemplo de etiqueta para RoughTile
-                return new RoughTile(label, xPosition, yPosition, row, column);
-            case "fr":  // Ejemplo de etiqueta para FreelanceTile
-                return new FreelanceTile(label, xPosition, yPosition, row, column);
-            case "fl":  // Ejemplo de etiqueta para FlyingTile
-                return new FlyingTile(label, xPosition, yPosition, row, column);
-            // Puedes añadir más casos para otros tipos de baldosas.
-            default:
-                return new Tile(label, xPosition, yPosition, row, column); // Instancia de Tile normal
-        }
-    }
-
-
-        /**
-         * Adds a tile to the board at the specified position.
-         * 
-         * @param row Row index of the tile.
-         * @param column Column index of the tile.
-         * @param label Label of the tile.
-         */
-        public void addTile(int row, int column, char label) {
-            // List of valid labels for the tiles
-            char[] validLabels = {'r', 'g', 'b', 'y'};
-
-            // Validate if the label is valid
-            boolean isValidLabel = false;
-            for (char validLabel : validLabels) {
-                if (label == validLabel) {
-                    isValidLabel = true;
-                    break;
-                }
-            }
-
-            // If the label is invalid, show an error message
-            if (!isValidLabel) {
-                showMessage("Invalid label. Accepted labels are: r, g, b, y.", "Error");
-                this.ok = false; // Error
-                return;
-            }
-
-            // Other validations for the position
-            if (row >= h || column >= w) {
-                showMessage("You have exceeded the puzzle space.", "Error");
-                this.ok = false; // Error
-            } else if (row < 0 || column < 0) {
-                showMessage("You're searching for a non-existent tile with negative position.", "Error");
-                this.ok = false; // Error
-            } else {
-                BaseTile previousTile = tiles.get(row).get(column);
-
-                // Check if the tile has a hole
-                if (previousTile.getLabel() == 'h') {
-                    showMessage("You cannot add a tile on a hole.", "Error");
-                    this.ok = false; // Error
-                }
-                // Check if the tile is an empty cell
-                else if (isTileEmpty(previousTile)) {
-                    previousTile.setTileColor(label); // Change the color of the tile
-                    previousTile.setLabel(label);
-                    previousTile.makeVisible();
-                    this.ok = true; // Successful action
-
-                } else {
-                    showMessage("There is already a tile here.", "Error");
-                    this.ok = false; // Error
-                }
-            }
-        }
-        /**
-         * Adds a tile to the board at the specified position.
-         * // Sobre cargamos el método addTile, cuando queremos crear un tipo de tile diferente al normal, tenemos que recurrir a este mediante 
-         * envío de la información de la tile como un string.
-         * 
-         * @param row Row index of the tile.
-         * @param column Column index of the tile.
-         * @param label Label of the tile.
-         */
-        public void addTile(int row, int column, String tileData) {
-            if (row >= h || column >= w) {
-                showMessage("You have exceeded the puzzle space.", "Error");
-                this.ok = false;
-                return;
-            } else if (row < 0 || column < 0) {
-                showMessage("Invalid position with negative values.", "Error");
-                this.ok = false;
-                return;
-            }
         
-            BaseTile currentTile = tiles.get(row).get(column);
-            
-            if (currentTile.getLabel() == 'h') {
-                showMessage("Cannot add tile on a hole.", "Error");
+        /**
+         * This method takes a string formatted as "[type label]", where the first character(s)
+         * represent the type of tile and the second part is the label of the tile.
+         *
+         * @param tileData A string containing the type and label of the tile, formatted as "[type label]".
+         * @param xPosition The x-coordinate position of the tile.
+         * @param yPosition The y-coordinate position of the tile.
+         * @param row The row index of the tile in the puzzle grid.
+         * @param column The column index of the tile in the puzzle grid.
+         * @return An instance of a subclass of BaseTile based on the type specified in tileData.
+         *         If the type is unrecognized, a default Tile instance is returned.
+         *
+         */
+        private BaseTile createTile(String tileData, int xPosition, int yPosition, int row, int column) {
+            String[] tileInformation = tileData.split(" ");
+            String kindOfTile = tileInformation[0];
+            char label = tileInformation[1].charAt(0);
+
+            switch (kindOfTile) {
+                case "fi":  // Example label for FixedTile
+                    return new FixedTile(label, xPosition, yPosition, row, column);
+                case "ro":  // Example label for RoughTile
+                    return new RoughTile(label, xPosition, yPosition, row, column);
+                case "fr":  // Example label for FreelanceTile
+                    return new FreelanceTile(label, xPosition, yPosition, row, column);
+                case "fl":  // Example label for FlyingTile
+                    return new FlyingTile(label, xPosition, yPosition, row, column);
+                
+                default:
+                    return new Tile(label, xPosition, yPosition, row, column); // Instance of a normal Tile
+            }
+        }
+
+
+
+        /**
+         * Adds a tile to the board at the specified position.
+         * 
+         * @param row Row index of the tile.
+         * @param column Column index of the tile.
+         * @param label Label of the tile.
+         * @throws PuzzleExceptions.addDeleteTileExceptions if the tile data is invalid or if the position is invalid.
+         * @throws PuzzleExceptions.ExceedPuzzleSpaceException if the specified position exceeds the puzzle dimensions.  
+         */
+        public void addTile(int row, int column, char label) throws PuzzleExceptions.addDeleteTileExceptions, PuzzleExceptions.ExceedPuzzleSpaceException  {
+        	try {
+                // List of valid labels for the tiles
+                char[] validLabels = {'r', 'g', 'b', 'y'};
+                boolean isValidLabel = false;
+                
+                //Validate if the label is valid
+                for (char validLabel : validLabels) {
+                    if (label == validLabel) {
+                        isValidLabel = true;
+                        break;
+                    }
+                }
+                 // If the label is invalid, show an error message
+                if (!isValidLabel) {
+                    throw new PuzzleExceptions.addDeleteTileExceptions(PuzzleExceptions.addDeleteTileExceptions.NOT_VALID_LABEL);
+                }
+                
+                 // Other validations for the position
+                if (row >= h || column >= w) {
+                    throw new PuzzleExceptions.ExceedPuzzleSpaceException(PuzzleExceptions.ExceedPuzzleSpaceException.EXCEED_PUZZLE_SPACE);
+                    
+                } else if (row < 0 || column < 0) {
+                    throw new PuzzleExceptions.addDeleteTileExceptions(PuzzleExceptions.addDeleteTileExceptions.NOT_NEGATIVE_POSITION_TILE);
+                }
+        
+                BaseTile previousTile = tiles.get(row).get(column);
+                
+                if (previousTile.getLabel() == 'h') {
+                    throw new PuzzleExceptions.addDeleteTileExceptions(PuzzleExceptions.addDeleteTileExceptions.NOT_ADD_HOLE_TILE);
+                    
+                } else if (!isTileEmpty(previousTile)) {
+                    throw new PuzzleExceptions.addDeleteTileExceptions(PuzzleExceptions.addDeleteTileExceptions.TILE_OCCUPIED);
+                }
+        
+                previousTile.setTileColor(label); //Change the color of the tile
+                previousTile.setLabel(label);
+                previousTile.makeVisible();
+                this.ok = true;
+        
+            } catch (PuzzleExceptions.addDeleteTileExceptions | PuzzleExceptions.ExceedPuzzleSpaceException e) {
+                showMessage(e.getMessage(), "Error");
                 this.ok = false;
-                return;
-            } else if (isTileEmpty(currentTile)) {
+                throw e;
+                    
+            }
+        }
+        
+        
+        /**
+         * Adds a tile to the board at the specified position using tile data in string format.
+         * This method is overloaded to allow the creation of different types of tiles.
+         *
+         * @param row Row index of the tile.
+         * @param column Column index of the tile.
+         * @param tileData A string containing the type and label of the tile, formatted as "[type label]".
+         * @throws PuzzleExceptions.addDeleteTileExceptions if the tile data is invalid or if the position is invalid.
+         * @throws PuzzleExceptions.ExceedPuzzleSpaceException if the specified position exceeds the puzzle dimensions.
+         */
+        public void addTile(int row, int column, String tileData) throws PuzzleExceptions.addDeleteTileExceptions, PuzzleExceptions.ExceedPuzzleSpaceException {
+            try {
+                // Validate row and column boundaries
+                if (row >= h || column >= w) {
+                    throw new PuzzleExceptions.ExceedPuzzleSpaceException(PuzzleExceptions.ExceedPuzzleSpaceException.EXCEED_PUZZLE_SPACE);
+                } else if (row < 0 || column < 0) {
+                    throw new PuzzleExceptions.addDeleteTileExceptions(PuzzleExceptions.addDeleteTileExceptions.NOT_NEGATIVE_POSITION_TILE);
+                }
+
+                BaseTile currentTile = tiles.get(row).get(column);
+
+                if (currentTile.getLabel() == 'h') {
+                    throw new PuzzleExceptions.addDeleteTileExceptions(PuzzleExceptions.addDeleteTileExceptions.NOT_ADD_HOLE_TILE);
+                } else if (!isTileEmpty(currentTile)) {
+                    throw new PuzzleExceptions.addDeleteTileExceptions(PuzzleExceptions.addDeleteTileExceptions.TILE_OCCUPIED);
+                }
+
+                // Validate tileData for valid tile types
+                String tileType = tileData.substring(0, 2);
+                if (!tileType.equals("fr") && !tileType.equals("fl") && !tileType.equals("ro") && !tileType.equals("fi")) {
+                    throw new PuzzleExceptions.addDeleteTileExceptions(PuzzleExceptions.addDeleteTileExceptions.NOT_EXISTENT_TYPE_TILE);
+                }
+
                 int xPosition = 105 + (column * (Tile.SIZE + Tile.MARGIN));
                 int yPosition = 55 + (row * (Tile.SIZE + Tile.MARGIN));
-                
-                // Crear el tipo de baldosa adecuado usando el método de fábrica
+
+                // Create the appropriate tile type using the factory method
                 BaseTile newTile = createTile(tileData, xPosition, yPosition, row, column);
-                
-                // Reemplazar la baldosa en la lista de tiles
+
+                // Replace the current tile in the tiles list
                 tiles.get(row).set(column, newTile);
-                //newTile.makeVisible();
-                
-                if(tileData.substring(0, 2).equals("fr")) newTile.setLabel('l');
-                if(tileData.substring(0, 2).equals("fl")) newTile.setLabel('f');
-                if(tileData.substring(0, 2).equals("ro")) newTile.setLabel('o');
-                if(tileData.substring(0, 2).equals("fi")) newTile.setLabel('x');
-                
+
+                // Set the label based on the tile type
+                if (tileType.equals("fr")) newTile.setLabel('l');
+                if (tileType.equals("fl")) newTile.setLabel('f');
+                if (tileType.equals("ro")) newTile.setLabel('o');
+                if (tileType.equals("fi")) newTile.setLabel('x');
+
                 this.ok = true;
-            } else {
-                showMessage("A tile already exists here.", "Error");
+
+            } catch (PuzzleExceptions.addDeleteTileExceptions | PuzzleExceptions.ExceedPuzzleSpaceException e) {
+                showMessage(e.getMessage(), "Error");
                 this.ok = false;
+                throw e;
             }
         }
+
         
 
         /**
@@ -353,86 +416,88 @@ import shapes.Rectangle;
          * 
          * @param row Row index of the tile.
          * @param column Column index of the tile.
+         * @throws PuzzleExceptions.addDeleteTileExceptions if the tile cannot be deleted due to specific conditions.
+         * @throws PuzzleExceptions.ExceedPuzzleSpaceException if the specified position exceeds the puzzle dimensions.
          */
-        public void deleteTile(int row, int column) {
-            if (row >= h || column >= w) {
-                showMessage("You have exceeded the puzzle space.", "Error");
-                this.ok = false; // Error
-            } else if (row < 0 || column < 0) {
-                showMessage("You're searching for a non-existent tile with negative position.", "Error");
-                this.ok = false; // Error
-            } else {
+        public void deleteTile(int row, int column) throws PuzzleExceptions.addDeleteTileExceptions, PuzzleExceptions.ExceedPuzzleSpaceException {
+            try {
+                // Validate row and column boundaries
+                if (row >= h || column >= w) {
+                    throw new PuzzleExceptions.ExceedPuzzleSpaceException(PuzzleExceptions.ExceedPuzzleSpaceException.EXCEED_PUZZLE_SPACE);
+                } else if (row < 0 || column < 0) {
+                    throw new PuzzleExceptions.addDeleteTileExceptions(PuzzleExceptions.addDeleteTileExceptions.NOT_NEGATIVE_POSITION_TILE);
+                }
+
                 BaseTile previousTile = tiles.get(row).get(column);
 
                 // Check if the tile has a hole
                 if (previousTile.getLabel() == 'h') {
-                    showMessage("You cannot delete a tile that is a hole.", "Error");
-                    this.ok = false; // Error
-                }else if (previousTile.hasGlue() || previousTile.isStuck()) {
-                    showMessage("You cannot delete a tile that has glue or is stuck.", "Error");
-                    this.ok = false;
-                } else if (previousTile instanceof FixedTile){
-                    showMessage("You cannot delete a Fixed tile", "Error");
-                }                 
-                else if (!isTileEmpty(previousTile)) {
-                    previousTile.setTileColor('n');
-                    previousTile.setLabel('*');
-                    previousTile.makeInvisible();
-                    this.ok = true; // Successful action
-                }                 
-                else {
-                    showMessage("You're trying to delete a non-existent tile.", "Error");
-                    this.ok = false; // Error
+                    throw new PuzzleExceptions.addDeleteTileExceptions(PuzzleExceptions.addDeleteTileExceptions.NOT_DELETE_HOLE_TILE);
+                } else if (previousTile.hasGlue() || previousTile.isStuck()) {
+                    throw new PuzzleExceptions.addDeleteTileExceptions(PuzzleExceptions.addDeleteTileExceptions.NOT_DELETE_TILE_GLUE);
+                } else if (previousTile instanceof FixedTile) {
+                    throw new PuzzleExceptions.addDeleteTileExceptions(PuzzleExceptions.addDeleteTileExceptions.NOT_DELETE_FIXED_TILE);
+                } else if (isTileEmpty(previousTile)) {
+                    throw new PuzzleExceptions.addDeleteTileExceptions(PuzzleExceptions.addDeleteTileExceptions.NOT_DELETE_NON_EXISTENT_TILE);
                 }
+
+                // If all checks pass, delete the tile
+                previousTile.setTileColor('n');
+                previousTile.setLabel('*');
+                previousTile.makeInvisible();
+                this.ok = true; // Successful action
+
+            } catch (PuzzleExceptions.addDeleteTileExceptions | PuzzleExceptions.ExceedPuzzleSpaceException e) {
+                showMessage(e.getMessage(), "Error");
+                this.ok = false; // Unsuccessful action
+                throw e; // Re-throw the exception for further handling
             }
         }
+
 
         /**
          * Relocates a tile from the given source position to the destination position.
          * 
          * @param from the coordinates of the source position as an integer array [row, col].
          * @param to   the coordinates of the destination position as an integer array [row, col].
+         * @throws PuzzleExceptions.relocateTileExceptions if the relocation cannot be performed due to specific conditions.
          */
-        public void relocateTile(int[] from, int[] to) {
-            // Validate input coordinates
-            if (!areValidCoordinates(from) || !areValidCoordinates(to)) {
-                showMessage("Invalid coordinates.", "Error");
-                this.ok = false;
-                return;
-            }
+        public void relocateTile(int[] from, int[] to) throws PuzzleExceptions.relocateTileExceptions {
+            try {
+                // Validate input coordinates
+                if (!areValidCoordinates(from) || !areValidCoordinates(to)) {
+                    throw new PuzzleExceptions.relocateTileExceptions(PuzzleExceptions.relocateTileExceptions.INVALID_COORDINATES);
+                }
 
-            BaseTile fromTile = tiles.get(from[0]).get(from[1]);
-            BaseTile toTile = tiles.get(to[0]).get(to[1]);
+                BaseTile fromTile = tiles.get(from[0]).get(from[1]);
+                BaseTile toTile = tiles.get(to[0]).get(to[1]);
 
-            // Validate existence of the source tile and availability of the destination tile
-            if (fromTile.getLabel() == 'h') {
-                showMessage("You cannot move a hole tile.", "Error");
-                this.ok = false;
+                // Validate existence of the source tile and availability of the destination tile
+                if (fromTile.getLabel() == 'h') {
+                    throw new PuzzleExceptions.relocateTileExceptions(PuzzleExceptions.relocateTileExceptions.NOT_MOVE_HOLE_TILE);
+                } else if (toTile.getLabel() == 'h') {
+                    throw new PuzzleExceptions.relocateTileExceptions(PuzzleExceptions.relocateTileExceptions.NOT_RELOCATE_TILE_HOLE);
+                } else if (isTileEmpty(fromTile)) {
+                    throw new PuzzleExceptions.relocateTileExceptions(PuzzleExceptions.relocateTileExceptions.NOT_MOVE_NON_EXISTENT_TILE);
+                } else if (!isTileEmpty(toTile)) {
+                    throw new PuzzleExceptions.relocateTileExceptions(PuzzleExceptions.relocateTileExceptions.NOT_RELOCATE_TILE_OCCUPIED);
+                } else if (fromTile.hasGlue() || fromTile.isStuck()) {
+                    throw new PuzzleExceptions.relocateTileExceptions(PuzzleExceptions.relocateTileExceptions.NOT_MOVE_TILE_GLUE);
+                } else if (fromTile instanceof FixedTile) {
+                    throw new PuzzleExceptions.relocateTileExceptions(PuzzleExceptions.relocateTileExceptions.NOT_RELOCATE_FIXED_TILE);
+                }
 
-            } else if (toTile.getLabel() == 'h') {
-                showMessage("You cannot relocate a tile to a position that has a hole.", "Error");
-                this.ok = false;
-
-            } else if (isTileEmpty(fromTile)) {
-                showMessage("You cannot move a non-existent tile.", "Error");
-                this.ok = false;
-
-            } else if (!isTileEmpty(toTile)) {
-                showMessage("There is already a tile in the destination position.", "Error");
-                this.ok = false;
-
-            } else if (fromTile.hasGlue() || fromTile.isStuck()) {
-                showMessage("You cannot move a tile that has glue or is stuck.", "Error");
-                this.ok = false;
-            }else if (fromTile instanceof FixedTile){
-                showMessage("You cannot relocate a fixedTile.", "Error");
-                this.ok = false; 
-            } else {
                 // Perform the movement
-                this.relocateTileMovement(fromTile, toTile, from, to);
-                this.ok = true;
+                relocateTileMovement(fromTile, toTile, from, to);
+                this.ok = true; // Successful action
+
+            } catch (PuzzleExceptions.relocateTileExceptions e) {
+                showMessage(e.getMessage(), "Error");
+                this.ok = false; // Unsuccessful action
+                throw e; // Re-throw the exception for further handling
             }
         }
+
 
         /**
          * Performs the visual and logical movement of a tile from one position to another.
@@ -475,28 +540,29 @@ import shapes.Rectangle;
          *
          * @param row the row of the tile.
          * @param column the column of the tile.
+         * @throws PuzzleExceptions.addDeleteGlueExceptions if the glue cannot be applied due to specific conditions.
          */
-        public void addGlue(int row, int column) {
-            BaseTile tile = getTileAtPosition(row, column);
-            if (tile == null) {
-                showMessage("Invalid position.", "Error");
-                this.ok = false;
-            } else if (tile.getLabel() == 'h') {
-                showMessage("You cannot add glue on a hole tile.", "Error");
-                this.ok = false;
+        public void addGlue(int row, int column) throws PuzzleExceptions.addDeleteGlueExceptions {
+            try {
+                BaseTile tile = getTileAtPosition(row, column);
+                
+                if (tile == null) {
+                    throw new PuzzleExceptions.addDeleteGlueExceptions(PuzzleExceptions.addDeleteGlueExceptions.INVALID_POSITION);
+                    
+                } else if (tile.getLabel() == 'h') {
+                    throw new PuzzleExceptions.addDeleteGlueExceptions(PuzzleExceptions.addDeleteGlueExceptions.NOT_ADD_GLUE_HOLE);
+                    
+                } else if (isTileEmpty(tile)) {
+                    throw new PuzzleExceptions.addDeleteGlueExceptions(PuzzleExceptions.addDeleteGlueExceptions.NOT_ADD_GLUE_EMPTY_TILE);
+                    
+                } else if (tile.hasGlue()) {
+                    throw new PuzzleExceptions.addDeleteGlueExceptions(PuzzleExceptions.addDeleteGlueExceptions.NOT_GLUE_EXISTING_TILE);
+                    
+                } else if (tile instanceof FreelanceTile) {
+                    throw new PuzzleExceptions.addDeleteGlueExceptions(PuzzleExceptions.addDeleteGlueExceptions.NOT_GLUE_FREELANCE_TILE);
+                }
 
-            } else if (isTileEmpty(tile)) {
-                showMessage("Cannot apply glue to an empty tile.", "Error");
-                this.ok = false;
-            } else if (tile.hasGlue()) {
-                showMessage("This tile already has glue applied.", "Error");
-                this.ok = false;
-
-            } else if (tile instanceof FreelanceTile){
-                showMessage("You cannot aply glue to a freelance tile.", "Error");
-                this.ok = false;
-            } 
-            else {
+                // Proceed to apply glue
                 tile.setHasGlue(true);
 
                 // Change the tile color to a paler version
@@ -513,99 +579,125 @@ import shapes.Rectangle;
                 // Reset visited flags
                 resetVisitedFlags();
                 tile.setLabel('p');
-                this.ok = true;
+                this.ok = true; // Successful action
+
+            } catch (PuzzleExceptions.addDeleteGlueExceptions e) {
+                showMessage(e.getMessage(), "Error");
+                this.ok = false; // Unsuccessful action
+                throw e; // Re-throw the exception for further handling
             }
         }
+
         
         /**
-         * Aplica pegante a una baldosa en la posición especificada.
+         * Applies glue to a tile at the specified position.
          *
-         * @param row La fila de la baldosa.
-         * @param column La columna de la baldosa.
-         * @param glueType El tipo de pegante ("normal" o "super").
+         * @param row      the row of the tile.
+         * @param column   the column of the tile.
+         * @param glueType the type of glue ("normal" or "super").
+         * @throws PuzzleExceptions.addDeleteGlueExceptions if the glue cannot be applied due to specific conditions.
          */
-        public void addGlue(int row, int column, String glueType) {
-            BaseTile tile = getTileAtPosition(row, column);
-            if (tile == null) {
-                showMessage("Posición inválida.", "Error");
-                this.ok = false;
-                return;
-            } else if (tile.getLabel() == 'h') {
-                showMessage("No puedes añadir pegante en una baldosa con agujero.", "Error");
-                this.ok = false;
-                return;
-            } else if (isTileEmpty(tile)) {
-                showMessage("No puedes añadir pegante en una baldosa vacía.", "Error");
-                this.ok = false;
-                return;
-            } else if (tile.hasGlue() || tile.hasSuperGlue()) {
-                showMessage("Esta baldosa ya tiene pegante.", "Error");
-                this.ok = false;
-                return;
-            } else if (tile instanceof FreelanceTile){
-                showMessage("No puedes añadir pegante a una baldosa Freelance.", "Error");
-                this.ok = false;
-                return;
-            }
+        public void addGlue(int row, int column, String glueType) throws PuzzleExceptions.addDeleteGlueExceptions {
+            try {
+                BaseTile tile = getTileAtPosition(row, column);
+                
+                // Validate glue type
+                if (!glueType.equalsIgnoreCase("fragile") && !glueType.equalsIgnoreCase("super")) {
+                    throw new PuzzleExceptions.addDeleteGlueExceptions(PuzzleExceptions.addDeleteGlueExceptions.NOT_VALID_TYPES_GLUE);
+                }
 
-            // Determinar el tipo de pegante basado en glueType
-            if (glueType.equalsIgnoreCase("super")) {
-            	tile.setHasGlue(true);
-                // Cambiar el color de la baldosa si es pegante normal
+                if (tile == null) {
+                    throw new PuzzleExceptions.addDeleteGlueExceptions(PuzzleExceptions.addDeleteGlueExceptions.INVALID_POSITION);
+                    
+                } else if (tile.getLabel() == 'h') {
+                    throw new PuzzleExceptions.addDeleteGlueExceptions(PuzzleExceptions.addDeleteGlueExceptions.NOT_ADD_GLUE_HOLE);
+                    
+                } else if (isTileEmpty(tile)) {
+                    throw new PuzzleExceptions.addDeleteGlueExceptions(PuzzleExceptions.addDeleteGlueExceptions.NOT_ADD_GLUE_EMPTY_TILE);
+                    
+                } else if (tile.hasGlue() || tile.hasSuperGlue() || tile.hasFragileGlue() ){
+                    throw new PuzzleExceptions.addDeleteGlueExceptions(PuzzleExceptions.addDeleteGlueExceptions.NOT_GLUE_EXISTING_TILE);
+                    
+                } else if (tile instanceof FreelanceTile) {
+                    throw new PuzzleExceptions.addDeleteGlueExceptions(PuzzleExceptions.addDeleteGlueExceptions.NOT_GLUE_FREELANCE_TILE);
+                }
+                
+                tile.setHasGlue(true);
+                // Change tile color if glue is normal            	
                 Color evenPalerColor = getPaleColor(tile.getOriginalColor(), 150);
                 tile.setTileColor(evenPalerColor);
-                
-                //Add triangle
-                tile.setSuperGlue(true);
                 tile.setLabel('p');
+                   
+                //Determine glue type
+                   
+                if (glueType.equalsIgnoreCase("super")) {            	                          
+                   tile.setSuperGlue(true);                                              
+                }
+                
+                
+                if (glueType.equalsIgnoreCase("fragile")) {
+                   	tile.setFragileGlue(true);
+                   	// Add tiles if glue is fragile
+                   	fragileGlueTilesQueue.add(tile);
+                }                        
+                
+                this.ok = true; 
+
+            } catch (PuzzleExceptions.addDeleteGlueExceptions e) {
+                showMessage(e.getMessage(), "Error");
+                this.ok = false; // Unsuccessful action
+                throw e; // Re-throw the exception for further handling
             }
-            
-	        this.ok = true;
-                       
         }
 
+
+
         /**
-         * Método auxiliar para verificar si la baldosa tiene superGlue.
+         * Auxiliary method to verify if the tile has superGlue.
          *
-         * @param tile La baldosa a verificar.
-         * @return true si la baldosa tiene superGlue, false en caso contrario.
+         * @param tile Tile to verify.
+         * @return true if the tile has superGlue, false otherwise.
          */
-        private boolean hasSuperGlue(BaseTile tile) {
+        private boolean hasSuperGlue (BaseTile tile) {
             if (tile instanceof BaseTile) {
                 return ((BaseTile) tile).hasSuperGlue();
             }
             return false;
         }
+        
 
         /**
          * Removes glue from a tile at the specified position.
          * 
          * @param row the row of the tile.
          * @param column the column of the tile.
+         * @throws PuzzleExceptions.addDeleteGlueExceptions if the glue cannot be removed due to specific conditions.
          */
-        public void deleteGlue(int row, int column) {
-            BaseTile tile = getTileAtPosition(row, column);
-            if (tile == null) {
-                showMessage("Invalid position.", "Error");
-                this.ok = false;
-            } else if (tile.getLabel() == 'h') {
-                showMessage("You cannot delete glue on a hole tile.", "Error");
-                this.ok = false;
+        public void deleteGlue(int row, int column) throws PuzzleExceptions.addDeleteGlueExceptions {
+            try {
+                BaseTile tile = getTileAtPosition(row, column);
+                
+                if (tile == null) {
+                    throw new PuzzleExceptions.addDeleteGlueExceptions(PuzzleExceptions.addDeleteGlueExceptions.INVALID_POSITION);
+                    
+                } else if (tile.getLabel() == 'h') {
+                    throw new PuzzleExceptions.addDeleteGlueExceptions(PuzzleExceptions.addDeleteGlueExceptions.NOT_DELETE_GLUE_HOLE);
+                    
+                } else if (isTileEmpty(tile)) {
+                    throw new PuzzleExceptions.addDeleteGlueExceptions(PuzzleExceptions.addDeleteGlueExceptions.NOT_DELETE_GLUE_EMPTY_TILE);
+                    
+                } else if (!tile.hasGlue()) {
+                    throw new PuzzleExceptions.addDeleteGlueExceptions(PuzzleExceptions.addDeleteGlueExceptions.NOT_GLUE_TO_REMOVE);
+                }
 
-            } else if (isTileEmpty(tile)) {
-                showMessage("Cannot delete glue from an empty tile.", "Error");
-                this.ok = false;
-
-            } else if (!tile.hasGlue()) {
-                showMessage("There is no glue to remove on this tile.", "Error");
-                this.ok = false;
-
-            } else {
+                // Proceed to remove glue
                 tile.setHasGlue(false);
+                
+                if(tile.hasSuperGlue()) tile.setSuperGlue(false);
+                if(tile.hasFragileGlue()) tile.setFragileGlue(false);
 
                 // If the tile is no longer stuck to any other, adjust its color
                 if (!tile.isStuck()) {
-                    // Change the color to a slightly paler version
                     Color slightlyPalerColor = getPaleColor(tile.getOriginalColor(), 50);
                     tile.setTileColor(slightlyPalerColor);
                 }
@@ -619,10 +711,16 @@ import shapes.Rectangle;
 
                 // Reset visited flags
                 resetVisitedFlags();
+                
+                this.ok = true; // Successful action
 
-                this.ok = true;
+            } catch (PuzzleExceptions.addDeleteGlueExceptions e) {
+                showMessage(e.getMessage(), "Error");
+                this.ok = false; // Unsuccessful action
+                throw e; // Re-throw the exception for further handling
             }
         }
+
 
         /**
          * Updates the adjacent tiles after applying glue to a tile.
@@ -719,43 +817,67 @@ import shapes.Rectangle;
          * Tilts the board in the specified direction.
          * 
          * @param direction the direction to tilt ('d' for down, 'u' for up, 'r' for right, 'l' for left).
+         * @throws PuzzleExceptions.addDeleteGlueExceptions  Validate fragile glue when tilt
          */
-        public void tilt(char direction) {
-            switch (direction) {
-                case 'd':
-                    for (int col = 0; col < w; col++) {
-                        tiltDownWithGlue(col);
-                    }
-                    break;
-                case 'u':
-                    for (int col = 0; col < w; col++) {
-                        tiltUpWithGlue(col);
-                    }
-                    break;
-                case 'r':
-                    for (int row = 0; row < h; row++) {
-                        tiltRightWithGlue(row);
-                    }
-                    break;
-                case 'l':
-                    for (int row = 0; row < h; row++) {
-                        tiltLeftWithGlue(row);
-                    }
-                    break;
-                default:
-                    showMessage("Invalid direction.", "Error");
-                    this.ok = false;
+        public void tilt(char direction) throws PuzzleExceptions.addDeleteGlueExceptions  {
+            try {
+                switch (direction) {
+                    case 'd':
+                        for (int col = 0; col < w; col++) {
+                            tiltDownWithGlue(col);
+                        }
+                        this.ok = true;
+                        break;
+                        
+                    case 'u':
+                        for (int col = 0; col < w; col++) {
+                            tiltUpWithGlue(col);
+                        }
+                        this.ok = true;
+                        break;
+                        
+                    case 'r':
+                        for (int row = 0; row < h; row++) {
+                            tiltRightWithGlue(row);
+                        }
+                        this.ok = true;
+                        break;
+                        
+                    case 'l':
+                        for (int row = 0; row < h; row++) {
+                            tiltLeftWithGlue(row);
+                        }
+                        this.ok = true;
+                        break;
+                        
+                    default:
+                        throw new PuzzleExceptions.tiltException(PuzzleExceptions.tiltException.INVALID_DIRECTION);
+                }
+                resetVisitedFlags(); // Reset visited flags after tilting
+                
+                if (!fragileGlueTilesQueue.isEmpty()) {
+                	for (BaseTile tile : fragileGlueTilesQueue) {
+                		this.deleteGlue(tile.getRow(), tile.getCol());
+                	}
+                	fragileGlueTilesQueue.clear();	
+                }
+        
+            } catch (PuzzleExceptions.tiltException e) {
+                showMessage(e.getMessage(), "Error");
+                this.ok = false;
+                
             }
-            resetVisitedFlags(); // Reset visited flags after tilting
         }
+        
 
         /**
          * Performs a single tilt in the specified direction.
          * 
          * @param direction the direction to tilt ('d' for down, 'u' for up, 'r' for right, 'l' for left).
          * @return {@code true} if there were changes; {@code false} otherwise.
+         * @throws PuzzleExceptions.addDeleteGlueExceptions tilt controlled once
          */
-        public boolean tiltOnce(char direction) {
+        public boolean tiltOnce(char direction) throws PuzzleExceptions.addDeleteGlueExceptions {
             // Implement a version of tilt that returns true if there were changes
             // and false if there were no changes.
             // For simplicity, it currently always returns true.
@@ -1350,7 +1472,7 @@ import shapes.Rectangle;
 
         /**
          * Moves a group of tiles downward by a specified number of steps.
-         * The tiles are sorted such that the bottommost tiles move first.
+         * The tiles are sorted such that the bottom most tiles move first.
          *
          * @param group List of tiles to be moved
          * @param steps Number of steps to move downward
@@ -1381,7 +1503,7 @@ import shapes.Rectangle;
          */
         private void moveGroupLeft(List<BaseTile> group, int steps) {
             if (steps == 0) return;
-            // Order the group because the tiles with lower columnsa move firstly
+            // Order the group because the tiles with lower columns move firstly
             group.sort(Comparator.comparingInt(BaseTile::getCol));
             // Delete tiles of last positions
             for (BaseTile tile : group) {
@@ -1543,7 +1665,7 @@ import shapes.Rectangle;
                 }
             }
             
-            // If all tiles asimilates with the reference tiles, so we reached the final state
+            // If all tiles assimilates with the reference tiles, so we reached the final state
             this.ok = true;
             return true;
         }
@@ -1551,68 +1673,80 @@ import shapes.Rectangle;
 
         /**
          * Makes the simulator visible.
+         * @throws PuzzleExceptions.makeVisibleInvisibleExceptions exceptions for starting and ending board
          */
         
-        public void makeVisible(){
-            this.visible = true;
+        public void makeVisible() throws PuzzleExceptions.makeVisibleInvisibleExceptions{
+            try{
+                if(startingBoard == null) throw new PuzzleExceptions.makeVisibleInvisibleExceptions(PuzzleExceptions.makeVisibleInvisibleExceptions.NO_STARTING_BOARD_NULL);
+                if(endingBoard == null) throw new PuzzleExceptions.makeVisibleInvisibleExceptions(PuzzleExceptions.makeVisibleInvisibleExceptions.NO_ENDING_BOARD_NULL);
+                
+                this.visible = true;
             
-            // Verify if the boards have been initialized
-            if (startingBoard != null) {
+                
                 startingBoard.makeVisible();  // Make visible the initial board
-            }
-            
-            if (endingBoard != null) {
                 endingBoard.makeVisible();    // Make visible the final board
-            }
-            
-            
-            for (List<BaseTile> row : tiles) {
-                for (BaseTile tile : row) {
-                    tile.makeVisible();
+                
+                for (List<BaseTile> row : tiles) {
+                    for (BaseTile tile : row) {
+                        tile.makeVisible();
+                    }
                 }
-            }
             
-            for (List<BaseTile> row : referingTiles) {
-                for (BaseTile tile : row) {
-                    tile.makeVisible();
+                for (List<BaseTile> row : referingTiles) {
+                    for (BaseTile tile : row) {
+                        tile.makeVisible();
+                    }
                 }
-            }
             
-            this.ok = true;  // Successful action
+                this.ok = true;  // Successful action
+            
+            }catch (PuzzleExceptions.makeVisibleInvisibleExceptions e){
+                showMessage(e.getMessage(),"Error");
+                this.ok = false;
+                throw e;
+            }
             
         }
+        
         
         /**
          * Makes the simulator invisible.
+         * @throws PuzzleExceptions.makeVisibleInvisibleExceptions exceptions for starting and ending board
          */
         
-        public void makeInvisible(){
-            this.visible = false;
-            
-            // Hacer invisibles las baldosas
-            for (List<BaseTile> row : tiles) {
-                for (BaseTile tile : row) {
-                    tile.makeInvisible();
+        public void makeInvisible() throws PuzzleExceptions.makeVisibleInvisibleExceptions {
+            try {
+                if (startingBoard == null) throw new PuzzleExceptions.makeVisibleInvisibleExceptions(PuzzleExceptions.makeVisibleInvisibleExceptions.NO_STARTING_BOARD_NULL);
+                if (endingBoard == null) throw new PuzzleExceptions.makeVisibleInvisibleExceptions(PuzzleExceptions.makeVisibleInvisibleExceptions.NO_ENDING_BOARD_NULL);
+        
+                this.visible = false;
+        
+                for (List<BaseTile> row : tiles) {
+                    for (BaseTile tile : row) {
+                        tile.makeInvisible();
+                    }
                 }
-            }
-            
-            for (List<BaseTile> row : referingTiles) {
-                for (BaseTile tile : row) {
-                    tile.makeInvisible();
+        
+                for (List<BaseTile> row : referingTiles) {
+                    for (BaseTile tile : row) {
+                        tile.makeInvisible();
+                    }
                 }
+        
+                startingBoard.makeInvisible();  // Make starting board invisible
+                endingBoard.makeInvisible();    // Make ending board invisible
+        
+                this.ok = true;  // Successful action
+        
+            } catch (PuzzleExceptions.makeVisibleInvisibleExceptions e) {
+                showMessage(e.getMessage(), "Error");
+                this.ok = false;
+                throw e;
             }
-            
-            // Make visible the boards (rectangles)
-            if (startingBoard != null) {
-                startingBoard.makeInvisible();  // Make invisible the initial board
-            }
-            
-            if (endingBoard != null) {
-                endingBoard.makeInvisible();    // Make invisible the final board
-            }
-            
-            this.ok = true;  // Successful action
         }
+        
+        
 
         /**
          * Ends the simulator and exits the program.
@@ -1622,6 +1756,7 @@ import shapes.Rectangle;
             System.exit(0);
             this.ok = true;
         }
+        
 
         /**
          * Returns a copy of the current puzzle board (starting), representing the current state.
@@ -1646,7 +1781,7 @@ import shapes.Rectangle;
             
             for (int row = 0; row < h; row++) {
                 for (int col = 0; col < w; col++) {
-                    currentArrangement[row][col] = starting[row][col]; // Copia el valor actual
+                    currentArrangement[row][col] = starting[row][col]; // Copy the actual value
         
                     // Simulation of painting or showing the tiles
                     BaseTile tile = tiles.get(row).get(col);
@@ -1669,6 +1804,7 @@ import shapes.Rectangle;
         public boolean ok() {
             return this.ok;
         }
+        
 
         /**
          * Exchanges the current puzzle board with the reference board.
@@ -1721,32 +1857,32 @@ import shapes.Rectangle;
             System.out.println("Boards have been exchanged. Now, you're editing the board that was the reference board before.");
         }
         
+        
         /**
          * Creates a hole in a specified tile position.
          *
          * @param row Row index
          * @param column Column index
+         * @throws PuzzleExceptions.makeHoleExceptions if a hole cannot be created due to specific conditions.
+         * @throws PuzzleExceptions.ExceedPuzzleSpaceException if the specified position exceeds the puzzle boundaries.
          */
-        public void makeHole(int row,int column) {
-            // Validate the coords
-            if (row >= h || column >= w) {
-                showMessage("You have exceeded the puzzle space.", "Error");
-                this.ok = false; // Error Message
-
-            } else if (row < 0 || column < 0) {
-                showMessage("You cannot make a hole in a non-existent tile with negative position.", "Error");
-                this.ok = false; // Error Message
-
-            } else {
+        public void makeHole(int row, int column) throws PuzzleExceptions.makeHoleExceptions, PuzzleExceptions.ExceedPuzzleSpaceException {
+            try {
+                // Validate the coordinates
+                if (row >= h || column >= w) {
+                    throw new PuzzleExceptions.ExceedPuzzleSpaceException(PuzzleExceptions.ExceedPuzzleSpaceException.EXCEED_PUZZLE_SPACE);
+                    
+                } else if (row < 0 || column < 0) {
+                    throw new PuzzleExceptions.makeHoleExceptions(PuzzleExceptions.makeHoleExceptions.NOT_NEGATIVE_POSITION_HOLE);
+                }
 
                 BaseTile targetTile = tiles.get(row).get(column);
 
                 if (targetTile.getLabel() == 'h') {
-                    showMessage("This tile already has a hole.", "Error");
-                    this.ok = false; // Error message
+                    throw new PuzzleExceptions.makeHoleExceptions(PuzzleExceptions.makeHoleExceptions.TILE_OCCUPIED_HOLE);
+                    
                 } else if (isTileEmpty(targetTile) && !targetTile.getIsHole()) {
-
-                    // Mark the tile as hole
+                    // Mark the tile as a hole
                     targetTile.setLabel('h');
                     targetTile.setIsHole(true);
                     holes[row][column] = true;
@@ -1754,16 +1890,24 @@ import shapes.Rectangle;
                     this.ok = true; // Successful action
 
                 } else {
-                    showMessage("You can only make a hole in an empty tile.", "Error");
-                    this.ok = false; // Error message
+                    throw new PuzzleExceptions.makeHoleExceptions("You can only make a hole in an empty tile.");
                 }
+
+            } catch (PuzzleExceptions.makeHoleExceptions | PuzzleExceptions.ExceedPuzzleSpaceException e) {
+                showMessage(e.getMessage(), "Error");
+                this.ok = false; // Unsuccessful action
+                throw e; // Re-throw the exception for further handling
             }
         }
+
+        
         
         /**
          * Smart tilt method that performs an intelligent tilt to bring the puzzle closer to the solution.
+         * @throws PuzzleExceptions.addDeleteGlueExceptions tilt in an intelligent way needs to be handled
          */
-        public void tilt() {
+        public void tilt() throws PuzzleExceptions.addDeleteGlueExceptions {
+        	
             // Get the current board configuration
             char[][] currentArrangement = getCurrentArrangement();
         
@@ -1781,6 +1925,7 @@ import shapes.Rectangle;
                 this.ok = false;
             }
         }
+        
         
         /**
          * Private method to get the current board configuration.
@@ -1954,6 +2099,7 @@ import shapes.Rectangle;
             }
         }
         
+        
         /**
          * Creates a visual representation of a hole at the specified tile position.
          *
@@ -1964,7 +2110,7 @@ import shapes.Rectangle;
             int yPos = tile.getYPos();
             int diameter = Tile.SIZE;
 
-            // Calcultate the center position of the circle
+            // Calculate the center position of the circle
             int circleX = xPos;
             int circleY = yPos;
 
@@ -1974,7 +2120,8 @@ import shapes.Rectangle;
             holeCircles.add(hole);
         }
 
-    // <----------------------------------- IMPLEMENTING FIXED_TILES METHOD ----------------------------------->
+    
+        
         /**
          * Identifies and returns a matrix indicating the fixed tiles that cannot move.
          * 
@@ -2037,6 +2184,7 @@ import shapes.Rectangle;
                 System.out.println();
             }
             System.out.println();
+            this.ok = true;
         
             return fixedTilesMatrix;
         }
@@ -2057,6 +2205,7 @@ import shapes.Rectangle;
             return false;
         }
         
+        
         /**
          * Finds an empty tile or a hole in the specified column.
          * 
@@ -2074,7 +2223,7 @@ import shapes.Rectangle;
         }
         
         
-        // I used the same logic that method isGoal about comparing and to get the position on the tile with the label.
+        
         /**
          * Counts the number of misplaced tiles compared to the reference board.
          *
@@ -2098,11 +2247,12 @@ import shapes.Rectangle;
                 }
             }
             
+            this.ok = true;
             return cont;
         }
 
         
-        public static void main(String[] args) {
+        public static void main(String[] args) throws PuzzleExceptions.addDeleteGlueExceptions {
             
             
             //SECOND TEST
@@ -2132,13 +2282,13 @@ import shapes.Rectangle;
             {'r', 'g', 'b', 'y', 'r', 'g', 'b', '*', 'r', 'g'}
         };
             
-            //Puzzle pz3 = new Puzzle(10, 10); // Tablero sin matrices
-            Puzzle pz4 = new Puzzle(starting1, ending1); // Tablero con matrices
+            //Puzzle pz3 = new Puzzle(10, 10); //  Board without matrixes
+            Puzzle pz4 = new Puzzle(starting1, ending1); // Board with matrixes
             //Puzzle pz4 = new Puzzle(ending1);
             
             //pz4.addTile(9,0,"fl y");
             //pz4.addTile(9,7,"fl r");            
-            //pz4.addGlue(9, 7);
+            pz4.addGlue(0, 0);
             //pz4.makeHole(9,8);
             //pz4.deleteTile(9, 7);
             //pz4.addTile(9, 7, 'r');
@@ -2149,7 +2299,7 @@ import shapes.Rectangle;
             //pz4.addTile(7,0,"fr g");
             //pz4.addTile(6,0,"ro b");
             
-            pz4.addGlue(7, 6,"super");
+            //pz4.addGlue(7, 6,"super");
             //pz4.addGlue(7, 6);
             
             //pz4.makeInvisible();
@@ -2168,7 +2318,8 @@ import shapes.Rectangle;
             
             int[] from1 = {7,6};
             int[] to1   = {4,7};
-            pz4.relocateTile(from1,to1);
+            //pz4.relocateTile(from1,to1);
+            //pz4.deleteGlue(7, 6);
             
             //pz4.exchange();
             

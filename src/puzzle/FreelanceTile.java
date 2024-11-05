@@ -2,16 +2,16 @@ package puzzle;
 import shapes.*;
 
 public class FreelanceTile extends BaseTile{
-    private Rectangle innerRectangle; // Rectángulo interior de color blanco
+    private Rectangle innerRectangle; // Inside light brown rectangle 
     
     public FreelanceTile(char label, int xPosition, int yPosition,int row, int column) {
         super(label, xPosition, yPosition, row, column);
-        int innerSize = Tile.SIZE - 10; // Reducimos 5 píxeles en cada lado para dejar el borde
+        int innerSize = Tile.SIZE - 10; // To reduce 5 pxs for each side to leave the edge
         int innerXPosition = this.getXPos() + 5;
         int innerYPosition = this.getYPos() + 5;
         innerRectangle = new Rectangle(innerSize, innerSize, Puzzle.lightBrown, innerXPosition, innerYPosition);
         this.makeVisible();
-        innerRectangle.makeVisible(); // Aseguramos que se dibuje después del rectángulo rojo                              
+        innerRectangle.makeVisible();                              
     }
 
     @Override

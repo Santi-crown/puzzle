@@ -4,11 +4,11 @@ import shapes.*;
 
 public class FlyingTile extends BaseTile{
 
-    private Circle innerCircle;
+    private Circle innerCircle; //Inside light brown circle
 
     public FlyingTile(char label, int xPosition, int yPosition,int row, int column) {
         super(label, xPosition, yPosition, row, column);
-        int innerSize = Tile.SIZE - 10; // Reducimos 5 píxeles en cada lado para dejar el borde
+        int innerSize = Tile.SIZE - 10; // To reduce 5 pxs for each side to leave the edge
         int innerXPosition = this.getXPos() + 5;
         int innerYPosition = this.getYPos() + 5;
         this.makeVisible();       

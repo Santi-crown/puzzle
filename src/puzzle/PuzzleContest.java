@@ -5,8 +5,9 @@ import java.util.*;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
+
 /**
- * Write a description of class Hola here.
+ * Here is the class that solves Cycle 3 where in this cycle exists two methods simulate and solve simulator problem.
  *
  * @author: Andersson David Sánchez Méndez
  * @author: Cristian Santiago Pedraza Rodríguez
@@ -41,8 +42,10 @@ public class PuzzleContest {
      *
      * @param starting The starting configuration of the puzzle as a 2D char array.
      * @param ending The ending configuration of the puzzle as a 2D char array.
+     * @throws PuzzleExceptions.makeVisibleInvisibleExceptions here it encloses exception messages for makeVisible and makeInvisible methods
+     * @throws PuzzleExceptions.addDeleteGlueExceptions  exception to validate tilt correctly
      */    
-    public void simulate(char[][] starting, char[][] ending) {
+    public void simulate(char[][] starting, char[][] ending) throws PuzzleExceptions.makeVisibleInvisibleExceptions, PuzzleExceptions.addDeleteGlueExceptions {
         // First, check if a solution exists
         List<Character> moves = bfsSolve(starting, ending);
         if (moves == null) {
@@ -145,7 +148,7 @@ public class PuzzleContest {
         return null;
     }
 
-    // Auxiliar methods
+    // Auxiliary methods
 
     /**
      * Check if two boards are equal.
@@ -323,8 +326,10 @@ public class PuzzleContest {
      * Main method for testing the PuzzleContest class.
      * 
      * @param args Command-line arguments (not used).
+     * @throws PuzzleExceptions.makeVisibleInvisibleExceptions here it encloses exception messages for makeVisible and makeInvisible methods.
+     * @throws PuzzleExceptions.addDeleteGlueExceptions exception to validate tilt perfectly in simulate method
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws PuzzleExceptions.makeVisibleInvisibleExceptions, PuzzleExceptions.addDeleteGlueExceptions {
         PuzzleContest contest = new PuzzleContest();
 
         // Sample Input 1

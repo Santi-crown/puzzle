@@ -1,7 +1,6 @@
 package puzzle;
 import java.awt.Color;
 
-import shapes.Circle;
 import shapes.Rectangle;
 import shapes.Triangle;
 
@@ -18,8 +17,9 @@ public abstract class BaseTile extends Rectangle{
     protected int xPos;
     protected int yPos;
     protected boolean isHole = false;
-    protected boolean isFixed = true; // It is true because if after validate col and row it still is true, it's because it is really fixed. 
+    protected boolean isFixed = true; // It is true because if after validate column and row it still is true, it's because it is really fixed. 
     protected boolean superGlue = false; // Define super glue type
+    protected boolean fragileGlue = false; // Define fragile glue type
     protected Triangle glueTriangle;
     
     public BaseTile(char label, int xPosition, int yPosition,int row, int column) {
@@ -29,17 +29,13 @@ public abstract class BaseTile extends Rectangle{
         this.row = row;
         this.column = column;
         this.label = label;
-        this.isFixed = false; // Valor inicial por defecto
+        this.isFixed = false; // Initial value as default
         this.changeSize(Tile.SIZE, Tile.SIZE);                
         setTileColor(label);
         this.moveHorizontal(xPosition);
         this.moveVertical(yPosition);
         //this.makeVisible();
         
-        glueTriangle = new Triangle();
-        glueTriangle.changeSize(10, 10); // Tamaño pequeño
-        glueTriangle.changeColor(Color.BLACK); // Color del triángulo
-        glueTriangle.makeInvisible();
     }
 
      /**
@@ -330,40 +326,93 @@ public abstract class BaseTile extends Rectangle{
     }
 
     
- // Getter y Setter para superGlue
+ 
+    /**
+     * 
+     * @return the value of superGlue
+     */
     public boolean hasSuperGlue() {
         return superGlue;
     }
-
+    
+    
+    /**
+     * 
+     * @return the value of fragileGlue
+     */
+    public boolean hasFragileGlue()
+    {
+    	return fragileGlue;
+    }
+    
+    
+    /**
+     * 
+     * @param superGlue change the boolean value of attribute superGlue
+     */
     public void setSuperGlue(boolean superGlue) {
         this.superGlue = superGlue;
         if (superGlue) {
-            // Posicionar el triángulo en el centro de la baldosa
+        	glueTriangle = new Triangle();
+            glueTriangle.changeSize(10, 10); // Small size
+            glueTriangle.changeColor(Color.BLACK); // Triangle Color
+            //glueTriangle.makeInvisible();
+            // Move triangle at center tile
             int centerX = this.getXPos() + Tile.SIZE / 2 - glueTriangle.getWidth() / 2 + 4;
             int centerY = this.getYPos() + Tile.SIZE / 2 - glueTriangle.getHeight() / 2 + 1;
             glueTriangle.setPosition(centerX, centerY);
             glueTriangle.makeVisible();
             
-            // Depuración
-            //System.out.println("Triángulo de superGlue posicionado en: (" + centerX + ", " + centerY + ")");
         } else {
             glueTriangle.makeInvisible();
         }
     }
+    
+    
+    /**
+     * 
+     * @param fragileGlue change the boolean value of attribute fragileGlue
+     */
+    public void setFragileGlue(boolean fragileGlue) {
+    	this.fragileGlue = fragileGlue;
+    	if (fragileGlue) {
+        	glueTriangle = new Triangle();
+            glueTriangle.changeSize(40, 40); // Small size
+            glueTriangle.changeColor(new Color(200, 162, 200)); // Triangle color
+            //glueTriangle.makeInvisible();
+            // Move triangle at center tile
+            int centerX = this.getXPos() + Tile.SIZE / 2 - glueTriangle.getWidth() / 2 + 20;
+            int centerY = this.getYPos() + Tile.SIZE / 2 - glueTriangle.getHeight() / 2;
+            glueTriangle.setPosition(centerX, centerY);
+            glueTriangle.makeVisible();            
 
-    // Sobrescribir los métodos de movimiento si superGlue está activo
+        } else {
+            glueTriangle.makeInvisible();
+        }
+    }
+    // Override movement methods if superGlue is active 
+    
+   
+    /**
+     * @param distance what glueTriangle has to move to accommodate it perfectly in the position in x
+     */
     @Override
     public void moveHorizontal(int distance){
         super.moveHorizontal(distance);
-        if (superGlue && glueTriangle != null) {
+        if (superGlue || fragileGlue && glueTriangle != null) {
             glueTriangle.moveHorizontal(distance);
         }
     }
-
+    
+    
+    
+    /**
+     * @param distance what glueTriangle has to move to accommodate it perfectly in the position in y
+     */
     @Override
     public void moveVertical(int distance){
         super.moveVertical(distance);
-        if (superGlue && glueTriangle != null) {
+        if (superGlue || fragileGlue && glueTriangle != null) {
             glueTriangle.moveVertical(distance);
         }
     }

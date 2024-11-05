@@ -3,21 +3,21 @@ import java.awt.Color;
 import shapes.*;
 
 public class RoughTile extends BaseTile{
-    private Rectangle outerBorder; // Rectangulo que sirve de borde
+    private Rectangle outerBorder; // Rectangle that will be useful for edge
 
     public RoughTile(char label, int xPosition, int yPosition,int row, int column) {
         
         super(label, xPosition, yPosition, row, column);
         this.changeColor(Color.GRAY);
 
-        int innerSize = Tile.SIZE - 10; // Reducimos 5 píxeles en cada lado para dejar el borde
+        int innerSize = Tile.SIZE - 10; // To reduce 5 pxs for each side to leave the edge
         int innerXPosition = this.getXPos() + 5;
         int innerYPosition = this.getYPos() + 5;
 
         Color RectangleColor = ColorTochangeInsideRectangle(label);
         this.makeVisible();
         outerBorder = new Rectangle(innerSize, innerSize, RectangleColor, innerXPosition, innerYPosition);
-        outerBorder.makeVisible(); // Aseguramos que se dibuje después del rectángulo rojo                              
+        outerBorder.makeVisible();                              
     }
 
     private Color ColorTochangeInsideRectangle(char label){

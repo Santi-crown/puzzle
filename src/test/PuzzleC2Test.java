@@ -1,6 +1,8 @@
 package test;
 import puzzle.*;
-
+import puzzle.PuzzleExceptions.ExceedPuzzleSpaceException;
+import puzzle.PuzzleExceptions.makeHoleExceptions;
+import puzzle.PuzzleExceptions.makeVisibleInvisibleExceptions;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterEach;
@@ -56,7 +58,12 @@ public class PuzzleC2Test
         //puzzleI = new Puzzle(9,6);
         puzzle = new Puzzle(starting,ending);
         //puzzleF = new Puzzle(ending);
-        puzzle.makeInvisible();
+        try {
+			puzzle.makeInvisible();
+		} catch (makeVisibleInvisibleExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     /**
@@ -77,32 +84,80 @@ public class PuzzleC2Test
     
     @Test 
     public void accordingPSshouldMakeHole(){
-        puzzle.makeHole(4,0);
+        try {
+			puzzle.makeHole(4,0);
+		} catch (makeHoleExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExceedPuzzleSpaceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         assertTrue(puzzle.ok(),"You can make a hole because the space is empty, fulfills all the conditions.");
     }
     
     @Test 
     public void accordingPSshouldntMakeHoleOutOfRange(){
-        puzzle.makeHole(70,3);
+        try {
+			puzzle.makeHole(70,3);
+		} catch (makeHoleExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExceedPuzzleSpaceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         assertFalse(puzzle.ok(),"You cannnot make a hole because you have exceeded the puzzle space.");
     }
     
     @Test 
     public void accordingPSshouldntMakeHoleNegativePositions(){
-        puzzle.makeHole(44,-5);
+        try {
+			puzzle.makeHole(44,-5);
+		} catch (makeHoleExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExceedPuzzleSpaceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         assertFalse(puzzle.ok(),"You cannot make a hole in a non-existent tile with negative position.");
     }
     
     @Test 
     public void accordingPSshouldntMakeHoleExistent(){
-        puzzle.makeHole(4,0);
-        puzzle.makeHole(4,0);
+        try {
+			puzzle.makeHole(4,0);
+		} catch (makeHoleExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExceedPuzzleSpaceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        try {
+			puzzle.makeHole(4,0);
+		} catch (makeHoleExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExceedPuzzleSpaceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         assertFalse(puzzle.ok(),"This tile already has a hole.");
     }
     
     @Test 
     public void accordingPSshouldntMakeHoleFull(){
-        puzzle.makeHole(0,0);
+        try {
+			puzzle.makeHole(0,0);
+		} catch (makeHoleExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExceedPuzzleSpaceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         assertFalse(puzzle.ok(),"You can only make a hole in an empty tile.");
     }
     

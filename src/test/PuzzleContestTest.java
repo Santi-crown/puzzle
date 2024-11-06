@@ -1,6 +1,7 @@
 package test;
 import puzzle.*;
-
+import puzzle.PuzzleExceptions.addDeleteGlueExceptions;
+import puzzle.PuzzleExceptions.makeVisibleInvisibleExceptions;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterEach;
@@ -61,7 +62,12 @@ public class PuzzleContestTest
         
         puzzle = new Puzzle(starting,ending);
         puzzleContest = new PuzzleContest();
-        puzzle.makeInvisible();
+        try {
+			puzzle.makeInvisible();
+		} catch (makeVisibleInvisibleExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
     /**
@@ -73,7 +79,15 @@ public class PuzzleContestTest
     // simulate method
     @Test
     public void accordingPSshouldSimulateStartingEnding(){
-        puzzleContest.simulate(starting,ending);
+        try {
+			puzzleContest.simulate(starting,ending);
+		} catch (makeVisibleInvisibleExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (addDeleteGlueExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
     // solve method

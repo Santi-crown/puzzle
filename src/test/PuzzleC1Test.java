@@ -1,6 +1,12 @@
 package test;
 
 import puzzle.*;
+import puzzle.PuzzleExceptions.ExceedPuzzleSpaceException;
+import puzzle.PuzzleExceptions.addDeleteGlueExceptions;
+import puzzle.PuzzleExceptions.addDeleteTileExceptions;
+import puzzle.PuzzleExceptions.makeHoleExceptions;
+import puzzle.PuzzleExceptions.makeVisibleInvisibleExceptions;
+import puzzle.PuzzleExceptions.relocateTileExceptions;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterEach;
@@ -59,7 +65,12 @@ public class PuzzleC1Test
         //puzzleI = new Puzzle(9,6);
         puzzle = new Puzzle(starting,ending);
         //puzzleF = new Puzzle(ending);
-        puzzle.makeInvisible();
+        try {
+			puzzle.makeInvisible();
+		} catch (makeVisibleInvisibleExceptions e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		}
     }
 
     /**
@@ -101,40 +112,96 @@ public class PuzzleC1Test
     
     @Test
     public void accordingPSshouldAddValidTile(){
-        puzzle.addTile(0,4,'y');
+        try {
+			puzzle.addTile(0,4,'y');
+		} catch (addDeleteTileExceptions e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		} catch (ExceedPuzzleSpaceException e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		}
         assertTrue(puzzle.ok(),"It should add a tile in the position because is empty and good label.");
         accordingPSshouldntAddInvalidTileExistent();
     }
     
     @Test
     private void accordingPSshouldntAddInvalidTileExistent(){
-        puzzle.addTile(0,4,'y');
+        try {
+			puzzle.addTile(0,4,'y');
+		} catch (addDeleteTileExceptions e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		} catch (ExceedPuzzleSpaceException e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		}
         assertFalse(puzzle.ok(),"There is already a tile here.");
     }
     
     
     @Test
     public void accordingPSshouldntAddInvalidTileLabel(){
-        puzzle.addTile(4,0,'t');
+        try {
+			puzzle.addTile(4,0,'t');
+		} catch (addDeleteTileExceptions e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		} catch (ExceedPuzzleSpaceException e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		}
         assertFalse(puzzle.ok(),"It shouldn't add a tile with an invalid label.");
     }
     
     @Test
     public void accordingPSshouldntAddInvalidTileOutOfRange(){
-        puzzle.addTile(10,4,'y');
+        try {
+			puzzle.addTile(10,4,'y');
+		} catch (addDeleteTileExceptions e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		} catch (ExceedPuzzleSpaceException e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		}
         assertFalse(puzzle.ok(),"It shouldn't add a tile because you have exceeded the puzzle space.");
     }
     
     @Test
     public void accordingPSshouldntAddInvalidTileNegativePositions(){
-        puzzle.addTile(-3,3,'y');
+        try {
+			puzzle.addTile(-3,3,'y');
+		} catch (addDeleteTileExceptions e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		} catch (ExceedPuzzleSpaceException e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		}
         assertFalse(puzzle.ok(),"It shouldn't add a tile cuz you're searching for a non-existent tile with negative position.");
     }
     
     @Test
     public void accordingPSshouldntAddInvalidTileHole(){
-        puzzle.makeHole(1,3);
-        puzzle.addTile(1,3,'y');
+        try {
+			puzzle.makeHole(1,3);
+		} catch (makeHoleExceptions e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		} catch (ExceedPuzzleSpaceException e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		}
+        try {
+			puzzle.addTile(1,3,'y');
+		} catch (addDeleteTileExceptions e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		} catch (ExceedPuzzleSpaceException e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		}
         assertFalse(puzzle.ok(),"You cannot add a tile on a hole.");
     }
     
@@ -142,41 +209,110 @@ public class PuzzleC1Test
     
     @Test
     public void accordingPSshouldDeleteValidTile(){
-        puzzle.deleteTile(0,0);
+        try {
+			puzzle.deleteTile(0,0);
+		} catch (addDeleteTileExceptions e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		} catch (ExceedPuzzleSpaceException e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		}
         assertTrue(puzzle.ok(),"It should delete a tile in the position cuz the tile doesn't have glue or is stuck.");
     }
     
     @Test
     public void accordingPSshouldntDeleteInvalidTileInexistent(){
-        puzzle.deleteTile(0,4);
+        try {
+			puzzle.deleteTile(0,4);
+		} catch (addDeleteTileExceptions e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		} catch (ExceedPuzzleSpaceException e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		}
         assertFalse(puzzle.ok(),"You're trying to delete a non-existent tile.");
     }
     
     
     @Test
     public void accordingPSshouldntDeleteInvalidTileOutOfRange(){
-        puzzle.deleteTile(10,4);
+        try {
+			puzzle.deleteTile(10,4);
+		} catch (addDeleteTileExceptions e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		} catch (ExceedPuzzleSpaceException e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		}
         assertFalse(puzzle.ok(),"It shouldn't delete a tile because you have exceeded the puzzle space.");
     }
     
     @Test
     public void accordingPSshouldntDeleteInvalidTileNegativePositions(){
-        puzzle.deleteTile(-3,3);
+        try {
+			puzzle.deleteTile(-3,3);
+		} catch (addDeleteTileExceptions e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		} catch (ExceedPuzzleSpaceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         assertFalse(puzzle.ok(),"It shouldn't delete a tile cuz you're searching for a non-existent tile with negative position.");
     }
     
     @Test
     public void accordingPSshouldntDeleteInvalidTileHole(){
-        puzzle.makeHole(1,3);
-        puzzle.deleteTile(1,3);
+        try {
+			puzzle.makeHole(1,3);
+		} catch (makeHoleExceptions e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		} catch (ExceedPuzzleSpaceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        try {
+			puzzle.deleteTile(1,3);
+		} catch (addDeleteTileExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExceedPuzzleSpaceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         assertFalse(puzzle.ok(),"You cannot delete a tile that is a hole.");
     }
     
     @Test
     public void accordingPSshouldntDeleteInvalidGlueStuck(){
-        puzzle.addGlue(0,0);
-        puzzle.deleteTile(0,0);
-        puzzle.deleteTile(1,0);
+        try {
+			puzzle.addGlue(0,0);
+		} catch (addDeleteGlueExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        try {
+			puzzle.deleteTile(0,0);
+		} catch (addDeleteTileExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExceedPuzzleSpaceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        try {
+			puzzle.deleteTile(1,0);
+		} catch (addDeleteTileExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExceedPuzzleSpaceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         assertFalse(puzzle.ok(),"You cannot delete a tile that has glue or is stuck.");
     }
     
@@ -187,7 +323,12 @@ public class PuzzleC1Test
     public void accordingPSshouldRelocateTotileFromTile(){
         int [] fromTile = {0,0};
         int [] toTile = {7,2};
-        puzzle.relocateTile(fromTile,toTile);
+        try {
+			puzzle.relocateTile(fromTile,toTile);
+		} catch (relocateTileExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         assertTrue(puzzle.ok(),"You can relocate from tile to tile, because it fulfills all the conditions.");
     }
     
@@ -199,15 +340,41 @@ public class PuzzleC1Test
         int [] fromTile1 = {4,0};
         int [] toTile1 = {7,-2};
         
-        puzzle.relocateTile(fromTile,toTile);
-        puzzle.relocateTile(fromTile1,toTile1);
+        try {
+			puzzle.relocateTile(fromTile,toTile);
+		} catch (relocateTileExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        try {
+			puzzle.relocateTile(fromTile1,toTile1);
+		} catch (relocateTileExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         assertFalse(puzzle.ok(),"You cannot relocate a tile cuz there are invalid coordinates(negative or out of range).");
     }
     
     @Test
     public void accordingPSshouldntRelocateTileHole(){
-        puzzle.makeHole(7,2);
-        puzzle.makeHole(0,4);
+        try {
+			puzzle.makeHole(7,2);
+		} catch (makeHoleExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExceedPuzzleSpaceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        try {
+			puzzle.makeHole(0,4);
+		} catch (makeHoleExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExceedPuzzleSpaceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         int [] fromTile = {0,0};
         int [] toTile = {7,2};
@@ -215,15 +382,30 @@ public class PuzzleC1Test
         int [] fromTile1 = {0,4};
         int [] toTile1 = {8,1};
         
-        puzzle.relocateTile(fromTile,toTile);
-        puzzle.relocateTile(fromTile1,toTile1);
+        try {
+			puzzle.relocateTile(fromTile,toTile);
+		} catch (relocateTileExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        try {
+			puzzle.relocateTile(fromTile1,toTile1);
+		} catch (relocateTileExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         assertFalse(puzzle.ok(),"You cannot move a hole tile or you cannot relocate a tile to a position that has a hole.");
     }
     
     @Test
     public void accordingPSshouldntRelocateTileGlueStuck(){
-        puzzle.addGlue(0,0);
+        try {
+			puzzle.addGlue(0,0);
+		} catch (addDeleteGlueExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         
         int [] fromTile = {0,0};
@@ -232,8 +414,18 @@ public class PuzzleC1Test
         int [] fromTile1 = {1,0};
         int [] toTile1 = {8,1};
         
-        puzzle.relocateTile(fromTile,toTile);
-        puzzle.relocateTile(fromTile1,toTile1);
+        try {
+			puzzle.relocateTile(fromTile,toTile);
+		} catch (relocateTileExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        try {
+			puzzle.relocateTile(fromTile1,toTile1);
+		} catch (relocateTileExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         assertFalse(puzzle.ok(),"You cannot move a tile that has glue or is stuck.");
     }
@@ -247,8 +439,18 @@ public class PuzzleC1Test
         int [] fromTile1 = {8,1};
         int [] toTile1 = {7,2};
         
-        puzzle.relocateTile(fromTile,toTile);
-        puzzle.relocateTile(fromTile1,toTile1);
+        try {
+			puzzle.relocateTile(fromTile,toTile);
+		} catch (relocateTileExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        try {
+			puzzle.relocateTile(fromTile1,toTile1);
+		} catch (relocateTileExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         assertFalse(puzzle.ok(),"You cannot move a non-existent tile or there is already a tile in the destination position. ");
     }
@@ -258,33 +460,71 @@ public class PuzzleC1Test
     
     @Test
     public void accordingPSshouldAddGlue(){
-        puzzle.addGlue(1,5);
+        try {
+			puzzle.addGlue(1,5);
+		} catch (addDeleteGlueExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         assertTrue(puzzle.ok(),"You can add glue because that tile fulfills with all the conditions.");
     }
     
     @Test
     public void accordingPSshouldntAddGlueInvalidCoords(){
-        puzzle.addGlue(1,-5);
+        try {
+			puzzle.addGlue(1,-5);
+		} catch (addDeleteGlueExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         assertFalse(puzzle.ok(),"You cannot add a glue cuz there are invalid coordinates(negative or out of range).");
     }
     
     @Test
     public void accordingPSshouldntAddGlueHole(){
-        puzzle.makeHole(8,1);
-        puzzle.addGlue(8,1);
+        try {
+			puzzle.makeHole(8,1);
+		} catch (makeHoleExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExceedPuzzleSpaceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        try {
+			puzzle.addGlue(8,1);
+		} catch (addDeleteGlueExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         assertFalse(puzzle.ok(),"You cannot add glue on a hole tile.");
     }
     
     @Test
     public void accordingPSshouldntAddGlueEmpty(){
-        puzzle.addGlue(8,1);
+        try {
+			puzzle.addGlue(8,1);
+		} catch (addDeleteGlueExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         assertFalse(puzzle.ok(),"You cannot apply glue to an empty tile.");
     }
     
     @Test
     public void accordingPSshouldntAddGlueExistent(){
-        puzzle.addGlue(0,0);
-        puzzle.addGlue(0,0);
+        try {
+			puzzle.addGlue(0,0);
+		} catch (addDeleteGlueExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        try {
+			puzzle.addGlue(0,0);
+		} catch (addDeleteGlueExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         assertFalse(puzzle.ok(),"This tile already has glue applied.");
     }
     
@@ -292,33 +532,71 @@ public class PuzzleC1Test
     
     @Test
     public void accordingPSshouldDeleteGlue(){
-        puzzle.addGlue(0,0);
-        puzzle.deleteGlue(0,0);
+        try {
+			puzzle.addGlue(0,0);
+		} catch (addDeleteGlueExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        try {
+			puzzle.deleteGlue(0,0);
+		} catch (addDeleteGlueExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         assertTrue(puzzle.ok(),"You can delete glue because that tile fulfills with all the conditions.");
     }
     
     @Test
     public void accordingPSshouldntDeleteGlueInvalidCoords(){
-        puzzle.deleteGlue(1,-5);
+        try {
+			puzzle.deleteGlue(1,-5);
+		} catch (addDeleteGlueExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         assertFalse(puzzle.ok(),"You cannot delete glue cuz there are invalid coordinates(negative or out of range).");
     }
     
     @Test
     public void accordingPSshouldntDeleteGlueHole(){
-        puzzle.makeHole(8,1);
-        puzzle.deleteGlue(8,1);
+        try {
+			puzzle.makeHole(8,1);
+		} catch (makeHoleExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExceedPuzzleSpaceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        try {
+			puzzle.deleteGlue(8,1);
+		} catch (addDeleteGlueExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         assertFalse(puzzle.ok(),"You cannot delete glue on a hole tile.");
     }
     
     @Test
     public void accordingPSshouldntDeleteGlueEmpty(){
-        puzzle.deleteGlue(8,1);
+        try {
+			puzzle.deleteGlue(8,1);
+		} catch (addDeleteGlueExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         assertFalse(puzzle.ok(),"You cannot delete glue to an empty tile.");
     }
     
     @Test
     public void accordingPSshouldntAddGlueInexistent(){
-        puzzle.deleteGlue(0,0);
+        try {
+			puzzle.deleteGlue(0,0);
+		} catch (addDeleteGlueExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         assertFalse(puzzle.ok(),"There is no glue to remove on this tile.");
     }
     
@@ -326,16 +604,41 @@ public class PuzzleC1Test
     
     @Test
     public void accordingPSshouldTilt(){
-        puzzle.tilt('r');
-        puzzle.tilt('u');
-        puzzle.tilt('d');
-        puzzle.tilt('l');
+        try {
+			puzzle.tilt('r');
+		} catch (addDeleteGlueExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        try {
+			puzzle.tilt('u');
+		} catch (addDeleteGlueExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        try {
+			puzzle.tilt('d');
+		} catch (addDeleteGlueExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        try {
+			puzzle.tilt('l');
+		} catch (addDeleteGlueExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         assertTrue(puzzle.ok(),"You can tilt the actual board cuz it fulfills all the conditions.");
     }
     
     @Test
     public void accordingPSshouldntTiltLabel(){
-        puzzle.tilt('s');
+        try {
+			puzzle.tilt('s');
+		} catch (addDeleteGlueExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         assertFalse(puzzle.ok(),"You cannot tilt the actual board cuz invalid direction(inexistent).");
     }
     
@@ -349,7 +652,15 @@ public class PuzzleC1Test
     
     @Test
     public void accordingPSshouldntIsGoalBoolean(){
-        puzzle.addTile(0,4,'b');
+        try {
+			puzzle.addTile(0,4,'b');
+		} catch (addDeleteTileExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExceedPuzzleSpaceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         puzzle.isGoal();
         assertFalse(puzzle.ok(),"Returns false cuz starting != ending.");
     }
@@ -357,7 +668,12 @@ public class PuzzleC1Test
     // makeVisible method
     @Test
     public void accordingPSshouldMakeVisible(){
-        puzzle.makeVisible();
+        try {
+			puzzle.makeVisible();
+		} catch (makeVisibleInvisibleExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         assertTrue(puzzle.ok(),"Simulator makes visible.");
     }
     
@@ -365,7 +681,12 @@ public class PuzzleC1Test
     // makeInvisible method
     @Test
     public void accordingPSshouldMakeInvisible(){
-        puzzle.makeInvisible();
+        try {
+			puzzle.makeInvisible();
+		} catch (makeVisibleInvisibleExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         assertTrue(puzzle.ok(),"Simulator makes invisible.");
     }
     

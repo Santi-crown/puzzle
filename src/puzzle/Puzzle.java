@@ -67,6 +67,7 @@
         
         // Queue that will be useful to store tiles with fragileGlue (reason because of tilt), after tilt, all tiles must remove glue 
         private ArrayList<BaseTile> fragileGlueTilesQueue;
+        private ArrayList<BaseTile> wildTiles;
         
         /**
          * Constructor to initialize the boards without initial and final matrices.
@@ -94,6 +95,8 @@
                 // Initialize Fragile glue tiles matrix
                 fragileGlueTilesQueue = new ArrayList<>();
                 
+                // Initialize WildTiles
+                wildTiles = new ArrayList<>();
                 
                 // Create the initial and final boards
                 startingBoard = new Rectangle(h,w,100,50,"starting");
@@ -135,6 +138,9 @@
                 
                 // Initialize Fragile glue tiles matrix
                 fragileGlueTilesQueue = new ArrayList<>();
+                
+                // Initialize WildTiles
+                wildTiles = new ArrayList<>();
             
                 // Create the boards
                 startingBoard = new Rectangle(h, w, 100, 50, "starting");
@@ -176,6 +182,9 @@
                 
                 // Initialize Fragile glue tiles matrix
                 fragileGlueTilesQueue = new ArrayList<>();
+                
+                // Initialize WildTiles
+                wildTiles = new ArrayList<>();
                 
                 // Create the boards
                 startingBoard = new Rectangle(h,w,100,50,"starting");
@@ -399,6 +408,11 @@
                 if (tileType.equals("fl")) newTile.setLabel('f');
                 if (tileType.equals("ro")) newTile.setLabel('o');
                 if (tileType.equals("fi")) newTile.setLabel('x');
+                if(tileData.substring(0, 2).equals("wi")) {
+                	newTile.setLabel('w');
+                	// añadimos la nueva wildTile que creamos
+                	wildTiles.add(newTile);
+                }
 
                 this.ok = true;
 
@@ -861,6 +875,17 @@
                 	}
                 	fragileGlueTilesQueue.clear();	
                 }
+                
+                if (!wildTiles.isEmpty()) {            		            	
+            		for (BaseTile tile : wildTiles) {
+            			if (tile instanceof WildTile) {
+            		        // Process specified elements WildTile
+            				((WildTile) tile).setRandowColor();
+            			}            			
+            		
+            		}            	
+                }
+                
         
             } catch (PuzzleExceptions.tiltException e) {
                 showMessage(e.getMessage(), "Error");

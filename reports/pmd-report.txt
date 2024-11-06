@@ -1,0 +1,1468 @@
+src/puzzle/BaseTile.java:7:	CommentRequired:	CommentRequired: Class comments are required
+src/puzzle/BaseTile.java:7:	GodClass:	GodClass: Possible God Class (WMC=54, ATFD=6, TCC=5.871%)
+src/puzzle/BaseTile.java:7:	TooManyMethods:	TooManyMethods: This class has too many methods, consider refactoring it.
+src/puzzle/BaseTile.java:9:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/BaseTile.java:10:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/BaseTile.java:11:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/BaseTile.java:12:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/BaseTile.java:13:	AvoidFieldNameMatchingMethodName:	AvoidFieldNameMatchingMethodName: Field hasGlue has the same name as a method
+src/puzzle/BaseTile.java:13:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/BaseTile.java:13:	RedundantFieldInitializer:	RedundantFieldInitializer: Avoid using redundant field initializer for 'hasGlue'
+src/puzzle/BaseTile.java:14:	AvoidFieldNameMatchingMethodName:	AvoidFieldNameMatchingMethodName: Field isStuck has the same name as a method
+src/puzzle/BaseTile.java:14:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/BaseTile.java:14:	RedundantFieldInitializer:	RedundantFieldInitializer: Avoid using redundant field initializer for 'isStuck'
+src/puzzle/BaseTile.java:15:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/BaseTile.java:15:	RedundantFieldInitializer:	RedundantFieldInitializer: Avoid using redundant field initializer for 'visited'
+src/puzzle/BaseTile.java:16:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/BaseTile.java:17:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/BaseTile.java:18:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/BaseTile.java:19:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/BaseTile.java:19:	RedundantFieldInitializer:	RedundantFieldInitializer: Avoid using redundant field initializer for 'isHole'
+src/puzzle/BaseTile.java:20:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/BaseTile.java:20:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/BaseTile.java:20:	UnusedAssignment:	UnusedAssignment: The field initializer for 'isFixed' is never used (overwritten on line 32)
+src/puzzle/BaseTile.java:21:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/BaseTile.java:21:	RedundantFieldInitializer:	RedundantFieldInitializer: Avoid using redundant field initializer for 'superGlue'
+src/puzzle/BaseTile.java:22:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/BaseTile.java:22:	RedundantFieldInitializer:	RedundantFieldInitializer: Avoid using redundant field initializer for 'fragileGlue'
+src/puzzle/BaseTile.java:23:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/BaseTile.java:25:	CallSuperInConstructor:	CallSuperInConstructor: It is a good practice to call super() in a constructor
+src/puzzle/BaseTile.java:25:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/puzzle/BaseTile.java:25:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'column' is not assigned and could be declared final
+src/puzzle/BaseTile.java:25:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'label' is not assigned and could be declared final
+src/puzzle/BaseTile.java:25:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'row' is not assigned and could be declared final
+src/puzzle/BaseTile.java:25:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'xPosition' is not assigned and could be declared final
+src/puzzle/BaseTile.java:25:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'yPosition' is not assigned and could be declared final
+src/puzzle/BaseTile.java:33:	ConstructorCallsOverridableMethod:	ConstructorCallsOverridableMethod: Overridable method called during object construction: Rectangle.changeSize(int, int) 
+src/puzzle/BaseTile.java:34:	ConstructorCallsOverridableMethod:	ConstructorCallsOverridableMethod: Overridable method called during object construction: BaseTile.setTileColor(char) 
+src/puzzle/BaseTile.java:35:	ConstructorCallsOverridableMethod:	ConstructorCallsOverridableMethod: Overridable method called during object construction: BaseTile.moveHorizontal(int) 
+src/puzzle/BaseTile.java:36:	ConstructorCallsOverridableMethod:	ConstructorCallsOverridableMethod: Overridable method called during object construction: BaseTile.moveVertical(int) 
+src/puzzle/BaseTile.java:46:	CyclomaticComplexity:	CyclomaticComplexity: The method 'setTileColor(char)' has a cyclomatic complexity of 11.
+src/puzzle/BaseTile.java:46:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'label' is not assigned and could be declared final
+src/puzzle/BaseTile.java:47:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'lightBrown' could be declared final
+src/puzzle/BaseTile.java:99:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/BaseTile.java:103:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'newColor' is not assigned and could be declared final
+src/puzzle/BaseTile.java:124:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'hasGlue' is not assigned and could be declared final
+src/puzzle/BaseTile.java:129:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/puzzle/BaseTile.java:138:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'isStuck' is not assigned and could be declared final
+src/puzzle/BaseTile.java:165:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'newRow' is not assigned and could be declared final
+src/puzzle/BaseTile.java:183:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'newCol' is not assigned and could be declared final
+src/puzzle/BaseTile.java:201:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'newLabel' is not assigned and could be declared final
+src/puzzle/BaseTile.java:219:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'visited' is not assigned and could be declared final
+src/puzzle/BaseTile.java:237:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'xPos' is not assigned and could be declared final
+src/puzzle/BaseTile.java:255:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'yPos' is not assigned and could be declared final
+src/puzzle/BaseTile.java:264:	BooleanGetMethodName:	BooleanGetMethodName: A getX() method which returns a boolean or Boolean should be named isX()
+src/puzzle/BaseTile.java:273:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'isHole' is not assigned and could be declared final
+src/puzzle/BaseTile.java:290:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'originalColor' could be declared final
+src/puzzle/BaseTile.java:303:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'color' is not assigned and could be declared final
+src/puzzle/BaseTile.java:303:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'times' is not assigned and could be declared final
+src/puzzle/BaseTile.java:324:	BooleanGetMethodName:	BooleanGetMethodName: A getX() method which returns a boolean or Boolean should be named isX()
+src/puzzle/BaseTile.java:353:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'superGlue' is not assigned and could be declared final
+src/puzzle/BaseTile.java:361:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'centerX' could be declared final
+src/puzzle/BaseTile.java:362:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'centerY' could be declared final
+src/puzzle/BaseTile.java:376:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'fragileGlue' is not assigned and could be declared final
+src/puzzle/BaseTile.java:384:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'centerX' could be declared final
+src/puzzle/BaseTile.java:385:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'centerY' could be declared final
+src/puzzle/BaseTile.java:397:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/BaseTile.java:400:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'distance' is not assigned and could be declared final
+src/puzzle/BaseTile.java:410:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/BaseTile.java:413:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'distance' is not assigned and could be declared final
+src/puzzle/FixedTile.java:6:	CommentRequired:	CommentRequired: Class comments are required
+src/puzzle/FixedTile.java:7:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/FixedTile.java:7:	ImmutableField:	ImmutableField: Field 'innerRectangle' may be declared final
+src/puzzle/FixedTile.java:9:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/puzzle/FixedTile.java:9:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'column' is not assigned and could be declared final
+src/puzzle/FixedTile.java:9:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'label' is not assigned and could be declared final
+src/puzzle/FixedTile.java:9:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'row' is not assigned and could be declared final
+src/puzzle/FixedTile.java:9:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'xPosition' is not assigned and could be declared final
+src/puzzle/FixedTile.java:9:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'yPosition' is not assigned and could be declared final
+src/puzzle/FixedTile.java:11:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'innerSize' could be declared final
+src/puzzle/FixedTile.java:12:	ConstructorCallsOverridableMethod:	ConstructorCallsOverridableMethod: Overridable method called during object construction: BaseTile.getXPos() 
+src/puzzle/FixedTile.java:12:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'innerXPosition' could be declared final
+src/puzzle/FixedTile.java:13:	ConstructorCallsOverridableMethod:	ConstructorCallsOverridableMethod: Overridable method called during object construction: BaseTile.getYPos() 
+src/puzzle/FixedTile.java:13:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'innerYPosition' could be declared final
+src/puzzle/FixedTile.java:15:	ConstructorCallsOverridableMethod:	ConstructorCallsOverridableMethod: Overridable method called during object construction: FixedTile.makeVisible() 
+src/puzzle/FixedTile.java:22:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/FixedTile.java:28:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/FixedTile.java:32:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'distance' is not assigned and could be declared final
+src/puzzle/FixedTile.java:34:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/FixedTile.java:38:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'distance' is not assigned and could be declared final
+src/puzzle/FixedTile.java:40:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/FlyingTile.java:5:	CommentRequired:	CommentRequired: Class comments are required
+src/puzzle/FlyingTile.java:7:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/FlyingTile.java:7:	ImmutableField:	ImmutableField: Field 'innerCircle' may be declared final
+src/puzzle/FlyingTile.java:9:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/puzzle/FlyingTile.java:9:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'column' is not assigned and could be declared final
+src/puzzle/FlyingTile.java:9:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'label' is not assigned and could be declared final
+src/puzzle/FlyingTile.java:9:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'row' is not assigned and could be declared final
+src/puzzle/FlyingTile.java:9:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'xPosition' is not assigned and could be declared final
+src/puzzle/FlyingTile.java:9:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'yPosition' is not assigned and could be declared final
+src/puzzle/FlyingTile.java:11:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'innerSize' could be declared final
+src/puzzle/FlyingTile.java:12:	ConstructorCallsOverridableMethod:	ConstructorCallsOverridableMethod: Overridable method called during object construction: BaseTile.getXPos() 
+src/puzzle/FlyingTile.java:12:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'innerXPosition' could be declared final
+src/puzzle/FlyingTile.java:13:	ConstructorCallsOverridableMethod:	ConstructorCallsOverridableMethod: Overridable method called during object construction: BaseTile.getYPos() 
+src/puzzle/FlyingTile.java:13:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'innerYPosition' could be declared final
+src/puzzle/FlyingTile.java:14:	ConstructorCallsOverridableMethod:	ConstructorCallsOverridableMethod: Overridable method called during object construction: FlyingTile.makeVisible() 
+src/puzzle/FlyingTile.java:21:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/FlyingTile.java:27:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/FlyingTile.java:31:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'distance' is not assigned and could be declared final
+src/puzzle/FlyingTile.java:33:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/FlyingTile.java:37:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'distance' is not assigned and could be declared final
+src/puzzle/FlyingTile.java:39:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/FreelanceTile.java:4:	CommentRequired:	CommentRequired: Class comments are required
+src/puzzle/FreelanceTile.java:5:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/FreelanceTile.java:5:	ImmutableField:	ImmutableField: Field 'innerRectangle' may be declared final
+src/puzzle/FreelanceTile.java:7:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/puzzle/FreelanceTile.java:7:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'column' is not assigned and could be declared final
+src/puzzle/FreelanceTile.java:7:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'label' is not assigned and could be declared final
+src/puzzle/FreelanceTile.java:7:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'row' is not assigned and could be declared final
+src/puzzle/FreelanceTile.java:7:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'xPosition' is not assigned and could be declared final
+src/puzzle/FreelanceTile.java:7:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'yPosition' is not assigned and could be declared final
+src/puzzle/FreelanceTile.java:9:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'innerSize' could be declared final
+src/puzzle/FreelanceTile.java:10:	ConstructorCallsOverridableMethod:	ConstructorCallsOverridableMethod: Overridable method called during object construction: BaseTile.getXPos() 
+src/puzzle/FreelanceTile.java:10:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'innerXPosition' could be declared final
+src/puzzle/FreelanceTile.java:11:	ConstructorCallsOverridableMethod:	ConstructorCallsOverridableMethod: Overridable method called during object construction: BaseTile.getYPos() 
+src/puzzle/FreelanceTile.java:11:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'innerYPosition' could be declared final
+src/puzzle/FreelanceTile.java:13:	ConstructorCallsOverridableMethod:	ConstructorCallsOverridableMethod: Overridable method called during object construction: FreelanceTile.makeVisible() 
+src/puzzle/FreelanceTile.java:20:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/FreelanceTile.java:26:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/FreelanceTile.java:30:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'distance' is not assigned and could be declared final
+src/puzzle/FreelanceTile.java:32:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/FreelanceTile.java:36:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'distance' is not assigned and could be declared final
+src/puzzle/FreelanceTile.java:38:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/Puzzle.java:19:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/puzzle/Puzzle.java:20:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:21:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:31:	CyclomaticComplexity:	CyclomaticComplexity: The class 'Puzzle' has a total cyclomatic complexity of 469 (highest 22).
+src/puzzle/Puzzle.java:31:	GodClass:	GodClass: Possible God Class (WMC=469, ATFD=252, TCC=30.164%)
+src/puzzle/Puzzle.java:31:	TooManyMethods:	TooManyMethods: This class has too many methods, consider refactoring it.
+src/puzzle/Puzzle.java:34:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/Puzzle.java:34:	ShortVariable:	ShortVariable: Avoid variables with short names like h
+src/puzzle/Puzzle.java:35:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/Puzzle.java:35:	ShortVariable:	ShortVariable: Avoid variables with short names like w
+src/puzzle/Puzzle.java:38:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/Puzzle.java:39:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/Puzzle.java:42:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/Puzzle.java:42:	UnusedPrivateField:	UnusedPrivateField: Avoid unused private fields such as 'color'.
+src/puzzle/Puzzle.java:45:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/Puzzle.java:46:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/Puzzle.java:49:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/Puzzle.java:50:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/Puzzle.java:53:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/Puzzle.java:56:	AvoidFieldNameMatchingMethodName:	AvoidFieldNameMatchingMethodName: Field ok has the same name as a method
+src/puzzle/Puzzle.java:56:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/Puzzle.java:56:	ShortVariable:	ShortVariable: Avoid variables with short names like ok
+src/puzzle/Puzzle.java:59:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/Puzzle.java:59:	UnusedPrivateField:	UnusedPrivateField: Avoid unused private fields such as 'circle'.
+src/puzzle/Puzzle.java:62:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/Puzzle.java:62:	MutableStaticState:	MutableStaticState: Do not use non-final non-private static fields
+src/puzzle/Puzzle.java:65:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/Puzzle.java:66:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/Puzzle.java:68:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:69:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/Puzzle.java:69:	LongVariable:	LongVariable: Avoid excessively long variable names like fragileGlueTilesQueue
+src/puzzle/Puzzle.java:69:	LooseCoupling:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/puzzle/Puzzle.java:76:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:77:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:79:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'h' is not assigned and could be declared final
+src/puzzle/Puzzle.java:79:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'w' is not assigned and could be declared final
+src/puzzle/Puzzle.java:79:	ShortVariable:	ShortVariable: Avoid variables with short names like h
+src/puzzle/Puzzle.java:79:	ShortVariable:	ShortVariable: Avoid variables with short names like w
+src/puzzle/Puzzle.java:81:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/Puzzle.java:82:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/Puzzle.java:103:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'emptyCharList' could be declared final
+src/puzzle/Puzzle.java:107:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 81 is caught in this block.
+src/puzzle/Puzzle.java:108:	AvoidDuplicateLiterals:	AvoidDuplicateLiterals: The String literal "Error" appears 14 times in this file; the first occurrence is on line 108
+src/puzzle/Puzzle.java:121:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'ending' is not assigned and could be declared final
+src/puzzle/Puzzle.java:121:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'starting' is not assigned and could be declared final
+src/puzzle/Puzzle.java:121:	UseVarargs:	UseVarargs: Consider using varargs for methods or constructors which take an array the last parameter.
+src/puzzle/Puzzle.java:123:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/Puzzle.java:126:	ArrayIsStoredDirectly:	ArrayIsStoredDirectly: The user-supplied array 'starting' is stored directly.
+src/puzzle/Puzzle.java:127:	ArrayIsStoredDirectly:	ArrayIsStoredDirectly: The user-supplied array 'ending' is stored directly.
+src/puzzle/Puzzle.java:149:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 123 is caught in this block.
+src/puzzle/Puzzle.java:162:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'ending' is not assigned and could be declared final
+src/puzzle/Puzzle.java:162:	UseVarargs:	UseVarargs: Consider using varargs for methods or constructors which take an array the last parameter.
+src/puzzle/Puzzle.java:164:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/Puzzle.java:167:	ArrayIsStoredDirectly:	ArrayIsStoredDirectly: The user-supplied array 'ending' is stored directly.
+src/puzzle/Puzzle.java:185:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'emptyCharList' could be declared final
+src/puzzle/Puzzle.java:194:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 164 is caught in this block.
+src/puzzle/Puzzle.java:206:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'emptyCharList' could be declared final
+src/puzzle/Puzzle.java:220:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:222:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'board' is not assigned and could be declared final
+src/puzzle/Puzzle.java:222:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'startingBoard' is not assigned and could be declared final
+src/puzzle/Puzzle.java:222:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'tileList' is not assigned and could be declared final
+src/puzzle/Puzzle.java:224:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'yOffset' could be declared final
+src/puzzle/Puzzle.java:226:	SimplifyBooleanExpressions:	SimplifyBooleanExpressions: Avoid unnecessary comparisons in boolean expressions
+src/puzzle/Puzzle.java:230:	AvoidInstantiatingObjectsInLoops:	AvoidInstantiatingObjectsInLoops: Avoid instantiating new objects inside loops
+src/puzzle/Puzzle.java:230:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'rowList' could be declared final
+src/puzzle/Puzzle.java:232:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'label' could be declared final
+src/puzzle/Puzzle.java:233:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'xPosition' could be declared final
+src/puzzle/Puzzle.java:234:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'yPosition' could be declared final
+src/puzzle/Puzzle.java:235:	AvoidInstantiatingObjectsInLoops:	AvoidInstantiatingObjectsInLoops: Avoid instantiating new objects inside loops
+src/puzzle/Puzzle.java:235:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:262:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/puzzle/Puzzle.java:263:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:266:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:271:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:275:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'column' is not assigned and could be declared final
+src/puzzle/Puzzle.java:275:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'row' is not assigned and could be declared final
+src/puzzle/Puzzle.java:275:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'tileData' is not assigned and could be declared final
+src/puzzle/Puzzle.java:275:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'xPosition' is not assigned and could be declared final
+src/puzzle/Puzzle.java:275:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'yPosition' is not assigned and could be declared final
+src/puzzle/Puzzle.java:276:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tileInformation' could be declared final
+src/puzzle/Puzzle.java:277:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'kindOfTile' could be declared final
+src/puzzle/Puzzle.java:278:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'label' could be declared final
+src/puzzle/Puzzle.java:282:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/Puzzle.java:284:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/Puzzle.java:286:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/Puzzle.java:288:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/Puzzle.java:297:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/puzzle/Puzzle.java:303:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:304:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:306:	CyclomaticComplexity:	CyclomaticComplexity: The method 'addTile(int, int, char)' has a cyclomatic complexity of 17.
+src/puzzle/Puzzle.java:306:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'column' is not assigned and could be declared final
+src/puzzle/Puzzle.java:306:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'label' is not assigned and could be declared final
+src/puzzle/Puzzle.java:306:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'row' is not assigned and could be declared final
+src/puzzle/Puzzle.java:309:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'validLabels' could be declared final
+src/puzzle/Puzzle.java:313:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'validLabel' could be declared final
+src/puzzle/Puzzle.java:332:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'previousTile' could be declared final
+src/puzzle/Puzzle.java:334:	AvoidLiteralsInIfCondition:	AvoidLiteralsInIfCondition: Avoid using literals in if statements
+src/puzzle/Puzzle.java:346:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 321 is caught in this block.
+src/puzzle/Puzzle.java:346:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 326 is caught in this block.
+src/puzzle/Puzzle.java:346:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 329 is caught in this block.
+src/puzzle/Puzzle.java:346:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 335 is caught in this block.
+src/puzzle/Puzzle.java:346:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 338 is caught in this block.
+src/puzzle/Puzzle.java:355:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/puzzle/Puzzle.java:356:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:361:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:362:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:363:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:365:	CyclomaticComplexity:	CyclomaticComplexity: The method 'addTile(int, int, String)' has a cyclomatic complexity of 22.
+src/puzzle/Puzzle.java:365:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'column' is not assigned and could be declared final
+src/puzzle/Puzzle.java:365:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'row' is not assigned and could be declared final
+src/puzzle/Puzzle.java:365:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'tileData' is not assigned and could be declared final
+src/puzzle/Puzzle.java:365:	NPathComplexity:	NPathComplexity: The method 'addTile(int, int, String)' has an NPath complexity of 1201, current threshold is 200
+src/puzzle/Puzzle.java:374:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'currentTile' could be declared final
+src/puzzle/Puzzle.java:376:	AvoidLiteralsInIfCondition:	AvoidLiteralsInIfCondition: Avoid using literals in if statements
+src/puzzle/Puzzle.java:383:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tileType' could be declared final
+src/puzzle/Puzzle.java:384:	LiteralsFirstInComparisons:	LiteralsFirstInComparisons: Position literals first in String comparisons
+src/puzzle/Puzzle.java:384:	LiteralsFirstInComparisons:	LiteralsFirstInComparisons: Position literals first in String comparisons
+src/puzzle/Puzzle.java:384:	LiteralsFirstInComparisons:	LiteralsFirstInComparisons: Position literals first in String comparisons
+src/puzzle/Puzzle.java:384:	LiteralsFirstInComparisons:	LiteralsFirstInComparisons: Position literals first in String comparisons
+src/puzzle/Puzzle.java:388:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'xPosition' could be declared final
+src/puzzle/Puzzle.java:389:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'yPosition' could be declared final
+src/puzzle/Puzzle.java:392:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'newTile' could be declared final
+src/puzzle/Puzzle.java:398:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/Puzzle.java:398:	LiteralsFirstInComparisons:	LiteralsFirstInComparisons: Position literals first in String comparisons
+src/puzzle/Puzzle.java:399:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/Puzzle.java:399:	LiteralsFirstInComparisons:	LiteralsFirstInComparisons: Position literals first in String comparisons
+src/puzzle/Puzzle.java:400:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/Puzzle.java:400:	LiteralsFirstInComparisons:	LiteralsFirstInComparisons: Position literals first in String comparisons
+src/puzzle/Puzzle.java:401:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/Puzzle.java:401:	LiteralsFirstInComparisons:	LiteralsFirstInComparisons: Position literals first in String comparisons
+src/puzzle/Puzzle.java:405:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 369 is caught in this block.
+src/puzzle/Puzzle.java:405:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 371 is caught in this block.
+src/puzzle/Puzzle.java:405:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 377 is caught in this block.
+src/puzzle/Puzzle.java:405:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 379 is caught in this block.
+src/puzzle/Puzzle.java:405:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 385 is caught in this block.
+src/puzzle/Puzzle.java:419:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:420:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:422:	CyclomaticComplexity:	CyclomaticComplexity: The method 'deleteTile(int, int)' has a cyclomatic complexity of 18.
+src/puzzle/Puzzle.java:422:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'column' is not assigned and could be declared final
+src/puzzle/Puzzle.java:422:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'row' is not assigned and could be declared final
+src/puzzle/Puzzle.java:431:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'previousTile' could be declared final
+src/puzzle/Puzzle.java:434:	AvoidLiteralsInIfCondition:	AvoidLiteralsInIfCondition: Avoid using literals in if statements
+src/puzzle/Puzzle.java:450:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 426 is caught in this block.
+src/puzzle/Puzzle.java:450:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 428 is caught in this block.
+src/puzzle/Puzzle.java:450:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 435 is caught in this block.
+src/puzzle/Puzzle.java:450:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 437 is caught in this block.
+src/puzzle/Puzzle.java:450:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 439 is caught in this block.
+src/puzzle/Puzzle.java:450:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 441 is caught in this block.
+src/puzzle/Puzzle.java:461:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:462:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:463:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:465:	CyclomaticComplexity:	CyclomaticComplexity: The method 'relocateTile(int[], int[])' has a cyclomatic complexity of 19.
+src/puzzle/Puzzle.java:465:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'from' is not assigned and could be declared final
+src/puzzle/Puzzle.java:465:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'to' is not assigned and could be declared final
+src/puzzle/Puzzle.java:465:	ShortVariable:	ShortVariable: Avoid variables with short names like to
+src/puzzle/Puzzle.java:465:	UseVarargs:	UseVarargs: Consider using varargs for methods or constructors which take an array the last parameter.
+src/puzzle/Puzzle.java:472:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'fromTile' could be declared final
+src/puzzle/Puzzle.java:473:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'toTile' could be declared final
+src/puzzle/Puzzle.java:476:	AvoidLiteralsInIfCondition:	AvoidLiteralsInIfCondition: Avoid using literals in if statements
+src/puzzle/Puzzle.java:478:	AvoidLiteralsInIfCondition:	AvoidLiteralsInIfCondition: Avoid using literals in if statements
+src/puzzle/Puzzle.java:482:	ConfusingTernary:	ConfusingTernary: Avoid if (x != y) ..; else ..;
+src/puzzle/Puzzle.java:494:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 469 is caught in this block.
+src/puzzle/Puzzle.java:494:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 477 is caught in this block.
+src/puzzle/Puzzle.java:494:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 479 is caught in this block.
+src/puzzle/Puzzle.java:494:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 481 is caught in this block.
+src/puzzle/Puzzle.java:494:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 483 is caught in this block.
+src/puzzle/Puzzle.java:494:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 485 is caught in this block.
+src/puzzle/Puzzle.java:494:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 487 is caught in this block.
+src/puzzle/Puzzle.java:510:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'from' is not assigned and could be declared final
+src/puzzle/Puzzle.java:510:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'fromTile' is not assigned and could be declared final
+src/puzzle/Puzzle.java:510:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'to' is not assigned and could be declared final
+src/puzzle/Puzzle.java:510:	ShortVariable:	ShortVariable: Avoid variables with short names like to
+src/puzzle/Puzzle.java:510:	UnusedFormalParameter:	UnusedFormalParameter: Avoid unused method parameters such as 'toTile'.
+src/puzzle/Puzzle.java:510:	UseVarargs:	UseVarargs: Consider using varargs for methods or constructors which take an array the last parameter.
+src/puzzle/Puzzle.java:523:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'emptyTile' could be declared final
+src/puzzle/Puzzle.java:533:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'coords' is not assigned and could be declared final
+src/puzzle/Puzzle.java:533:	UseVarargs:	UseVarargs: Consider using varargs for methods or constructors which take an array the last parameter.
+src/puzzle/Puzzle.java:543:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:545:	CyclomaticComplexity:	CyclomaticComplexity: The method 'addGlue(int, int)' has a cyclomatic complexity of 13.
+src/puzzle/Puzzle.java:545:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'column' is not assigned and could be declared final
+src/puzzle/Puzzle.java:545:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'row' is not assigned and could be declared final
+src/puzzle/Puzzle.java:547:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:552:	AvoidLiteralsInIfCondition:	AvoidLiteralsInIfCondition: Avoid using literals in if statements
+src/puzzle/Puzzle.java:569:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'evenPalerColor' could be declared final
+src/puzzle/Puzzle.java:576:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'group' could be declared final
+src/puzzle/Puzzle.java:584:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 550 is caught in this block.
+src/puzzle/Puzzle.java:584:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 553 is caught in this block.
+src/puzzle/Puzzle.java:584:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 556 is caught in this block.
+src/puzzle/Puzzle.java:584:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 559 is caught in this block.
+src/puzzle/Puzzle.java:584:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 562 is caught in this block.
+src/puzzle/Puzzle.java:598:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:600:	CyclomaticComplexity:	CyclomaticComplexity: The method 'addGlue(int, int, String)' has a cyclomatic complexity of 20.
+src/puzzle/Puzzle.java:600:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'column' is not assigned and could be declared final
+src/puzzle/Puzzle.java:600:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'glueType' is not assigned and could be declared final
+src/puzzle/Puzzle.java:600:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'row' is not assigned and could be declared final
+src/puzzle/Puzzle.java:602:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:605:	LiteralsFirstInComparisons:	LiteralsFirstInComparisons: Position literals first in String comparisons
+src/puzzle/Puzzle.java:605:	LiteralsFirstInComparisons:	LiteralsFirstInComparisons: Position literals first in String comparisons
+src/puzzle/Puzzle.java:612:	AvoidLiteralsInIfCondition:	AvoidLiteralsInIfCondition: Avoid using literals in if statements
+src/puzzle/Puzzle.java:627:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'evenPalerColor' could be declared final
+src/puzzle/Puzzle.java:633:	LiteralsFirstInComparisons:	LiteralsFirstInComparisons: Position literals first in String comparisons
+src/puzzle/Puzzle.java:638:	LiteralsFirstInComparisons:	LiteralsFirstInComparisons: Position literals first in String comparisons
+src/puzzle/Puzzle.java:646:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 606 is caught in this block.
+src/puzzle/Puzzle.java:646:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 610 is caught in this block.
+src/puzzle/Puzzle.java:646:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 613 is caught in this block.
+src/puzzle/Puzzle.java:646:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 616 is caught in this block.
+src/puzzle/Puzzle.java:646:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 619 is caught in this block.
+src/puzzle/Puzzle.java:646:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 622 is caught in this block.
+src/puzzle/Puzzle.java:661:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'tile' is not assigned and could be declared final
+src/puzzle/Puzzle.java:661:	UnusedPrivateMethod:	UnusedPrivateMethod: Avoid unused private methods such as 'hasSuperGlue(BaseTile)'.
+src/puzzle/Puzzle.java:662:	SimplifyBooleanReturns:	SimplifyBooleanReturns: This if statement can be replaced by `return {condition} && {thenBranch};`
+src/puzzle/Puzzle.java:663:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/Puzzle.java:663:	UnnecessaryCast:	UnnecessaryCast: Unnecessary cast (BaseTile)
+src/puzzle/Puzzle.java:674:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:676:	CyclomaticComplexity:	CyclomaticComplexity: The method 'deleteGlue(int, int)' has a cyclomatic complexity of 14.
+src/puzzle/Puzzle.java:676:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'column' is not assigned and could be declared final
+src/puzzle/Puzzle.java:676:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'row' is not assigned and could be declared final
+src/puzzle/Puzzle.java:678:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:683:	AvoidLiteralsInIfCondition:	AvoidLiteralsInIfCondition: Avoid using literals in if statements
+src/puzzle/Puzzle.java:696:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/Puzzle.java:697:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/Puzzle.java:701:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'slightlyPalerColor' could be declared final
+src/puzzle/Puzzle.java:701:	LongVariable:	LongVariable: Avoid excessively long variable names like slightlyPalerColor
+src/puzzle/Puzzle.java:709:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'group' could be declared final
+src/puzzle/Puzzle.java:717:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 681 is caught in this block.
+src/puzzle/Puzzle.java:717:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 684 is caught in this block.
+src/puzzle/Puzzle.java:717:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 687 is caught in this block.
+src/puzzle/Puzzle.java:717:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 690 is caught in this block.
+src/puzzle/Puzzle.java:730:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'tile' is not assigned and could be declared final
+src/puzzle/Puzzle.java:731:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'row' could be declared final
+src/puzzle/Puzzle.java:732:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'column' could be declared final
+src/puzzle/Puzzle.java:733:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'directions' could be declared final
+src/puzzle/Puzzle.java:734:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'dir' could be declared final
+src/puzzle/Puzzle.java:735:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'adjRow' could be declared final
+src/puzzle/Puzzle.java:736:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'adjCol' could be declared final
+src/puzzle/Puzzle.java:737:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'adjacentTile' could be declared final
+src/puzzle/Puzzle.java:743:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'paleColor' could be declared final
+src/puzzle/Puzzle.java:755:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'tile' is not assigned and could be declared final
+src/puzzle/Puzzle.java:756:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'row' could be declared final
+src/puzzle/Puzzle.java:757:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'column' could be declared final
+src/puzzle/Puzzle.java:758:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'directions' could be declared final
+src/puzzle/Puzzle.java:759:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'dir' could be declared final
+src/puzzle/Puzzle.java:760:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'adjRow' could be declared final
+src/puzzle/Puzzle.java:761:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'adjCol' could be declared final
+src/puzzle/Puzzle.java:762:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'adjacentTile' could be declared final
+src/puzzle/Puzzle.java:772:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'slightlyPalerColor' could be declared final
+src/puzzle/Puzzle.java:772:	LongVariable:	LongVariable: Avoid excessively long variable names like slightlyPalerColor
+src/puzzle/Puzzle.java:786:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'tile' is not assigned and could be declared final
+src/puzzle/Puzzle.java:787:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'row' could be declared final
+src/puzzle/Puzzle.java:788:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'column' could be declared final
+src/puzzle/Puzzle.java:789:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'directions' could be declared final
+src/puzzle/Puzzle.java:791:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'dir' could be declared final
+src/puzzle/Puzzle.java:792:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'adjRow' could be declared final
+src/puzzle/Puzzle.java:793:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'adjCol' could be declared final
+src/puzzle/Puzzle.java:794:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'adjacentTile' could be declared final
+src/puzzle/Puzzle.java:796:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/Puzzle.java:809:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'color' is not assigned and could be declared final
+src/puzzle/Puzzle.java:809:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'palenessFactor' is not assigned and could be declared final
+src/puzzle/Puzzle.java:810:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'r' could be declared final
+src/puzzle/Puzzle.java:810:	ShortVariable:	ShortVariable: Avoid variables with short names like r
+src/puzzle/Puzzle.java:811:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'g' could be declared final
+src/puzzle/Puzzle.java:811:	ShortVariable:	ShortVariable: Avoid variables with short names like g
+src/puzzle/Puzzle.java:812:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'b' could be declared final
+src/puzzle/Puzzle.java:812:	ShortVariable:	ShortVariable: Avoid variables with short names like b
+src/puzzle/Puzzle.java:819:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:820:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:822:	CyclomaticComplexity:	CyclomaticComplexity: The method 'tilt(char)' has a cyclomatic complexity of 13.
+src/puzzle/Puzzle.java:822:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'direction' is not assigned and could be declared final
+src/puzzle/Puzzle.java:859:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:865:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 854 is caught in this block.
+src/puzzle/Puzzle.java:876:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:880:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'direction' is not assigned and could be declared final
+src/puzzle/Puzzle.java:894:	CognitiveComplexity:	CognitiveComplexity: The method 'tiltUpWithGlue(int)' has a cognitive complexity of 27, current threshold is 15
+src/puzzle/Puzzle.java:894:	CyclomaticComplexity:	CyclomaticComplexity: The method 'tiltUpWithGlue(int)' has a cyclomatic complexity of 13.
+src/puzzle/Puzzle.java:894:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'col' is not assigned and could be declared final
+src/puzzle/Puzzle.java:895:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'groups' could be declared final
+src/puzzle/Puzzle.java:896:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'flyingTiles' could be declared final
+src/puzzle/Puzzle.java:899:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:905:	AvoidInstantiatingObjectsInLoops:	AvoidInstantiatingObjectsInLoops: Avoid instantiating new objects inside loops
+src/puzzle/Puzzle.java:905:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'group' could be declared final
+src/puzzle/Puzzle.java:906:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'isGluedOrStuck' could be declared final
+src/puzzle/Puzzle.java:922:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:923:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'maxMove' could be declared final
+src/puzzle/Puzzle.java:931:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'group' could be declared final
+src/puzzle/Puzzle.java:932:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'isGluedOrStuck' could be declared final
+src/puzzle/Puzzle.java:933:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'maxMove' could be declared final
+src/puzzle/Puzzle.java:937:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:956:	CognitiveComplexity:	CognitiveComplexity: The method 'tiltDownWithGlue(int)' has a cognitive complexity of 27, current threshold is 15
+src/puzzle/Puzzle.java:956:	CyclomaticComplexity:	CyclomaticComplexity: The method 'tiltDownWithGlue(int)' has a cyclomatic complexity of 13.
+src/puzzle/Puzzle.java:956:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'col' is not assigned and could be declared final
+src/puzzle/Puzzle.java:957:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'groups' could be declared final
+src/puzzle/Puzzle.java:958:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'flyingTiles' could be declared final
+src/puzzle/Puzzle.java:961:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:967:	AvoidInstantiatingObjectsInLoops:	AvoidInstantiatingObjectsInLoops: Avoid instantiating new objects inside loops
+src/puzzle/Puzzle.java:967:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'group' could be declared final
+src/puzzle/Puzzle.java:968:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'isGluedOrStuck' could be declared final
+src/puzzle/Puzzle.java:984:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:985:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'maxMove' could be declared final
+src/puzzle/Puzzle.java:991:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'maxRow1' could be declared final
+src/puzzle/Puzzle.java:992:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'maxRow2' could be declared final
+src/puzzle/Puzzle.java:997:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'group' could be declared final
+src/puzzle/Puzzle.java:998:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'isGluedOrStuck' could be declared final
+src/puzzle/Puzzle.java:999:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'maxMove' could be declared final
+src/puzzle/Puzzle.java:1003:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:1021:	CognitiveComplexity:	CognitiveComplexity: The method 'tiltLeftWithGlue(int)' has a cognitive complexity of 27, current threshold is 15
+src/puzzle/Puzzle.java:1021:	CyclomaticComplexity:	CyclomaticComplexity: The method 'tiltLeftWithGlue(int)' has a cyclomatic complexity of 13.
+src/puzzle/Puzzle.java:1021:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'row' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1022:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'groups' could be declared final
+src/puzzle/Puzzle.java:1023:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'flyingTiles' could be declared final
+src/puzzle/Puzzle.java:1026:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:1032:	AvoidInstantiatingObjectsInLoops:	AvoidInstantiatingObjectsInLoops: Avoid instantiating new objects inside loops
+src/puzzle/Puzzle.java:1032:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'group' could be declared final
+src/puzzle/Puzzle.java:1033:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'isGluedOrStuck' could be declared final
+src/puzzle/Puzzle.java:1049:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:1050:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'maxMove' could be declared final
+src/puzzle/Puzzle.java:1058:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'group' could be declared final
+src/puzzle/Puzzle.java:1059:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'isGluedOrStuck' could be declared final
+src/puzzle/Puzzle.java:1060:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'maxMove' could be declared final
+src/puzzle/Puzzle.java:1064:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:1084:	CognitiveComplexity:	CognitiveComplexity: The method 'tiltRightWithGlue(int)' has a cognitive complexity of 27, current threshold is 15
+src/puzzle/Puzzle.java:1084:	CyclomaticComplexity:	CyclomaticComplexity: The method 'tiltRightWithGlue(int)' has a cyclomatic complexity of 13.
+src/puzzle/Puzzle.java:1084:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'row' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1085:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'groups' could be declared final
+src/puzzle/Puzzle.java:1086:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'flyingTiles' could be declared final
+src/puzzle/Puzzle.java:1089:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:1095:	AvoidInstantiatingObjectsInLoops:	AvoidInstantiatingObjectsInLoops: Avoid instantiating new objects inside loops
+src/puzzle/Puzzle.java:1095:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'group' could be declared final
+src/puzzle/Puzzle.java:1096:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'isGluedOrStuck' could be declared final
+src/puzzle/Puzzle.java:1112:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:1113:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'maxMove' could be declared final
+src/puzzle/Puzzle.java:1119:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'maxCol1' could be declared final
+src/puzzle/Puzzle.java:1120:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'maxCol2' could be declared final
+src/puzzle/Puzzle.java:1125:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'group' could be declared final
+src/puzzle/Puzzle.java:1126:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'isGluedOrStuck' could be declared final
+src/puzzle/Puzzle.java:1127:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'maxMove' could be declared final
+src/puzzle/Puzzle.java:1131:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:1144:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'tile' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1145:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'row' could be declared final
+src/puzzle/Puzzle.java:1146:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'col' could be declared final
+src/puzzle/Puzzle.java:1149:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'nextTile' could be declared final
+src/puzzle/Puzzle.java:1159:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'steps' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1159:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'tile' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1160:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/Puzzle.java:1164:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'newRow' could be declared final
+src/puzzle/Puzzle.java:1170:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'tile' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1171:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'row' could be declared final
+src/puzzle/Puzzle.java:1172:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'col' could be declared final
+src/puzzle/Puzzle.java:1175:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'nextTile' could be declared final
+src/puzzle/Puzzle.java:1185:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'steps' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1185:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'tile' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1186:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/Puzzle.java:1190:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'newRow' could be declared final
+src/puzzle/Puzzle.java:1196:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'tile' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1197:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'row' could be declared final
+src/puzzle/Puzzle.java:1198:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'col' could be declared final
+src/puzzle/Puzzle.java:1201:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'nextTile' could be declared final
+src/puzzle/Puzzle.java:1211:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'steps' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1211:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'tile' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1212:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/Puzzle.java:1216:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'newCol' could be declared final
+src/puzzle/Puzzle.java:1222:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'tile' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1223:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'row' could be declared final
+src/puzzle/Puzzle.java:1224:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'col' could be declared final
+src/puzzle/Puzzle.java:1227:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'nextTile' could be declared final
+src/puzzle/Puzzle.java:1237:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'steps' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1237:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'tile' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1238:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/Puzzle.java:1242:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'newCol' could be declared final
+src/puzzle/Puzzle.java:1252:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/puzzle/Puzzle.java:1259:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:1261:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'column' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1261:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'group' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1261:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'isGluedOrStuck' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1261:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'row' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1264:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'nextTile' could be declared final
+src/puzzle/Puzzle.java:1271:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/Puzzle.java:1287:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:1289:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'group' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1289:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'isGluedOrStuck' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1291:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:1292:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tileMaxMove' could be declared final
+src/puzzle/Puzzle.java:1295:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/Puzzle.java:1304:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/puzzle/Puzzle.java:1311:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:1313:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'column' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1313:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'group' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1313:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'isGluedOrStuck' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1313:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'row' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1316:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'nextTile' could be declared final
+src/puzzle/Puzzle.java:1321:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/Puzzle.java:1337:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:1339:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'group' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1339:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'isGluedOrStuck' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1341:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:1342:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tileMaxMove' could be declared final
+src/puzzle/Puzzle.java:1344:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/Puzzle.java:1352:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/puzzle/Puzzle.java:1359:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:1361:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'column' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1361:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'group' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1361:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'isGluedOrStuck' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1361:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'row' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1364:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'nextTile' could be declared final
+src/puzzle/Puzzle.java:1369:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/Puzzle.java:1385:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:1387:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'group' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1387:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'isGluedOrStuck' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1389:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:1390:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tileMaxMove' could be declared final
+src/puzzle/Puzzle.java:1392:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/Puzzle.java:1400:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/puzzle/Puzzle.java:1407:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:1409:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'column' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1409:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'group' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1409:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'isGluedOrStuck' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1409:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'row' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1412:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'nextTile' could be declared final
+src/puzzle/Puzzle.java:1417:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/Puzzle.java:1433:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:1435:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'group' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1435:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'isGluedOrStuck' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1437:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:1438:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tileMaxMove' could be declared final
+src/puzzle/Puzzle.java:1440:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/Puzzle.java:1456:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'group' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1456:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'steps' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1457:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/Puzzle.java:1461:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:1465:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:1466:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'newRow' could be declared final
+src/puzzle/Puzzle.java:1480:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'group' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1480:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'steps' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1481:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/Puzzle.java:1485:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:1489:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:1490:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'newRow' could be declared final
+src/puzzle/Puzzle.java:1504:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'group' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1504:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'steps' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1505:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/Puzzle.java:1509:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:1513:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:1514:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'newCol' could be declared final
+src/puzzle/Puzzle.java:1528:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'group' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1528:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'steps' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1529:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/Puzzle.java:1533:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:1537:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:1538:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'newCol' could be declared final
+src/puzzle/Puzzle.java:1546:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:1552:	CyclomaticComplexity:	CyclomaticComplexity: The method 'collectStuckGroup(BaseTile, List<BaseTile>)' has a cyclomatic complexity of 10.
+src/puzzle/Puzzle.java:1552:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'group' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1552:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'tile' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1553:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/Puzzle.java:1556:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'row' could be declared final
+src/puzzle/Puzzle.java:1557:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'column' could be declared final
+src/puzzle/Puzzle.java:1558:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'directions' could be declared final
+src/puzzle/Puzzle.java:1559:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'dir' could be declared final
+src/puzzle/Puzzle.java:1560:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'adjRow' could be declared final
+src/puzzle/Puzzle.java:1561:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'adjCol' could be declared final
+src/puzzle/Puzzle.java:1562:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'adjacentTile' could be declared final
+src/puzzle/Puzzle.java:1578:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'column' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1578:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'row' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1580:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/Puzzle.java:1591:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'tile' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1592:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/Puzzle.java:1592:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/Puzzle.java:1600:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'rowList' could be declared final
+src/puzzle/Puzzle.java:1601:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:1614:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'column' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1614:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'row' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1615:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'xPosition' could be declared final
+src/puzzle/Puzzle.java:1616:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'yPosition' could be declared final
+src/puzzle/Puzzle.java:1617:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'emptyTile' could be declared final
+src/puzzle/Puzzle.java:1633:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'message' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1633:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'title' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1647:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:1650:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'currentTile' could be declared final
+src/puzzle/Puzzle.java:1651:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'currentLabel' could be declared final
+src/puzzle/Puzzle.java:1653:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'targetTile' could be declared final
+src/puzzle/Puzzle.java:1654:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'targetLabel' could be declared final
+src/puzzle/Puzzle.java:1662:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/Puzzle.java:1676:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:1679:	CyclomaticComplexity:	CyclomaticComplexity: The method 'makeVisible()' has a cyclomatic complexity of 11.
+src/puzzle/Puzzle.java:1681:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/Puzzle.java:1682:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/Puzzle.java:1690:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'row' could be declared final
+src/puzzle/Puzzle.java:1691:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:1696:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'row' could be declared final
+src/puzzle/Puzzle.java:1697:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:1704:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 1.681 is caught in this block.
+src/puzzle/Puzzle.java:1704:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 1.682 is caught in this block.
+src/puzzle/Puzzle.java:1715:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:1718:	CyclomaticComplexity:	CyclomaticComplexity: The method 'makeInvisible()' has a cyclomatic complexity of 11.
+src/puzzle/Puzzle.java:1720:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/Puzzle.java:1721:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/Puzzle.java:1725:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'row' could be declared final
+src/puzzle/Puzzle.java:1726:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:1731:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'row' could be declared final
+src/puzzle/Puzzle.java:1732:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:1742:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 1.720 is caught in this block.
+src/puzzle/Puzzle.java:1742:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 1.721 is caught in this block.
+src/puzzle/Puzzle.java:1755:	SystemPrintln:	SystemPrintln: Usage of System.out/err
+src/puzzle/Puzzle.java:1756:	DoNotTerminateVM:	DoNotTerminateVM: System.exit() should not be used in J2EE/JEE apps
+src/puzzle/Puzzle.java:1762:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:1769:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'currentArrangement' could be declared final
+src/puzzle/Puzzle.java:1769:	LongVariable:	LongVariable: Avoid excessively long variable names like currentArrangement
+src/puzzle/Puzzle.java:1773:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:1774:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'label' could be declared final
+src/puzzle/Puzzle.java:1775:	SystemPrintln:	SystemPrintln: Usage of System.out/err
+src/puzzle/Puzzle.java:1777:	SystemPrintln:	SystemPrintln: Usage of System.out/err
+src/puzzle/Puzzle.java:1780:	SystemPrintln:	SystemPrintln: Usage of System.out/err
+src/puzzle/Puzzle.java:1787:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:1788:	SystemPrintln:	SystemPrintln: Usage of System.out/err
+src/puzzle/Puzzle.java:1804:	ShortMethodName:	ShortMethodName: Avoid using short method names
+src/puzzle/Puzzle.java:1816:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'temp' could be declared final
+src/puzzle/Puzzle.java:1821:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tempTiles' could be declared final
+src/puzzle/Puzzle.java:1828:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'startingTile' could be declared final
+src/puzzle/Puzzle.java:1829:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'xPositionStartingTile' could be declared final
+src/puzzle/Puzzle.java:1829:	LongVariable:	LongVariable: Avoid excessively long variable names like xPositionStartingTile
+src/puzzle/Puzzle.java:1830:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'yPositionStartingTile' could be declared final
+src/puzzle/Puzzle.java:1830:	LongVariable:	LongVariable: Avoid excessively long variable names like yPositionStartingTile
+src/puzzle/Puzzle.java:1832:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'endingTile' could be declared final
+src/puzzle/Puzzle.java:1833:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'xPositionEndingTile' could be declared final
+src/puzzle/Puzzle.java:1833:	LongVariable:	LongVariable: Avoid excessively long variable names like xPositionEndingTile
+src/puzzle/Puzzle.java:1834:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'yPositionEndingTile' could be declared final
+src/puzzle/Puzzle.java:1834:	LongVariable:	LongVariable: Avoid excessively long variable names like yPositionEndingTile
+src/puzzle/Puzzle.java:1837:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'deltaXStarting' could be declared final
+src/puzzle/Puzzle.java:1838:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'deltaYStarting' could be declared final
+src/puzzle/Puzzle.java:1840:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'deltaXEnding' could be declared final
+src/puzzle/Puzzle.java:1841:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'deltaYEnding' could be declared final
+src/puzzle/Puzzle.java:1857:	SystemPrintln:	SystemPrintln: Usage of System.out/err
+src/puzzle/Puzzle.java:1866:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:1867:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:1869:	CyclomaticComplexity:	CyclomaticComplexity: The method 'makeHole(int, int)' has a cyclomatic complexity of 14.
+src/puzzle/Puzzle.java:1869:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'column' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1869:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'row' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1879:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'targetTile' could be declared final
+src/puzzle/Puzzle.java:1881:	AvoidLiteralsInIfCondition:	AvoidLiteralsInIfCondition: Avoid using literals in if statements
+src/puzzle/Puzzle.java:1896:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 1.873 is caught in this block.
+src/puzzle/Puzzle.java:1896:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 1.876 is caught in this block.
+src/puzzle/Puzzle.java:1896:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 1.882 is caught in this block.
+src/puzzle/Puzzle.java:1896:	ExceptionAsFlowControl:	ExceptionAsFlowControl: Exception thrown at line 1.893 is caught in this block.
+src/puzzle/Puzzle.java:1906:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:1907:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:1912:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'currentArrangement' could be declared final
+src/puzzle/Puzzle.java:1912:	LongVariable:	LongVariable: Avoid excessively long variable names like currentArrangement
+src/puzzle/Puzzle.java:1914:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:1915:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'moves' could be declared final
+src/puzzle/Puzzle.java:1919:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'firstMove' could be declared final
+src/puzzle/Puzzle.java:1921:	SystemPrintln:	SystemPrintln: Usage of System.out/err
+src/puzzle/Puzzle.java:1924:	SystemPrintln:	SystemPrintln: Usage of System.out/err
+src/puzzle/Puzzle.java:1934:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'currentArrangement' could be declared final
+src/puzzle/Puzzle.java:1934:	LongVariable:	LongVariable: Avoid excessively long variable names like currentArrangement
+src/puzzle/Puzzle.java:1937:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:1945:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:1947:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'goalConfig' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1947:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'startConfig' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1947:	UseVarargs:	UseVarargs: Consider using varargs for methods or constructors which take an array the last parameter.
+src/puzzle/Puzzle.java:1949:	CommentRequired:	CommentRequired: Class comments are required
+src/puzzle/Puzzle.java:1950:	CommentDefaultAccessModifier:	CommentDefaultAccessModifier: Missing commented default access modifier on field 'board'
+src/puzzle/Puzzle.java:1950:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/Puzzle.java:1950:	ImmutableField:	ImmutableField: Field 'board' may be declared final
+src/puzzle/Puzzle.java:1951:	CommentDefaultAccessModifier:	CommentDefaultAccessModifier: Missing commented default access modifier on field 'moves'
+src/puzzle/Puzzle.java:1951:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/Puzzle.java:1951:	ImmutableField:	ImmutableField: Field 'moves' may be declared final
+src/puzzle/Puzzle.java:1953:	CommentDefaultAccessModifier:	CommentDefaultAccessModifier: Missing commented default access modifier on constructor 'State(char[][], List<Character>)'
+src/puzzle/Puzzle.java:1953:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'board' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1953:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'moves' is not assigned and could be declared final
+src/puzzle/Puzzle.java:1954:	ArrayIsStoredDirectly:	ArrayIsStoredDirectly: The user-supplied array 'board' is stored directly.
+src/puzzle/Puzzle.java:1959:	CommentDefaultAccessModifier:	CommentDefaultAccessModifier: Missing commented default access modifier on method 'getKey()'
+src/puzzle/Puzzle.java:1965:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'directions' could be declared final
+src/puzzle/Puzzle.java:1968:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'queue' could be declared final
+src/puzzle/Puzzle.java:1969:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'visited' could be declared final
+src/puzzle/Puzzle.java:1972:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'initialState' could be declared final
+src/puzzle/Puzzle.java:1977:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'currentState' could be declared final
+src/puzzle/Puzzle.java:1981:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/Puzzle.java:1985:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'direction' could be declared final
+src/puzzle/Puzzle.java:1986:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'newBoard' could be declared final
+src/puzzle/Puzzle.java:1987:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'key' could be declared final
+src/puzzle/Puzzle.java:1991:	AvoidInstantiatingObjectsInLoops:	AvoidInstantiatingObjectsInLoops: Avoid instantiating new objects inside loops
+src/puzzle/Puzzle.java:1991:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'newMoves' could be declared final
+src/puzzle/Puzzle.java:1999:	ReturnEmptyCollectionRatherThanNull:	ReturnEmptyCollectionRatherThanNull: Return an empty collection rather than null.
+src/puzzle/Puzzle.java:2007:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'board' is not assigned and could be declared final
+src/puzzle/Puzzle.java:2007:	UseVarargs:	UseVarargs: Consider using varargs for methods or constructors which take an array the last parameter.
+src/puzzle/Puzzle.java:2014:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'board1' is not assigned and could be declared final
+src/puzzle/Puzzle.java:2014:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'board2' is not assigned and could be declared final
+src/puzzle/Puzzle.java:2014:	UseVarargs:	UseVarargs: Consider using varargs for methods or constructors which take an array the last parameter.
+src/puzzle/Puzzle.java:2021:	CognitiveComplexity:	CognitiveComplexity: The method 'tiltBoard(char[][], char)' has a cognitive complexity of 57, current threshold is 15
+src/puzzle/Puzzle.java:2021:	CyclomaticComplexity:	CyclomaticComplexity: The method 'tiltBoard(char[][], char)' has a cyclomatic complexity of 21.
+src/puzzle/Puzzle.java:2021:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'board' is not assigned and could be declared final
+src/puzzle/Puzzle.java:2021:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'direction' is not assigned and could be declared final
+src/puzzle/Puzzle.java:2022:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'h' could be declared final
+src/puzzle/Puzzle.java:2022:	ShortVariable:	ShortVariable: Avoid variables with short names like h
+src/puzzle/Puzzle.java:2023:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'w' could be declared final
+src/puzzle/Puzzle.java:2023:	ShortVariable:	ShortVariable: Avoid variables with short names like w
+src/puzzle/Puzzle.java:2024:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'newBoard' could be declared final
+src/puzzle/Puzzle.java:2026:	NonExhaustiveSwitch:	NonExhaustiveSwitch: Switch statements or expressions should be exhaustive, add a default case (or missing enum branches)
+src/puzzle/Puzzle.java:2026:	SwitchDensity:	SwitchDensity: A high ratio of statements to labels in a switch statement.  Consider refactoring.
+src/puzzle/Puzzle.java:2031:	AvoidLiteralsInIfCondition:	AvoidLiteralsInIfCondition: Avoid using literals in if statements
+src/puzzle/Puzzle.java:2044:	AvoidLiteralsInIfCondition:	AvoidLiteralsInIfCondition: Avoid using literals in if statements
+src/puzzle/Puzzle.java:2057:	AvoidLiteralsInIfCondition:	AvoidLiteralsInIfCondition: Avoid using literals in if statements
+src/puzzle/Puzzle.java:2070:	AvoidLiteralsInIfCondition:	AvoidLiteralsInIfCondition: Avoid using literals in if statements
+src/puzzle/Puzzle.java:2087:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'direction' is not assigned and could be declared final
+src/puzzle/Puzzle.java:2090:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/Puzzle.java:2092:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/Puzzle.java:2094:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/Puzzle.java:2096:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/Puzzle.java:2108:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'tile' is not assigned and could be declared final
+src/puzzle/Puzzle.java:2109:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'xPos' could be declared final
+src/puzzle/Puzzle.java:2110:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'yPos' could be declared final
+src/puzzle/Puzzle.java:2111:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'diameter' could be declared final
+src/puzzle/Puzzle.java:2114:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'circleX' could be declared final
+src/puzzle/Puzzle.java:2115:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'circleY' could be declared final
+src/puzzle/Puzzle.java:2118:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'hole' could be declared final
+src/puzzle/Puzzle.java:2128:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Puzzle.java:2130:	CognitiveComplexity:	CognitiveComplexity: The method 'fixedTiles()' has a cognitive complexity of 39, current threshold is 15
+src/puzzle/Puzzle.java:2130:	CyclomaticComplexity:	CyclomaticComplexity: The method 'fixedTiles()' has a cyclomatic complexity of 16.
+src/puzzle/Puzzle.java:2130:	NPathComplexity:	NPathComplexity: The method 'fixedTiles()' has an NPath complexity of 450, current threshold is 200
+src/puzzle/Puzzle.java:2134:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'flag' could be declared final
+src/puzzle/Puzzle.java:2137:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:2148:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'flag' could be declared final
+src/puzzle/Puzzle.java:2151:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/Puzzle.java:2161:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'fixedTilesMatrix' could be declared final
+src/puzzle/Puzzle.java:2164:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'targetTile' could be declared final
+src/puzzle/Puzzle.java:2168:	CollapsibleIfStatements:	CollapsibleIfStatements: This if statement could be combined with its parent
+src/puzzle/Puzzle.java:2179:	SystemPrintln:	SystemPrintln: Usage of System.out/err
+src/puzzle/Puzzle.java:2182:	SystemPrintln:	SystemPrintln: Usage of System.out/err
+src/puzzle/Puzzle.java:2184:	SystemPrintln:	SystemPrintln: Usage of System.out/err
+src/puzzle/Puzzle.java:2186:	SystemPrintln:	SystemPrintln: Usage of System.out/err
+src/puzzle/Puzzle.java:2198:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'row' is not assigned and could be declared final
+src/puzzle/Puzzle.java:2200:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'currentTile' could be declared final
+src/puzzle/Puzzle.java:2202:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/Puzzle.java:2215:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'col' is not assigned and could be declared final
+src/puzzle/Puzzle.java:2217:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'currentTile' could be declared final
+src/puzzle/Puzzle.java:2219:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/Puzzle.java:2238:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'currentTile' could be declared final
+src/puzzle/Puzzle.java:2239:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'currentLabel' could be declared final
+src/puzzle/Puzzle.java:2241:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'referingTile' could be declared final
+src/puzzle/Puzzle.java:2242:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'referenceLabel' could be declared final
+src/puzzle/Puzzle.java:2255:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/puzzle/Puzzle.java:2259:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'starting1' could be declared final
+src/puzzle/Puzzle.java:2272:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'ending1' could be declared final
+src/puzzle/Puzzle.java:2286:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'pz4' could be declared final
+src/puzzle/Puzzle.java:2319:	UnusedLocalVariable:	UnusedLocalVariable: Avoid unused local variables such as 'from1'.
+src/puzzle/Puzzle.java:2320:	UnusedLocalVariable:	UnusedLocalVariable: Avoid unused local variables such as 'to1'.
+src/puzzle/PuzzleContest.java:10:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/PuzzleContest.java:17:	AtLeastOneConstructor:	AtLeastOneConstructor: Each class should declare at least one constructor
+src/puzzle/PuzzleContest.java:17:	GodClass:	GodClass: Possible God Class (WMC=48, ATFD=18, TCC=0.000%)
+src/puzzle/PuzzleContest.java:17:	TooManyMethods:	TooManyMethods: This class has too many methods, consider refactoring it.
+src/puzzle/PuzzleContest.java:20:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/PuzzleContest.java:21:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/PuzzleContest.java:27:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'ending' is not assigned and could be declared final
+src/puzzle/PuzzleContest.java:27:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'starting' is not assigned and could be declared final
+src/puzzle/PuzzleContest.java:27:	UseVarargs:	UseVarargs: Consider using varargs for methods or constructors which take an array the last parameter.
+src/puzzle/PuzzleContest.java:31:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/PuzzleContest.java:35:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/PuzzleContest.java:39:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/puzzle/PuzzleContest.java:40:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/PuzzleContest.java:41:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/PuzzleContest.java:45:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/PuzzleContest.java:46:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/PuzzleContest.java:48:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'ending' is not assigned and could be declared final
+src/puzzle/PuzzleContest.java:48:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'starting' is not assigned and could be declared final
+src/puzzle/PuzzleContest.java:48:	UseVarargs:	UseVarargs: Consider using varargs for methods or constructors which take an array the last parameter.
+src/puzzle/PuzzleContest.java:50:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'moves' could be declared final
+src/puzzle/PuzzleContest.java:57:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'puzzle' could be declared final
+src/puzzle/PuzzleContest.java:61:	SystemPrintln:	SystemPrintln: Usage of System.out/err
+src/puzzle/PuzzleContest.java:66:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'move' could be declared final
+src/puzzle/PuzzleContest.java:68:	SystemPrintln:	SystemPrintln: Usage of System.out/err
+src/puzzle/PuzzleContest.java:72:	SystemPrintln:	SystemPrintln: Usage of System.out/err
+src/puzzle/PuzzleContest.java:83:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/PuzzleContest.java:87:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/PuzzleContest.java:89:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'ending' is not assigned and could be declared final
+src/puzzle/PuzzleContest.java:89:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'starting' is not assigned and could be declared final
+src/puzzle/PuzzleContest.java:89:	UseVarargs:	UseVarargs: Consider using varargs for methods or constructors which take an array the last parameter.
+src/puzzle/PuzzleContest.java:90:	ShortVariable:	ShortVariable: Avoid variables with short names like h
+src/puzzle/PuzzleContest.java:90:	UnusedLocalVariable:	UnusedLocalVariable: Avoid unused local variables such as 'h'.
+src/puzzle/PuzzleContest.java:91:	ShortVariable:	ShortVariable: Avoid variables with short names like w
+src/puzzle/PuzzleContest.java:91:	UnusedLocalVariable:	UnusedLocalVariable: Avoid unused local variables such as 'w'.
+src/puzzle/PuzzleContest.java:94:	CommentRequired:	CommentRequired: Class comments are required
+src/puzzle/PuzzleContest.java:95:	CommentDefaultAccessModifier:	CommentDefaultAccessModifier: Missing commented default access modifier on field 'board'
+src/puzzle/PuzzleContest.java:95:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleContest.java:95:	ImmutableField:	ImmutableField: Field 'board' may be declared final
+src/puzzle/PuzzleContest.java:96:	CommentDefaultAccessModifier:	CommentDefaultAccessModifier: Missing commented default access modifier on field 'moves'
+src/puzzle/PuzzleContest.java:96:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleContest.java:96:	ImmutableField:	ImmutableField: Field 'moves' may be declared final
+src/puzzle/PuzzleContest.java:98:	CommentDefaultAccessModifier:	CommentDefaultAccessModifier: Missing commented default access modifier on constructor 'State(char[][], List<Character>)'
+src/puzzle/PuzzleContest.java:98:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'board' is not assigned and could be declared final
+src/puzzle/PuzzleContest.java:98:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'moves' is not assigned and could be declared final
+src/puzzle/PuzzleContest.java:99:	ArrayIsStoredDirectly:	ArrayIsStoredDirectly: The user-supplied array 'board' is stored directly.
+src/puzzle/PuzzleContest.java:104:	CommentDefaultAccessModifier:	CommentDefaultAccessModifier: Missing commented default access modifier on method 'getKey()'
+src/puzzle/PuzzleContest.java:105:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'sb' could be declared final
+src/puzzle/PuzzleContest.java:105:	ShortVariable:	ShortVariable: Avoid variables with short names like sb
+src/puzzle/PuzzleContest.java:106:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'row' could be declared final
+src/puzzle/PuzzleContest.java:114:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'directions' could be declared final
+src/puzzle/PuzzleContest.java:117:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'queue' could be declared final
+src/puzzle/PuzzleContest.java:118:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'visited' could be declared final
+src/puzzle/PuzzleContest.java:121:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'initialState' could be declared final
+src/puzzle/PuzzleContest.java:126:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'currentState' could be declared final
+src/puzzle/PuzzleContest.java:130:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/PuzzleContest.java:134:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'dir' could be declared final
+src/puzzle/PuzzleContest.java:135:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'newBoard' could be declared final
+src/puzzle/PuzzleContest.java:136:	AvoidInstantiatingObjectsInLoops:	AvoidInstantiatingObjectsInLoops: Avoid instantiating new objects inside loops
+src/puzzle/PuzzleContest.java:136:	AvoidInstantiatingObjectsInLoops:	AvoidInstantiatingObjectsInLoops: Avoid instantiating new objects inside loops
+src/puzzle/PuzzleContest.java:136:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'newState' could be declared final
+src/puzzle/PuzzleContest.java:137:	LawOfDemeter:	LawOfDemeter: Access to field `moves` on foreign value `newState` (degree 1)
+src/puzzle/PuzzleContest.java:139:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'key' could be declared final
+src/puzzle/PuzzleContest.java:148:	ReturnEmptyCollectionRatherThanNull:	ReturnEmptyCollectionRatherThanNull: Return an empty collection rather than null.
+src/puzzle/PuzzleContest.java:160:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'board1' is not assigned and could be declared final
+src/puzzle/PuzzleContest.java:160:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'board2' is not assigned and could be declared final
+src/puzzle/PuzzleContest.java:160:	UseVarargs:	UseVarargs: Consider using varargs for methods or constructors which take an array the last parameter.
+src/puzzle/PuzzleContest.java:161:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'h' could be declared final
+src/puzzle/PuzzleContest.java:161:	ShortVariable:	ShortVariable: Avoid variables with short names like h
+src/puzzle/PuzzleContest.java:164:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/PuzzleContest.java:176:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'board' is not assigned and could be declared final
+src/puzzle/PuzzleContest.java:176:	UseVarargs:	UseVarargs: Consider using varargs for methods or constructors which take an array the last parameter.
+src/puzzle/PuzzleContest.java:177:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'h' could be declared final
+src/puzzle/PuzzleContest.java:177:	ShortVariable:	ShortVariable: Avoid variables with short names like h
+src/puzzle/PuzzleContest.java:178:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'newBoard' could be declared final
+src/puzzle/PuzzleContest.java:192:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'ending' is not assigned and could be declared final
+src/puzzle/PuzzleContest.java:192:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'starting' is not assigned and could be declared final
+src/puzzle/PuzzleContest.java:192:	UseVarargs:	UseVarargs: Consider using varargs for methods or constructors which take an array the last parameter.
+src/puzzle/PuzzleContest.java:193:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'startingCounts' could be declared final
+src/puzzle/PuzzleContest.java:194:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'endingCounts' could be declared final
+src/puzzle/PuzzleContest.java:204:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'board' is not assigned and could be declared final
+src/puzzle/PuzzleContest.java:204:	UseVarargs:	UseVarargs: Consider using varargs for methods or constructors which take an array the last parameter.
+src/puzzle/PuzzleContest.java:205:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'counts' could be declared final
+src/puzzle/PuzzleContest.java:205:	UseConcurrentHashMap:	UseConcurrentHashMap: If you run in Java5 or newer and have concurrent access, you should use the ConcurrentHashMap implementation
+src/puzzle/PuzzleContest.java:206:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'row' could be declared final
+src/puzzle/PuzzleContest.java:207:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'cell' could be declared final
+src/puzzle/PuzzleContest.java:208:	AvoidLiteralsInIfCondition:	AvoidLiteralsInIfCondition: Avoid using literals in if statements
+src/puzzle/PuzzleContest.java:223:	CognitiveComplexity:	CognitiveComplexity: The method 'tiltBoard(char[][], char)' has a cognitive complexity of 37, current threshold is 15
+src/puzzle/PuzzleContest.java:223:	CyclomaticComplexity:	CyclomaticComplexity: The method 'tiltBoard(char[][], char)' has a cyclomatic complexity of 17.
+src/puzzle/PuzzleContest.java:223:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'board' is not assigned and could be declared final
+src/puzzle/PuzzleContest.java:223:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'direction' is not assigned and could be declared final
+src/puzzle/PuzzleContest.java:224:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'h' could be declared final
+src/puzzle/PuzzleContest.java:224:	ShortVariable:	ShortVariable: Avoid variables with short names like h
+src/puzzle/PuzzleContest.java:225:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'w' could be declared final
+src/puzzle/PuzzleContest.java:225:	ShortVariable:	ShortVariable: Avoid variables with short names like w
+src/puzzle/PuzzleContest.java:226:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'newBoard' could be declared final
+src/puzzle/PuzzleContest.java:228:	NonExhaustiveSwitch:	NonExhaustiveSwitch: Switch statements or expressions should be exhaustive, add a default case (or missing enum branches)
+src/puzzle/PuzzleContest.java:228:	SwitchDensity:	SwitchDensity: A high ratio of statements to labels in a switch statement.  Consider refactoring.
+src/puzzle/PuzzleContest.java:233:	AvoidLiteralsInIfCondition:	AvoidLiteralsInIfCondition: Avoid using literals in if statements
+src/puzzle/PuzzleContest.java:234:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'temp' could be declared final
+src/puzzle/PuzzleContest.java:246:	AvoidLiteralsInIfCondition:	AvoidLiteralsInIfCondition: Avoid using literals in if statements
+src/puzzle/PuzzleContest.java:247:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'temp' could be declared final
+src/puzzle/PuzzleContest.java:259:	AvoidLiteralsInIfCondition:	AvoidLiteralsInIfCondition: Avoid using literals in if statements
+src/puzzle/PuzzleContest.java:260:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'temp' could be declared final
+src/puzzle/PuzzleContest.java:272:	AvoidLiteralsInIfCondition:	AvoidLiteralsInIfCondition: Avoid using literals in if statements
+src/puzzle/PuzzleContest.java:273:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'temp' could be declared final
+src/puzzle/PuzzleContest.java:292:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'direction' is not assigned and could be declared final
+src/puzzle/PuzzleContest.java:295:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/PuzzleContest.java:297:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/PuzzleContest.java:299:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/PuzzleContest.java:301:	OnlyOneReturn:	OnlyOneReturn: A method should have only one exit point, and that should be the last statement in the method
+src/puzzle/PuzzleContest.java:312:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'puzzle' is not assigned and could be declared final
+src/puzzle/PuzzleContest.java:313:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'h' could be declared final
+src/puzzle/PuzzleContest.java:313:	ShortVariable:	ShortVariable: Avoid variables with short names like h
+src/puzzle/PuzzleContest.java:314:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'w' could be declared final
+src/puzzle/PuzzleContest.java:314:	ShortVariable:	ShortVariable: Avoid variables with short names like w
+src/puzzle/PuzzleContest.java:317:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tile' could be declared final
+src/puzzle/PuzzleContest.java:318:	SystemPrintln:	SystemPrintln: Usage of System.out/err
+src/puzzle/PuzzleContest.java:320:	SystemPrintln:	SystemPrintln: Usage of System.out/err
+src/puzzle/PuzzleContest.java:322:	SystemPrintln:	SystemPrintln: Usage of System.out/err
+src/puzzle/PuzzleContest.java:329:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/PuzzleContest.java:330:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/PuzzleContest.java:333:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'contest' could be declared final
+src/puzzle/PuzzleContest.java:336:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'starting1' could be declared final
+src/puzzle/PuzzleContest.java:343:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'ending1' could be declared final
+src/puzzle/PuzzleContest.java:351:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'canSolve' could be declared final
+src/puzzle/PuzzleContest.java:352:	SystemPrintln:	SystemPrintln: Usage of System.out/err
+src/puzzle/PuzzleExceptions.java:5:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/PuzzleExceptions.java:13:	AtLeastOneConstructor:	AtLeastOneConstructor: Each class should declare at least one constructor
+src/puzzle/PuzzleExceptions.java:13:	MissingSerialVersionUID:	MissingSerialVersionUID: Classes implementing Serializable should set a serialVersionUID
+src/puzzle/PuzzleExceptions.java:15:	CommentRequired:	CommentRequired: Class comments are required
+src/puzzle/PuzzleExceptions.java:15:	MissingSerialVersionUID:	MissingSerialVersionUID: Classes implementing Serializable should set a serialVersionUID
+src/puzzle/PuzzleExceptions.java:16:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:16:	LongVariable:	LongVariable: Avoid excessively long variable names like NO_BOARDS_HW_NEGATIVE
+src/puzzle/PuzzleExceptions.java:17:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:17:	LongVariable:	LongVariable: Avoid excessively long variable names like NO_STARTING_ENDING_NULL
+src/puzzle/PuzzleExceptions.java:18:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:20:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/puzzle/PuzzleExceptions.java:20:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'message' is not assigned and could be declared final
+src/puzzle/PuzzleExceptions.java:27:	CommentRequired:	CommentRequired: Class comments are required
+src/puzzle/PuzzleExceptions.java:27:	MissingSerialVersionUID:	MissingSerialVersionUID: Classes implementing Serializable should set a serialVersionUID
+src/puzzle/PuzzleExceptions.java:28:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:28:	LongVariable:	LongVariable: Avoid excessively long variable names like EXCEED_PUZZLE_SPACE
+src/puzzle/PuzzleExceptions.java:30:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/puzzle/PuzzleExceptions.java:30:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'message' is not assigned and could be declared final
+src/puzzle/PuzzleExceptions.java:35:	ClassNamingConventions:	ClassNamingConventions: The class name 'addDeleteTileExceptions' doesn't match '[A-Z][a-zA-Z0-9]*'
+src/puzzle/PuzzleExceptions.java:35:	CommentRequired:	CommentRequired: Class comments are required
+src/puzzle/PuzzleExceptions.java:35:	DataClass:	DataClass: The class 'addDeleteTileExceptions' is suspected to be a Data Class (WOC=0.000%, NOPA=9, NOAM=0, WMC=1)
+src/puzzle/PuzzleExceptions.java:35:	MissingSerialVersionUID:	MissingSerialVersionUID: Classes implementing Serializable should set a serialVersionUID
+src/puzzle/PuzzleExceptions.java:36:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:37:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:37:	LongVariable:	LongVariable: Avoid excessively long variable names like NOT_NEGATIVE_POSITION_TILE
+src/puzzle/PuzzleExceptions.java:38:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:39:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:40:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:40:	LongVariable:	LongVariable: Avoid excessively long variable names like NOT_DELETE_HOLE_TILE
+src/puzzle/PuzzleExceptions.java:41:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:41:	LongVariable:	LongVariable: Avoid excessively long variable names like NOT_DELETE_TILE_GLUE
+src/puzzle/PuzzleExceptions.java:42:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:42:	LongVariable:	LongVariable: Avoid excessively long variable names like NOT_DELETE_NON_EXISTENT_TILE
+src/puzzle/PuzzleExceptions.java:43:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:43:	LongVariable:	LongVariable: Avoid excessively long variable names like NOT_EXISTENT_TYPE_TILE
+src/puzzle/PuzzleExceptions.java:44:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:44:	LongVariable:	LongVariable: Avoid excessively long variable names like NOT_DELETE_FIXED_TILE
+src/puzzle/PuzzleExceptions.java:46:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/puzzle/PuzzleExceptions.java:46:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'message' is not assigned and could be declared final
+src/puzzle/PuzzleExceptions.java:51:	ClassNamingConventions:	ClassNamingConventions: The class name 'relocateTileExceptions' doesn't match '[A-Z][a-zA-Z0-9]*'
+src/puzzle/PuzzleExceptions.java:51:	CommentRequired:	CommentRequired: Class comments are required
+src/puzzle/PuzzleExceptions.java:51:	DataClass:	DataClass: The class 'relocateTileExceptions' is suspected to be a Data Class (WOC=0.000%, NOPA=7, NOAM=0, WMC=1)
+src/puzzle/PuzzleExceptions.java:51:	MissingSerialVersionUID:	MissingSerialVersionUID: Classes implementing Serializable should set a serialVersionUID
+src/puzzle/PuzzleExceptions.java:52:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:52:	LongVariable:	LongVariable: Avoid excessively long variable names like INVALID_COORDINATES
+src/puzzle/PuzzleExceptions.java:53:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:53:	LongVariable:	LongVariable: Avoid excessively long variable names like NOT_MOVE_HOLE_TILE
+src/puzzle/PuzzleExceptions.java:54:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:54:	LongVariable:	LongVariable: Avoid excessively long variable names like NOT_RELOCATE_TILE_HOLE
+src/puzzle/PuzzleExceptions.java:55:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:55:	LongVariable:	LongVariable: Avoid excessively long variable names like NOT_MOVE_NON_EXISTENT_TILE
+src/puzzle/PuzzleExceptions.java:56:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:56:	LongVariable:	LongVariable: Avoid excessively long variable names like NOT_RELOCATE_TILE_OCCUPIED
+src/puzzle/PuzzleExceptions.java:57:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:57:	LongVariable:	LongVariable: Avoid excessively long variable names like NOT_MOVE_TILE_GLUE
+src/puzzle/PuzzleExceptions.java:58:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:58:	LongVariable:	LongVariable: Avoid excessively long variable names like NOT_RELOCATE_FIXED_TILE
+src/puzzle/PuzzleExceptions.java:61:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/puzzle/PuzzleExceptions.java:61:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'message' is not assigned and could be declared final
+src/puzzle/PuzzleExceptions.java:66:	ClassNamingConventions:	ClassNamingConventions: The class name 'addDeleteGlueExceptions' doesn't match '[A-Z][a-zA-Z0-9]*'
+src/puzzle/PuzzleExceptions.java:66:	CommentRequired:	CommentRequired: Class comments are required
+src/puzzle/PuzzleExceptions.java:66:	DataClass:	DataClass: The class 'addDeleteGlueExceptions' is suspected to be a Data Class (WOC=0.000%, NOPA=9, NOAM=0, WMC=1)
+src/puzzle/PuzzleExceptions.java:66:	MissingSerialVersionUID:	MissingSerialVersionUID: Classes implementing Serializable should set a serialVersionUID
+src/puzzle/PuzzleExceptions.java:67:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:68:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:69:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:69:	LongVariable:	LongVariable: Avoid excessively long variable names like NOT_ADD_GLUE_EMPTY_TILE
+src/puzzle/PuzzleExceptions.java:70:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:70:	LongVariable:	LongVariable: Avoid excessively long variable names like NOT_GLUE_EXISTING_TILE
+src/puzzle/PuzzleExceptions.java:71:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:71:	LongVariable:	LongVariable: Avoid excessively long variable names like NOT_DELETE_GLUE_HOLE
+src/puzzle/PuzzleExceptions.java:72:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:72:	LongVariable:	LongVariable: Avoid excessively long variable names like NOT_DELETE_GLUE_EMPTY_TILE
+src/puzzle/PuzzleExceptions.java:73:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:73:	LongVariable:	LongVariable: Avoid excessively long variable names like NOT_GLUE_TO_REMOVE
+src/puzzle/PuzzleExceptions.java:74:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:74:	LongVariable:	LongVariable: Avoid excessively long variable names like NOT_GLUE_FREELANCE_TILE
+src/puzzle/PuzzleExceptions.java:75:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:75:	LongVariable:	LongVariable: Avoid excessively long variable names like NOT_VALID_TYPES_GLUE
+src/puzzle/PuzzleExceptions.java:77:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/puzzle/PuzzleExceptions.java:77:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'message' is not assigned and could be declared final
+src/puzzle/PuzzleExceptions.java:82:	ClassNamingConventions:	ClassNamingConventions: The class name 'tiltException' doesn't match '[A-Z][a-zA-Z0-9]*'
+src/puzzle/PuzzleExceptions.java:82:	CommentRequired:	CommentRequired: Class comments are required
+src/puzzle/PuzzleExceptions.java:82:	MissingSerialVersionUID:	MissingSerialVersionUID: Classes implementing Serializable should set a serialVersionUID
+src/puzzle/PuzzleExceptions.java:83:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:86:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/puzzle/PuzzleExceptions.java:86:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'message' is not assigned and could be declared final
+src/puzzle/PuzzleExceptions.java:91:	ClassNamingConventions:	ClassNamingConventions: The class name 'makeHoleExceptions' doesn't match '[A-Z][a-zA-Z0-9]*'
+src/puzzle/PuzzleExceptions.java:91:	CommentRequired:	CommentRequired: Class comments are required
+src/puzzle/PuzzleExceptions.java:91:	MissingSerialVersionUID:	MissingSerialVersionUID: Classes implementing Serializable should set a serialVersionUID
+src/puzzle/PuzzleExceptions.java:92:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:92:	LongVariable:	LongVariable: Avoid excessively long variable names like NOT_NEGATIVE_POSITION_HOLE
+src/puzzle/PuzzleExceptions.java:93:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:93:	LongVariable:	LongVariable: Avoid excessively long variable names like TILE_OCCUPIED_HOLE
+src/puzzle/PuzzleExceptions.java:95:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/puzzle/PuzzleExceptions.java:95:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'message' is not assigned and could be declared final
+src/puzzle/PuzzleExceptions.java:100:	ClassNamingConventions:	ClassNamingConventions: The class name 'makeVisibleInvisibleExceptions' doesn't match '[A-Z][a-zA-Z0-9]*'
+src/puzzle/PuzzleExceptions.java:100:	CommentRequired:	CommentRequired: Class comments are required
+src/puzzle/PuzzleExceptions.java:100:	MissingSerialVersionUID:	MissingSerialVersionUID: Classes implementing Serializable should set a serialVersionUID
+src/puzzle/PuzzleExceptions.java:101:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:101:	LongVariable:	LongVariable: Avoid excessively long variable names like NO_STARTING_BOARD_NULL
+src/puzzle/PuzzleExceptions.java:102:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/PuzzleExceptions.java:102:	LongVariable:	LongVariable: Avoid excessively long variable names like NO_ENDING_BOARD_NULL
+src/puzzle/PuzzleExceptions.java:104:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/puzzle/PuzzleExceptions.java:104:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'message' is not assigned and could be declared final
+src/puzzle/RoughTile.java:5:	CommentRequired:	CommentRequired: Class comments are required
+src/puzzle/RoughTile.java:6:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/RoughTile.java:6:	ImmutableField:	ImmutableField: Field 'outerBorder' may be declared final
+src/puzzle/RoughTile.java:8:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/puzzle/RoughTile.java:8:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'column' is not assigned and could be declared final
+src/puzzle/RoughTile.java:8:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'label' is not assigned and could be declared final
+src/puzzle/RoughTile.java:8:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'row' is not assigned and could be declared final
+src/puzzle/RoughTile.java:8:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'xPosition' is not assigned and could be declared final
+src/puzzle/RoughTile.java:8:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'yPosition' is not assigned and could be declared final
+src/puzzle/RoughTile.java:11:	ConstructorCallsOverridableMethod:	ConstructorCallsOverridableMethod: Overridable method called during object construction: Rectangle.changeColor(Color) 
+src/puzzle/RoughTile.java:13:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'innerSize' could be declared final
+src/puzzle/RoughTile.java:14:	ConstructorCallsOverridableMethod:	ConstructorCallsOverridableMethod: Overridable method called during object construction: BaseTile.getXPos() 
+src/puzzle/RoughTile.java:14:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'innerXPosition' could be declared final
+src/puzzle/RoughTile.java:15:	ConstructorCallsOverridableMethod:	ConstructorCallsOverridableMethod: Overridable method called during object construction: BaseTile.getYPos() 
+src/puzzle/RoughTile.java:15:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'innerYPosition' could be declared final
+src/puzzle/RoughTile.java:17:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'RectangleColor' could be declared final
+src/puzzle/RoughTile.java:17:	LocalVariableNamingConventions:	LocalVariableNamingConventions: The local variable name 'RectangleColor' doesn't match '[a-z][a-zA-Z0-9]*'
+src/puzzle/RoughTile.java:18:	ConstructorCallsOverridableMethod:	ConstructorCallsOverridableMethod: Overridable method called during object construction: RoughTile.makeVisible() 
+src/puzzle/RoughTile.java:23:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'label' is not assigned and could be declared final
+src/puzzle/RoughTile.java:23:	MethodNamingConventions:	MethodNamingConventions: The instance method name 'ColorTochangeInsideRectangle' doesn't match '[a-z][a-zA-Z0-9]*'
+src/puzzle/RoughTile.java:25:	NonExhaustiveSwitch:	NonExhaustiveSwitch: Switch statements or expressions should be exhaustive, add a default case (or missing enum branches)
+src/puzzle/RoughTile.java:49:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/RoughTile.java:55:	ControlStatementBraces:	ControlStatementBraces: This statement should have braces
+src/puzzle/Tile.java:5:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Tile.java:6:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Tile.java:13:	DataClass:	DataClass: The class 'Tile' is suspected to be a Data Class (WOC=0.000%, NOPA=4, NOAM=0, WMC=1)
+src/puzzle/Tile.java:13:	ShortClassName:	ShortClassName: Avoid short class names like Tile
+src/puzzle/Tile.java:15:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/Tile.java:16:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/Tile.java:17:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/Tile.java:18:	CommentRequired:	CommentRequired: Field comments are required
+src/puzzle/Tile.java:18:	FieldNamingConventions:	FieldNamingConventions: The static field name 'FIXED_TILE_COLOR' doesn't match '[a-z][a-zA-Z0-9]*'
+src/puzzle/Tile.java:18:	MutableStaticState:	MutableStaticState: Do not use non-final non-private static fields
+src/puzzle/Tile.java:21:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/puzzle/Tile.java:22:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/puzzle/Tile.java:30:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'column' is not assigned and could be declared final
+src/puzzle/Tile.java:30:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'label' is not assigned and could be declared final
+src/puzzle/Tile.java:30:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'row' is not assigned and could be declared final
+src/puzzle/Tile.java:30:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'xPosition' is not assigned and could be declared final
+src/puzzle/Tile.java:30:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'yPosition' is not assigned and could be declared final
+src/puzzle/Tile.java:32:	ConstructorCallsOverridableMethod:	ConstructorCallsOverridableMethod: Overridable method called during object construction: Rectangle.makeVisible() 
+src/shapes/Canvas.java:10:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/shapes/Canvas.java:20:	ClassWithOnlyPrivateConstructorsShouldBeFinal:	ClassWithOnlyPrivateConstructorsShouldBeFinal: This class has only private constructors and may be final
+src/shapes/Canvas.java:26:	CommentRequired:	CommentRequired: Field comments are required
+src/shapes/Canvas.java:32:	NonThreadSafeSingleton:	NonThreadSafeSingleton: Singleton is not thread safe
+src/shapes/Canvas.java:42:	CommentRequired:	CommentRequired: Field comments are required
+src/shapes/Canvas.java:42:	FieldDeclarationsShouldBeAtStartOfClass:	FieldDeclarationsShouldBeAtStartOfClass: Fields should be declared at the top of the class, before any method declarations, constructors, initializers or inner classes.
+src/shapes/Canvas.java:42:	ImmutableField:	ImmutableField: Field 'frame' may be declared final
+src/shapes/Canvas.java:43:	AvoidFieldNameMatchingTypeName:	AvoidFieldNameMatchingTypeName: It is somewhat confusing to have a field name matching the declaring class name
+src/shapes/Canvas.java:43:	CommentRequired:	CommentRequired: Field comments are required
+src/shapes/Canvas.java:43:	FieldDeclarationsShouldBeAtStartOfClass:	FieldDeclarationsShouldBeAtStartOfClass: Fields should be declared at the top of the class, before any method declarations, constructors, initializers or inner classes.
+src/shapes/Canvas.java:43:	ImmutableField:	ImmutableField: Field 'canvas' may be declared final
+src/shapes/Canvas.java:44:	CommentRequired:	CommentRequired: Field comments are required
+src/shapes/Canvas.java:44:	FieldDeclarationsShouldBeAtStartOfClass:	FieldDeclarationsShouldBeAtStartOfClass: Fields should be declared at the top of the class, before any method declarations, constructors, initializers or inner classes.
+src/shapes/Canvas.java:45:	CommentRequired:	CommentRequired: Field comments are required
+src/shapes/Canvas.java:45:	FieldDeclarationsShouldBeAtStartOfClass:	FieldDeclarationsShouldBeAtStartOfClass: Fields should be declared at the top of the class, before any method declarations, constructors, initializers or inner classes.
+src/shapes/Canvas.java:45:	ImmutableField:	ImmutableField: Field 'backgroundColour' may be declared final
+src/shapes/Canvas.java:46:	CommentRequired:	CommentRequired: Field comments are required
+src/shapes/Canvas.java:46:	FieldDeclarationsShouldBeAtStartOfClass:	FieldDeclarationsShouldBeAtStartOfClass: Fields should be declared at the top of the class, before any method declarations, constructors, initializers or inner classes.
+src/shapes/Canvas.java:47:	CommentRequired:	CommentRequired: Field comments are required
+src/shapes/Canvas.java:47:	FieldDeclarationsShouldBeAtStartOfClass:	FieldDeclarationsShouldBeAtStartOfClass: Fields should be declared at the top of the class, before any method declarations, constructors, initializers or inner classes.
+src/shapes/Canvas.java:47:	ImmutableField:	ImmutableField: Field 'objects' may be declared final
+src/shapes/Canvas.java:48:	CommentRequired:	CommentRequired: Field comments are required
+src/shapes/Canvas.java:48:	FieldDeclarationsShouldBeAtStartOfClass:	FieldDeclarationsShouldBeAtStartOfClass: Fields should be declared at the top of the class, before any method declarations, constructors, initializers or inner classes.
+src/shapes/Canvas.java:48:	ImmutableField:	ImmutableField: Field 'shapes' may be declared final
+src/shapes/Canvas.java:48:	LooseCoupling:	LooseCoupling: Avoid using implementation types like 'HashMap'; use the interface instead
+src/shapes/Canvas.java:57:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'bgColour' is not assigned and could be declared final
+src/shapes/Canvas.java:57:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'height' is not assigned and could be declared final
+src/shapes/Canvas.java:57:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'title' is not assigned and could be declared final
+src/shapes/Canvas.java:57:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'width' is not assigned and could be declared final
+src/shapes/Canvas.java:65:	UseDiamondOperator:	UseDiamondOperator: Explicit type arguments can be replaced by a diamond: `new ArrayList<>()`
+src/shapes/Canvas.java:66:	UseDiamondOperator:	UseDiamondOperator: Explicit type arguments can be replaced by a diamond: `new HashMap<>()`
+src/shapes/Canvas.java:76:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'visible' is not assigned and could be declared final
+src/shapes/Canvas.java:80:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'size' could be declared final
+src/shapes/Canvas.java:82:	LawOfDemeter:	LawOfDemeter: Call to `getGraphics` on foreign value `canvasImage` (degree 1)
+src/shapes/Canvas.java:99:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'color' is not assigned and could be declared final
+src/shapes/Canvas.java:99:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'referenceObject' is not assigned and could be declared final
+src/shapes/Canvas.java:99:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'shape' is not assigned and could be declared final
+src/shapes/Canvas.java:110:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'referenceObject' is not assigned and could be declared final
+src/shapes/Canvas.java:120:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'color' is not assigned and could be declared final
+src/shapes/Canvas.java:130:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'milliseconds' is not assigned and could be declared final
+src/shapes/Canvas.java:132:	DoNotUseThreads:	DoNotUseThreads: To be compliant to J2EE, a webapp should not use any thread.
+src/shapes/Canvas.java:133:	AvoidCatchingGenericException:	AvoidCatchingGenericException: Avoid catching generic exceptions such as NullPointerException, RuntimeException, Exception in try-catch block
+src/shapes/Canvas.java:133:	EmptyCatchBlock:	EmptyCatchBlock: Avoid empty catch blocks
+src/shapes/Canvas.java:143:	ForLoopCanBeForeach:	ForLoopCanBeForeach: This for loop can be replaced by a foreach loop
+src/shapes/Canvas.java:143:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'i' could be declared final
+src/shapes/Canvas.java:154:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'original' could be declared final
+src/shapes/Canvas.java:156:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'size' could be declared final
+src/shapes/Canvas.java:167:	AtLeastOneConstructor:	AtLeastOneConstructor: Each class should declare at least one constructor
+src/shapes/Canvas.java:167:	ClassWithOnlyPrivateConstructorsShouldBeFinal:	ClassWithOnlyPrivateConstructorsShouldBeFinal: This class has only private constructors and may be final
+src/shapes/Canvas.java:167:	MissingSerialVersionUID:	MissingSerialVersionUID: Classes implementing Serializable should set a serialVersionUID
+src/shapes/Canvas.java:168:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'g' is not assigned and could be declared final
+src/shapes/Canvas.java:168:	MissingOverride:	MissingOverride: The method 'paint(Graphics)' is missing an @Override annotation.
+src/shapes/Canvas.java:168:	ShortVariable:	ShortVariable: Avoid variables with short names like g
+src/shapes/Canvas.java:179:	CommentRequired:	CommentRequired: Field comments are required
+src/shapes/Canvas.java:179:	ImmutableField:	ImmutableField: Field 'shape' may be declared final
+src/shapes/Canvas.java:180:	CommentRequired:	CommentRequired: Field comments are required
+src/shapes/Canvas.java:180:	ImmutableField:	ImmutableField: Field 'color' may be declared final
+src/shapes/Canvas.java:182:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/shapes/Canvas.java:182:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'color' is not assigned and could be declared final
+src/shapes/Canvas.java:182:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'shape' is not assigned and could be declared final
+src/shapes/Canvas.java:187:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/shapes/Canvas.java:187:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'graphic' is not assigned and could be declared final
+src/shapes/Circle.java:14:	TooManyMethods:	TooManyMethods: This class has too many methods, consider refactoring it.
+src/shapes/Circle.java:16:	CommentRequired:	CommentRequired: Field comments are required
+src/shapes/Circle.java:16:	ShortVariable:	ShortVariable: Avoid variables with short names like PI
+src/shapes/Circle.java:18:	CommentRequired:	CommentRequired: Field comments are required
+src/shapes/Circle.java:19:	CommentRequired:	CommentRequired: Field comments are required
+src/shapes/Circle.java:20:	CommentRequired:	CommentRequired: Field comments are required
+src/shapes/Circle.java:21:	CommentRequired:	CommentRequired: Field comments are required
+src/shapes/Circle.java:22:	CommentRequired:	CommentRequired: Field comments are required
+src/shapes/Circle.java:25:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/shapes/Circle.java:25:	UncommentedEmptyConstructor:	UncommentedEmptyConstructor: Document empty constructor
+src/shapes/Circle.java:34:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'color' is not assigned and could be declared final
+src/shapes/Circle.java:34:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'diameter' is not assigned and could be declared final
+src/shapes/Circle.java:34:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'xPosition' is not assigned and could be declared final
+src/shapes/Circle.java:34:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'yPosition' is not assigned and could be declared final
+src/shapes/Circle.java:39:	ConstructorCallsOverridableMethod:	ConstructorCallsOverridableMethod: Overridable method called during object construction: Circle.makeVisible() 
+src/shapes/Circle.java:44:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/shapes/Circle.java:50:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/shapes/Circle.java:57:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'canvas' could be declared final
+src/shapes/Circle.java:67:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'canvas' could be declared final
+src/shapes/Circle.java:104:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'distance' is not assigned and could be declared final
+src/shapes/Circle.java:114:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'distance' is not assigned and could be declared final
+src/shapes/Circle.java:125:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'delta' could be declared final
+src/shapes/Circle.java:129:	AvoidReassigningParameters:	AvoidReassigningParameters: Avoid reassigning parameters such as 'distance'
+src/shapes/Circle.java:145:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'delta' could be declared final
+src/shapes/Circle.java:149:	AvoidReassigningParameters:	AvoidReassigningParameters: Avoid reassigning parameters such as 'distance'
+src/shapes/Circle.java:164:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'newDiameter' is not assigned and could be declared final
+src/shapes/Circle.java:175:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'newColor' is not assigned and could be declared final
+src/shapes/Rectangle.java:14:	TooManyMethods:	TooManyMethods: This class has too many methods, consider refactoring it.
+src/shapes/Rectangle.java:16:	CommentRequired:	CommentRequired: Field comments are required
+src/shapes/Rectangle.java:16:	FieldNamingConventions:	FieldNamingConventions: The static field name 'EDGES' doesn't match '[a-z][a-zA-Z0-9]*'
+src/shapes/Rectangle.java:16:	MutableStaticState:	MutableStaticState: Do not use non-final non-private static fields
+src/shapes/Rectangle.java:18:	CommentRequired:	CommentRequired: Field comments are required
+src/shapes/Rectangle.java:19:	CommentRequired:	CommentRequired: Field comments are required
+src/shapes/Rectangle.java:20:	CommentRequired:	CommentRequired: Field comments are required
+src/shapes/Rectangle.java:21:	CommentRequired:	CommentRequired: Field comments are required
+src/shapes/Rectangle.java:22:	CommentRequired:	CommentRequired: Field comments are required
+src/shapes/Rectangle.java:23:	CommentRequired:	CommentRequired: Field comments are required
+src/shapes/Rectangle.java:27:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/shapes/Rectangle.java:35:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/shapes/Rectangle.java:36:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/shapes/Rectangle.java:44:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'color' is not assigned and could be declared final
+src/shapes/Rectangle.java:44:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'height' is not assigned and could be declared final
+src/shapes/Rectangle.java:44:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'width' is not assigned and could be declared final
+src/shapes/Rectangle.java:44:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'xPosition' is not assigned and could be declared final
+src/shapes/Rectangle.java:44:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'yPosition' is not assigned and could be declared final
+src/shapes/Rectangle.java:50:	ConstructorCallsOverridableMethod:	ConstructorCallsOverridableMethod: Overridable method called during object construction: Rectangle.makeVisible() 
+src/shapes/Rectangle.java:53:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/shapes/Rectangle.java:54:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/shapes/Rectangle.java:61:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/shapes/Rectangle.java:63:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'boardName' is not assigned and could be declared final
+src/shapes/Rectangle.java:63:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'h' is not assigned and could be declared final
+src/shapes/Rectangle.java:63:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'w' is not assigned and could be declared final
+src/shapes/Rectangle.java:63:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'xPosition' is not assigned and could be declared final
+src/shapes/Rectangle.java:63:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'yPosition' is not assigned and could be declared final
+src/shapes/Rectangle.java:63:	ShortVariable:	ShortVariable: Avoid variables with short names like h
+src/shapes/Rectangle.java:63:	ShortVariable:	ShortVariable: Avoid variables with short names like w
+src/shapes/Rectangle.java:64:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tileSize' could be declared final
+src/shapes/Rectangle.java:65:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'tileMargin' could be declared final
+src/shapes/Rectangle.java:70:	EmptyControlStatement:	EmptyControlStatement: Empty if statement
+src/shapes/Rectangle.java:70:	LiteralsFirstInComparisons:	LiteralsFirstInComparisons: Position literals first in String comparisons
+src/shapes/Rectangle.java:76:	ConstructorCallsOverridableMethod:	ConstructorCallsOverridableMethod: Overridable method called during object construction: Rectangle.makeVisible() 
+src/shapes/Rectangle.java:131:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'distance' is not assigned and could be declared final
+src/shapes/Rectangle.java:141:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'distance' is not assigned and could be declared final
+src/shapes/Rectangle.java:152:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'delta' could be declared final
+src/shapes/Rectangle.java:156:	AvoidReassigningParameters:	AvoidReassigningParameters: Avoid reassigning parameters such as 'distance'
+src/shapes/Rectangle.java:172:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'delta' could be declared final
+src/shapes/Rectangle.java:176:	AvoidReassigningParameters:	AvoidReassigningParameters: Avoid reassigning parameters such as 'distance'
+src/shapes/Rectangle.java:192:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'newHeight' is not assigned and could be declared final
+src/shapes/Rectangle.java:192:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'newWidth' is not assigned and could be declared final
+src/shapes/Rectangle.java:204:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'newColor' is not assigned and could be declared final
+src/shapes/Rectangle.java:215:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'canvas' could be declared final
+src/shapes/Rectangle.java:228:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'canvas' could be declared final
+src/shapes/Triangle.java:6:	UnnecessaryImport:	UnnecessaryImport: Unused import 'puzzle.Tile'
+src/shapes/Triangle.java:15:	TooManyMethods:	TooManyMethods: This class has too many methods, consider refactoring it.
+src/shapes/Triangle.java:17:	CommentRequired:	CommentRequired: Field comments are required
+src/shapes/Triangle.java:17:	FieldNamingConventions:	FieldNamingConventions: The static field name 'VERTICES' doesn't match '[a-z][a-zA-Z0-9]*'
+src/shapes/Triangle.java:17:	MutableStaticState:	MutableStaticState: Do not use non-final non-private static fields
+src/shapes/Triangle.java:19:	CommentRequired:	CommentRequired: Field comments are required
+src/shapes/Triangle.java:20:	CommentRequired:	CommentRequired: Field comments are required
+src/shapes/Triangle.java:21:	CommentRequired:	CommentRequired: Field comments are required
+src/shapes/Triangle.java:22:	CommentRequired:	CommentRequired: Field comments are required
+src/shapes/Triangle.java:23:	CommentRequired:	CommentRequired: Field comments are required
+src/shapes/Triangle.java:24:	CommentRequired:	CommentRequired: Field comments are required
+src/shapes/Triangle.java:92:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'distance' is not assigned and could be declared final
+src/shapes/Triangle.java:104:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'distance' is not assigned and could be declared final
+src/shapes/Triangle.java:117:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'delta' could be declared final
+src/shapes/Triangle.java:121:	AvoidReassigningParameters:	AvoidReassigningParameters: Avoid reassigning parameters such as 'distance'
+src/shapes/Triangle.java:136:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'delta' could be declared final
+src/shapes/Triangle.java:140:	AvoidReassigningParameters:	AvoidReassigningParameters: Avoid reassigning parameters such as 'distance'
+src/shapes/Triangle.java:155:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'newHeight' is not assigned and could be declared final
+src/shapes/Triangle.java:155:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'newWidth' is not assigned and could be declared final
+src/shapes/Triangle.java:166:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'newColor' is not assigned and could be declared final
+src/shapes/Triangle.java:176:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'x' is not assigned and could be declared final
+src/shapes/Triangle.java:176:	MethodArgumentCouldBeFinal:	MethodArgumentCouldBeFinal: Parameter 'y' is not assigned and could be declared final
+src/shapes/Triangle.java:176:	ShortVariable:	ShortVariable: Avoid variables with short names like x
+src/shapes/Triangle.java:176:	ShortVariable:	ShortVariable: Avoid variables with short names like y
+src/shapes/Triangle.java:188:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'canvas' could be declared final
+src/shapes/Triangle.java:189:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'xpoints' could be declared final
+src/shapes/Triangle.java:190:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'ypoints' could be declared final
+src/shapes/Triangle.java:191:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'polygon' could be declared final
+src/shapes/Triangle.java:202:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'canvas' could be declared final
+src/shapes/Triangle.java:215:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/shapes/Triangle.java:219:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:12:	UnnecessaryImport:	UnnecessaryImport: Unused import 'org.junit.jupiter.api.AfterEach'
+src/test/PuzzleC1Test.java:23:	AtLeastOneConstructor:	AtLeastOneConstructor: Each class should declare at least one constructor
+src/test/PuzzleC1Test.java:23:	CyclomaticComplexity:	CyclomaticComplexity: The class 'PuzzleC1Test' has a total cyclomatic complexity of 109 (highest 7).
+src/test/PuzzleC1Test.java:23:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:24:	TooManyMethods:	TooManyMethods: This class has too many methods, consider refactoring it.
+src/test/PuzzleC1Test.java:26:	CommentRequired:	CommentRequired: Field comments are required
+src/test/PuzzleC1Test.java:29:	CommentRequired:	CommentRequired: Field comments are required
+src/test/PuzzleC1Test.java:29:	SingularField:	SingularField: Perhaps 'starting' could be replaced by a local variable.
+src/test/PuzzleC1Test.java:30:	CommentRequired:	CommentRequired: Field comments are required
+src/test/PuzzleC1Test.java:30:	SingularField:	SingularField: Perhaps 'ending' could be replaced by a local variable.
+src/test/PuzzleC1Test.java:72:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:79:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/test/PuzzleC1Test.java:83:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/test/PuzzleC1Test.java:100:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:101:	UnitTestAssertionsShouldIncludeMessage:	UnitTestAssertionsShouldIncludeMessage: Unit test assertions should include a message
+src/test/PuzzleC1Test.java:114:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:119:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:120:	IdenticalCatchBranches:	IdenticalCatchBranches: 'catch' branch identical to 'addDeleteTileExceptions' branch
+src/test/PuzzleC1Test.java:122:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:134:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:135:	IdenticalCatchBranches:	IdenticalCatchBranches: 'catch' branch identical to 'addDeleteTileExceptions' branch
+src/test/PuzzleC1Test.java:137:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:144:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:144:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:149:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:150:	IdenticalCatchBranches:	IdenticalCatchBranches: 'catch' branch identical to 'addDeleteTileExceptions' branch
+src/test/PuzzleC1Test.java:152:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:158:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:158:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:163:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:164:	IdenticalCatchBranches:	IdenticalCatchBranches: 'catch' branch identical to 'addDeleteTileExceptions' branch
+src/test/PuzzleC1Test.java:166:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:172:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:172:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:177:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:178:	IdenticalCatchBranches:	IdenticalCatchBranches: 'catch' branch identical to 'addDeleteTileExceptions' branch
+src/test/PuzzleC1Test.java:180:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:186:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:186:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:191:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:192:	IdenticalCatchBranches:	IdenticalCatchBranches: 'catch' branch identical to 'makeHoleExceptions' branch
+src/test/PuzzleC1Test.java:194:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:200:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:201:	IdenticalCatchBranches:	IdenticalCatchBranches: 'catch' branch identical to 'addDeleteTileExceptions' branch
+src/test/PuzzleC1Test.java:203:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:211:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:211:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:216:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:217:	IdenticalCatchBranches:	IdenticalCatchBranches: 'catch' branch identical to 'addDeleteTileExceptions' branch
+src/test/PuzzleC1Test.java:219:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:225:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:225:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:230:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:231:	IdenticalCatchBranches:	IdenticalCatchBranches: 'catch' branch identical to 'addDeleteTileExceptions' branch
+src/test/PuzzleC1Test.java:233:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:240:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:240:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:245:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:246:	IdenticalCatchBranches:	IdenticalCatchBranches: 'catch' branch identical to 'addDeleteTileExceptions' branch
+src/test/PuzzleC1Test.java:248:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:254:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:254:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:259:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:260:	IdenticalCatchBranches:	IdenticalCatchBranches: 'catch' branch identical to 'addDeleteTileExceptions' branch
+src/test/PuzzleC1Test.java:262:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:268:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:268:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:273:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:274:	IdenticalCatchBranches:	IdenticalCatchBranches: 'catch' branch identical to 'makeHoleExceptions' branch
+src/test/PuzzleC1Test.java:276:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:282:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:283:	IdenticalCatchBranches:	IdenticalCatchBranches: 'catch' branch identical to 'addDeleteTileExceptions' branch
+src/test/PuzzleC1Test.java:285:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:291:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:291:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:296:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:302:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:303:	IdenticalCatchBranches:	IdenticalCatchBranches: 'catch' branch identical to 'addDeleteTileExceptions' branch
+src/test/PuzzleC1Test.java:305:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:311:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:312:	IdenticalCatchBranches:	IdenticalCatchBranches: 'catch' branch identical to 'addDeleteTileExceptions' branch
+src/test/PuzzleC1Test.java:314:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:323:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:323:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:324:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'fromTile' could be declared final
+src/test/PuzzleC1Test.java:325:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'toTile' could be declared final
+src/test/PuzzleC1Test.java:330:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:336:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:336:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:337:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'fromTile' could be declared final
+src/test/PuzzleC1Test.java:338:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'toTile' could be declared final
+src/test/PuzzleC1Test.java:340:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'fromTile1' could be declared final
+src/test/PuzzleC1Test.java:341:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'toTile1' could be declared final
+src/test/PuzzleC1Test.java:347:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:353:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:359:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:359:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:364:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:365:	IdenticalCatchBranches:	IdenticalCatchBranches: 'catch' branch identical to 'makeHoleExceptions' branch
+src/test/PuzzleC1Test.java:367:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:373:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:374:	IdenticalCatchBranches:	IdenticalCatchBranches: 'catch' branch identical to 'makeHoleExceptions' branch
+src/test/PuzzleC1Test.java:376:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:379:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'fromTile' could be declared final
+src/test/PuzzleC1Test.java:380:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'toTile' could be declared final
+src/test/PuzzleC1Test.java:382:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'fromTile1' could be declared final
+src/test/PuzzleC1Test.java:383:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'toTile1' could be declared final
+src/test/PuzzleC1Test.java:389:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:395:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:402:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:402:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:407:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:411:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'fromTile' could be declared final
+src/test/PuzzleC1Test.java:412:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'toTile' could be declared final
+src/test/PuzzleC1Test.java:414:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'fromTile1' could be declared final
+src/test/PuzzleC1Test.java:415:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'toTile1' could be declared final
+src/test/PuzzleC1Test.java:421:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:427:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:434:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:434:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:436:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'fromTile' could be declared final
+src/test/PuzzleC1Test.java:437:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'toTile' could be declared final
+src/test/PuzzleC1Test.java:439:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'fromTile1' could be declared final
+src/test/PuzzleC1Test.java:440:	LocalVariableCouldBeFinal:	LocalVariableCouldBeFinal: Local variable 'toTile1' could be declared final
+src/test/PuzzleC1Test.java:446:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:452:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:462:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:462:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:467:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:473:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:473:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:478:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:484:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:484:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:489:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:490:	IdenticalCatchBranches:	IdenticalCatchBranches: 'catch' branch identical to 'makeHoleExceptions' branch
+src/test/PuzzleC1Test.java:492:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:498:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:504:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:504:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:509:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:515:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:515:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:520:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:526:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:534:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:534:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:539:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:545:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:551:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:551:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:556:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:562:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:562:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:567:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:568:	IdenticalCatchBranches:	IdenticalCatchBranches: 'catch' branch identical to 'makeHoleExceptions' branch
+src/test/PuzzleC1Test.java:570:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:576:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:582:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:582:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:587:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:593:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:593:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:598:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:606:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:606:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:611:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:617:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:623:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:629:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:635:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:635:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:640:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:648:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:648:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:654:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:654:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:659:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:660:	IdenticalCatchBranches:	IdenticalCatchBranches: 'catch' branch identical to 'addDeleteTileExceptions' branch
+src/test/PuzzleC1Test.java:662:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:670:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:670:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:675:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:683:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:683:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:688:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC1Test.java:696:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:696:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:703:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:703:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC1Test.java:711:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC1Test.java:711:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC2Test.java:8:	UnnecessaryImport:	UnnecessaryImport: Unused import 'org.junit.jupiter.api.AfterEach'
+src/test/PuzzleC2Test.java:19:	AtLeastOneConstructor:	AtLeastOneConstructor: Each class should declare at least one constructor
+src/test/PuzzleC2Test.java:19:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC2Test.java:22:	CommentRequired:	CommentRequired: Field comments are required
+src/test/PuzzleC2Test.java:23:	CommentRequired:	CommentRequired: Field comments are required
+src/test/PuzzleC2Test.java:23:	SingularField:	SingularField: Perhaps 'starting' could be replaced by a local variable.
+src/test/PuzzleC2Test.java:24:	CommentRequired:	CommentRequired: Field comments are required
+src/test/PuzzleC2Test.java:24:	SingularField:	SingularField: Perhaps 'ending' could be replaced by a local variable.
+src/test/PuzzleC2Test.java:65:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC2Test.java:72:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/test/PuzzleC2Test.java:78:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC2Test.java:86:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC2Test.java:86:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC2Test.java:91:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC2Test.java:92:	IdenticalCatchBranches:	IdenticalCatchBranches: 'catch' branch identical to 'makeHoleExceptions' branch
+src/test/PuzzleC2Test.java:94:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC2Test.java:100:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC2Test.java:100:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC2Test.java:105:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC2Test.java:106:	IdenticalCatchBranches:	IdenticalCatchBranches: 'catch' branch identical to 'makeHoleExceptions' branch
+src/test/PuzzleC2Test.java:108:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC2Test.java:114:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC2Test.java:114:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC2Test.java:119:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC2Test.java:120:	IdenticalCatchBranches:	IdenticalCatchBranches: 'catch' branch identical to 'makeHoleExceptions' branch
+src/test/PuzzleC2Test.java:122:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC2Test.java:128:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC2Test.java:128:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC2Test.java:133:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC2Test.java:134:	IdenticalCatchBranches:	IdenticalCatchBranches: 'catch' branch identical to 'makeHoleExceptions' branch
+src/test/PuzzleC2Test.java:136:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC2Test.java:142:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC2Test.java:143:	IdenticalCatchBranches:	IdenticalCatchBranches: 'catch' branch identical to 'makeHoleExceptions' branch
+src/test/PuzzleC2Test.java:145:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC2Test.java:151:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC2Test.java:151:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC2Test.java:156:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC2Test.java:157:	IdenticalCatchBranches:	IdenticalCatchBranches: 'catch' branch identical to 'makeHoleExceptions' branch
+src/test/PuzzleC2Test.java:159:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleC2Test.java:168:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC2Test.java:168:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleC2Test.java:177:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleC2Test.java:177:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleContestTest.java:6:	UnnecessaryImport:	UnnecessaryImport: Unused static import 'org.junit.jupiter.api.Assertions.*'
+src/test/PuzzleContestTest.java:7:	UnnecessaryImport:	UnnecessaryImport: Unused import 'org.junit.jupiter.api.AfterEach'
+src/test/PuzzleContestTest.java:19:	AtLeastOneConstructor:	AtLeastOneConstructor: Each class should declare at least one constructor
+src/test/PuzzleContestTest.java:19:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleContestTest.java:22:	CommentRequired:	CommentRequired: Field comments are required
+src/test/PuzzleContestTest.java:22:	SingularField:	SingularField: Perhaps 'puzzle' could be replaced by a local variable.
+src/test/PuzzleContestTest.java:23:	CommentRequired:	CommentRequired: Field comments are required
+src/test/PuzzleContestTest.java:24:	CommentRequired:	CommentRequired: Field comments are required
+src/test/PuzzleContestTest.java:25:	CommentRequired:	CommentRequired: Field comments are required
+src/test/PuzzleContestTest.java:69:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleContestTest.java:76:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/test/PuzzleContestTest.java:81:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleContestTest.java:81:	UnitTestShouldIncludeAssert:	UnitTestShouldIncludeAssert: This unit test should include assert() or fail()
+src/test/PuzzleContestTest.java:86:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleContestTest.java:87:	IdenticalCatchBranches:	IdenticalCatchBranches: 'catch' branch identical to 'makeVisibleInvisibleExceptions' branch
+src/test/PuzzleContestTest.java:89:	AvoidPrintStackTrace:	AvoidPrintStackTrace: Avoid printStackTrace(); use a logger call instead.
+src/test/PuzzleContestTest.java:95:	CommentRequired:	CommentRequired: Public method and constructor comments are required
+src/test/PuzzleContestTest.java:95:	JUnit5TestShouldBePackagePrivate:	JUnit5TestShouldBePackagePrivate: JUnit 5 tests should be package-private.
+src/test/PuzzleContestTest.java:95:	UnitTestShouldIncludeAssert:	UnitTestShouldIncludeAssert: This unit test should include assert() or fail()

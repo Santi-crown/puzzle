@@ -3,6 +3,7 @@ import shapes.*;
 import java.util.Random;
 import java.awt.Color;
 
+// WildTile es un tipo de baldosa comodín que al hacer tilt, cambia su color de forma aleatoria, esto se hará para cada vez que se haga tilt
 public class WildTile extends BaseTile{
 	private Rectangle verticalRectangle; // Rectángulo interior de color blanco
 	private Rectangle horizontalRectangle; // Rectángulo interior de color blanco
@@ -63,6 +64,7 @@ public class WildTile extends BaseTile{
     	int index = randomColor.nextInt(colors.length);
     	char ramdomColorChoice = colors[index];
     	
-    	this.setTileColor(ramdomColorChoice);    	
+    	this.setTileColor(ramdomColorChoice);    
+    	this.makeVisible();
     }
 }

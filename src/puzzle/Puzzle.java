@@ -66,7 +66,7 @@ import shapes.Rectangle;
         
         // Colo que servira para almacenar las tiles que tiene fragileGlue, esto para al hacer tilt, despues del tilt, a todas se les deberá remover el pegante 
         private ArrayList<BaseTile> fragileGlueTilesQueue;
-        private ArrayList<WildTile> wildTiles;
+        private ArrayList<BaseTile> wildTiles;
         
         /**
          * Constructor to initialize the boards without initial and final matrices.
@@ -787,13 +787,20 @@ import shapes.Rectangle;
             if (!fragileGlueTilesQueue.isEmpty()) {
             	for (BaseTile tile : fragileGlueTilesQueue) {
             		this.deleteGlue(tile.getRow(), tile.getCol());
+            		
             	}
+            	
             	fragileGlueTilesQueue.clear();
-            if (!wildTiles.isEmpty()) {
-            		for (WildTile tile : wildTiles) {
-            			tile.setRandowColor();
-            		}
-            	}
+            }	
+            	
+            if (!wildTiles.isEmpty()) {            		            	
+            		for (BaseTile tile : wildTiles) {
+            			if (tile instanceof WildTile) {
+            		        // Procesar específicamente los elementos WildTile
+            		        ((WildTile) tile).setRandowColor();
+                	}            			
+            		
+            	}            	
             }
         }
 
@@ -2210,7 +2217,9 @@ import shapes.Rectangle;
 
             //pz4.addGlue(9,1);
             pz4.tilt('l');
-            //pz4.tilt('r');
+            pz4.tilt('r');
+            pz4.tilt('l');
+            pz4.tilt('r');
             //pz4.tilt('l');
             //pz4.tilt('d');
             // if (pz4.isGoal()) System.out.println("You go it");

@@ -66,6 +66,7 @@ import shapes.Rectangle;
         
         // Colo que servira para almacenar las tiles que tiene fragileGlue, esto para al hacer tilt, despues del tilt, a todas se les deberá remover el pegante 
         private ArrayList<BaseTile> fragileGlueTilesQueue;
+        private ArrayList<WildTile> wildTiles;
         
         /**
          * Constructor to initialize the boards without initial and final matrices.
@@ -89,6 +90,9 @@ import shapes.Rectangle;
                 
                 // Initialize Fragile glue tiles matrix
                 fragileGlueTilesQueue = new ArrayList<>();
+                
+                // Initialize WildTiles
+                wildTiles = new ArrayList<>();
                 
                 // Create the initial and final boards
                 startingBoard = new Rectangle(h,w,100,50,"starting");
@@ -127,6 +131,8 @@ import shapes.Rectangle;
             // Initialize Fragile glue tiles matrix
             fragileGlueTilesQueue = new ArrayList<>();
             
+            // Initialize WildTiles
+            wildTiles = new ArrayList<>();
             
             // Create the boards
             startingBoard = new Rectangle(h, w, 100, 50, "starting");
@@ -158,6 +164,9 @@ import shapes.Rectangle;
             
             // Initialize Fragile glue tiles matrix
             fragileGlueTilesQueue = new ArrayList<>();
+            
+            // Initialize WildTiles
+            wildTiles = new ArrayList<>();
             
             // Create the boards
             startingBoard = new Rectangle(h,w,100,50,"starting");
@@ -251,7 +260,8 @@ import shapes.Rectangle;
                 return new FreelanceTile(label, xPosition, yPosition, row, column);
             case "fl":  // Ejemplo de etiqueta para FlyingTile
                 return new FlyingTile(label, xPosition, yPosition, row, column);
-            // Puedes añadir más casos para otros tipos de baldosas.
+            case "wi":  // Ejemplo de etiqueta para FlyingTile
+                return new WildTile(label, xPosition, yPosition, row, column);
             default:
                 return new Tile(label, xPosition, yPosition, row, column); // Instancia de Tile normal
         }
@@ -354,6 +364,11 @@ import shapes.Rectangle;
                 if(tileData.substring(0, 2).equals("fl")) newTile.setLabel('f');
                 if(tileData.substring(0, 2).equals("ro")) newTile.setLabel('o');
                 if(tileData.substring(0, 2).equals("fi")) newTile.setLabel('x');
+                if(tileData.substring(0, 2).equals("wi")) {
+                	newTile.setLabel('w');
+                	// añadimos la nueva wildTile que creamos
+                	wildTiles.add(newTile);
+                }
                 
                 this.ok = true;
             } else {
@@ -773,7 +788,12 @@ import shapes.Rectangle;
             	for (BaseTile tile : fragileGlueTilesQueue) {
             		this.deleteGlue(tile.getRow(), tile.getCol());
             	}
-            	fragileGlueTilesQueue.clear();	
+            	fragileGlueTilesQueue.clear();
+            if (!wildTiles.isEmpty()) {
+            		for (WildTile tile : wildTiles) {
+            			tile.setRandowColor();
+            		}
+            	}
             }
         }
 
@@ -2166,7 +2186,7 @@ import shapes.Rectangle;
             Puzzle pz4 = new Puzzle(starting1, ending1); // Tablero con matrices
             //Puzzle pz4 = new Puzzle(ending1);
             
-            //pz4.addTile(9,0,"fl y");
+            pz4.addTile(9,9,"wi y");
             //pz4.addTile(9,7,"fl r");            
             //pz4.addGlue(9, 7);
             //pz4.makeHole(9,8);
@@ -2179,9 +2199,9 @@ import shapes.Rectangle;
             //pz4.addTile(7,0,"fr g");
             //pz4.addTile(6,0,"ro b");
             
-            pz4.addGlue(7, 6,"fragile");
-            pz4.addGlue(0, 6,"fragile");
-            pz4.addGlue(4, 6,"fragile");
+            //pz4.addGlue(7, 6,"fragile");
+            //pz4.addGlue(0, 6,"fragile");
+            //pz4.addGlue(4, 6,"fragile");
             //pz4.addGlue(7, 6);         
             //pz4.deleteGlue(7, 6);
             
@@ -2189,9 +2209,9 @@ import shapes.Rectangle;
             //pz4.makeVisible();
 
             //pz4.addGlue(9,1);
-            //pz4.tilt('r');
-            pz4.tilt('r');
             pz4.tilt('l');
+            //pz4.tilt('r');
+            //pz4.tilt('l');
             //pz4.tilt('d');
             // if (pz4.isGoal()) System.out.println("You go it");
             // pz4.tilt('r');

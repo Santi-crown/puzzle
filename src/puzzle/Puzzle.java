@@ -403,7 +403,9 @@ import shapes.Rectangle;
                     this.ok = false;
                 } else if (previousTile instanceof FixedTile){
                     showMessage("You cannot delete a Fixed tile", "Error");
-                }                 
+                } else if (previousTile instanceof WildTile){
+                    showMessage("You cannot delete a wild tile", "Error");
+                }                  
                 else if (!isTileEmpty(previousTile)) {
                     previousTile.setTileColor('n');
                     previousTile.setLabel('*');
@@ -2194,6 +2196,7 @@ import shapes.Rectangle;
             //Puzzle pz4 = new Puzzle(ending1);
             
             pz4.addTile(9,9,"wi y");
+            pz4.deleteTile(9,9);
             //pz4.addTile(9,7,"fl r");            
             //pz4.addGlue(9, 7);
             //pz4.makeHole(9,8);

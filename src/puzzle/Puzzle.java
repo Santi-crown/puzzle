@@ -1402,6 +1402,8 @@ import shapes.Rectangle;
                 tile.moveVertical(-steps * (Tile.SIZE + Tile.MARGIN));
                 tiles.get(newRow).set(tile.getCol(), tile);
                 tile.setRow(newRow);
+                // Decirmos que la posicion en Y de tile será = a la posición en Y de rectangle
+                tile.setYPos(tile.getYPosition());
             }
         }
 
@@ -1426,6 +1428,8 @@ import shapes.Rectangle;
                 tile.moveVertical(steps * (Tile.SIZE + Tile.MARGIN));
                 tiles.get(newRow).set(tile.getCol(), tile);
                 tile.setRow(newRow);
+             // Decirmos que la posicion en Y de tile será a la posición en Y de rectangle
+                tile.setYPos(tile.getYPosition());
             }
         }
 
@@ -1450,6 +1454,8 @@ import shapes.Rectangle;
                 tile.moveHorizontal(-steps * (Tile.SIZE + Tile.MARGIN));
                 tiles.get(tile.getRow()).set(newCol, tile);
                 tile.setCol(newCol);
+             // Decirmos que la posicion en x de tile será a la posición en Y de rectangle
+                tile.setXPos(tile.getXPosition());
             }
         }
 
@@ -1474,6 +1480,8 @@ import shapes.Rectangle;
                 tile.moveHorizontal(steps * (Tile.SIZE + Tile.MARGIN));
                 tiles.get(tile.getRow()).set(newCol, tile);
                 tile.setCol(newCol);
+                // Decirmos que la posicion en x de tile será a la posición en Y de rectangle
+                tile.setXPos(tile.getXPosition());
             }
         }
 
@@ -2170,12 +2178,12 @@ import shapes.Rectangle;
                 {'g', 'b', 'g', 'b', 'r', 'g', 'b', 'y', 'r', 'g'},
                 {'b', 'g', 'y', 'r', 'y', 'b', 'g', 'r', 'y', 'b'},
                 {'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'g'},
-                {'y', 'b', 'g', 'r', 'y', 'b', 'g', '*', 'y', 'b'},
-                {'g', 'r', 'y', 'b', 'g', 'r', 'y', '*', 'g', 'r'},
-                {'r', 'g', 'b', 'y', 'r', 'g', 'b', '*', 'r', 'b'},
+                {'y', 'b', 'g', 'r', 'y', 'b', 'g', '*', '*', 'b'},
+                {'g', 'r', 'y', 'b', 'g', 'r', 'y', '*', '*', 'r'},
+                {'r', 'g', 'b', 'y', 'r', 'g', 'b', '*', '*', 'b'},
                 {'y', 'r', 'g', 'b', 'y', 'r', 'g', '*', '*', '*'},
-                {'g', 'b', 'y', 'r', 'g', 'b', 'y', 'y', '*', '*'},
-                {'r', 'g', 'b', 'y', 'r', 'g', 'b', '*', '*', '*'}
+                {'g', 'b', 'y', 'r', 'g', 'b', 'y', '*', '*', '*'},
+                {'r', 'g', '*', '*', '*', '*', '*', '*', '*', 'b'}
             };
             
             char[][] ending1 = {
@@ -2183,20 +2191,25 @@ import shapes.Rectangle;
             {'g', 'b', 'g', 'b', 'r', 'g', 'b', 'y', 'r', 'g'},
             {'b', 'g', 'y', 'r', 'y', 'b', 'g', 'r', 'y', 'b'},
             {'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'g'},
-            {'y', 'b', 'g', 'r', 'y', 'b', 'g', 'r', 'y', 'b'},
+            {'y', 'b', 'g', 'r', 'y', 'b', 'g', '*', 'y', 'b'},
             {'g', 'r', 'y', 'b', 'g', 'r', 'y', '*', 'g', 'r'},
             {'r', 'g', 'b', 'y', 'r', 'g', 'b', '*', 'r', 'b'},
             {'y', 'r', 'g', 'b', 'y', 'r', 'g', '*', 'y', 'r'},
             {'g', 'b', 'y', 'r', 'g', 'b', 'y', '*', 'g', 'b'},
-            {'r', 'g', 'b', 'y', 'r', 'g', 'b', '*', 'r', 'g'}
+            {'r', 'g', 'b', 'y', 'r', 'g', 'b', '*', '*', '*'}
         };
             
             //Puzzle pz3 = new Puzzle(10, 10); // Tablero sin matrices
             Puzzle pz4 = new Puzzle(starting1, ending1); // Tablero con matrices
             //Puzzle pz4 = new Puzzle(ending1);
             
-            pz4.addTile(9,9,"wi y");
-            pz4.deleteTile(9,9);
+            //pz4.addTile(9,7,"fl y");
+            pz4.addTile(8,7,"fi y");
+            pz4.addTile(7,7,"ro y");
+            pz4.addTile(6,7,"fr y");
+            pz4.addTile(5,7,"wi y");
+            pz4.tilt('l');
+            //pz4.deleteTile(9,9);
             //pz4.addTile(9,7,"fl r");            
             //pz4.addGlue(9, 7);
             //pz4.makeHole(9,8);
@@ -2209,7 +2222,11 @@ import shapes.Rectangle;
             //pz4.addTile(7,0,"fr g");
             //pz4.addTile(6,0,"ro b");
             
-            //pz4.addGlue(7, 6,"fragile");
+            pz4.addGlue(9, 2,"fragile");
+            pz4.tilt('r');
+       
+            //pz4.addGlue(7, 7);
+            
             //pz4.addGlue(0, 6,"fragile");
             //pz4.addGlue(4, 6,"fragile");
             //pz4.addGlue(7, 6);         
@@ -2217,12 +2234,16 @@ import shapes.Rectangle;
             
             //pz4.makeInvisible();
             //pz4.makeVisible();
-
-            //pz4.addGlue(9,1);
-            pz4.tilt('l');
-            pz4.tilt('r');
-            pz4.tilt('l');
-            pz4.tilt('r');
+            //pz4.makeHole(4,7);
+            //pz4.addGlue(9,1);s
+            //pz4.tilt('u');         
+            //pz4.tilt('l');
+            //pz4.tilt('r');	
+            //pz4.tilt('l');
+            //pz4.tilt('l');
+            //pz4.tilt('r');
+            //pz4.tilt('l');
+            //pz4.tilt('r');
             //pz4.tilt('l');
             //pz4.tilt('d');
             // if (pz4.isGoal()) System.out.println("You go it");

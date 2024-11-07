@@ -10,8 +10,6 @@
     import java.util.Queue;
     import java.util.Set;
     import javax.swing.JOptionPane;
-
-
     import shapes.Circle;
     import shapes.Rectangle;
 
@@ -296,8 +294,7 @@
                 case "fl":  // Example label for FlyingTile
                     return new FlyingTile(label, xPosition, yPosition, row, column);
                 case "wi":  // Example label for WildTile
-                    return new WildTile(label,xPosition, yPosition, row, column);
-                
+                    return new WildTile(label,xPosition, yPosition, row, column);                
                 default:
                     return new Tile(label, xPosition, yPosition, row, column); // Instance of a normal Tile
             }

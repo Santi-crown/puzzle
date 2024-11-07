@@ -225,4 +225,12 @@ public class Rectangle{
             canvas.erase(this);
         }
     }
+    
+    public int getYPosition() {
+    	return yPosition;
+    }
+    
+    public int getXPosition() {
+    	return xPosition;
+    }
 }

@@ -80,20 +80,20 @@ public class Rectangle{
      * Make this rectangle visible. If it was already visible, do nothing.
      */
     public void makeVisible(){
-    	if(!isVisible) {
+    	//if(!isVisible) {
     		isVisible = true;
             draw();
-    	}
+    	//}
     }
     
     /**
      * Make this rectangle invisible. If it was already invisible, do nothing.
      */
     public void makeInvisible(){
-    	if(isVisible) {
+    	//if(isVisible) {
     		erase();
             isVisible = false;
-    	}
+    	//}
     }
     
     /**

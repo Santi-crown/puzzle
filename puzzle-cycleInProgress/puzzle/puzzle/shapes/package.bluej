@@ -2,10 +2,17 @@
 dependency1.from=Circle
 dependency1.to=Canvas
 dependency1.type=UsesDependency
+<<<<<<< HEAD
 dependency2.from=Rectangle
 dependency2.to=Canvas
 dependency2.type=UsesDependency
 dependency3.from=Triangle
+=======
+dependency2.from=Triangle
+dependency2.to=Canvas
+dependency2.type=UsesDependency
+dependency3.from=Rectangle
+>>>>>>> 1e6551e252fb450901a0c5ca43dfb281948fafda
 dependency3.to=Canvas
 dependency3.type=UsesDependency
 objectbench.height=183
@@ -13,7 +20,11 @@ objectbench.width=1896
 package.divider.horizontal=0.6
 package.divider.vertical=0.79957805907173
 package.editor.height=751
+<<<<<<< HEAD
 package.editor.width=1806
+=======
+package.editor.width=1780
+>>>>>>> 1e6551e252fb450901a0c5ca43dfb281948fafda
 package.editor.x=0
 package.editor.y=0
 package.frame.height=1048

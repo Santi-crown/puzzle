@@ -400,9 +400,12 @@
                     throw new PuzzleExceptions.addDeleteTileExceptions(PuzzleExceptions.addDeleteTileExceptions.TILE_OCCUPIED);
                 }
 
+<<<<<<< HEAD
                 currentTile.setTileColor('*'); //Change the color of the tile
                 currentTile.setLabel('*');
                 currentTile.makeInvisible();
+=======
+>>>>>>> 1e6551e252fb450901a0c5ca43dfb281948fafda
                 
                 int xPosition = 105 + (column * (Tile.SIZE + Tile.MARGIN));
                 int yPosition = 55 + (row * (Tile.SIZE + Tile.MARGIN));
@@ -423,7 +426,11 @@
                     // Add the wildTile we added
                     wildTiles.add(newTile);
                 }
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> 1e6551e252fb450901a0c5ca43dfb281948fafda
                 this.ok = true;
 
             } catch (PuzzleExceptions.addDeleteTileExceptions | PuzzleExceptions.ExceedPuzzleSpaceException e) {
@@ -1702,7 +1709,11 @@
                     BaseTile targetTile = referingTiles.get(row).get(col);
                     char targetLabel = targetTile.getLabel();
                     
+<<<<<<< HEAD
                     if (currentLabel == 'h' || targetLabel == 'h' || currentLabel == 'l' || targetLabel == 'l' || currentLabel == 'f' || targetLabel == 'f' || currentLabel == 'x' || targetLabel == 'x' || currentLabel == 'o' || targetLabel == 'o' || currentLabel == 'p' || targetLabel == 'p'  ){
+=======
+                    if (currentLabel == 'h' || targetLabel == 'h'){
+>>>>>>> 1e6551e252fb450901a0c5ca43dfb281948fafda
                         continue;
                     }
                     // Compare the actual tile with the tile in the objective state
@@ -1940,7 +1951,11 @@
 
                 } else {
                     throw new PuzzleExceptions.makeHoleExceptions(PuzzleExceptions.makeHoleExceptions.NOT_HOLE_TILE_OCCUPIED);
+<<<<<<< HEAD
                 }   
+=======
+                }
+>>>>>>> 1e6551e252fb450901a0c5ca43dfb281948fafda
 
             } catch (PuzzleExceptions.makeHoleExceptions | PuzzleExceptions.ExceedPuzzleSpaceException e) {
                 showMessage(e.getMessage(), "Error");

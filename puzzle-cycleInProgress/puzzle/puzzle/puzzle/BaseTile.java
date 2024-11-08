@@ -418,6 +418,7 @@ public abstract class BaseTile extends Rectangle{
     }
     
     
+<<<<<<< HEAD
     @Override
     public void makeVisible(){
         super.makeVisible();
@@ -429,4 +430,6 @@ public abstract class BaseTile extends Rectangle{
         super.makeInvisible();
         if (glueTriangle != null) glueTriangle.makeInvisible();
     }
+=======
+>>>>>>> 1e6551e252fb450901a0c5ca43dfb281948fafda
 }

@@ -28,7 +28,7 @@ public abstract class BaseTile extends Rectangle{
         this.row = row;
         this.column = column;
         this.label = label;
-        this.isFixed = false; // Initial value as default
+        //this.isFixed = false; // Initial value as default
         this.changeSize(Tile.SIZE, Tile.SIZE);                
         setTileColor(label);
         this.moveHorizontal(xPosition);

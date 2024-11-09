@@ -2335,7 +2335,8 @@
             
             //pz4.addTile(9,0,"fl y");
             //pz4.addTile(9,7,"fl r");            
-            pz4.addGlue(0, 0);
+            //
+            pz4.fixedTiles();
             //pz4.makeHole(9,8);
             //pz4.deleteTile(9, 7);
             //pz4.addTile(9, 7, 'r');

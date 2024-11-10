@@ -3,6 +3,7 @@ import puzzle.*;
 import puzzle.PuzzleExceptions.ExceedPuzzleSpaceException;
 import puzzle.PuzzleExceptions.makeHoleExceptions;
 import puzzle.PuzzleExceptions.makeVisibleInvisibleExceptions;
+import puzzle.PuzzleExceptions.ConstructorsExceptions;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterEach;
@@ -56,14 +57,14 @@ public class PuzzleC2Test
         };
 
         //puzzleI = new Puzzle(9,6);
-        puzzle = new Puzzle(starting,ending);
-        //puzzleF = new Puzzle(ending);
-        try {
-            puzzle.makeInvisible();
-        } catch (makeVisibleInvisibleExceptions e) {
-            // TODO Auto-generated catch block
+        try{
+            puzzle = new Puzzle(starting,ending);    
+        }
+        catch (ConstructorsExceptions e){
             e.getMessage();
         }
+        //puzzleF = new Puzzle(ending);
+        
     }
 
     /**

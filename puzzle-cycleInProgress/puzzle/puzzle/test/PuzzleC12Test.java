@@ -7,6 +7,7 @@ import puzzle.PuzzleExceptions.addDeleteTileExceptions;
 import puzzle.PuzzleExceptions.makeHoleExceptions;
 import puzzle.PuzzleExceptions.makeVisibleInvisibleExceptions;
 import puzzle.PuzzleExceptions.relocateTileExceptions;
+import puzzle.PuzzleExceptions.ConstructorsExceptions;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -62,7 +63,12 @@ public class PuzzleC12Test
 
         
         //puzzleI = new Puzzle(9,6);
-        puzzle = new Puzzle(starting,ending);
+        try{
+            puzzle = new Puzzle(starting,ending);    
+        }
+        catch (ConstructorsExceptions e){
+            e.getMessage();
+        }
         
     }
 
@@ -79,40 +85,40 @@ public class PuzzleC12Test
     @Test
     public void accordingPSshouldTilt(){
         try {
-			puzzle.tilt('r');
-		} catch (addDeleteGlueExceptions e) {
-			// TODO Auto-generated catch block
-			e.getMessage();
-		}
+            puzzle.tilt('r');
+        } catch (addDeleteGlueExceptions e) {
+            // TODO Auto-generated catch block
+            e.getMessage();
+        }
         try {
-			puzzle.tilt('u');
-		} catch (addDeleteGlueExceptions e) {
-			// TODO Auto-generated catch block
-			e.getMessage();
-		}
+            puzzle.tilt('u');
+        } catch (addDeleteGlueExceptions e) {
+            // TODO Auto-generated catch block
+            e.getMessage();
+        }
         try {
-			puzzle.tilt('d');
-		} catch (addDeleteGlueExceptions e) {
-			// TODO Auto-generated catch block
-			e.getMessage();
-		}
+            puzzle.tilt('d');
+        } catch (addDeleteGlueExceptions e) {
+            // TODO Auto-generated catch block
+            e.getMessage();
+        }
         try {
-			puzzle.tilt('l');
-		} catch (addDeleteGlueExceptions e) {
-			// TODO Auto-generated catch block
-			e.getMessage();
-		}
+            puzzle.tilt('l');
+        } catch (addDeleteGlueExceptions e) {
+            // TODO Auto-generated catch block
+            e.getMessage();
+        }
         assertTrue(puzzle.ok(),"You can tilt the actual board cuz it fulfills all the conditions.");
     }
     
     @Test
     public void accordingPSshouldntTiltLabel(){
         try {
-			puzzle.tilt('s');
-		} catch (addDeleteGlueExceptions e) {
-			// TODO Auto-generated catch block
-			e.getMessage();
-		}
+            puzzle.tilt('s');
+        } catch (addDeleteGlueExceptions e) {
+            // TODO Auto-generated catch block
+            e.getMessage();
+        }
         assertFalse(puzzle.ok(),"You cannot tilt the actual board cuz invalid direction(inexistent).");
     }
     
@@ -127,14 +133,14 @@ public class PuzzleC12Test
     @Test
     public void accordingPSshouldntIsGoalBoolean(){
         try {
-			puzzle.addTile(0,4,'b');
-		} catch (addDeleteTileExceptions e) {
-			// TODO Auto-generated catch block
-			e.getMessage();
-		} catch (ExceedPuzzleSpaceException e) {
-			// TODO Auto-generated catch block
-			e.getMessage();
-		}
+            puzzle.addTile(0,4,'b');
+        } catch (addDeleteTileExceptions e) {
+            // TODO Auto-generated catch block
+            e.getMessage();
+        } catch (ExceedPuzzleSpaceException e) {
+            // TODO Auto-generated catch block
+            e.getMessage();
+        }
         puzzle.isGoal();
         assertFalse(puzzle.ok(),"Returns false cuz starting != ending.");
     }
@@ -143,11 +149,11 @@ public class PuzzleC12Test
     @Test
     public void accordingPSshouldMakeVisible(){
         try {
-			puzzle.makeVisible();
-		} catch (makeVisibleInvisibleExceptions e) {
-			// TODO Auto-generated catch block
-			e.getMessage();
-		}
+            puzzle.makeVisible();
+        } catch (makeVisibleInvisibleExceptions e) {
+            // TODO Auto-generated catch block
+            e.getMessage();
+        }
         assertTrue(puzzle.ok(),"Simulator makes visible.");
     }
     
@@ -156,11 +162,11 @@ public class PuzzleC12Test
     @Test
     public void accordingPSshouldMakeInvisible(){
         try {
-			puzzle.makeInvisible();
-		} catch (makeVisibleInvisibleExceptions e) {
-			// TODO Auto-generated catch block
-			e.getMessage();
-		}
+            puzzle.makeInvisible();
+        } catch (makeVisibleInvisibleExceptions e) {
+            // TODO Auto-generated catch block
+            e.getMessage();
+        }
         assertTrue(puzzle.ok(),"Simulator makes invisible.");
     }
     

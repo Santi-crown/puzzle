@@ -1,4 +1,4 @@
-    package puzzle;
+package puzzle;
 import java.awt.Color;
 
 import shapes.Rectangle;
@@ -29,7 +29,7 @@ public abstract class BaseTile extends Rectangle{
         this.row = row;
         this.column = column;
         this.label = label;
-        this.isFixed = false; // Initial value as default
+        //this.isFixed = true; // Initial value as default
         this.changeSize(Tile.SIZE, Tile.SIZE);                
         setTileColor(label);
         this.moveHorizontal(xPosition);
@@ -417,5 +417,16 @@ public abstract class BaseTile extends Rectangle{
         }
     }
     
+    @Override
+    public void makeVisible(){
+        super.makeVisible();
+        if (glueTriangle != null) glueTriangle.makeVisible();
+    }
+
+    @Override
+    public void makeInvisible(){
+        super.makeInvisible();
+        if (glueTriangle != null) glueTriangle.makeInvisible();
+    }
     
 }

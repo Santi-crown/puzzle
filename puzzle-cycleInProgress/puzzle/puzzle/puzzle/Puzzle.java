@@ -111,7 +111,12 @@
                 showMessage(e.getMessage(), "Error");
                 this.ok = false; // Unsuccessful action
                 throw e;
-            }        
+            }    
+            catch (PuzzleExceptions.ExceedPuzzleSpaceException e){                
+                showMessage(e.getMessage(), "Error");
+                this.ok = false; // Unsuccessful action
+                throw e;
+            }       
         }
         
 
@@ -121,7 +126,7 @@
          * @param starting Initial state of the board.
          * @param ending Final state of the board.
          */
-        public Puzzle(char[][] starting, char[][] ending) {
+        public Puzzle(char[][] starting, char[][] ending) throws puzzle.PuzzleExceptions.ConstructorsExceptions {
             try {
                 if(starting == null || ending == null) throw new PuzzleExceptions.ConstructorsExceptions(PuzzleExceptions.ConstructorsExceptions.NO_STARTING_ENDING_NULL); 
                 this.h = starting.length;
@@ -155,7 +160,7 @@
             }catch(PuzzleExceptions.ConstructorsExceptions e){
                 showMessage(e.getMessage(), "Error");
                 this.ok = false; // Unsuccessful action
-                
+                throw e;
             }
         }
         
@@ -165,7 +170,7 @@
          * 
          * @param ending Final state of the board.
          */
-        public Puzzle(char[][] ending) {
+        public Puzzle(char[][] ending) throws puzzle.PuzzleExceptions.ConstructorsExceptions {
             try {
                 if(ending == null) throw new PuzzleExceptions.ConstructorsExceptions(PuzzleExceptions.ConstructorsExceptions.NO_ENDING_NULL);
                 this.h = ending.length;
@@ -203,6 +208,7 @@
             }catch(PuzzleExceptions.ConstructorsExceptions e){
                 showMessage(e.getMessage(), "Error");
                 this.ok = false; // Unsuccessful action
+                throw e;
             }
         }
         
@@ -399,7 +405,10 @@
                 } else if (!isTileEmpty(currentTile)) {
                     throw new PuzzleExceptions.addDeleteTileExceptions(PuzzleExceptions.addDeleteTileExceptions.TILE_OCCUPIED);
                 }
-
+                
+                currentTile.setTileColor('*'); //Change the color of the tile
+                currentTile.setLabel('*');
+                currentTile.makeInvisible();
                 
                 int xPosition = 105 + (column * (Tile.SIZE + Tile.MARGIN));
                 int yPosition = 55 + (row * (Tile.SIZE + Tile.MARGIN));
@@ -1699,7 +1708,7 @@
                     BaseTile targetTile = referingTiles.get(row).get(col);
                     char targetLabel = targetTile.getLabel();
                     
-                    if (currentLabel == 'h' || targetLabel == 'h'){
+                    if (currentLabel == 'h' || targetLabel == 'h' || currentLabel == 'l' || targetLabel == 'l' || currentLabel == 'f' || targetLabel == 'f' || currentLabel == 'x' || targetLabel == 'x' || currentLabel == 'o' || targetLabel == 'o' || currentLabel == 'p' || targetLabel == 'p' || currentLabel == 'w' || targetLabel == 'w' ){
                         continue;
                     }
                     // Compare the actual tile with the tile in the objective state
@@ -2287,6 +2296,10 @@
                     BaseTile referingTile = referingTiles.get(row).get(col);
                     char referenceLabel = referingTile.getLabel();
                     
+                    if(currentLabel == 'h' || referenceLabel == 'h'){
+                        continue;
+                    }
+                    
                     if (currentLabel != referenceLabel && currentLabel != '*'){
                         cont++;
                     }
@@ -2298,21 +2311,21 @@
         }
 
         
-        public static void main(String[] args) throws PuzzleExceptions.addDeleteGlueExceptions {
+        public static void main(String[] args)  {
             
             
             //SECOND TEST
             char[][] starting1 = {
-                {'y', 'r', 'g', 'r', 'y', 'b', 'g', 'r', 'y', 'b'},
-                {'g', 'b', 'g', 'b', 'r', 'g', 'b', 'y', 'r', 'g'},
-                {'b', 'g', 'y', 'r', 'y', 'b', 'g', 'r', 'y', 'b'},
-                {'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', 'r', 'g'},
-                {'y', 'b', 'g', 'r', 'y', 'b', 'g', '*', 'y', 'b'},
-                {'g', 'r', 'y', 'b', 'g', 'r', 'y', '*', 'g', 'r'},
-                {'r', 'g', 'b', 'y', 'r', 'g', 'b', '*', 'r', 'b'},
-                {'y', 'r', 'g', 'b', 'y', 'r', 'g', '*', 'y', 'r'},
-                {'g', 'b', 'y', 'r', 'g', 'b', 'y', 'y', 'g', 'b'},
-                {'r', 'g', 'b', 'y', 'r', 'g', 'b', '*', '*', '*'}
+                {'y', 'r', 'g', '*', 'y', 'b', 'g', 'r', 'y', '*'},
+                {'*', 'b', 'g', 'b', 'r', 'g', 'b', 'y', '*', 'g'},
+                {'b', '*', 'y', 'r', 'y', '*', '*', 'r', 'y', 'b'},
+                {'r', 'g', 'b', '*', 'r', 'g', 'b', 'y', 'r', '*'},
+                {'*', 'b', '*', 'r', '*', 'b', 'g', '*', 'y', 'b'},
+                {'g', 'r', '*', 'b', 'g', 'r', '*', '*', '*', 'r'},
+                {'r', 'g', 'b', 'y', '*', '*', 'b', '*', 'r', 'b'},
+                {'*', 'r', 'g', 'b', 'y', 'r', 'g', '*', 'y', 'r'},
+                {'g', '*', '*', 'r', 'g', 'b', '*', 'y', 'g', 'b'},
+                {'r', 'g', '*', 'y', 'r', '*', 'b', '*', '*', '*'}
             };
             
             char[][] ending1 = {
@@ -2329,12 +2342,12 @@
         };
             
             //Puzzle pz3 = new Puzzle(10, 10); //  Board without matrixes
-            Puzzle pz4 = new Puzzle(starting1, ending1); // Board with matrixes
+            //Puzzle pz4 = new Puzzle(starting1, ending1); // Board with matrixes
             //Puzzle pz4 = new Puzzle(ending1);
             
             //pz4.addTile(9,0,"fl y");
             //pz4.addTile(9,7,"fl r");            
-            pz4.addGlue(0, 0);
+            //pz4.addGlue(0, 0);
             //pz4.makeHole(9,8);
             //pz4.deleteTile(9, 7);
             //pz4.addTile(9, 7, 'r');

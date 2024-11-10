@@ -103,7 +103,7 @@ public class PuzzleContestTest
     @Test
     public void accordingPSshouldSolveStartingEnding(){
         
-        try 
+        try
         {
             puzzleContest.solve(starting,ending);
         }

@@ -24,7 +24,7 @@ public class PuzzleContest {
      * @param ending The ending configuration of the puzzle as a 2D char array.
      * @return True if the puzzle can be solved, false otherwise.
      */
-    public boolean solve(char[][] starting, char[][] ending) {
+    public boolean solve(char[][] starting, char[][] ending) throws PuzzleExceptions.ConstructorsExceptions {
         // Check if both boards have the same count of tiles for each color
         if (!tileCountsMatch(starting, ending)) {
             JOptionPane.showMessageDialog(null,"No");
@@ -45,7 +45,7 @@ public class PuzzleContest {
      * @throws PuzzleExceptions.makeVisibleInvisibleExceptions here it encloses exception messages for makeVisible and makeInvisible methods
      * @throws PuzzleExceptions.addDeleteGlueExceptions  exception to validate tilt correctly
      */    
-    public void simulate(char[][] starting, char[][] ending) throws PuzzleExceptions.makeVisibleInvisibleExceptions, PuzzleExceptions.addDeleteGlueExceptions {
+    public void simulate(char[][] starting, char[][] ending) throws PuzzleExceptions.ConstructorsExceptions ,PuzzleExceptions.makeVisibleInvisibleExceptions, PuzzleExceptions.addDeleteGlueExceptions {
         // First, check if a solution exists
         List<Character> moves = bfsSolve(starting, ending);
         if (moves == null) {
@@ -329,7 +329,7 @@ public class PuzzleContest {
      * @throws PuzzleExceptions.makeVisibleInvisibleExceptions here it encloses exception messages for makeVisible and makeInvisible methods.
      * @throws PuzzleExceptions.addDeleteGlueExceptions exception to validate tilt perfectly in simulate method
      */
-    public static void main(String[] args) throws PuzzleExceptions.makeVisibleInvisibleExceptions, PuzzleExceptions.addDeleteGlueExceptions {
+    public static void main(String[] args) throws puzzle.PuzzleExceptions.ConstructorsExceptions,PuzzleExceptions.makeVisibleInvisibleExceptions, PuzzleExceptions.addDeleteGlueExceptions {
         PuzzleContest contest = new PuzzleContest();
 
         // Sample Input 1

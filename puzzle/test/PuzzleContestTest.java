@@ -2,6 +2,7 @@ package test;
 import puzzle.*;
 import puzzle.PuzzleExceptions.addDeleteGlueExceptions;
 import puzzle.PuzzleExceptions.makeVisibleInvisibleExceptions;
+import puzzle.PuzzleExceptions.ConstructorsExceptions;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterEach;
@@ -60,14 +61,14 @@ public class PuzzleContestTest
             {'g', 'y', 'r', 'g', 'b', 'y', 'r', 'g', 'b', 'y', '*'}
         };
         
-        puzzle = new Puzzle(starting,ending);
-        puzzleContest = new PuzzleContest();
-        try {
-            puzzle.makeInvisible();
-        } catch (makeVisibleInvisibleExceptions e) {
-            // TODO Auto-generated catch block
+        try{
+            puzzle = new Puzzle(starting,ending);    
+        }
+        catch (ConstructorsExceptions e){
             e.getMessage();
         }
+        
+        puzzleContest = new PuzzleContest();
     }
     
     /**
@@ -78,21 +79,37 @@ public class PuzzleContestTest
     
     // simulate method
     @Test
-    public void accordingPSshouldSimulateStartingEnding(){
-        try {
-            puzzleContest.simulate(starting,ending);
-        } catch (makeVisibleInvisibleExceptions e) {
+    public void accordingPSshouldSimulateStartingEnding() {
+        
+        try
+            {
+                puzzleContest.simulate(starting,ending);
+            }
+            catch (ConstructorsExceptions ce)
+            {
+                ce.getMessage();
+            }
+         catch (makeVisibleInvisibleExceptions e) {
             // TODO Auto-generated catch block
             e.getMessage();
         } catch (addDeleteGlueExceptions e) {
             // TODO Auto-generated catch block
             e.getMessage();
         }
+
     }
     
     // solve method
     @Test
     public void accordingPSshouldSolveStartingEnding(){
-        puzzleContest.solve(starting,ending);
+        
+        try
+        {
+            puzzleContest.solve(starting,ending);
+        }
+        catch (ConstructorsExceptions ce)
+        {
+            ce.getMessage();
+        }
     }
 }

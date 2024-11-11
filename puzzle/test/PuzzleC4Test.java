@@ -14,7 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * The test class PuzzleC1Test.
+ * The test class PuzzleC4Test.
  *
  * @author Andersson David Sánchez Méndez
  * @author Cristian Santiago Pedraza Rodríguez

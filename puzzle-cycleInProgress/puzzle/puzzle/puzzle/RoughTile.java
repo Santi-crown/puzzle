@@ -2,6 +2,13 @@ package puzzle;
 import java.awt.Color;
 import shapes.*;
 
+/**
+ * The RoughTile class represents a type tile in puzzle.  
+ *
+ * @author: Andersson David Sánchez Méndez
+ * @author: Cristian Santiago Pedraza Rodríguez
+ * @version 2024
+ */
 public class RoughTile extends BaseTile{
     private Rectangle outerBorder; // Rectangle that will be useful for edge
 

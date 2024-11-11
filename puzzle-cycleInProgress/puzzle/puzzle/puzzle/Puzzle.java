@@ -2342,7 +2342,13 @@
         };
             
             //Puzzle pz3 = new Puzzle(10, 10); //  Board without matrixes
-            //Puzzle pz4 = new Puzzle(starting1, ending1); // Board with matrixes
+            try{
+                Puzzle pz4 = new Puzzle(starting1, ending1);   
+                pz4.fixedTiles();
+            } // Board with matrixes
+            catch(Exception e){
+                
+            }
             //Puzzle pz4 = new Puzzle(ending1);
             
             //pz4.addTile(9,0,"fl y");

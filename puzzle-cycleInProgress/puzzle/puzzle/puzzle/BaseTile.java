@@ -4,6 +4,15 @@ import java.awt.Color;
 import shapes.Rectangle;
 import shapes.Triangle;
 
+/**
+ * The BaseTile class represents a tile in a puzzle. It extends Rectangle to inherit graphical properties.
+ * Each tile has a color, a label, coordinates for its position in the grid, and other attributes for managing its state. 
+ *
+ * @author: Andersson David Sánchez Méndez
+ * @author: Cristian Santiago Pedraza Rodríguez
+ * @version 2024
+ */
+
 public abstract class BaseTile extends Rectangle{
     // Attributes
     protected Color color;
@@ -29,7 +38,7 @@ public abstract class BaseTile extends Rectangle{
         this.row = row;
         this.column = column;
         this.label = label;
-        //this.isFixed = true; // Initial value as default
+        //this.isFixed = false; // Initial value as default
         this.changeSize(Tile.SIZE, Tile.SIZE);                
         setTileColor(label);
         this.moveHorizontal(xPosition);

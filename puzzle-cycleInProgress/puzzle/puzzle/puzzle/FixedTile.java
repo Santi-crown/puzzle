@@ -2,7 +2,13 @@ package puzzle;
 import java.awt.Color;
 import shapes.*;
 
-
+/**
+ * The FixedTile class represents a type tile in puzzle.  
+ *
+ * @author: Andersson David Sánchez Méndez
+ * @author: Cristian Santiago Pedraza Rodríguez
+ * @version 2024
+ */
 public class FixedTile extends BaseTile {
     private Rectangle innerRectangle; // Inside white rectangle  
 

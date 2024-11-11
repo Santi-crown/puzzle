@@ -3,7 +3,14 @@ import shapes.*;
 import java.util.Random;
 import java.awt.Color;
 
-// WildTile is a type tile comodin that when executes tilt, change in random color, this is possible every time we make tilt
+/**
+ * The WildTile class represents a type tile in puzzle.  
+ *
+ * @author: Andersson David Sánchez Méndez
+ * @author: Cristian Santiago Pedraza Rodríguez
+ * @version 2024
+ */
+
 public class WildTile extends BaseTile {
     private Rectangle verticalRectangle; 
     private Rectangle horizontalRectangle; 

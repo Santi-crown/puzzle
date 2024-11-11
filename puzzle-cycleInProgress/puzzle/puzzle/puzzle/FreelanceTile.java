@@ -1,6 +1,14 @@
 package puzzle;
 import shapes.*;
 
+/**
+ * The FreelanceTile class represents a type tile in puzzle.  
+ *
+ * @author: Andersson David Sánchez Méndez
+ * @author: Cristian Santiago Pedraza Rodríguez
+ * @version 2024
+ */
+
 public class FreelanceTile extends BaseTile{
     private Rectangle innerRectangle; // Inside light brown rectangle 
     

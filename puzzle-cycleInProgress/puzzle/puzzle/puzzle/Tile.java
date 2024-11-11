@@ -2,8 +2,7 @@ package puzzle;
 import java.awt.Color;
 
 /**
- * The Tile class represents a tile in a puzzle. It extends Rectangle to inherit graphical properties.
- * Each tile has a color, a label, coordinates for its position in the grid, and other attributes for managing its state. 
+ * The Tile class represents a tile in a puzzle.  
  *
  * @author: Andersson David Sánchez Méndez
  * @author: Cristian Santiago Pedraza Rodríguez

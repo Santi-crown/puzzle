@@ -2,6 +2,14 @@
 package puzzle;
 import shapes.*;
 
+/**
+ * The FlyingTile class represents a type tile in puzzle.  
+ *
+ * @author: Andersson David Sánchez Méndez
+ * @author: Cristian Santiago Pedraza Rodríguez
+ * @version 2024
+ */
+
 public class FlyingTile extends BaseTile{
 
     private Circle innerCircle; //Inside light brown circle
